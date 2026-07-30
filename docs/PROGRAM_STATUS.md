@@ -3,35 +3,79 @@
 ## Français
 
 Date : **2026-07-30**. Version : **0.1.0-dev**. Statut :
-**ED0 BOOTSTRAPPED / INITIALIZED**. Aucun théorème local substantiel n'existe.
+**ED3B — CLOSED IN ITS FINITE OPERATOR-NORM UNIFORM SCOPE**.
+
+### Résumé par étape
+
+- **ED1** — *CLOSED IN ITS FINITE KINEMATIC SCOPE* : géométrie L1 finie,
+  profils borniens BORN-SENSITIVE, équivalence distance nulle/`SameRecord`,
+  annulation exacte sur orbite, composition quantitative.
+- **ED2A** — *CLOSED IN ITS EXPLICIT FINITE SCOPE* : borne état-vers-record
+  élémentaire avec facteur de cardinalité.
+- **ED2B** — *CLOSED IN ITS FINITE DECOMPOSITION-AWARE SCOPE* : borne
+  principale `(‖x‖ + ‖y‖) * ‖x - y‖`, version normalisée de constante 2, sans
+  facteur de cardinalité.
+- **ED3A** — *CLOSED IN ITS FINITE STATEWISE UNITARY SCOPE* : défaut
+  algébrique statewise, transfert BORN-SENSITIVE, cas normalisé, limite exacte
+  vers `SameRecord` pour l'état considéré.
+- **ED3B** — *CLOSED IN ITS FINITE OPERATOR-NORM UNIFORM SCOPE* : uniformise
+  ED3A par norme d'opérateur ; voir ci-dessous.
+
+### Résultats locaux les plus forts
+
+1. Contrôle statewise par norme d'opérateur :
+   `statewiseProjectorCommutatorL2 D U x ≤ operatorNormProjectorCommutatorL2 D U * ‖x‖`.
+2. Transfert bornien uniforme :
+   `recordProfileL1 D (U x) x ≤ 2 * ‖x‖ ^ 2 * operatorNormProjectorCommutatorL2 D U`,
+   et `≤ 2 * operatorNormProjectorCommutatorL2 D U` pour un état normalisé.
+3. Caractérisation exacte du défaut nul :
+   `operatorNormProjectorCommutatorL2 D U = 0 ↔ ∀ c, perspectiveProjectorCommutator D U c = 0`,
+   impliquant `∀ x, SameRecord D (U x) x`.
+
+### Non encore formalisé
+
+Composition de transformations, itération finie et accumulation d'erreurs,
+dynamique temporelle, Hamiltonien, canal, système ouvert, état mixte,
+suppression hors diagonale, décohérence, sélection de base, redondance
+environnementale, dérivation de Born, et uniformité de l'agrégat d'opérateurs
+sur les perspectives ou sur le nombre de cellules.
 
 ## English
 
 Date: **2026-07-30**. Version: **0.1.0-dev**. Status:
-**ED0 BOOTSTRAPPED / INITIALIZED**. No substantial local theorem exists.
+**ED3B — CLOSED IN ITS FINITE OPERATOR-NORM UNIFORM SCOPE**.
 
-ED1 is **CLOSED IN ITS FINITE KINEMATIC SCOPE**: finite-profile L1 geometry,
-Born-sensitive record profiles, zero distance iff `SameRecord`, exact orbit
-vanishing, and quantitative composition. All dynamics and decoherence results
-remain unformalized.
+### Summary by stage
 
-## ED3A
+- **ED1** — *CLOSED IN ITS FINITE KINEMATIC SCOPE*: finite L1 geometry,
+  BORN-SENSITIVE record profiles, zero-distance/`SameRecord` equivalence,
+  exact vanishing on the orbit, quantitative composition.
+- **ED2A** — *CLOSED IN ITS EXPLICIT FINITE SCOPE*: elementary
+  state-to-record bound with a cardinality factor.
+- **ED2B** — *CLOSED IN ITS FINITE DECOMPOSITION-AWARE SCOPE*: main bound
+  `(‖x‖ + ‖y‖) * ‖x - y‖`, normalized version with constant 2, no cardinality
+  factor.
+- **ED3A** — *CLOSED IN ITS FINITE STATEWISE UNITARY SCOPE*: statewise
+  algebraic defect, BORN-SENSITIVE transfer, normalized case, exact
+  `SameRecord` limit at the considered state.
+- **ED3B** — *CLOSED IN ITS FINITE OPERATOR-NORM UNIFORM SCOPE*: uniformizes
+  ED3A by operator norm; see below.
 
-**FR.** ED3A est **CLOSED IN ITS FINITE STATEWISE UNITARY SCOPE** : défaut
-algébrique L2 relatif à l'état, transfert BORN-SENSITIVE, cas normalisé et
-limite exacte vers `SameRecord`; aucune dynamique ni décohérence.
+### Current strongest local results
 
-**EN.** ED3A is **CLOSED IN ITS FINITE STATEWISE UNITARY SCOPE**: statewise
-algebraic L2 defect, BORN-SENSITIVE transfer, normalized case, and exact
-`SameRecord` limit; no dynamics or decoherence.
+1. Statewise control by operator norm:
+   `statewiseProjectorCommutatorL2 D U x ≤ operatorNormProjectorCommutatorL2 D U * ‖x‖`.
+2. Uniform Born-sensitive transfer:
+   `recordProfileL1 D (U x) x ≤ 2 * ‖x‖ ^ 2 * operatorNormProjectorCommutatorL2 D U`,
+   and `≤ 2 * operatorNormProjectorCommutatorL2 D U` for a normalized state.
+3. Exact characterization of the zero defect:
+   `operatorNormProjectorCommutatorL2 D U = 0 ↔ ∀ c, perspectiveProjectorCommutator D U c = 0`,
+   implying `∀ x, SameRecord D (U x) x`.
 
-## ED2B
+### Not yet formalized
 
-**FR.** ED2B est **CLOSED IN ITS FINITE DECOMPOSITION-AWARE SCOPE** : la borne
-principale est `(‖x‖ + ‖y‖) * ‖x - y‖`, la version normalisée a constante 2,
-et aucun facteur de cardinalité n'apparaît. Il n'y a aucune dynamique ni
-décohérence.
-
-**EN.** ED2B is **CLOSED IN ITS FINITE DECOMPOSITION-AWARE SCOPE**: its main
-bound is `(‖x‖ + ‖y‖) * ‖x - y‖`, its normalized version has constant 2, and
-no cardinality factor appears. There is no dynamics or decoherence.
+Composition of transformations, finite iteration and error accumulation, time
+dynamics, Hamiltonian, channel, open system, mixed state, off-diagonal
+suppression, decoherence, basis selection, environmental redundancy,
+derivation of Born, and uniformity of the operator aggregate over
+perspectives or over the cell count.

@@ -2,32 +2,80 @@
 
 ## Français
 
-Les seules couches présentes sont : 1. frontière amont stable
-`Core/UpstreamAPI.lean`; 2. arbre source local; 3. arbre d'audit; 4. scripts
-de garde; 5. CI. Les couches Metrics, Approximation, Dynamics, Open systems,
-Decoherence models, Robustness et Public API sont seulement futures et ne sont
-pas créées à ED0.
+Les couches actuellement présentes sont :
+
+1. **Core** — frontière amont stable `Core/UpstreamAPI.lean`, seul point
+   d'import vers `everettian_probability`.
+2. **Metrics** — géométrie L1 finie, géométrie L2 finie, profils de records,
+   perturbation état-vers-record, décomposition orthogonale.
+3. **Approximation** — commutateurs de projecteurs, défaut statewise,
+   version `ContinuousLinearMap`, normes d'opérateur, agrégation L2 uniforme,
+   transferts BORN-SENSITIVE.
+4. **Audit** — vérifications de signatures et d'axiomes, jamais une
+   dépendance de production.
+5. **scripts et CI** — gardes, validation, construction.
+
+`Composition`/`ErrorCalculus`, `Dynamics`, `OpenSystems`, `Decoherence`, et une
+éventuelle Public API stable restent **futures** et ne sont pas créées.
+
+### Pare-feu logique
+
+Mathématiques génériques → approximation algébrique → dynamiques explicites
+futures → décohérence algébrique future → émergence ou stabilité future des
+records → transfert sensible à Born → conséquences normatives conditionnelles.
+
+Le dépôt contient déjà le transfert quantitatif (`Metrics` et
+`Approximation`), mais pas encore les couches dynamiques et de décohérence qui
+devront ultérieurement l'alimenter.
+
+### Détail de `Metrics`
+
+L1 fini, L2 fini, géométrie des profils, perturbation état-vers-record, et
+décomposition orthogonale (utilisée pour supprimer le facteur de cardinalité
+en ED2B).
+
+### Détail de `Approximation`
+
+Commutateurs de projecteurs (ED3A, algébrique), défaut statewise, version
+`ContinuousLinearMap` du commutateur (ED3B), normes d'opérateur, agrégation
+L2 uniforme sur les états, et transferts BORN-SENSITIVE vers `recordProfileL1`
+et `SameRecord`.
 
 ## English
 
-The only present layers are: 1. stable upstream boundary
-`Core/UpstreamAPI.lean`; 2. local source tree; 3. audit tree; 4. guard
-scripts; 5. CI. Metrics, Approximation, Dynamics, Open systems, Decoherence
-models, Robustness, and Public API are future-only and are not created at ED0.
+The layers currently present are:
+
+1. **Core** — stable upstream boundary `Core/UpstreamAPI.lean`, the only
+   import point into `everettian_probability`.
+2. **Metrics** — finite L1 geometry, finite L2 geometry, record profiles,
+   state-to-record perturbation, orthogonal decomposition.
+3. **Approximation** — projector commutators, statewise defect, the
+   `ContinuousLinearMap` version, operator norms, uniform L2 aggregation,
+   BORN-SENSITIVE transfers.
+4. **Audit** — signature and axiom checks, never a production dependency.
+5. **scripts and CI** — guards, validation, build.
+
+`Composition`/`ErrorCalculus`, `Dynamics`, `OpenSystems`, `Decoherence`, and a
+possible stable Public API remain **future-only** and are not created.
 
 ### Logical firewall
 
-Generic mathematics → explicit dynamics → algebraic decoherence → record
-stability → Born-sensitive transfer → conditional decision consequences.
-`Metrics` is the only newly created ED1 layer; it does not define
-decoherence. All other physical layers remain future-only.
+Generic mathematics → algebraic approximation → future explicit dynamics →
+future algebraic decoherence → future record emergence or stability →
+Born-sensitive transfer → conditional normative consequences.
 
-### ED2B metrics additions
+The repository already contains the quantitative transfer (`Metrics` and
+`Approximation`), but not yet the dynamical and decoherence layers that will
+later feed it.
 
-**FR.** La couche Metrics contient désormais le calcul L2 fini, la
-décomposition orthogonale globale et une borne état-vers-record sans facteur
-de cardinalité. Dynamics, OpenSystems et Decoherence restent absentes.
+### `Metrics` detail
 
-**EN.** The Metrics layer now contains finite L2 calculation, global
-orthogonal decomposition, and a state-to-record bound without a cardinality
-factor. Dynamics, OpenSystems, and Decoherence remain absent.
+Finite L1, finite L2, profile geometry, state-to-record perturbation, and
+orthogonal decomposition (used to remove the cardinality factor in ED2B).
+
+### `Approximation` detail
+
+Projector commutators (ED3A, algebraic), statewise defect, the
+`ContinuousLinearMap` version of the commutator (ED3B), operator norms,
+uniform L2 aggregation over states, and BORN-SENSITIVE transfers to
+`recordProfileL1` and `SameRecord`.

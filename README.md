@@ -2,21 +2,48 @@
 
 ## Français
 
-Statut : **ED0 — bootstrap initial sécurisé**. Ce dépôt prépare, avec prudence,
-une formalisation Lean 4 de la décorrélation everettienne, de la robustesse
-approchée, de la préservation approchée des records, des dynamiques de systèmes
-ouverts et de bornes d'erreur quantitatives. Il ne contient aujourd'hui aucun
-résultat scientifique local.
+Statut : **ED3B — CLOSED IN ITS FINITE OPERATOR-NORM UNIFORM SCOPE**. Ce dépôt
+formalise en Lean 4 une chaîne quantitative finie reliant la structure exacte
+finie exposée par `everettian-probability-lean`, une géométrie de profils de
+records, une perturbation état-vers-record, un défaut statewise de
+commutation de projecteurs et son uniformisation par norme d'opérateur. Il ne
+contient aujourd'hui aucune dynamique temporelle ni aucune décohérence.
 
 La dépendance stable est `everettian-probability-lean v2.0.0`. L'architecture
-minimale contient une frontière amont, un arbre source local, un arbre d'audit,
-des gardes et une CI.
+locale contient une frontière amont, un arbre `Metrics`, un arbre
+`Approximation`, un arbre d'audit, des gardes et une CI.
+
+Résultats locaux actuels :
+
+- **ED1** — géométrie L1 générique et profil bornien `recordProfileL1`,
+  BORN-SENSITIVE ;
+- **ED2A** — borne état-vers-record explicite avec facteur de cardinalité ;
+- **ED2B** — borne globale sans facteur de cardinalité, constante 2 pour un
+  état normalisé ;
+- **ED3A** — défaut statewise de commutation de projecteurs et son transfert
+  BORN-SENSITIVE vers `recordProfileL1` ;
+- **ED3B** — uniformisation du défaut ED3A par norme d'opérateur, uniforme sur
+  les états pour une perspective et une transformation fixées, avec limite
+  exacte vers la commutation globale.
 
 ```sh
 lake build
 bash scripts/guard.sh
 bash scripts/validate.sh
 ```
+
+```lean
+import EverettianDecoherence.Metrics.RecordProfileL1
+import EverettianDecoherence.Metrics.StateRecordPerturbation
+import EverettianDecoherence.Metrics.StateRecordDimensionFree
+import EverettianDecoherence.Approximation.ApproximateRecordPreservation
+import EverettianDecoherence.Approximation.UniformRecordPreservation
+```
+
+Limites physiques actuelles : aucune dynamique temporelle, aucun Hamiltonien,
+aucun canal, aucun système ouvert, aucun état mixte, aucune suppression
+hors diagonale, aucune décohérence, aucune sélection de base, aucune
+redondance environnementale et aucune dérivation de Born ne sont formalisées.
 
 La portée et les limitations sont explicites dans `docs/`. Les contributions
 se font par incréments atomiques, vérifiés et sans revendication physique non
@@ -24,19 +51,29 @@ formalisée. Licence : Apache-2.0.
 
 ## English
 
-Status: **ED1 — finite kinematic record-profile geometry**. This repository cautiously
-prepares a Lean 4 formalization of Everettian decoherence, approximate
-robustness, approximate record preservation, open-system dynamics, and
-quantitative error bounds. It currently contains no local scientific result.
+Status: **ED3B — CLOSED IN ITS FINITE OPERATOR-NORM UNIFORM SCOPE**. This
+repository formalizes in Lean 4 a finite quantitative chain connecting the
+exact finite structure exposed by `everettian-probability-lean`, a
+record-profile geometry, a state-to-record perturbation bound, a statewise
+projector-commutation defect, and its operator-norm uniformization. It
+currently contains no time dynamics and no decoherence.
 
-The stable dependency is `everettian-probability-lean v2.0.0`. The minimal
-architecture has an upstream boundary, local source tree, audit tree, guards,
-and CI.
+The stable dependency is `everettian-probability-lean v2.0.0`. The local
+architecture has an upstream boundary, a `Metrics` tree, an `Approximation`
+tree, an audit tree, guards, and CI.
 
-The first local result is `EverettianDecoherence.Metrics.RecordProfileL1`.
-It imports `bornRecord`, is therefore BORN-SENSITIVE, and is not a
-decoherence theorem. The conditional ED1–ED12 program is documented in
-`docs/SCIENTIFIC_ROADMAP.md`.
+Current local results:
+
+- **ED1** — generic L1 geometry and the Born-sensitive `recordProfileL1`
+  profile;
+- **ED2A** — explicit state-to-record bound with a cardinality factor;
+- **ED2B** — global bound without a cardinality factor, constant 2 for a
+  normalized state;
+- **ED3A** — statewise projector-commutation defect and its BORN-SENSITIVE
+  transfer to `recordProfileL1`;
+- **ED3B** — operator-norm uniformization of the ED3A defect, uniform over
+  states for a fixed perspective and transformation, with an exact limit to
+  global commutation.
 
 ```sh
 lake build
@@ -44,26 +81,31 @@ bash scripts/guard.sh
 bash scripts/validate.sh
 ```
 
+```lean
+import EverettianDecoherence.Metrics.RecordProfileL1
+import EverettianDecoherence.Metrics.StateRecordPerturbation
+import EverettianDecoherence.Metrics.StateRecordDimensionFree
+import EverettianDecoherence.Approximation.ApproximateRecordPreservation
+import EverettianDecoherence.Approximation.UniformRecordPreservation
+```
+
+Current physical limitations: no time dynamics, Hamiltonian, channel, open
+system, mixed state, off-diagonal suppression, decoherence, basis selection,
+environmental redundancy, or derivation of Born is formalized.
+
 Scope and limitations are explicit in `docs/`. Contributions are atomic and
 verified, with no unformalized physical claim. License: Apache-2.0.
 
-## ED2A and ED2B
+## Logical direction
+## Direction logique
 
-ED2A supplies the elementary bound with a record-cell-count factor. ED2B
-supplies the global bound without that factor; import it with:
+**FR.** La chaîne logique actuelle est : mathématiques finies génériques →
+continuité état-vers-record → défaut algébrique statewise de commutateur →
+uniformisation par norme d'opérateur → transfert bornien sensible à Born
+(« Born-sensitive »). Cette chaîne n'inclut encore aucune dynamique, aucune
+décohérence et aucune émergence de perspective.
 
-```lean
-import EverettianDecoherence.Metrics.StateRecordDimensionFree
-```
-
-ED2B is BORN-SENSITIVE and kinematic, not a decoherence theorem.
-
-## ED3A
-
-```lean
-import EverettianDecoherence.Approximation.ApproximateRecordPreservation
-```
-
-ED3A separates an algebraic statewise projector-commutator defect from its
-BORN-SENSITIVE record-profile transfer. It introduces neither dynamics nor
-decoherence.
+**EN.** The current logical chain is: generic finite mathematics → state-to-
+record continuity → statewise algebraic commutator defect → operator-norm
+uniformization → Born-sensitive record transfer. This chain still includes no
+dynamics, no decoherence, and no perspective emergence.

@@ -2,26 +2,34 @@
 
 ## Français
 
-Aucune API locale n'est stable à ED0. La version est pré-1.0 de
-développement ; seul le contrat de dépendance amont est figé. Toute API stable
-future exigera un fichier `Audit/*APIContract.lean`. Aucune compatibilité
-locale n'est encore promise.
+La version locale reste pré-1.0 de développement. Aucune API locale n'est
+stable. Les résultats ED1–ED3B sont formalisés et audités, mais leurs noms
+restent expérimentaux : aucune compatibilité locale n'est promise. Une
+stabilisation future exigera un contrat d'API dédié
+(`Audit/*APIContract.lean`) et distinguera explicitement chaque étape.
+
+### Distinctions sémantiques à préserver
+
+- générique / sensible à Born (« Born-sensitive ») ;
+- statewise / uniforme ;
+- uniforme sur les états / uniforme sur les perspectives ;
+- défaut statewise nul / commutation globale ;
+- préservation algébrique / stabilité dynamique ;
+- préservation approchée des records / décohérence.
 
 ## English
 
-No local API is stable at ED0. This is a pre-1.0 development version; only the
-upstream dependency contract is frozen. Every future stable API will require
-an `Audit/*APIContract.lean` file. No local compatibility is promised yet.
+The local version remains pre-1.0 development. No local API is stable. The
+ED1–ED3B results are formalized and audited, but their names remain
+experimental: no local compatibility is promised. A future stabilization will
+require a dedicated API contract (`Audit/*APIContract.lean`) and will
+explicitly distinguish each stage.
 
-ED1 names remain experimental before a future release, although their results
-are audited; stabilization still requires a dedicated API contract.
+### Semantic distinctions to preserve
 
-## ED2B
-
-**FR.** ED2B ne fournit aucune API locale stable. Ses noms restent
-expérimentaux et ses résultats sont audités ; aucune optimalité n'est garantie.
-Une stabilisation future distinguera explicitement les bornes ED2A et ED2B.
-
-**EN.** ED2B provides no stable local API. Its names remain experimental and
-its results are audited; no optimality is guaranteed. A future stabilization
-will explicitly distinguish the ED2A and ED2B bounds.
+- generic / Born-sensitive;
+- statewise / uniform;
+- uniform over states / uniform over perspectives;
+- zero statewise defect / global commutation;
+- algebraic preservation / dynamical stability;
+- approximate record preservation / decoherence.

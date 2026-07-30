@@ -4,12 +4,15 @@
 
 ### Mission
 
-Ce dépôt prépare une formalisation Lean 4 / Mathlib de résultats quantitatifs
-reliant la structure exacte finie exposée par `everettian-probability-lean`,
-des notions de proximité explicitement définies, des dynamiques ou canaux
-explicitement définis, la préservation approchée des records et des modèles de
-décorrélation dont les hypothèses seront formalisées. ED0 ne contient encore
-aucun résultat scientifique local.
+Ce dépôt formalise en Lean 4 / Mathlib des résultats quantitatifs reliant la
+structure exacte finie exposée par `everettian-probability-lean`, des notions
+de proximité explicitement définies, des dynamiques ou canaux explicitement
+définis, la préservation approchée des records et des modèles de
+décorrélation dont les hypothèses seront formalisées. Le dépôt contient
+désormais des résultats locaux ED1–ED3B (géométrie de profils, perturbation
+état-vers-record, défaut statewise de commutation de projecteurs, et son
+uniformisation par norme d'opérateur) ; aucune dynamique temporelle ni
+décohérence n'est encore formalisée.
 
 ### Dépendance amont
 
@@ -69,12 +72,14 @@ forcés, suppressions de tags et releases sans instruction humaine.
 
 ### Mission
 
-This repository prepares a Lean 4 / Mathlib formalization of quantitative
-results connecting the exact finite structure exposed by
+This repository formalizes in Lean 4 / Mathlib quantitative results
+connecting the exact finite structure exposed by
 `everettian-probability-lean`, explicitly defined proximity notions,
 explicitly defined dynamics or channels, approximate record preservation, and
-decoherence models whose assumptions will be formalized. ED0 has no local
-scientific result yet.
+decoherence models whose assumptions will be formalized. The repository now
+contains local results ED1–ED3B (profile geometry, state-to-record
+perturbation, a statewise projector-commutation defect, and its operator-norm
+uniformization); no time dynamics or decoherence is formalized yet.
 
 ### Upstream dependency
 
@@ -143,3 +148,34 @@ ED1 is a BORN-SENSITIVE quantitative transfer layer: generic mathematics →
 explicit dynamics → algebraic decoherence → record stability → Born-sensitive
 transfer → conditional decision consequences. No future dynamical theorem may
 hide credences, likelihoods, or rationality assumptions.
+
+### ED3B operator-norm rules
+
+**FR.**
+
+1. Une quantité appelée `uniform` précise son domaine d'uniformité.
+2. Une norme d'opérateur est portée par un `ContinuousLinearMap`.
+3. Une agrégation de normes d'opérateur peut dépendre du nombre de cellules.
+4. Une égalité `global_commutation` signifie une égalité d'opérateurs pour
+   toutes les cellules.
+5. Un défaut statewise nul ne doit pas être présenté comme une commutation
+   globale.
+6. Un défaut uniforme algébrique ne doit pas être présenté comme une
+   stabilité temporelle.
+7. Tout transfert vers `recordProfileL1`, `recordProfileWithin` ou
+   `SameRecord` est BORN-SENSITIVE.
+8. Une perspective fournie n'est pas une perspective émergée.
+9. ED3B ne permet aucune revendication de décohérence.
+
+**EN.**
+
+1. A quantity called `uniform` states its domain of uniformity.
+2. An operator norm is carried by a `ContinuousLinearMap`.
+3. An aggregation of operator norms may depend on the number of cells.
+4. A `global_commutation` equality means operator equality for every cell.
+5. A zero statewise defect must not be presented as global commutation.
+6. An algebraic uniform defect must not be presented as temporal stability.
+7. Every transfer to `recordProfileL1`, `recordProfileWithin`, or
+   `SameRecord` is BORN-SENSITIVE.
+8. A supplied perspective is not an emerged perspective.
+9. ED3B allows no claim of decoherence.
