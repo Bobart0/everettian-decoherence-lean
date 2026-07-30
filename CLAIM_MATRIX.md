@@ -31,3 +31,10 @@
 | Basis selection | NOT FORMALIZED | `docs/SCOPE_AND_LIMITATIONS.md` |
 | Stable local API | NONE | `docs/API_STABILITY.md` |
 | Local release | NONE | `MILESTONES.md` |
+| finiteProfileL1 | FORMALIZED AND AUDITED | `Metrics/FiniteProfileL1.lean` |
+| recordProfileL1 | FORMALIZED AND AUDITED | `Metrics/RecordProfileL1.lean` |
+| Zero distance iff SameRecord | FORMALIZED AND AUDITED | `Metrics/RecordProfileL1.lean` |
+| Exact record orbit implies zero distance | FORMALIZED AND AUDITED | `Metrics/RecordProfileL1.lean` |
+| Born-sensitive quantitative transfer layer | FORMALIZED | `docs/ED1_RECORD_PROFILE_GEOMETRY.md` |
+| State perturbation, projector commutation | NOT FORMALIZED | `docs/SCIENTIFIC_ROADMAP.md` |
+| Algebraic decoherence, stable and redundant records | NOT FORMALIZED | `docs/SCOPE_AND_LIMITATIONS.md` |
