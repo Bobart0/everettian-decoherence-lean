@@ -1,0 +1,46 @@
+import EverettianDecoherence.Core.UpstreamAPI
+
+/-!
+**FR.** Ce fichier vérifie la présence et les signatures des déclarations
+stables amont retenues comme fondation du futur projet.
+
+**EN.** This file verifies the presence and signatures of stable upstream
+declarations selected as the foundation for the future project.
+-/
+
+#check EverettianProbability.API.Conditional.conditionalBornMainResults
+
+#check EverettianProbability.API.ExactFinite.SameRecord
+#check EverettianProbability.API.ExactFinite.RecordUnitaryOrbit
+#check EverettianProbability.API.ExactFinite.FineWeightPlan
+#check EverettianProbability.API.ExactFinite.CompatibleFineWeights
+#check EverettianProbability.API.ExactFinite.UnitaryRealizesFineWeights
+#check EverettianProbability.API.ExactFinite.PhysicalRealization
+#check EverettianProbability.API.ExactFinite.canonicalTargetState
+#check EverettianProbability.API.ExactFinite.canonicalPhysicalRealization
+#check EverettianProbability.API.ExactFinite.prescribedRatio
+#check EverettianProbability.API.ExactFinite.recordUnitaryOrbit_iff_sameRecord
+#check EverettianProbability.API.ExactFinite.canonicalTargetState_bornWeight
+#check EverettianProbability.API.ExactFinite.canonicalTargetState_sameRecord
+#check EverettianProbability.API.ExactFinite.compatibleFineWeights_iff_unitaryRealizable
+#check EverettianProbability.API.ExactFinite.compatibleFineWeights_iff_nonempty_physicalRealization
+#check EverettianProbability.API.ExactFinite.ExactFiniteCalibrationPremises
+#check EverettianProbability.API.ExactFinite.ExactFiniteCoreResults
+#check EverettianProbability.API.ExactFinite.ExactFiniteCalibratedResults
+#check EverettianProbability.API.ExactFinite.ExactFiniteNullParentResults
+#check EverettianProbability.API.ExactFinite.ExactFiniteMainResults
+#check EverettianProbability.API.ExactFinite.exactFiniteCoreResults
+#check EverettianProbability.API.ExactFinite.exactFiniteCalibratedResults
+#check EverettianProbability.API.ExactFinite.exactFiniteNullParentResults
+#check EverettianProbability.API.ExactFinite.exactFiniteMainResults
+#check EverettianProbability.API.ExactFinite.exactPhysicalAdequacy
+
+#print axioms EverettianProbability.API.Conditional.conditionalBornMainResults
+#print axioms EverettianProbability.API.ExactFinite.recordUnitaryOrbit_iff_sameRecord
+#print axioms EverettianProbability.API.ExactFinite.compatibleFineWeights_iff_unitaryRealizable
+#print axioms EverettianProbability.API.ExactFinite.compatibleFineWeights_iff_nonempty_physicalRealization
+#print axioms EverettianProbability.API.ExactFinite.exactPhysicalAdequacy
+#print axioms EverettianProbability.API.ExactFinite.exactFiniteCoreResults
+#print axioms EverettianProbability.API.ExactFinite.exactFiniteCalibratedResults
+#print axioms EverettianProbability.API.ExactFinite.exactFiniteNullParentResults
+#print axioms EverettianProbability.API.ExactFinite.exactFiniteMainResults

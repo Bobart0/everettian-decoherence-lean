@@ -1,0 +1,9 @@
+.lake/
+.claude/settings.local.json
+.claude/*.lock
+.DS_Store
+Thumbs.db
+/build/
+*.olean
+.env
+.vscode/settings.json

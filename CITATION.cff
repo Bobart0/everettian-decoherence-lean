@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata in this file."
+title: "Everettian Decoherence in Lean"
+type: software
+authors:
+  - family-names: Dalimier
+    given-names: Bertrand
+    affiliation: Independent Researcher
+    city: Nogent-sur-Marne
+    country: FR
+    orcid: "https://orcid.org/0009-0000-2457-375X"
+abstract: >-
+  This version contains only the initial harness, the upstream dependency
+  contract, and guards. It contains no local theorem of decoherence.
+keywords:
+  - quantum foundations
+  - Everett interpretation
+  - decoherence
+  - robustness
+  - Lean 4
+  - formal verification
+license: Apache-2.0
+version: 0.1.0-dev
+repository-code: "https://github.com/Bobart0/everettian-decoherence-lean"

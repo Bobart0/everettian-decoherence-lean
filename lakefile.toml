@@ -1,0 +1,10 @@
+name = "everettian_decoherence"
+defaultTargets = ["EverettianDecoherence"]
+
+[[require]]
+name = "everettian_probability"
+git = "https://github.com/Bobart0/everettian-probability-lean.git"
+rev = "v2.0.0"
+
+[[lean_lib]]
+name = "EverettianDecoherence"

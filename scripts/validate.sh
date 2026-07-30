@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+before=$(git status --porcelain)
+bash scripts/guard.sh
+lake env lean EverettianDecoherence/Core/UpstreamAPI.lean
+lake env lean EverettianDecoherence/Audit/UpstreamAPIContract.lean
+lake build EverettianDecoherence.Audit.UpstreamAPIContract
+lake env lean EverettianDecoherence/Audit/MainResults.lean
+lake env lean EverettianDecoherence.lean
+lake build
+git diff --check
+after=$(git status --porcelain)
+if [ "$before" != "$after" ]; then
+  echo 'VALIDATION_MODIFIED_TRACKED_STATE=FAIL'
+  exit 1
+fi
+echo 'VALIDATION_RESULT=PASS'

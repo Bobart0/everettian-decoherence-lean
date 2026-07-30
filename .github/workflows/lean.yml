@@ -1,0 +1,43 @@
+# FR. Validation ED0 : la garde précède toute compilation.
+# EN. ED0 validation: the guard runs before every compilation.
+name: Lean
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lean-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guard / Garde
+        run: bash scripts/guard.sh
+  build:
+    needs: guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+      - name: Build library / Construire la bibliothèque
+        run: lake build EverettianDecoherence
+      - name: Check upstream contract / Vérifier le contrat amont
+        run: lake env lean EverettianDecoherence/Audit/UpstreamAPIContract.lean
+      - name: Build audit contract / Construire le contrat d'audit
+        run: lake build EverettianDecoherence.Audit.UpstreamAPIContract
+      - name: Check audit aggregate / Vérifier l'agrégateur d'audit
+        run: lake env lean EverettianDecoherence/Audit/MainResults.lean
+      - name: Guard again / Rejouer la garde
+        run: bash scripts/guard.sh
+      - name: Diff hygiene / Hygiène du diff
+        run: git diff --check
