@@ -18,6 +18,12 @@ lake env lean EverettianDecoherence/Metrics/StateRecordDimensionFree.lean
 lake build EverettianDecoherence.Metrics.StateRecordDimensionFree
 lake env lean EverettianDecoherence/Audit/StateRecordDimensionFree.lean
 lake build EverettianDecoherence.Audit.StateRecordDimensionFree
+lake env lean EverettianDecoherence/Approximation/ProjectorCommutator.lean
+lake build EverettianDecoherence.Approximation.ProjectorCommutator
+lake env lean EverettianDecoherence/Approximation/ApproximateRecordPreservation.lean
+lake build EverettianDecoherence.Approximation.ApproximateRecordPreservation
+lake env lean EverettianDecoherence/Audit/ApproximateRecordPreservation.lean
+lake build EverettianDecoherence.Audit.ApproximateRecordPreservation
 lake env lean EverettianDecoherence/Metrics/FiniteProfileL1.lean
 lake env lean EverettianDecoherence/Metrics/RecordProfileL1.lean
 lake build EverettianDecoherence.Metrics.RecordProfileL1

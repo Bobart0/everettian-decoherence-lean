@@ -2,6 +2,7 @@ import EverettianDecoherence.Core.UpstreamAPI
 import EverettianDecoherence.Metrics.RecordProfileL1
 import EverettianDecoherence.Metrics.StateRecordPerturbation
 import EverettianDecoherence.Metrics.StateRecordDimensionFree
+import EverettianDecoherence.Approximation.ApproximateRecordPreservation
 
 /-!
 **FR.** ED1 fournit la géométrie L1, ED2A une borne explicite dépendant du
