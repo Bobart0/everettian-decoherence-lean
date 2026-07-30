@@ -15,6 +15,16 @@ Born-sensitive record profiles, zero distance iff `SameRecord`, exact orbit
 vanishing, and quantitative composition. All dynamics and decoherence results
 remain unformalized.
 
+## ED3A
+
+**FR.** ED3A est **CLOSED IN ITS FINITE STATEWISE UNITARY SCOPE** : défaut
+algébrique L2 relatif à l'état, transfert BORN-SENSITIVE, cas normalisé et
+limite exacte vers `SameRecord`; aucune dynamique ni décohérence.
+
+**EN.** ED3A is **CLOSED IN ITS FINITE STATEWISE UNITARY SCOPE**: statewise
+algebraic L2 defect, BORN-SENSITIVE transfer, normalized case, and exact
+`SameRecord` limit; no dynamics or decoherence.
+
 ## ED2B
 
 **FR.** ED2B est **CLOSED IN ITS FINITE DECOMPOSITION-AWARE SCOPE** : la borne

@@ -115,6 +115,16 @@ Born, or rationality. Use `main`; allowed commit prefixes are `feat`,
 `fix`, `audit`, `docs`, and `chore`. No force push, tag deletion, or
 release without human instruction.
 
+### ED3A statewise rule
+
+**FR.** Toute quantité dépendant d'un état porte `statewise`. Une commutation
+sur un état n'est jamais globale ; tout transfert vers `recordProfileL1` est
+BORN-SENSITIVE, et une perspective fournie n'est pas émergée.
+
+**EN.** Every state-dependent quantity uses `statewise`. Commutation at one
+state is never global; every transfer to `recordProfileL1` is BORN-SENSITIVE,
+and a supplied perspective is not emergent.
+
 ### ED2B terminology
 
 **FR.** « Dimension-free » signifie seulement indépendant du nombre de

@@ -52,6 +52,13 @@ ED2–ED4 are **PLANNED / NOT OPENED**; ED5–ED6 architectural targets,
 ED7–ED10 scientific targets, and ED11 an audit target are all **NOT OPENED**;
 ED12 is **NOT OPENED**. None promises a result.
 
+### ED3A and ED3B
+
+ED3A is **CLOSED IN ITS FINITE STATEWISE UNITARY SCOPE**: algebraic projector
+commutators, a statewise L2 defect, Born-sensitive profile transfer, normalized
+case, and a `SameRecord` limit. ED3B is **PLANNED / NOT OPENED** for an
+explicit operator-norm uniformization. ED4–ED12 remain not opened.
+
 ### ED2A, ED2B, and ED3
 
 ED2A is **CLOSED IN ITS EXPLICIT FINITE SCOPE**. ED2B is **CLOSED IN ITS

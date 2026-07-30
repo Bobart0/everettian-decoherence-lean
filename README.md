@@ -57,3 +57,13 @@ import EverettianDecoherence.Metrics.StateRecordDimensionFree
 ```
 
 ED2B is BORN-SENSITIVE and kinematic, not a decoherence theorem.
+
+## ED3A
+
+```lean
+import EverettianDecoherence.Approximation.ApproximateRecordPreservation
+```
+
+ED3A separates an algebraic statewise projector-commutator defect from its
+BORN-SENSITIVE record-profile transfer. It introduces neither dynamics nor
+decoherence.
