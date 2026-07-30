@@ -25,3 +25,7 @@
 - guards;
 - CI;
 - ED0 documentation.
+- conditional ED1–ED12 roadmap;
+- finite-profile L1 geometry and Born-sensitive record specialization;
+- exact bridges to SameRecord and the record-unitary orbit;
+- audit; no dynamics or decoherence theorem.

@@ -14,3 +14,7 @@ The following are not formalized: a decoherence theorem, quantitative
 robustness, approximate record preservation, time dynamics, an open system, a
 quantum channel, a system/environment tensor factor, a local metric, basis
 selection, personal identity, the Born rule, or rationality. None is promised.
+
+ED1 distinguishes a generic profile metric from a Born-sensitive record metric,
+a future algebraic decoherence criterion, a future dynamical theorem, and a
+future transfer to normative upstream conclusions. None is conflated here.

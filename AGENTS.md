@@ -114,3 +114,10 @@ preservation, time evolution, open systems, preferred bases, personal identity,
 Born, or rationality. Use `main`; allowed commit prefixes are `feat`,
 `fix`, `audit`, `docs`, and `chore`. No force push, tag deletion, or
 release without human instruction.
+
+### ED1 logical firewall
+
+ED1 is a BORN-SENSITIVE quantitative transfer layer: generic mathematics →
+explicit dynamics → algebraic decoherence → record stability → Born-sensitive
+transfer → conditional decision consequences. No future dynamical theorem may
+hide credences, likelihoods, or rationality assumptions.

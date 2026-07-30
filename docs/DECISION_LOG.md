@@ -17,3 +17,9 @@
 - D0003 — Zero open-goal budget: begin without formal debt.
 - D0004 — No scientific roadmap at bootstrap: subject ED1 to a separate
   architecture audit.
+- D0005 — Ambitious staged physical programme: target an explicit chain from
+  dynamics through decoherence and records to quantitative transfer.
+- D0006 — Born-sensitive transfer separated from decoherence: any bornRecord
+  quantity belongs to transfer, not a stand-alone definition.
+- D0007 — ED1 begins with finite profile geometry: begin with audited finite
+  geometry before dynamical models.
