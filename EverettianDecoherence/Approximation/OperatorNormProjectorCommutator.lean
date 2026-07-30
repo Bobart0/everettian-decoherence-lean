@@ -139,4 +139,27 @@ theorem operatorNormProjectorCommutatorL2_eq_zero_iff_global_commutation
   ⟨global_commutation_of_operatorNormProjectorCommutatorL2_eq_zero D U,
     operatorNormProjectorCommutatorL2_eq_zero_of_global_commutation D U⟩
 
+theorem operatorNormProjectorCommutatorL2_refl
+    {n : ℕ} (D : QuantumFoundations.BornRule.Perspective n) :
+    operatorNormProjectorCommutatorL2 D (LinearIsometryEquiv.refl ℂ (Gleason.H n)) = 0 :=
+  operatorNormProjectorCommutatorL2_eq_zero_of_global_commutation D
+    (LinearIsometryEquiv.refl ℂ (Gleason.H n))
+    (fun c => perspectiveProjectorCommutator_refl D c)
+
+theorem statewiseProjectorCommutatorWithin_of_operatorNormProjectorCommutatorWithin
+    {n : ℕ} (D : QuantumFoundations.BornRule.Perspective n)
+    (U : Gleason.H n ≃ₗᵢ[ℂ] Gleason.H n) (x : Gleason.H n) (ε : ℝ)
+    (h : operatorNormProjectorCommutatorWithin D U ε) :
+    statewiseProjectorCommutatorWithin D U x (ε * ‖x‖) := by
+  exact (statewiseProjectorCommutatorL2_le_operatorNormProjectorCommutatorL2_mul_norm D U x).trans
+    (mul_le_mul_of_nonneg_right h (norm_nonneg _))
+
+theorem statewiseProjectorCommutatorWithin_of_normalized_operatorNormWithin
+    {n : ℕ} (D : QuantumFoundations.BornRule.Perspective n)
+    (U : Gleason.H n ≃ₗᵢ[ℂ] Gleason.H n) (x : Gleason.H n) (ε : ℝ)
+    (hx : ‖x‖ = 1) (h : operatorNormProjectorCommutatorWithin D U ε) :
+    statewiseProjectorCommutatorWithin D U x ε := by
+  simpa [hx] using
+    statewiseProjectorCommutatorWithin_of_operatorNormProjectorCommutatorWithin D U x ε h
+
 end EverettianDecoherence.Approximation
