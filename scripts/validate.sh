@@ -2,61 +2,89 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+VALIDATION_MODE="${VALIDATION_MODE:-auto}"
+case "$VALIDATION_MODE" in
+  auto|incremental|full) ;;
+  *)
+    echo 'VALIDATION_CONFIGURATION=FAIL'
+    exit 1
+    ;;
+esac
+
+if [ ! -s VALIDATION_STEP ]; then
+  echo 'VALIDATION_CONFIGURATION=FAIL'
+  exit 1
+fi
+step="$(tr -d '[:space:]' < VALIDATION_STEP)"
+if ! [[ "$step" =~ ^[1-9][0-9]*$ ]]; then
+  echo 'VALIDATION_CONFIGURATION=FAIL'
+  exit 1
+fi
+echo "VALIDATION_STEP=$step"
+
+if [ "$VALIDATION_MODE" = auto ]; then
+  if [ $((step % 10)) -eq 0 ]; then
+    effective_mode=full
+  else
+    effective_mode=incremental
+  fi
+else
+  effective_mode="$VALIDATION_MODE"
+fi
+
+if [ "$effective_mode" = full ]; then
+  echo 'VALIDATION_MODE=FULL'
+  exec bash scripts/validate_full.sh
+fi
+
+echo 'VALIDATION_MODE=INCREMENTAL'
+
 before=$(git status --porcelain)
 bash scripts/guard.sh
-lake env lean EverettianDecoherence/Metrics/FiniteProfileBounds.lean
-lake env lean EverettianDecoherence/Metrics/NormSquarePerturbation.lean
-lake env lean EverettianDecoherence/Metrics/StateRecordPerturbation.lean
-lake build EverettianDecoherence.Metrics.StateRecordPerturbation
-lake env lean EverettianDecoherence/Audit/StateRecordPerturbation.lean
-lake build EverettianDecoherence.Audit.StateRecordPerturbation
-lake env lean EverettianDecoherence/Metrics/FiniteL2Bounds.lean
-lake build EverettianDecoherence.Metrics.FiniteL2Bounds
-lake env lean EverettianDecoherence/Metrics/OrthogonalRecordDecomposition.lean
-lake build EverettianDecoherence.Metrics.OrthogonalRecordDecomposition
-lake env lean EverettianDecoherence/Metrics/StateRecordDimensionFree.lean
-lake build EverettianDecoherence.Metrics.StateRecordDimensionFree
-lake env lean EverettianDecoherence/Audit/StateRecordDimensionFree.lean
-lake build EverettianDecoherence.Audit.StateRecordDimensionFree
-lake env lean EverettianDecoherence/Approximation/ProjectorCommutator.lean
-lake build EverettianDecoherence.Approximation.ProjectorCommutator
-lake env lean EverettianDecoherence/Approximation/ApproximateRecordPreservation.lean
-lake build EverettianDecoherence.Approximation.ApproximateRecordPreservation
-lake env lean EverettianDecoherence/Audit/ApproximateRecordPreservation.lean
-lake build EverettianDecoherence.Audit.ApproximateRecordPreservation
-lake env lean EverettianDecoherence/Metrics/FiniteL2Comparison.lean
-lake build EverettianDecoherence.Metrics.FiniteL2Comparison
-lake env lean EverettianDecoherence/Approximation/OperatorNormProjectorCommutator.lean
-lake build EverettianDecoherence.Approximation.OperatorNormProjectorCommutator
-lake env lean EverettianDecoherence/Approximation/UniformRecordPreservation.lean
-lake build EverettianDecoherence.Approximation.UniformRecordPreservation
-lake env lean EverettianDecoherence/Audit/UniformRecordPreservation.lean
-lake build EverettianDecoherence.Audit.UniformRecordPreservation
-lake env lean EverettianDecoherence/Metrics/FiniteL2Triangle.lean
-lake env lean EverettianDecoherence/Approximation/ComposedProjectorCommutator.lean
-lake env lean EverettianDecoherence/Approximation/ComposedRecordPreservation.lean
-lake env lean EverettianDecoherence/Audit/ComposedRecordPreservation.lean
-lake env lean EverettianDecoherence/Approximation/IteratedProjectorCommutator.lean
-lake env lean EverettianDecoherence/Approximation/IteratedRecordPreservation.lean
-lake env lean EverettianDecoherence/Audit/IteratedRecordPreservation.lean
-lake env lean EverettianDecoherence/Factorization/FiniteBipartiteCoordinates.lean
-lake env lean EverettianDecoherence/Factorization/FiniteBipartiteFactorization.lean
-lake env lean EverettianDecoherence/Audit/FiniteBipartiteFactorization.lean
-lake env lean EverettianDecoherence/Metrics/FiniteProfileL1.lean
-lake env lean EverettianDecoherence/Metrics/RecordProfileL1.lean
-lake build EverettianDecoherence.Metrics.RecordProfileL1
-lake env lean EverettianDecoherence/Audit/RecordProfileL1.lean
-lake build EverettianDecoherence.Audit.RecordProfileL1
-lake env lean EverettianDecoherence/Core/UpstreamAPI.lean
-lake env lean EverettianDecoherence/Audit/UpstreamAPIContract.lean
-lake build EverettianDecoherence.Audit.UpstreamAPIContract
-lake env lean EverettianDecoherence/Audit/MainResults.lean
-lake env lean EverettianDecoherence.lean
+
+gather_lean_paths() {
+  {
+    git diff --name-only -- EverettianDecoherence.lean EverettianDecoherence 2>/dev/null || true
+    git diff --name-only --cached -- EverettianDecoherence.lean EverettianDecoherence 2>/dev/null || true
+    git ls-files --others --exclude-standard -- EverettianDecoherence.lean EverettianDecoherence 2>/dev/null || true
+  } | grep '\.lean$' || true
+}
+
+CHANGED="$(gather_lean_paths | sort -u)"
+if [ -z "$CHANGED" ]; then
+  CHANGED="$(git diff --name-only HEAD~1 HEAD -- EverettianDecoherence.lean EverettianDecoherence 2>/dev/null | grep '\.lean$' || true)"
+fi
+
+EXISTING=()
+while IFS= read -r f; do
+  [ -n "$f" ] || continue
+  [ -f "$f" ] || continue
+  EXISTING+=("$f")
+done <<< "$CHANGED"
+
+TARGETS=()
+for f in "${EXISTING[@]:-}"; do
+  [ -n "$f" ] || continue
+  target="${f%.lean}"
+  target="${target//\//.}"
+  TARGETS+=("$target")
+done
+
+if [ "${#TARGETS[@]}" -gt 0 ]; then
+  lake build "${TARGETS[@]}"
+fi
+
+lake build EverettianDecoherence.Audit.MainResults
+lake build EverettianDecoherence
 lake build
+
 git diff --check
+
 after=$(git status --porcelain)
 if [ "$before" != "$after" ]; then
   echo 'VALIDATION_MODIFIED_TRACKED_STATE=FAIL'
   exit 1
 fi
+
+echo "VALIDATED_LEAN_MODULE_COUNT=${#EXISTING[@]}"
 echo 'VALIDATION_RESULT=PASS'
