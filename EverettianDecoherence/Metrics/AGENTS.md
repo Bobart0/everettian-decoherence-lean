@@ -20,3 +20,15 @@ with reflexivity, symmetry, triangle, and separation when claimed. Generic
 modules do not import upstream; other modules go exclusively through
 `EverettianDecoherence.Core.UpstreamAPI`. No upstream internal import. Every
 future premise structure receives positive and negative witnesses.
+
+### ED2B vocabulary
+
+**FR.** « Dimension-free » signifie indépendant du nombre de cellules, jamais
+une dimension de Hilbert arbitraire. Une suppression de cardinalité doit
+utiliser une identité globale de décomposition. Aucune optimalité sans théorème
+spécifique et aucune borne `bornRecord` n'est une décohérence.
+
+**EN.** “Dimension-free” means independent of cell count, never arbitrary
+Hilbert dimension. Removing cardinality must use a global decomposition
+identity. No optimality without a dedicated theorem, and no `bornRecord` bound
+is decoherence.

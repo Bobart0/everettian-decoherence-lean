@@ -23,3 +23,10 @@
   quantity belongs to transfer, not a stand-alone definition.
 - D0007 — ED1 begins with finite profile geometry: begin with audited finite
   geometry before dynamical models.
+- D0009 — Use global orthogonality to remove the cell-count factor: strengthen
+  ED2A through Cauchy--Schwarz and Pythagoras to obtain a uniform finite-
+  perspective bound.
+- D0010 — “Dimension-free” means cell-count independent: ED2B does not claim
+  any extension to infinite Hilbert-space dimension.
+- D0011 — No optimality claim: normalized constant 2 is sufficient, without a
+  saturation study or best-constant proof.

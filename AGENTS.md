@@ -115,6 +115,18 @@ Born, or rationality. Use `main`; allowed commit prefixes are `feat`,
 `fix`, `audit`, `docs`, and `chore`. No force push, tag deletion, or
 release without human instruction.
 
+### ED2B terminology
+
+**FR.** « Dimension-free » signifie seulement indépendant du nombre de
+cellules, jamais une dimension de Hilbert arbitraire. Toute suppression de
+cardinalité doit employer une identité globale de décomposition. Aucune
+optimalité sans théorème dédié ; une borne `bornRecord` n'est pas décohérence.
+
+**EN.** “Dimension-free” means only independent of cell count, never arbitrary
+Hilbert dimension. Removing cardinality must use a global decomposition
+identity. No optimality is claimed without a dedicated theorem, and a
+`bornRecord` bound is not decoherence.
+
 ### ED1 logical firewall
 
 ED1 is a BORN-SENSITIVE quantitative transfer layer: generic mathematics →

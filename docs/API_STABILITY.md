@@ -15,3 +15,13 @@ an `Audit/*APIContract.lean` file. No local compatibility is promised yet.
 
 ED1 names remain experimental before a future release, although their results
 are audited; stabilization still requires a dedicated API contract.
+
+## ED2B
+
+**FR.** ED2B ne fournit aucune API locale stable. Ses noms restent
+expérimentaux et ses résultats sont audités ; aucune optimalité n'est garantie.
+Une stabilisation future distinguera explicitement les bornes ED2A et ED2B.
+
+**EN.** ED2B provides no stable local API. Its names remain experimental and
+its results are audited; no optimality is guaranteed. A future stabilization
+will explicitly distinguish the ED2A and ED2B bounds.

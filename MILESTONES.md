@@ -24,3 +24,11 @@ require a separate mathematical and physical audit before substantive code.
 **CLOSED IN FINITE KINEMATIC SCOPE**. ED2–ED4 are **PLANNED / NOT OPENED**;
 ED5–ED10 are architectural or scientific targets, ED11 is an audit target,
 and ED12 is **NOT OPENED**. See `docs/SCIENTIFIC_ROADMAP.md`.
+
+### ED2A and ED2B
+
+ED2A is **CLOSED IN ITS EXPLICIT FINITE SCOPE**. ED2B is **CLOSED IN ITS
+FINITE DECOMPOSITION-AWARE SCOPE**: finite Cauchy--Schwarz and the global
+Pythagorean identity remove the record-cell-count factor; normalized states
+have constant 2, with no optimality claim. ED3 is **PLANNED / NOT OPENED**;
+ED4–ED12 are **NOT OPENED**.

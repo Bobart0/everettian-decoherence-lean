@@ -21,3 +21,13 @@ Generic mathematics → explicit dynamics → algebraic decoherence → record
 stability → Born-sensitive transfer → conditional decision consequences.
 `Metrics` is the only newly created ED1 layer; it does not define
 decoherence. All other physical layers remain future-only.
+
+### ED2B metrics additions
+
+**FR.** La couche Metrics contient désormais le calcul L2 fini, la
+décomposition orthogonale globale et une borne état-vers-record sans facteur
+de cardinalité. Dynamics, OpenSystems et Decoherence restent absentes.
+
+**EN.** The Metrics layer now contains finite L2 calculation, global
+orthogonal decomposition, and a state-to-record bound without a cardinality
+factor. Dynamics, OpenSystems, and Decoherence remain absent.

@@ -46,3 +46,14 @@ bash scripts/validate.sh
 
 Scope and limitations are explicit in `docs/`. Contributions are atomic and
 verified, with no unformalized physical claim. License: Apache-2.0.
+
+## ED2A and ED2B
+
+ED2A supplies the elementary bound with a record-cell-count factor. ED2B
+supplies the global bound without that factor; import it with:
+
+```lean
+import EverettianDecoherence.Metrics.StateRecordDimensionFree
+```
+
+ED2B is BORN-SENSITIVE and kinematic, not a decoherence theorem.

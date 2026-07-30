@@ -38,3 +38,12 @@
 | Born-sensitive quantitative transfer layer | FORMALIZED | `docs/ED1_RECORD_PROFILE_GEOMETRY.md` |
 | State perturbation, projector commutation | NOT FORMALIZED | `docs/SCIENTIFIC_ROADMAP.md` |
 | Algebraic decoherence, stable and redundant records | NOT FORMALIZED | `docs/SCOPE_AND_LIMITATIONS.md` |
+| Dimension-free pure-state record-profile bound | FORMALIZED AND AUDITED | `Metrics/StateRecordDimensionFree.lean` |
+| Normalized-state bound with constant 2 | FORMALIZED AND AUDITED | `Metrics/StateRecordDimensionFree.lean` |
+| Dependence on record-cell count in strongest current bound | REMOVED | The best formalized bound no longer depends on it; no optimum is characterized. |
+| Optimal perturbation constant | NOT CLAIMED | `docs/ED2B_DIMENSION_FREE_PERTURBATION.md` |
+| Mixed-state extension | NOT FORMALIZED | `docs/SCOPE_AND_LIMITATIONS.md` |
+| Arbitrary POVM extension | NOT FORMALIZED | `docs/SCOPE_AND_LIMITATIONS.md` |
+| Approximate commutation | NOT FORMALIZED | `docs/SCIENTIFIC_ROADMAP.md` |
+| Dynamical record stability | NOT FORMALIZED | `docs/SCIENTIFIC_ROADMAP.md` |
+| Decoherence theorem | NOT FORMALIZED | `docs/PROGRAM_STATUS.md` |
