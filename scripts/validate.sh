@@ -39,6 +39,9 @@ lake env lean EverettianDecoherence/Audit/ComposedRecordPreservation.lean
 lake env lean EverettianDecoherence/Approximation/IteratedProjectorCommutator.lean
 lake env lean EverettianDecoherence/Approximation/IteratedRecordPreservation.lean
 lake env lean EverettianDecoherence/Audit/IteratedRecordPreservation.lean
+lake env lean EverettianDecoherence/Factorization/FiniteBipartiteCoordinates.lean
+lake env lean EverettianDecoherence/Factorization/FiniteBipartiteFactorization.lean
+lake env lean EverettianDecoherence/Audit/FiniteBipartiteFactorization.lean
 lake env lean EverettianDecoherence/Metrics/FiniteProfileL1.lean
 lake env lean EverettianDecoherence/Metrics/RecordProfileL1.lean
 lake build EverettianDecoherence.Metrics.RecordProfileL1
