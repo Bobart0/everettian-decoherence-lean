@@ -4,6 +4,11 @@ cd "$(dirname "$0")/.."
 
 before=$(git status --porcelain)
 bash scripts/guard.sh
+lake env lean EverettianDecoherence/Metrics/FiniteProfileL1.lean
+lake env lean EverettianDecoherence/Metrics/RecordProfileL1.lean
+lake build EverettianDecoherence.Metrics.RecordProfileL1
+lake env lean EverettianDecoherence/Audit/RecordProfileL1.lean
+lake build EverettianDecoherence.Audit.RecordProfileL1
 lake env lean EverettianDecoherence/Core/UpstreamAPI.lean
 lake env lean EverettianDecoherence/Audit/UpstreamAPIContract.lean
 lake build EverettianDecoherence.Audit.UpstreamAPIContract

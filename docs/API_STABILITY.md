@@ -12,3 +12,6 @@ locale n'est encore promise.
 No local API is stable at ED0. This is a pre-1.0 development version; only the
 upstream dependency contract is frozen. Every future stable API will require
 an `Audit/*APIContract.lean` file. No local compatibility is promised yet.
+
+ED1 names remain experimental before a future release, although their results
+are audited; stabilization still requires a dedicated API contract.

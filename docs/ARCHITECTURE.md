@@ -14,3 +14,10 @@ The only present layers are: 1. stable upstream boundary
 `Core/UpstreamAPI.lean`; 2. local source tree; 3. audit tree; 4. guard
 scripts; 5. CI. Metrics, Approximation, Dynamics, Open systems, Decoherence
 models, Robustness, and Public API are future-only and are not created at ED0.
+
+### Logical firewall
+
+Generic mathematics → explicit dynamics → algebraic decoherence → record
+stability → Born-sensitive transfer → conditional decision consequences.
+`Metrics` is the only newly created ED1 layer; it does not define
+decoherence. All other physical layers remain future-only.

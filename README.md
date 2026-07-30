@@ -24,7 +24,7 @@ formalisée. Licence : Apache-2.0.
 
 ## English
 
-Status: **ED0 — guarded initial bootstrap**. This repository cautiously
+Status: **ED1 — finite kinematic record-profile geometry**. This repository cautiously
 prepares a Lean 4 formalization of Everettian decoherence, approximate
 robustness, approximate record preservation, open-system dynamics, and
 quantitative error bounds. It currently contains no local scientific result.
@@ -32,6 +32,11 @@ quantitative error bounds. It currently contains no local scientific result.
 The stable dependency is `everettian-probability-lean v2.0.0`. The minimal
 architecture has an upstream boundary, local source tree, audit tree, guards,
 and CI.
+
+The first local result is `EverettianDecoherence.Metrics.RecordProfileL1`.
+It imports `bornRecord`, is therefore BORN-SENSITIVE, and is not a
+decoherence theorem. The conditional ED1–ED12 program is documented in
+`docs/SCIENTIFIC_ROADMAP.md`.
 
 ```sh
 lake build

@@ -37,6 +37,8 @@ jobs:
         run: lake build EverettianDecoherence.Audit.UpstreamAPIContract
       - name: Check audit aggregate / Vérifier l'agrégateur d'audit
         run: lake env lean EverettianDecoherence/Audit/MainResults.lean
+      - name: Build audit aggregate / Construire l'agrégateur d'audit
+        run: lake build EverettianDecoherence.Audit.MainResults
       - name: Guard again / Rejouer la garde
         run: bash scripts/guard.sh
       - name: Diff hygiene / Hygiène du diff
