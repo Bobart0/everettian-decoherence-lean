@@ -113,6 +113,19 @@
   listes de longueur deux ; **NON BORN-SENSITIVE**, sans temps, dynamique
   physique, décohérence, émergence de perspective ni revendication de
   publication.
+- **D0023 — One exact qubit instance should expose both sides of the Born firewall** :
+  T4 instancie au rang `n = 1` la rotation rationnelle déjà formalisée sur la
+  perspective binaire fixe et l'état `e₀`. La matrice est exactement
+  `[[24/25,-7/25],[7/25,24/25]]`; le défaut L2 uniforme vaut
+  `7 * sqrt 2 / 25` et satisfait le certificat rationnel `≤ 2/5`, tandis que
+  les poids borniens passent de `(1,0)` à `(576/625,49/625)`, le profil L1 réel
+  vaut `98/625`, la borne rationnelle retenue vaut `4/5` et le gap vaut
+  `402/625`. Motif : fournir un exemple calculé de bout en bout qui rende
+  visible la séparation entre le défaut de commutateur **NON BORN-SENSITIVE**
+  et son transfert profil/gap **BORN-SENSITIVE**, sans modifier aucun théorème
+  ni hypothèse. Portée : calcul statique en dimension `2`, perspective fournie,
+  aucun temps, Hamiltonien, canal, décohérence, base émergente ou statut de
+  publication.
 
 ## English
 
@@ -224,3 +237,15 @@
   Scope: finite algebraic result in dimension `2`, supplied perspective,
   length-two lists; **NON BORN-SENSITIVE**, with no time, physical dynamics,
   decoherence, perspective emergence, or publication claim.
+- **D0023 — One exact qubit instance should expose both sides of the Born firewall**:
+  T4 instantiates the already-formalized rational rotation at `n = 1` on the
+  fixed binary perspective and state `e₀`. The matrix is exactly
+  `[[24/25,-7/25],[7/25,24/25]]`; the uniform L2 defect is
+  `7 * sqrt 2 / 25` with rational certificate `≤ 2/5`, while the Born weights
+  move from `(1,0)` to `(576/625,49/625)`, the actual L1 profile is `98/625`,
+  the chosen rational bound is `4/5`, and the gap is `402/625`. Reason: provide
+  a fully worked end-to-end example that makes the separation between the
+  **NON BORN-SENSITIVE** commutator defect and its **BORN-SENSITIVE**
+  profile/gap transfer explicit, without changing any theorem or assumption.
+  Scope: static dimension-`2` calculation, supplied perspective, no time,
+  Hamiltonian, channel, decoherence, emergent basis, or publication claim.
