@@ -131,13 +131,21 @@ private theorem norm_recordSubsetOutgoing_cell_le
           (U (Gleason.projL c.val x))) = 0 :=
     recordSubsetComplementProjector_cell_apply_eq_zero_of_mem
       D S c hc (U (Gleason.projL c.val x))
+  have hidem :
+      Gleason.projL c.val (Gleason.projL c.val x) =
+        Gleason.projL c.val x := by
+    unfold Gleason.projL
+    change c.val.starProjection (c.val.starProjection x) =
+      c.val.starProjection x
+    exact Submodule.starProjection_eq_self_iff.mpr
+      (Submodule.starProjection_apply_mem c.val x)
   have hcomm :
       Gleason.projL (recordSubsetSubspace D Sᶜ)
           (perspectiveProjectorCommutator D U c
             (Gleason.projL c.val x)) =
         - Gleason.projL (recordSubsetSubspace D Sᶜ)
             (U (Gleason.projL c.val x)) := by
-    rw [perspectiveProjectorCommutator_apply, map_sub, hzero,
+    rw [perspectiveProjectorCommutator_apply, map_sub, hzero, hidem,
       zero_sub]
   calc
     ‖Gleason.projL (recordSubsetSubspace D Sᶜ)
@@ -148,7 +156,11 @@ private theorem norm_recordSubsetOutgoing_cell_le
         rw [hcomm, norm_neg]
     _ ≤ ‖perspectiveProjectorCommutator D U c
           (Gleason.projL c.val x)‖ := by
-        unfold Gleason.projL
+        change ‖(recordSubsetSubspace D Sᶜ).starProjection
+          (perspectiveProjectorCommutator D U c
+            (Gleason.projL c.val x))‖ ≤
+          ‖perspectiveProjectorCommutator D U c
+            (Gleason.projL c.val x)‖
         exact Submodule.norm_starProjection_apply_le _
     _ ≤ perspectiveProjectorCommutatorOpNormProfile D U c *
         ‖Gleason.projL c.val x‖ := by
@@ -246,10 +258,12 @@ theorem norm_sq_recordSubsetProjectorCommutator_le_subsetSq_mul_norm_sq
             ‖x‖ ^ 2 := by
         rw [norm_sq_recordSubsetProjector_eq_sum D S x,
           norm_sq_recordSubsetProjector_eq_sum D Sᶜ x]
-        have hsplit :=
-          Finset.sum_filter_add_sum_filter_not Finset.univ
-            (fun c : (Projective.interface n).Cell D => c ∈ S)
-            (fun c => ‖Gleason.projL c.val x‖ ^ 2)
+        have hsplit :
+            (∑ c ∈ S, ‖Gleason.projL c.val x‖ ^ 2) +
+                ∑ c ∈ Sᶜ, ‖Gleason.projL c.val x‖ ^ 2 =
+              ∑ c : (Projective.interface n).Cell D,
+                ‖Gleason.projL c.val x‖ ^ 2 := by
+          exact S.sum_add_sum_compl (fun c => ‖Gleason.projL c.val x‖ ^ 2)
         change
           (∑ c : (Projective.interface n).Cell D,
               ‖Gleason.projL c.val x‖ ^ 2) = ‖x‖ ^ 2 at hsum
