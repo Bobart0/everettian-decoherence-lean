@@ -92,7 +92,10 @@ theorem sum_recordCellProjectors_eq_id
   rw [hsubtype]
   have h := Gleason.projL_sup_of_pairwise_isOrtho
     D.cells (fun c => c) D.ortho
-  rw [Finset.sup_id_eq_sSup, D.span] at h
+  have hsup : D.cells.sup (fun c => c) = (⊤ : Submodule ℂ (H n)) := by
+    change D.cells.sup id = (⊤ : Submodule ℂ (H n))
+    rw [Finset.sup_id_eq_sSup, D.span]
+  rw [hsup] at h
   have htop : Gleason.projL (⊤ : Submodule ℂ (H n)) = LinearMap.id := by
     unfold Gleason.projL
     rw [Submodule.starProjection_top]
@@ -111,11 +114,7 @@ theorem recordSubsetProjector_add_compl_apply_eq
       (∑ c ∈ S, Gleason.projL c.val x) +
           (∑ c ∈ Sᶜ, Gleason.projL c.val x) =
         ∑ c : (Projective.interface n).Cell D, Gleason.projL c.val x := by
-    have h :=
-      Finset.sum_filter_add_sum_filter_not Finset.univ
-        (fun c : (Projective.interface n).Cell D => c ∈ S)
-        (fun c => Gleason.projL c.val x)
-    simpa using h
+    exact S.sum_add_sum_compl (fun c => Gleason.projL c.val x)
   have hall := congrArg (fun T : H n →ₗ[ℂ] H n => T x)
     (sum_recordCellProjectors_eq_id D)
   rw [recordSubsetProjector_eq_sum D S,
@@ -134,7 +133,7 @@ theorem recordSubsetProjector_compl_apply_eq_sub
     (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
     Gleason.projL (recordSubsetSubspace D Sᶜ) x =
       x - Gleason.projL (recordSubsetSubspace D S) x := by
-  exact eq_sub_of_add_eq (recordSubsetProjector_add_compl_apply_eq D S x)
+  exact eq_sub_of_add_eq' (recordSubsetProjector_add_compl_apply_eq D S x)
 
 
 
@@ -207,8 +206,9 @@ theorem recordCellProjector_compl_apply_eq_zero_of_mem
   have hmemCell :
       Gleason.projL (recordSubsetSubspace D Sᶜ) x ∈ c.valᗮ :=
     Submodule.orthogonal_le hle hmemAgg
-  unfold Gleason.projL
-  exact Submodule.starProjection_apply_eq_zero_iff.mpr hmemCell
+  change c.val.starProjection
+      (Gleason.projL (recordSubsetSubspace D Sᶜ) x) = 0
+  exact (Submodule.starProjection_apply_eq_zero_iff (K := c.val)).2 hmemCell
 
 /-- Symmetric form: a cell in the finite complement annihilates the aggregate
 projection onto `S`. -/

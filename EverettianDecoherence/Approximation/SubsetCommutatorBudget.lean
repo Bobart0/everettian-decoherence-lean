@@ -41,9 +41,12 @@ theorem subsetProjectorCommutatorOpNormSq_add_compl
     subsetProjectorCommutatorOpNormSq D U S +
         subsetProjectorCommutatorOpNormSq D U Sᶜ =
       operatorNormProjectorCommutatorL2 D U ^ 2 := by
-  have hsplit :=
-    Finset.sum_filter_add_sum_filter_not Finset.univ
-      (fun c : (Projective.interface n).Cell D => c ∈ S)
+  have hsplit :
+      (∑ c ∈ S, (perspectiveProjectorCommutatorOpNormProfile D U c) ^ 2) +
+          ∑ c ∈ Sᶜ, (perspectiveProjectorCommutatorOpNormProfile D U c) ^ 2 =
+        ∑ c : (Projective.interface n).Cell D,
+          (perspectiveProjectorCommutatorOpNormProfile D U c) ^ 2 := by
+    exact S.sum_add_sum_compl
       (fun c => (perspectiveProjectorCommutatorOpNormProfile D U c) ^ 2)
   have hsq :
       operatorNormProjectorCommutatorL2 D U ^ 2 =
@@ -64,14 +67,13 @@ theorem min_subset_compl_commutatorSq_le_half
         (subsetProjectorCommutatorOpNormSq D U Sᶜ) ≤
       (operatorNormProjectorCommutatorL2 D U ^ 2) / 2 := by
   have hsum := subsetProjectorCommutatorOpNormSq_add_compl D U S
-  have hmin :
-      2 * min (subsetProjectorCommutatorOpNormSq D U S)
-          (subsetProjectorCommutatorOpNormSq D U Sᶜ) ≤
-        subsetProjectorCommutatorOpNormSq D U S +
-          subsetProjectorCommutatorOpNormSq D U Sᶜ := by
-    exact two_mul_min_le_add _ _
-  rw [hsum] at hmin
-  linarith
+  rcases le_total
+      (subsetProjectorCommutatorOpNormSq D U S)
+      (subsetProjectorCommutatorOpNormSq D U Sᶜ) with hle | hle
+  · rw [min_eq_left hle]
+    linarith
+  · rw [min_eq_right hle]
+    linarith
 
 end
 end EverettianDecoherence.Approximation
