@@ -43,14 +43,26 @@ majoré par `operatorNormProjectorCommutatorL2`. Ce résultat ne définit ni une
 décohérence ni une perspective émergente. Aucun statut **PUBLISHED** n'est
 revendiqué.
 
-T2 `DimensionFreeSharpness` est **FORMALIZED / NOT YET COMPILE-VERIFIED** et
-explicitement **BORN-SENSITIVE**. Le module construit en dimension `2` une
-famille rationnelle normalisée issue de la récurrence
-`(p,q) ↦ (3p+4q, 2p+3q)` avec invariant `p^2 + 1 = 2 q^2`, calcule le quotient
-`recordProfileL1 / ‖x-y‖`, vise la preuve qu'il tend vers `2` et le corollaire
-que toute constante universelle `K < 2` échoue sur un membre de la famille.
-Le fichier d'audit T2 est présent, mais T2 ne sera classé **AUDITED** qu'après
-compilation et exécution de cet audit. Aucun statut **PUBLISHED** n'est
+T2 `DimensionFreeSharpness` est **FORMALIZED / AUDITED** et explicitement
+**BORN-SENSITIVE**. Le module construit en dimension `2` une famille
+rationnelle normalisée issue de la récurrence `(p,q) ↦ (3p+4q, 2p+3q)` avec
+invariant `p^2 + 1 = 2 q^2`, calcule exactement le quotient
+`recordProfileL1 / ‖x-y‖`, prouve qu'il tend vers `2`, et en déduit que toute
+constante universelle `K < 2` échoue sur un membre de la famille. Le module et
+son audit ont passé le build Lean, `guard.sh` et `validate.sh`. Aucun statut
+**PUBLISHED** n'est revendiqué.
+
+T3 `IterationSharpness` est **FORMALIZED / AUDITED** et explicitement
+**NON BORN-SENSITIVE**. Le module construit une famille explicite de listes de
+longueur deux `[Uₙ,Uₙ]` sur la perspective binaire fixe. Le défaut élémentaire
+L2 vaut exactement `sqrt 2 * sₙ`, le défaut du composé vaut exactement
+`sqrt 2 * (2 cₙ sₙ)`, et la somme ED4B vaut `2 * sqrt 2 * sₙ`. Le ratio exact
+« défaut composé / somme additive » est donc `cₙ`; la forme rationnelle
+`cₙ = 1 - 2/(pₙ^2+1)` donne `cₙ → 1`. Il en résulte que tout coefficient
+uniforme `K < 1` devant la somme ED4B est violé par un membre de cette famille,
+déjà pour deux transformations. Ce résultat établit la sharpness asymptotique
+du coefficient additif `1` dans cette portée finie ; il ne définit ni temps,
+ni dynamique physique, ni décohérence. Aucun statut **PUBLISHED** n'est
 revendiqué.
 
 ED5–ED12 sont **NOT OPENED** dans cette feuille de route. Aucun de ces statuts
@@ -59,7 +71,7 @@ ne promet de résultat.
 ED1 utilise `bornRecord` et n'est donc pas un critère indépendant de
 décohérence ; il en va de même pour tout transfert ED2A–ED4B utilisant
 `recordProfileL1` ou `SameRecord`, ainsi que pour T2. Les défauts de
-commutateur ED3A–ED4B et le contrôle T1, qui n'utilisent pas `bornRecord`,
+commutateur ED3A–ED4B, le contrôle T1 et T3, qui n'utilisent pas `bornRecord`,
 restent des quantités algébriques distinctes des transferts BORN-SENSITIVE.
 
 ### Chaîne conditionnelle visée
@@ -81,23 +93,25 @@ restent des quantités algébriques distinctes des transferts BORN-SENSITIVE.
 
 T1 est un résultat de contrôle algébrique transversal ajouté sans ouvrir une
 nouvelle étape physique de cette chaîne. T2 est un résultat de sharpness
-métrique BORN-SENSITIVE, également transversal. Les étapes au-delà d'ED4B
-restent **NOT OPENED** dans cette feuille de route et ne sont pas numérotées de
-façon définitive tant qu'un incrément d'architecture séparé ne les ouvre pas.
+métrique BORN-SENSITIVE, également transversal. T3 est un résultat de sharpness
+algébrique NON BORN-SENSITIVE de la borne d'accumulation ED4B, lui aussi
+transversal. Les étapes au-delà d'ED4B restent **NOT OPENED** dans cette feuille
+de route et ne sont pas numérotées de façon définitive tant qu'un incrément
+d'architecture séparé ne les ouvre pas.
 
 ### Pare-feu logique
 
-Mathématiques génériques → approximation algébrique (ED3A–ED4B et T1) →
+Mathématiques génériques → approximation algébrique (ED3A–ED4B, T1 et T3) →
 dynamiques explicites futures → décohérence algébrique future → émergence ou
 stabilité future des records → transfert sensible à Born → conséquences
 décisionnelles conditionnelles. Les futures couches physiques n'utilisent pas
 de crédence, vraisemblance ou axiome de rationalité. Toute quantité utilisant
-`bornRecord` est **BORN-SENSITIVE** ; T1 est **NON BORN-SENSITIVE** et T2 est
-**BORN-SENSITIVE**. Une faible distance de profils, une faible variation de
-projecteurs ou une commutation globale de projecteurs n'est pas une
-décohérence physique. Trace partielle, canal ou matrice densité devront
-distinguer identité mathématique, hypothèse dynamique, interprétation physique
-et transfert bornien.
+`bornRecord` est **BORN-SENSITIVE** ; T1 et T3 sont **NON BORN-SENSITIVE** et T2
+est **BORN-SENSITIVE**. Une faible distance de profils, une faible variation de
+projecteurs, une quasi-commutation composée presque saturante ou une
+commutation globale de projecteurs n'est pas une décohérence physique. Trace
+partielle, canal ou matrice densité devront distinguer identité mathématique,
+hypothèse dynamique, interprétation physique et transfert bornien.
 
 ## English
 
@@ -142,22 +156,33 @@ therefore bounded by `operatorNormProjectorCommutatorL2`. This result defines
 neither decoherence nor an emergent perspective. No **PUBLISHED** status is
 claimed.
 
-T2 `DimensionFreeSharpness` is **FORMALIZED / NOT YET COMPILE-VERIFIED** and
-explicitly **BORN-SENSITIVE**. The module builds, in dimension `2`, a
-normalized rational family generated by `(p,q) ↦ (3p+4q, 2p+3q)` with invariant
-`p^2 + 1 = 2 q^2`, computes the `recordProfileL1 / ‖x-y‖` ratio, targets a proof
-that it tends to `2`, and the corollary that every universal constant `K < 2`
-fails on some family member. The T2 audit file is present, but T2 will be
-classified as **AUDITED** only after compilation and execution of that audit.
-No **PUBLISHED** status is claimed.
+T2 `DimensionFreeSharpness` is **FORMALIZED / AUDITED** and explicitly
+**BORN-SENSITIVE**. The module builds, in dimension `2`, a normalized rational
+family generated by `(p,q) ↦ (3p+4q, 2p+3q)` with invariant
+`p^2 + 1 = 2 q^2`, computes the `recordProfileL1 / ‖x-y‖` ratio exactly, proves
+that it tends to `2`, and derives that every universal constant `K < 2` fails
+on some family member. The module and its audit have passed the Lean build,
+`guard.sh`, and `validate.sh`. No **PUBLISHED** status is claimed.
+
+T3 `IterationSharpness` is **FORMALIZED / AUDITED** and explicitly **NON
+BORN-SENSITIVE**. The module constructs an explicit family of length-two lists
+`[Uₙ,Uₙ]` on the fixed binary perspective. The elementary L2 defect is exactly
+`sqrt 2 * sₙ`, the composite defect is exactly `sqrt 2 * (2 cₙ sₙ)`, and the
+ED4B sum is `2 * sqrt 2 * sₙ`. Thus the exact composite/additive-sum ratio is
+`cₙ`; the rational form `cₙ = 1 - 2/(pₙ^2+1)` gives `cₙ → 1`. Consequently
+every uniform coefficient `K < 1` in front of the ED4B sum is violated by a
+member of this family, already for two transformations. This establishes
+asymptotic sharpness of the additive coefficient `1` in this finite scope; it
+defines neither time, physical dynamics, nor decoherence. No **PUBLISHED**
+status is claimed.
 
 ED5–ED12 are **NOT OPENED** in this roadmap. None of these statuses promises a
 result.
 
 ED1 uses `bornRecord` and is therefore not an independent decoherence
 criterion; the same holds for every ED2A–ED4B transfer using
-`recordProfileL1` or `SameRecord`, and for T2. The ED3A–ED4B commutator defects
-and T1 control, which do not use `bornRecord`, remain algebraic quantities
+`recordProfileL1` or `SameRecord`, and for T2. The ED3A–ED4B commutator defects,
+T1 control, and T3, which do not use `bornRecord`, remain algebraic quantities
 distinct from BORN-SENSITIVE transfers.
 
 ### Conditional target chain
@@ -179,19 +204,20 @@ distinct from BORN-SENSITIVE transfers.
 
 T1 is a transversal algebraic control result added without opening a new
 physical stage of this chain. T2 is a transversal BORN-SENSITIVE metric
-sharpness result. Stages beyond ED4B remain **NOT OPENED** in this roadmap and
-are not definitively numbered until a separate architecture increment opens
-them.
+sharpness result. T3 is a transversal NON BORN-SENSITIVE algebraic sharpness
+result for the ED4B accumulation bound. Stages beyond ED4B remain **NOT
+OPENED** in this roadmap and are not definitively numbered until a separate
+architecture increment opens them.
 
 ### Logical firewall
 
-Generic mathematics → algebraic approximation (ED3A–ED4B and T1) → future
+Generic mathematics → algebraic approximation (ED3A–ED4B, T1, and T3) → future
 explicit dynamics → future algebraic decoherence → future record emergence or
 stability → Born-sensitive transfer → conditional decision-theoretic
 consequences. Future physical layers use no credence, likelihood, or
-rationality axiom. Every `bornRecord` quantity is **BORN-SENSITIVE**; T1 is
-**NON BORN-SENSITIVE** and T2 is **BORN-SENSITIVE**. A small profile distance,
-small projector displacement, or global projector commutation is not physical
-decoherence. Partial traces, channels, and density matrices must distinguish
-mathematical identity, dynamical assumption, physical interpretation, and Born
-transfer.
+rationality axiom. Every `bornRecord` quantity is **BORN-SENSITIVE**; T1 and T3
+are **NON BORN-SENSITIVE**, while T2 is **BORN-SENSITIVE**. A small profile
+distance, small projector displacement, near-saturation of a composed
+commutator bound, or global projector commutation is not physical decoherence.
+Partial traces, channels, and density matrices must distinguish mathematical
+identity, dynamical assumption, physical interpretation, and Born transfer.
