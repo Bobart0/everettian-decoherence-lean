@@ -89,5 +89,72 @@ theorem abs_recordSubsetProjector_norm_sq_sub_le_commutator
     _ = ‖recordSubsetProjectorCommutator D U S x‖ * ‖x‖ := by
       rw [U.norm_map]
 
+
+/-- Cross block entering the aggregate subset from its finite complement. -/
+noncomputable def recordSubsetIncoming
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) : H n :=
+  Gleason.projL (recordSubsetSubspace D S)
+    (U (Gleason.projL (recordSubsetSubspace D Sᶜ) x))
+
+/-- Cross block leaving the aggregate subset into its finite complement. -/
+noncomputable def recordSubsetOutgoing
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) : H n :=
+  Gleason.projL (recordSubsetSubspace D Sᶜ)
+    (U (Gleason.projL (recordSubsetSubspace D S) x))
+
+/-- The aggregate commutator is exactly incoming flux minus outgoing flux. -/
+theorem recordSubsetProjectorCommutator_eq_incoming_sub_outgoing
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
+    recordSubsetProjectorCommutator D U S x =
+      recordSubsetIncoming D U S x - recordSubsetOutgoing D U S x := by
+  rw [recordSubsetProjectorCommutator_apply]
+  unfold recordSubsetIncoming recordSubsetOutgoing
+  rw [recordSubsetProjector_compl_apply_eq_sub D S x,
+    recordSubsetProjector_compl_apply_eq_sub D S
+      (U (Gleason.projL (recordSubsetSubspace D S) x))]
+  simp only [map_sub]
+  module
+
+/-- Incoming and outgoing aggregate cross blocks are orthogonal. -/
+theorem inner_recordSubsetIncoming_outgoing_eq_zero
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
+    ⟪recordSubsetIncoming D U S x,
+      recordSubsetOutgoing D U S x⟫_ℂ = 0 := by
+  have hin :
+      recordSubsetIncoming D U S x ∈ recordSubsetSubspace D S := by
+    unfold recordSubsetIncoming Gleason.projL
+    exact Submodule.starProjection_apply_mem _ _
+  have hout :
+      recordSubsetOutgoing D U S x ∈ (recordSubsetSubspace D S)ᗮ := by
+    unfold recordSubsetOutgoing
+    rw [recordSubsetProjector_compl_apply_eq_sub D S
+      (U (Gleason.projL (recordSubsetSubspace D S) x))]
+    unfold Gleason.projL
+    exact Submodule.sub_starProjection_mem_orthogonal _
+  exact (Submodule.mem_orthogonal (recordSubsetSubspace D S)
+    (recordSubsetOutgoing D U S x)).mp hout
+      (recordSubsetIncoming D U S x) hin
+
+/-- Pythagorean identity for the statewise aggregate commutator. -/
+theorem norm_sq_recordSubsetProjectorCommutator_eq_cross_sum
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
+    ‖recordSubsetProjectorCommutator D U S x‖ ^ 2 =
+      ‖recordSubsetIncoming D U S x‖ ^ 2 +
+        ‖recordSubsetOutgoing D U S x‖ ^ 2 := by
+  rw [recordSubsetProjectorCommutator_eq_incoming_sub_outgoing D U S x,
+    norm_sub_sq, inner_recordSubsetIncoming_outgoing_eq_zero D U S x]
+  simp
+
+
 end
 end EverettianDecoherence.Approximation
