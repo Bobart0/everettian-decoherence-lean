@@ -137,6 +137,54 @@ theorem recordSubsetProjector_compl_apply_eq_sub
   exact eq_sub_of_add_eq (recordSubsetProjector_add_compl_apply_eq D S x)
 
 
+
+/-- Every selected cell lies in the aggregate subspace of the subset. -/
+theorem recordCell_le_recordSubsetSubspace
+    {n : ℕ} (D : Perspective n)
+    (S : Finset ((Projective.interface n).Cell D))
+    (c : (Projective.interface n).Cell D) (hc : c ∈ S) :
+    c.val ≤ recordSubsetSubspace D S := by
+  unfold recordSubsetSubspace
+  exact Finset.le_sup hc
+
+/-- A cell selected in `S` annihilates the aggregate projection onto
+`Sᶜ`. -/
+theorem recordCellProjector_compl_apply_eq_zero_of_mem
+    {n : ℕ} (D : Perspective n)
+    (S : Finset ((Projective.interface n).Cell D))
+    (c : (Projective.interface n).Cell D) (hc : c ∈ S) (x : H n) :
+    Gleason.projL c.val
+        (Gleason.projL (recordSubsetSubspace D Sᶜ) x) = 0 := by
+  have hle : c.val ≤ recordSubsetSubspace D S :=
+    recordCell_le_recordSubsetSubspace D S c hc
+  have hcompl :
+      Gleason.projL (recordSubsetSubspace D Sᶜ) x =
+        x - Gleason.projL (recordSubsetSubspace D S) x :=
+    recordSubsetProjector_compl_apply_eq_sub D S x
+  have hmemAgg :
+      Gleason.projL (recordSubsetSubspace D Sᶜ) x ∈
+        (recordSubsetSubspace D S)ᗮ := by
+    rw [hcompl]
+    unfold Gleason.projL
+    exact Submodule.sub_starProjection_mem_orthogonal x
+  have hmemCell :
+      Gleason.projL (recordSubsetSubspace D Sᶜ) x ∈ c.valᗮ :=
+    Submodule.orthogonal_le hle hmemAgg
+  unfold Gleason.projL
+  exact Submodule.starProjection_apply_eq_zero_iff.mpr hmemCell
+
+/-- Symmetric form: a cell in the finite complement annihilates the aggregate
+projection onto `S`. -/
+theorem recordCellProjector_apply_eq_zero_of_mem_compl
+    {n : ℕ} (D : Perspective n)
+    (S : Finset ((Projective.interface n).Cell D))
+    (c : (Projective.interface n).Cell D) (hc : c ∈ Sᶜ) (x : H n) :
+    Gleason.projL c.val
+        (Gleason.projL (recordSubsetSubspace D S) x) = 0 := by
+  simpa using
+    (recordCellProjector_compl_apply_eq_zero_of_mem D Sᶜ c hc x)
+
+
 /-- The sum of Born weights over a finite subset of cells is exactly the
 squared norm of the projection onto their aggregated subspace. -/
 theorem sum_bornRecord_subset_eq_norm_sq_projector
