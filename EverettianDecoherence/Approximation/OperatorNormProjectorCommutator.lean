@@ -162,4 +162,65 @@ theorem statewiseProjectorCommutatorWithin_of_normalized_operatorNormWithin
   simpa [hx] using
     statewiseProjectorCommutatorWithin_of_operatorNormProjectorCommutatorWithin D U x ε h
 
+
+/-- Applying the inverse unitary turns the inverse commutator into the original
+commutator, up to an isometric image and a sign. -/
+theorem perspectiveProjectorCommutator_symm_apply
+    {n : ℕ} (D : QuantumFoundations.BornRule.Perspective n)
+    (U : Gleason.H n ≃ₗᵢ[ℂ] Gleason.H n)
+    (c : (EverettianProbability.Abstract.Projective.interface n).Cell D)
+    (y : Gleason.H n) :
+    perspectiveProjectorCommutator D U.symm c y =
+      - U.symm (perspectiveProjectorCommutator D U c (U.symm y)) := by
+  rw [perspectiveProjectorCommutator_apply, perspectiveProjectorCommutator_apply]
+  simp [map_sub]
+
+/-- The operator norm of every cell commutator is invariant under replacing a
+unitary by its inverse. -/
+theorem perspectiveProjectorCommutatorCLM_norm_symm
+    {n : ℕ} (D : QuantumFoundations.BornRule.Perspective n)
+    (U : Gleason.H n ≃ₗᵢ[ℂ] Gleason.H n)
+    (c : (EverettianProbability.Abstract.Projective.interface n).Cell D) :
+    ‖perspectiveProjectorCommutatorCLM D U.symm c‖ =
+      ‖perspectiveProjectorCommutatorCLM D U c‖ := by
+  apply le_antisymm
+  · apply ContinuousLinearMap.opNorm_le_bound
+      (ContinuousLinearMap.opNorm_nonneg
+        (perspectiveProjectorCommutatorCLM D U c))
+    intro y
+    rw [perspectiveProjectorCommutatorCLM_apply,
+      perspectiveProjectorCommutator_symm_apply, norm_neg, U.symm.norm_map]
+    calc
+      ‖perspectiveProjectorCommutator D U c (U.symm y)‖ =
+          ‖perspectiveProjectorCommutatorCLM D U c (U.symm y)‖ := rfl
+      _ ≤ ‖perspectiveProjectorCommutatorCLM D U c‖ * ‖U.symm y‖ :=
+        ContinuousLinearMap.le_opNorm _ _
+      _ = ‖perspectiveProjectorCommutatorCLM D U c‖ * ‖y‖ := by
+        rw [U.symm.norm_map]
+  · simpa using
+      (show ‖perspectiveProjectorCommutatorCLM D U.symm.symm c‖ ≤
+          ‖perspectiveProjectorCommutatorCLM D U.symm c‖ by
+        apply ContinuousLinearMap.opNorm_le_bound
+            (ContinuousLinearMap.opNorm_nonneg
+              (perspectiveProjectorCommutatorCLM D U.symm c))
+        intro y
+        rw [perspectiveProjectorCommutatorCLM_apply,
+          perspectiveProjectorCommutator_symm_apply, norm_neg, U.norm_map]
+        calc
+          ‖perspectiveProjectorCommutator D U.symm c (U y)‖ =
+              ‖perspectiveProjectorCommutatorCLM D U.symm c (U y)‖ := rfl
+          _ ≤ ‖perspectiveProjectorCommutatorCLM D U.symm c‖ * ‖U y‖ :=
+            ContinuousLinearMap.le_opNorm _ _
+          _ = ‖perspectiveProjectorCommutatorCLM D U.symm c‖ * ‖y‖ := by
+            rw [U.norm_map])
+
+/-- The cellwise operator-norm defect profile is invariant under inversion. -/
+theorem perspectiveProjectorCommutatorOpNormProfile_symm
+    {n : ℕ} (D : QuantumFoundations.BornRule.Perspective n)
+    (U : Gleason.H n ≃ₗᵢ[ℂ] Gleason.H n)
+    (c : (EverettianProbability.Abstract.Projective.interface n).Cell D) :
+    perspectiveProjectorCommutatorOpNormProfile D U.symm c =
+      perspectiveProjectorCommutatorOpNormProfile D U c := by
+  exact perspectiveProjectorCommutatorCLM_norm_symm D U c
+
 end EverettianDecoherence.Approximation
