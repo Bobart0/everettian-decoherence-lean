@@ -21,14 +21,28 @@ commutateur, profil de normes d'opérateur, agrégation L2 uniforme sur les
 statewise, transfert BORN-SENSITIVE uniforme, et limite exacte équivalente à
 la commutation globale.
 
-ED4A et ED4B sont **PLANNED / NOT OPENED**. ED4A concernera la composition de
-transformations à perspective fixée ; ED4B concernera l'itération finie et
-l'accumulation d'erreurs. ED5–ED12 sont **NOT OPENED**. Aucun de ces statuts
+ED4A est **CLOSED IN ITS FINITE FIXED-PERSPECTIVE COMPOSITION SCOPE** :
+`ComposedProjectorCommutator.lean` formalise la composition de deux
+transformations, la décomposition du commutateur composé et la sous-additivité
+du défaut uniforme ; `ComposedRecordPreservation.lean` fournit le transfert
+BORN-SENSITIVE correspondant. ED4B est **CLOSED IN ITS FINITE
+ITERATION-ACCUMULATION SCOPE** : `IteratedProjectorCommutator.lean` formalise
+la composition d'une liste finie et notamment
+`operatorNormProjectorCommutatorL2_iterated_le_sum` ;
+`IteratedRecordPreservation.lean` formalise notamment
+`recordProfileL1_iterated_le_two_mul_operatorNormProjectorCommutatorSum`,
+BORN-SENSITIVE. Les audits ED4A et ED4B sont intégrés à `Audit/MainResults.lean`.
+Ces jalons sont donc formalisés et audités ; aucun statut de publication
+supplémentaire n'est affirmé ici.
+
+ED5–ED12 sont **NOT OPENED** dans cette feuille de route. Aucun de ces statuts
 ne promet de résultat.
 
 ED1 utilise `bornRecord` et n'est donc pas un critère indépendant de
-décohérence ; il en va de même pour tout transfert ED2A–ED3B utilisant
-`recordProfileL1` ou `SameRecord`.
+décohérence ; il en va de même pour tout transfert ED2A–ED4B utilisant
+`recordProfileL1` ou `SameRecord`. Les défauts de commutateur ED3A–ED4B qui
+n'utilisent pas `bornRecord` restent des quantités algébriques distinctes des
+transferts BORN-SENSITIVE.
 
 ### Chaîne conditionnelle visée
 
@@ -47,12 +61,13 @@ décohérence ; il en va de même pour tout transfert ED2A–ED3B utilisant
     minorés ;
 12. contre-modèles, agrégation, audit d'API et release éventuelle.
 
-Les étapes au-delà d'ED4B restent **NOT OPENED** et ne sont pas numérotées de
-façon définitive tant qu'un incrément d'architecture séparé ne les ouvre pas.
+Les étapes au-delà d'ED4B restent **NOT OPENED** dans cette feuille de route et
+ne sont pas numérotées de façon définitive tant qu'un incrément d'architecture
+séparé ne les ouvre pas.
 
 ### Pare-feu logique
 
-Mathématiques génériques → approximation algébrique (ED3A–ED3B) → dynamiques
+Mathématiques génériques → approximation algébrique (ED3A–ED4B) → dynamiques
 explicites futures → décohérence algébrique future → émergence ou stabilité
 future des records → transfert sensible à Born → conséquences décisionnelles
 conditionnelles. Les futures couches physiques n'utilisent pas de crédence,
@@ -82,14 +97,28 @@ profile, an L2 aggregation uniform over states for a fixed perspective and
 transformation, control of the statewise defect, a uniform BORN-SENSITIVE
 transfer, and an exact limit equivalent to global commutation.
 
-ED4A and ED4B are **PLANNED / NOT OPENED**. ED4A will concern composition of
-transformations at a fixed perspective; ED4B will concern finite iteration and
-error accumulation. ED5–ED12 are **NOT OPENED**. None of these statuses
-promises a result.
+ED4A is **CLOSED IN ITS FINITE FIXED-PERSPECTIVE COMPOSITION SCOPE**:
+`ComposedProjectorCommutator.lean` formalizes composition of two
+transformations, decomposition of the composed commutator, and subadditivity
+of the uniform defect; `ComposedRecordPreservation.lean` supplies the
+corresponding BORN-SENSITIVE transfer. ED4B is **CLOSED IN ITS FINITE
+ITERATION-ACCUMULATION SCOPE**: `IteratedProjectorCommutator.lean` formalizes
+composition of a finite list and, in particular,
+`operatorNormProjectorCommutatorL2_iterated_le_sum`;
+`IteratedRecordPreservation.lean` formalizes, in particular,
+`recordProfileL1_iterated_le_two_mul_operatorNormProjectorCommutatorSum`, which
+is BORN-SENSITIVE. The ED4A and ED4B audits are integrated into
+`Audit/MainResults.lean`. These milestones are therefore formalized and
+audited; no additional publication status is asserted here.
+
+ED5–ED12 are **NOT OPENED** in this roadmap. None of these statuses promises a
+result.
 
 ED1 uses `bornRecord` and is therefore not an independent decoherence
-criterion; the same holds for every ED2A–ED3B transfer using
-`recordProfileL1` or `SameRecord`.
+criterion; the same holds for every ED2A–ED4B transfer using
+`recordProfileL1` or `SameRecord`. The ED3A–ED4B commutator defects that do not
+use `bornRecord` remain algebraic quantities distinct from BORN-SENSITIVE
+transfers.
 
 ### Conditional target chain
 
@@ -108,12 +137,12 @@ criterion; the same holds for every ED2A–ED3B transfer using
     lower-bounded denominators;
 12. countermodels, aggregation, API audit, and possible release.
 
-Stages beyond ED4B remain **NOT OPENED** and are not definitively numbered
-until a separate architecture increment opens them.
+Stages beyond ED4B remain **NOT OPENED** in this roadmap and are not
+definitively numbered until a separate architecture increment opens them.
 
 ### Logical firewall
 
-Generic mathematics → algebraic approximation (ED3A–ED3B) → future explicit
+Generic mathematics → algebraic approximation (ED3A–ED4B) → future explicit
 dynamics → future algebraic decoherence → future record emergence or
 stability → Born-sensitive transfer → conditional decision-theoretic
 consequences. Future physical layers use no credence, likelihood, or

@@ -77,6 +77,12 @@
   et implique `∀ x, SameRecord D (U x) x`. Motif : offrir une limite exacte et
   vérifiable au résultat d'approximation. Portée : ED3B seulement ; ne
   constitue ni une décohérence ni une émergence de perspective.
+- **D0019 — Reconcile documented status with existing ED4 formalization** :
+  ED4A et ED4B sont reclassés comme jalons clos dans leur portée finie réelle,
+  car les modules de composition/itération et leurs audits existent déjà.
+  Motif : distinguer fidèlement prévu, formalisé, audité et publié. Portée :
+  correction documentaire T0 uniquement ; aucune nouvelle preuve et aucune
+  revendication de publication.
 
 ## English
 
@@ -154,3 +160,9 @@
   and implies `∀ x, SameRecord D (U x) x`. Reason: offer an exact, checkable
   limit to the approximation result. Scope: ED3B only; it is neither
   decoherence nor perspective emergence.
+- **D0019 — Reconcile documented status with existing ED4 formalization**:
+  ED4A and ED4B are reclassified as closed milestones in their actual finite
+  scope because the composition/iteration modules and their audits already
+  exist. Reason: faithfully distinguish planned, formalized, audited, and
+  published material. Scope: T0 documentation correction only; no new proof
+  and no publication claim.

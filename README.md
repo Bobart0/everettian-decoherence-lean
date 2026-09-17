@@ -2,12 +2,13 @@
 
 ## Français
 
-Statut : **ED3B — CLOSED IN ITS FINITE OPERATOR-NORM UNIFORM SCOPE**. Ce dépôt
+Statut : **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE**. Ce dépôt
 formalise en Lean 4 une chaîne quantitative finie reliant la structure exacte
 finie exposée par `everettian-probability-lean`, une géométrie de profils de
-records, une perturbation état-vers-record, un défaut statewise de
-commutation de projecteurs et son uniformisation par norme d'opérateur. Il ne
-contient aujourd'hui aucune dynamique temporelle ni aucune décohérence.
+records, une perturbation état-vers-record, des défauts de commutation de
+projecteurs, leur uniformisation par norme d'opérateur, leur composition à
+perspective fixée et leur accumulation sur une liste finie de transformations.
+Il ne contient aujourd'hui aucune dynamique temporelle ni aucune décohérence.
 
 La dépendance stable est `everettian-probability-lean v2.0.0`. L'architecture
 locale contient une frontière amont, un arbre `Metrics`, un arbre
@@ -24,7 +25,19 @@ Résultats locaux actuels :
   BORN-SENSITIVE vers `recordProfileL1` ;
 - **ED3B** — uniformisation du défaut ED3A par norme d'opérateur, uniforme sur
   les états pour une perspective et une transformation fixées, avec limite
-  exacte vers la commutation globale.
+  exacte vers la commutation globale ;
+- **ED4A — CLOSED IN ITS FINITE FIXED-PERSPECTIVE COMPOSITION SCOPE** —
+  composition de deux transformations, borne sous-additive du défaut uniforme
+  et transfert BORN-SENSITIVE correspondant ;
+- **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE** — composition
+  d'une liste finie, majoration du défaut par la somme des défauts élémentaires
+  et transfert BORN-SENSITIVE itéré.
+
+ED1–ED4B sont formalisés. Les déclarations principales ED4A et ED4B sont aussi
+auditées dans `EverettianDecoherence/Audit/ComposedRecordPreservation.lean` et
+`EverettianDecoherence/Audit/IteratedRecordPreservation.lean`, importés par
+`Audit/MainResults.lean`. Aucun statut de publication supplémentaire n'est
+affirmé ici.
 
 ```sh
 lake build
@@ -38,6 +51,8 @@ import EverettianDecoherence.Metrics.StateRecordPerturbation
 import EverettianDecoherence.Metrics.StateRecordDimensionFree
 import EverettianDecoherence.Approximation.ApproximateRecordPreservation
 import EverettianDecoherence.Approximation.UniformRecordPreservation
+import EverettianDecoherence.Approximation.ComposedRecordPreservation
+import EverettianDecoherence.Approximation.IteratedRecordPreservation
 ```
 
 Limites physiques actuelles : aucune dynamique temporelle, aucun Hamiltonien,
@@ -51,11 +66,12 @@ formalisée. Licence : Apache-2.0.
 
 ## English
 
-Status: **ED3B — CLOSED IN ITS FINITE OPERATOR-NORM UNIFORM SCOPE**. This
+Status: **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE**. This
 repository formalizes in Lean 4 a finite quantitative chain connecting the
 exact finite structure exposed by `everettian-probability-lean`, a
-record-profile geometry, a state-to-record perturbation bound, a statewise
-projector-commutation defect, and its operator-norm uniformization. It
+record-profile geometry, a state-to-record perturbation bound, projector-
+commutation defects, their operator-norm uniformization, fixed-perspective
+composition, and accumulation over a finite list of transformations. It
 currently contains no time dynamics and no decoherence.
 
 The stable dependency is `everettian-probability-lean v2.0.0`. The local
@@ -73,7 +89,18 @@ Current local results:
   transfer to `recordProfileL1`;
 - **ED3B** — operator-norm uniformization of the ED3A defect, uniform over
   states for a fixed perspective and transformation, with an exact limit to
-  global commutation.
+  global commutation;
+- **ED4A — CLOSED IN ITS FINITE FIXED-PERSPECTIVE COMPOSITION SCOPE** —
+  composition of two transformations, a subadditive uniform-defect bound,
+  and the corresponding BORN-SENSITIVE transfer;
+- **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE** — composition
+  of a finite list, a bound of the resulting defect by the sum of elementary
+  defects, and the iterated BORN-SENSITIVE transfer.
+
+ED1–ED4B are formalized. The principal ED4A and ED4B declarations are also
+audited in `EverettianDecoherence/Audit/ComposedRecordPreservation.lean` and
+`EverettianDecoherence/Audit/IteratedRecordPreservation.lean`, both imported by
+`Audit/MainResults.lean`. No additional publication status is asserted here.
 
 ```sh
 lake build
@@ -87,6 +114,8 @@ import EverettianDecoherence.Metrics.StateRecordPerturbation
 import EverettianDecoherence.Metrics.StateRecordDimensionFree
 import EverettianDecoherence.Approximation.ApproximateRecordPreservation
 import EverettianDecoherence.Approximation.UniformRecordPreservation
+import EverettianDecoherence.Approximation.ComposedRecordPreservation
+import EverettianDecoherence.Approximation.IteratedRecordPreservation
 ```
 
 Current physical limitations: no time dynamics, Hamiltonian, channel, open
@@ -101,11 +130,12 @@ verified, with no unformalized physical claim. License: Apache-2.0.
 
 **FR.** La chaîne logique actuelle est : mathématiques finies génériques →
 continuité état-vers-record → défaut algébrique statewise de commutateur →
-uniformisation par norme d'opérateur → transfert bornien sensible à Born
-(« Born-sensitive »). Cette chaîne n'inclut encore aucune dynamique, aucune
-décohérence et aucune émergence de perspective.
+uniformisation par norme d'opérateur → composition et accumulation finies →
+transfert bornien BORN-SENSITIVE. Cette chaîne n'inclut encore aucune
+dynamique, aucune décohérence et aucune émergence de perspective.
 
 **EN.** The current logical chain is: generic finite mathematics → state-to-
 record continuity → statewise algebraic commutator defect → operator-norm
-uniformization → Born-sensitive record transfer. This chain still includes no
-dynamics, no decoherence, and no perspective emergence.
+uniformization → finite composition and accumulation → BORN-SENSITIVE record
+transfer. This chain still includes no dynamics, no decoherence, and no
+perspective emergence.

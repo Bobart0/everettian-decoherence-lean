@@ -9,15 +9,22 @@
 - borne sans facteur de cardinalité (ED2B) ;
 - défaut statewise de commutation de projecteurs (ED3A) ;
 - défaut uniforme par norme d'opérateur (ED3B) ;
-- transfert vers `recordProfileL1` pour les défauts statewise et uniforme
-  (BORN-SENSITIVE) ;
+- composition finie de deux transformations à perspective fixée, avec borne
+  sous-additive du défaut uniforme (ED4A) ;
+- composition d'une liste finie de transformations et accumulation additive
+  des défauts uniformes (ED4B) ;
+- transfert vers `recordProfileL1` pour les défauts statewise, uniforme,
+  composé et itéré (BORN-SENSITIVE) ;
 - limite exacte : défaut nul équivalent à `SameRecord` (ED3A, ponctuel) ou à
-  la commutation globale (ED3B, pour tout état).
+  la commutation globale (ED3B, pour tout état), avec stabilité de cette
+  propriété sous les compositions ED4A et ED4B lorsque chaque défaut
+  élémentaire est nul.
+
+Les résultats ED4A et ED4B sont formalisés et audités. Aucun statut de
+publication supplémentaire n'est affirmé ici.
 
 ### Non établis
 
-- composition de transformations ;
-- itération finie et accumulation d'erreurs ;
 - dynamique temporelle ;
 - Hamiltonien ;
 - systèmes ouverts ;
@@ -39,12 +46,18 @@ Aucun de ces résultats n'est promis par les étapes formalisées.
 - **uniformité sur les états** : établie par ED3B, pour une perspective `D`
   et une transformation `U` fixées (`operatorNormProjectorCommutatorL2 D U`
   ne dépend pas de `x`) ;
-- **uniformité sur les perspectives** : non établie — la quantité ED3B dépend
-  toujours de `D` ;
-- **indépendance du nombre de cellules** : non établie pour l'agrégat
-  d'opérateurs ED3B, contrairement à la borne état-vers-record ED2B qui est
-  dimension-free au sens du nombre de cellules ;
-- **stabilité temporelle** : non établie — aucune dynamique n'est formalisée.
+- **uniformité sur les perspectives** : non établie — les quantités ED3B–ED4B
+  dépendent toujours de `D` ;
+- **indépendance du nombre de cellules** : non établie pour les agrégats
+  d'opérateurs ED3B–ED4B, contrairement à la borne état-vers-record ED2B qui
+  est dimension-free au sens du nombre de cellules ;
+- **stabilité temporelle** : non établie — ED4A et ED4B décrivent des
+  compositions algébriques finies, pas une dynamique temporelle.
+
+Toute quantité passant par `bornRecord`, notamment les transferts vers
+`recordProfileL1`, reste explicitement **BORN-SENSITIVE**. Les défauts de
+commutateur et leurs bornes de composition/itération sont algébriques et ne
+constituent ni une décohérence physique ni une émergence de perspective.
 
 ## English
 
@@ -55,15 +68,21 @@ Aucun de ces résultats n'est promis par les étapes formalisées.
 - bound without a cardinality factor (ED2B);
 - statewise projector-commutation defect (ED3A);
 - uniform operator-norm defect (ED3B);
-- transfer to `recordProfileL1` for both the statewise and uniform defects
-  (BORN-SENSITIVE);
+- finite composition of two transformations at a fixed perspective, with a
+  subadditive uniform-defect bound (ED4A);
+- composition of a finite list of transformations and additive accumulation
+  of uniform defects (ED4B);
+- transfer to `recordProfileL1` for statewise, uniform, composed, and iterated
+  defects (BORN-SENSITIVE);
 - exact limit: zero defect equivalent to `SameRecord` (ED3A, pointwise) or to
-  global commutation (ED3B, for every state).
+  global commutation (ED3B, for every state), with this property preserved by
+  ED4A and ED4B compositions when every elementary defect is zero.
+
+The ED4A and ED4B results are formalized and audited. No additional
+publication status is asserted here.
 
 ### Not established
 
-- composition of transformations;
-- finite iteration and error accumulation;
 - time dynamics;
 - Hamiltonian;
 - open systems;
@@ -85,9 +104,15 @@ None of these results is promised by the formalized stages.
 - **uniformity over states**: established by ED3B, for a fixed perspective
   `D` and transformation `U` (`operatorNormProjectorCommutatorL2 D U` does
   not depend on `x`);
-- **uniformity over perspectives**: not established — the ED3B quantity
-  always depends on `D`;
-- **cell-count independence**: not established for the ED3B operator
-  aggregate, unlike the ED2B state-to-record bound, which is dimension-free
+- **uniformity over perspectives**: not established — the ED3B–ED4B
+  quantities still depend on `D`;
+- **cell-count independence**: not established for the ED3B–ED4B operator
+  aggregates, unlike the ED2B state-to-record bound, which is dimension-free
   in the sense of cell count;
-- **temporal stability**: not established — no dynamics is formalized.
+- **temporal stability**: not established — ED4A and ED4B describe finite
+  algebraic compositions, not time dynamics.
+
+Every quantity passing through `bornRecord`, including transfers to
+`recordProfileL1`, remains explicitly **BORN-SENSITIVE**. The commutator
+defects and their composition/iteration bounds are algebraic and constitute
+neither physical decoherence nor perspective emergence.
