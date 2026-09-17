@@ -35,14 +35,22 @@ BORN-SENSITIVE. Les audits ED4A et ED4B sont intégrés à `Audit/MainResults.le
 Ces jalons sont donc formalisés et audités ; aucun statut de publication
 supplémentaire n'est affirmé ici.
 
+Le contrôle T1 `ProjectorStructureStability` est **FORMALIZED / AUDITED** et
+explicitement **NON BORN-SENSITIVE**. Pour chaque cellule `c`, il compare
+`U P_c U⁻¹` à `P_c` en norme d'opérateur et montre que cet écart est majoré
+par la norme du commutateur correspondant ; l'agrégat L2 des écarts est donc
+majoré par `operatorNormProjectorCommutatorL2`. Ce résultat ne définit ni une
+décohérence ni une perspective émergente. Aucun statut **PUBLISHED** n'est
+revendiqué.
+
 ED5–ED12 sont **NOT OPENED** dans cette feuille de route. Aucun de ces statuts
 ne promet de résultat.
 
 ED1 utilise `bornRecord` et n'est donc pas un critère indépendant de
 décohérence ; il en va de même pour tout transfert ED2A–ED4B utilisant
-`recordProfileL1` ou `SameRecord`. Les défauts de commutateur ED3A–ED4B qui
-n'utilisent pas `bornRecord` restent des quantités algébriques distinctes des
-transferts BORN-SENSITIVE.
+`recordProfileL1` ou `SameRecord`. Les défauts de commutateur ED3A–ED4B et le
+contrôle T1, qui n'utilisent pas `bornRecord`, restent des quantités
+algébriques distinctes des transferts BORN-SENSITIVE.
 
 ### Chaîne conditionnelle visée
 
@@ -61,18 +69,20 @@ transferts BORN-SENSITIVE.
     minorés ;
 12. contre-modèles, agrégation, audit d'API et release éventuelle.
 
-Les étapes au-delà d'ED4B restent **NOT OPENED** dans cette feuille de route et
-ne sont pas numérotées de façon définitive tant qu'un incrément d'architecture
-séparé ne les ouvre pas.
+T1 est un résultat de contrôle algébrique transversal ajouté sans ouvrir une
+nouvelle étape physique de cette chaîne. Les étapes au-delà d'ED4B restent
+**NOT OPENED** dans cette feuille de route et ne sont pas numérotées de façon
+définitive tant qu'un incrément d'architecture séparé ne les ouvre pas.
 
 ### Pare-feu logique
 
-Mathématiques génériques → approximation algébrique (ED3A–ED4B) → dynamiques
-explicites futures → décohérence algébrique future → émergence ou stabilité
-future des records → transfert sensible à Born → conséquences décisionnelles
-conditionnelles. Les futures couches physiques n'utilisent pas de crédence,
-vraisemblance ou axiome de rationalité. Toute quantité utilisant `bornRecord`
-est **BORN-SENSITIVE** ; une faible distance de profils ou une commutation
+Mathématiques génériques → approximation algébrique (ED3A–ED4B et T1) →
+dynamiques explicites futures → décohérence algébrique future → émergence ou
+stabilité future des records → transfert sensible à Born → conséquences
+décisionnelles conditionnelles. Les futures couches physiques n'utilisent pas
+de crédence, vraisemblance ou axiome de rationalité. Toute quantité utilisant
+`bornRecord` est **BORN-SENSITIVE** ; T1 est **NON BORN-SENSITIVE**. Une faible
+distance de profils, une faible variation de projecteurs ou une commutation
 globale de projecteurs n'est pas une décohérence physique. Trace partielle,
 canal ou matrice densité devront distinguer identité mathématique, hypothèse
 dynamique, interprétation physique et transfert bornien.
@@ -111,14 +121,22 @@ is BORN-SENSITIVE. The ED4A and ED4B audits are integrated into
 `Audit/MainResults.lean`. These milestones are therefore formalized and
 audited; no additional publication status is asserted here.
 
+The T1 `ProjectorStructureStability` control is **FORMALIZED / AUDITED** and
+explicitly **NON BORN-SENSITIVE**. For each cell `c`, it compares `U P_c U⁻¹`
+with `P_c` in operator norm and proves that this displacement is bounded by
+the corresponding commutator norm; the L2 aggregate of displacements is
+therefore bounded by `operatorNormProjectorCommutatorL2`. This result defines
+neither decoherence nor an emergent perspective. No **PUBLISHED** status is
+claimed.
+
 ED5–ED12 are **NOT OPENED** in this roadmap. None of these statuses promises a
 result.
 
 ED1 uses `bornRecord` and is therefore not an independent decoherence
 criterion; the same holds for every ED2A–ED4B transfer using
-`recordProfileL1` or `SameRecord`. The ED3A–ED4B commutator defects that do not
-use `bornRecord` remain algebraic quantities distinct from BORN-SENSITIVE
-transfers.
+`recordProfileL1` or `SameRecord`. The ED3A–ED4B commutator defects and T1
+control, which do not use `bornRecord`, remain algebraic quantities distinct
+from BORN-SENSITIVE transfers.
 
 ### Conditional target chain
 
@@ -137,17 +155,19 @@ transfers.
     lower-bounded denominators;
 12. countermodels, aggregation, API audit, and possible release.
 
-Stages beyond ED4B remain **NOT OPENED** in this roadmap and are not
-definitively numbered until a separate architecture increment opens them.
+T1 is a transversal algebraic control result added without opening a new
+physical stage of this chain. Stages beyond ED4B remain **NOT OPENED** in this
+roadmap and are not definitively numbered until a separate architecture
+increment opens them.
 
 ### Logical firewall
 
-Generic mathematics → algebraic approximation (ED3A–ED4B) → future explicit
-dynamics → future algebraic decoherence → future record emergence or
+Generic mathematics → algebraic approximation (ED3A–ED4B and T1) → future
+explicit dynamics → future algebraic decoherence → future record emergence or
 stability → Born-sensitive transfer → conditional decision-theoretic
 consequences. Future physical layers use no credence, likelihood, or
-rationality axiom. Every `bornRecord` quantity is **BORN-SENSITIVE**; a small
-profile distance or a global projector commutation is not physical
-decoherence. Partial traces, channels, and density matrices must distinguish
-mathematical identity, dynamical assumption, physical interpretation, and
-Born transfer.
+rationality axiom. Every `bornRecord` quantity is **BORN-SENSITIVE**; T1 is
+**NON BORN-SENSITIVE**. A small profile distance, small projector displacement,
+or global projector commutation is not physical decoherence. Partial traces,
+channels, and density matrices must distinguish mathematical identity,
+dynamical assumption, physical interpretation, and Born transfer.

@@ -1,0 +1,22 @@
+import EverettianDecoherence.Approximation.ProjectorStructureStability
+
+/-!
+**FR.** Audit T1 du contrôle NON BORN-SENSITIVE de structure projective.
+
+**EN.** T1 audit of NON BORN-SENSITIVE projector-structure control.
+-/
+
+open EverettianDecoherence.Approximation
+
+#check transportedCellProjector
+#check projectorStructureDifference
+#check projectorStructureDifferenceCLM
+#check projectorStructureDifference_apply_transformed
+#check projectorStructureOpNormProfile
+#check projectorStructureOpNormProfile_le_commutator
+#check projectorStructureDisplacementL2
+#check projectorStructureDisplacementL2_le_operatorNormProjectorCommutatorL2
+
+#print axioms EverettianDecoherence.Approximation.projectorStructureDifference_apply_transformed
+#print axioms EverettianDecoherence.Approximation.projectorStructureOpNormProfile_le_commutator
+#print axioms EverettianDecoherence.Approximation.projectorStructureDisplacementL2_le_operatorNormProjectorCommutatorL2

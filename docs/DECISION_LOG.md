@@ -83,6 +83,13 @@
   Motif : distinguer fidèlement prévu, formalisé, audité et publié. Portée :
   correction documentaire T0 uniquement ; aucune nouvelle preuve et aucune
   revendication de publication.
+- **D0020 — Projector-structure control remains non-Born-sensitive** : T1
+  encode le projecteur transporté d'une cellule par conjugaison `U P_c U⁻¹`
+  et compare directement ce projecteur à `P_c`; l'écart en norme d'opérateur,
+  puis son agrégat L2, sont contrôlés par le défaut de commutation ED3B. Motif :
+  obtenir un résultat de stabilité structurelle indépendant de `bornRecord`.
+  Portée : résultat algébrique uniquement, sans dynamique, décohérence,
+  émergence de perspective ni nouvelle prémisse.
 
 ## English
 
@@ -166,3 +173,10 @@
   exist. Reason: faithfully distinguish planned, formalized, audited, and
   published material. Scope: T0 documentation correction only; no new proof
   and no publication claim.
+- **D0020 — Projector-structure control remains non-Born-sensitive**: T1
+  encodes a cell's transported projector by conjugation `U P_c U⁻¹` and
+  compares it directly with `P_c`; the operator-norm displacement and then its
+  L2 aggregate are controlled by the ED3B commutator defect. Reason: obtain a
+  structural stability result independent of `bornRecord`. Scope: algebraic
+  result only, with no dynamics, decoherence, perspective emergence, or new
+  premise.
