@@ -5,11 +5,11 @@ cd "$(dirname "$0")/.."
 FRENCH_PATTERN='saint[[:space:]_-]*g''raal'
 ENGLISH_PATTERN='holy[[:space:]_-]*g''rail'
 
-if rg -n -i --hidden \
-  --glob '!/.git/**' \
-  --glob '!/.lake/**' \
-  --glob '!/build/**' \
-  --glob '!**/*.olean' \
+if grep -RniE \
+  --exclude-dir=.git \
+  --exclude-dir=.lake \
+  --exclude-dir=build \
+  --exclude='*.olean' \
   "${FRENCH_PATTERN}|${ENGLISH_PATTERN}" .; then
   echo 'REPOSITORY_TERMINOLOGY=FAIL'
   exit 1
