@@ -3,7 +3,7 @@
 ## Français
 
 Statut : **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE** ;
-**cycle transversal T0–T5 — CLOSED / FORMALIZED / AUDITED**. Ce dépôt
+**cycle transversal T0–T5 — CLOSED ; T1–T5 FORMALIZED / AUDITED**. Ce dépôt
 formalise en Lean 4 une chaîne quantitative finie reliant la structure exacte
 finie exposée par `everettian-probability-lean`, une géométrie de profils de
 records, une perturbation état-vers-record, des défauts de commutation de
@@ -73,7 +73,7 @@ formalisée. Licence : Apache-2.0.
 ## English
 
 Status: **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE**;
-**transversal T0–T5 cycle — CLOSED / FORMALIZED / AUDITED**. This
+**transversal T0–T5 cycle — CLOSED; T1–T5 FORMALIZED / AUDITED**. This
 repository formalizes in Lean 4 a finite quantitative chain connecting the
 exact finite structure exposed by `everettian-probability-lean`, a
 record-profile geometry, a state-to-record perturbation bound, projector-

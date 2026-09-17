@@ -4,7 +4,7 @@
 
 Date : **2026-09-18**. Version : **0.1.0-dev**. Statut :
 **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE** ;
-**cycle transversal T0–T5 — CLOSED / FORMALIZED / AUDITED**.
+**cycle transversal T0–T5 — CLOSED ; T1–T5 FORMALIZED / AUDITED**.
 
 Aucun statut **PUBLISHED** n'est revendiqué pour T0–T5.
 
@@ -95,7 +95,7 @@ Aucun T6 et aucun nouveau jalon physique ne sont ouverts par Tx.
 
 Date: **2026-09-18**. Version: **0.1.0-dev**. Status:
 **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE**;
-**transversal T0–T5 cycle — CLOSED / FORMALIZED / AUDITED**.
+**transversal T0–T5 cycle — CLOSED; T1–T5 FORMALIZED / AUDITED**.
 
 No **PUBLISHED** status is claimed for T0–T5.
 
