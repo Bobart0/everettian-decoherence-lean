@@ -81,32 +81,17 @@ noncomputable def iterationSharpnessTwoStep (n : ℕ) : H 2 ≃ₗᵢ[ℂ] H 2 :
     iterationSharpnessRotation_one]
   ring
 
-/-- Off-diagonal parameter of the two-step rotation. -/
+/-- Off-diagonal parameter of the two-step rotation. It may vanish at the
+first family member and is nonnegative for every `n`. -/
 def iterationSharpnessTwoStepS (n : ℕ) : ℝ :=
   2 * iterationSharpnessC n * iterationSharpnessS n
 
-theorem iterationSharpnessTwoStepS_pos (n : ℕ) :
-    0 < iterationSharpnessTwoStepS n := by
+theorem iterationSharpnessTwoStepS_nonneg (n : ℕ) :
+    0 ≤ iterationSharpnessTwoStepS n := by
   unfold iterationSharpnessTwoStepS
-  have hcpos : 0 < iterationSharpnessC n := by
-    unfold iterationSharpnessC
-    have ha : 0 < sharpnessA n := by
-      unfold sharpnessA
-      positivity
-    have hb : 0 < sharpnessB n ∨ sharpnessB n = 0 :=
-      lt_or_eq_of_le (sharpnessB_nonneg n)
-    rcases hb with hb | hb
-    · positivity
-    · have hp : sharpnessP n = 1 := by
-        unfold sharpnessB at hb
-        have hq : (2 * (sharpnessQ n : ℝ)) ≠ 0 := by positivity
-        have : (sharpnessP n : ℝ) - 1 = 0 := by
-          apply (div_eq_zero_iff).mp hb |>.resolve_right hq
-        exact_mod_cast (sub_eq_zero.mp this)
-      have hpell := sharpnessP_sq_add_one_eq_two_mul_Q_sq n
-      have hqnat : sharpnessQ n = 1 := by omega
-      simp [iterationSharpnessC, sharpnessA, sharpnessB, hp, hqnat] at *
-  positivity
+  exact mul_nonneg
+    (mul_nonneg (by norm_num) (iterationSharpnessC_nonneg n))
+    (le_of_lt (iterationSharpnessS_pos n))
 
 private theorem iterationSharpnessTwoStepLineCommutator_zero (n : ℕ) (x : H 2) :
     (perspectiveProjectorCommutatorCLM sharpnessPerspective
@@ -137,7 +122,7 @@ private theorem iterationSharpnessTwoStepLineCommutator_norm (n : ℕ) (x : H 2)
       (iterationSharpnessTwoStep n) iterationSharpnessLineCell x‖ =
       iterationSharpnessTwoStepS n * ‖x‖ := by
   have hs : 0 ≤ iterationSharpnessTwoStepS n :=
-    le_of_lt (iterationSharpnessTwoStepS_pos n)
+    iterationSharpnessTwoStepS_nonneg n
   have hsq :
       ‖perspectiveProjectorCommutatorCLM sharpnessPerspective
         (iterationSharpnessTwoStep n) iterationSharpnessLineCell x‖ ^ 2 =
@@ -169,7 +154,7 @@ private theorem iterationSharpnessTwoStepLineCommutator_opNorm (n : ℕ) :
       (iterationSharpnessTwoStep n) iterationSharpnessLineCell‖ =
       iterationSharpnessTwoStepS n := by
   have hs : 0 ≤ iterationSharpnessTwoStepS n :=
-    le_of_lt (iterationSharpnessTwoStepS_pos n)
+    iterationSharpnessTwoStepS_nonneg n
   apply le_antisymm
   · exact ContinuousLinearMap.opNorm_le_bound _ hs
       (fun x => by rw [iterationSharpnessTwoStepLineCommutator_norm])
@@ -265,7 +250,7 @@ theorem operatorNormProjectorCommutatorL2_iterationSharpnessTwoStep (n : ℕ) :
   rw [Finset.sum_const, Finset.card_univ,
     iterationSharpnessPerspective_cell_card_twoStep]
   norm_num
-  rw [Real.sqrt_sq (le_of_lt (iterationSharpnessTwoStepS_pos n))]
+  rw [Real.sqrt_sq (iterationSharpnessTwoStepS_nonneg n)]
 
 /-- Exact sum of the two elementary ED4B defects. -/
 theorem operatorNormProjectorCommutatorSum_iterationSharpnessTwoStep (n : ℕ) :
@@ -305,7 +290,6 @@ theorem iterationSharpnessAdditiveRatio_eq_C (n : ℕ) :
   have hsqrt : Real.sqrt (2 : ℝ) ≠ 0 := ne_of_gt (Real.sqrt_pos.2 (by norm_num))
   have hs : iterationSharpnessS n ≠ 0 := ne_of_gt (iterationSharpnessS_pos n)
   field_simp [hsqrt, hs]
-  ring
 
 /-- Rational form of the cosine-like parameter. -/
 theorem iterationSharpnessC_eq_one_sub_two_div (n : ℕ) :
@@ -343,12 +327,21 @@ theorem iterationSharpnessC_tendsto_one :
       Filter.Tendsto (fun _ : ℕ => (1 : ℝ)) Filter.atTop (𝓝 1) :=
     tendsto_const_nhds
   have h := hconst.sub iterationSharpnessCDefect_tendsto_zero
-  simpa [iterationSharpnessC_eq_one_sub_two_div] using h
+  have hfun : iterationSharpnessC =
+      fun n : ℕ => 1 - 2 / ((sharpnessP n : ℝ) ^ 2 + 1) := by
+    funext n
+    exact iterationSharpnessC_eq_one_sub_two_div n
+  rw [hfun]
+  exact h
 
 /-- Main T3 sharpness theorem: the exact composite-to-sum ratio tends to `1`. -/
 theorem iterationSharpnessAdditiveRatio_tendsto_one :
     Filter.Tendsto iterationSharpnessAdditiveRatio Filter.atTop (𝓝 1) := by
-  simpa [iterationSharpnessAdditiveRatio_eq_C] using iterationSharpnessC_tendsto_one
+  have hfun : iterationSharpnessAdditiveRatio = iterationSharpnessC := by
+    funext n
+    exact iterationSharpnessAdditiveRatio_eq_C n
+  rw [hfun]
+  exact iterationSharpnessC_tendsto_one
 
 /-- Operational sharpness statement: every proposed uniform coefficient below
 `1` is violated by some explicit two-step rational rotation. -/
