@@ -65,8 +65,12 @@ theorem iterationSharpnessOrthogonal_proj (x : H 2) :
     projL sharpnessLineᗮ x = x (1 : Fin 2) • sharpnessE1 := by
   change sharpnessLineᗮ.starProjection x = _
   rw [Submodule.starProjection_orthogonal_val]
-  change x - projL sharpnessLine x = _
-  rw [iterationSharpnessLine_proj]
+  have hproj : sharpnessLine.starProjection x =
+      x (0 : Fin 2) • sharpnessE0 := by
+    unfold sharpnessLine
+    rw [Submodule.starProjection_unit_singleton ℂ sharpnessE0_norm]
+    simp [sharpnessE0, EuclideanSpace.inner_single_left]
+  rw [hproj]
   ext i
   fin_cases i <;> simp [sharpnessE0, sharpnessE1]
 
