@@ -97,8 +97,11 @@ n'est revendiqué.
 Tx clôt le cycle transversal T0–T5 sur le plan documentaire. Il n'ouvre aucun
 T6 et n'ajoute aucun résultat scientifique.
 
-ED5–ED12 sont **NOT OPENED** dans cette feuille de route. Aucun de ces statuts
-ne promet de résultat.
+Les jalons **physiques** ED5–ED12 sont **NOT OPENED** dans cette feuille de
+route. Les modules de factorisation coordonnée déjà nommés ED5A/ED5B/ED5C
+restent des briques typées préparatoires ; leur existence ne constitue pas à
+elle seule l'ouverture d'un jalon physique ED5. Aucun de ces statuts ne promet
+de résultat physique.
 
 ED1 utilise `bornRecord` et n'est donc pas un critère indépendant de
 décohérence ; il en va de même pour tout transfert ED2A–ED4B utilisant
@@ -245,8 +248,10 @@ claimed.
 Tx closes the transversal T0–T5 cycle at the documentation level. It opens no
 T6 and adds no scientific result.
 
-ED5–ED12 are **NOT OPENED** in this roadmap. None of these statuses promises a
-result.
+The **physical** ED5–ED12 milestones are **NOT OPENED** in this roadmap.
+Coordinate-factorization modules already named ED5A/ED5B/ED5C remain typed
+preparatory building blocks; their existence alone does not open an ED5
+physical milestone. None of these statuses promises a physical result.
 
 ED1 uses `bornRecord` and is therefore not an independent decoherence
 criterion; the same holds for every ED2A–ED4B transfer using
