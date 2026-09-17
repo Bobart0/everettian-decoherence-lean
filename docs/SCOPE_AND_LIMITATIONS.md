@@ -28,6 +28,16 @@
 Les résultats ED4A, ED4B et le contrôle T1 sont formalisés et audités. Aucun
 statut de publication supplémentaire n'est affirmé ici.
 
+### Formalisé mais validation de compilation en attente
+
+- **T2 — `DimensionFreeSharpness` (BORN-SENSITIVE)** : le code présent sur
+  `main` construit une famille rationnelle explicite d'états normalisés en
+  dimension `2`, calcule le rapport `recordProfileL1 / ‖x-y‖`, énonce sa
+  convergence vers `2` et le corollaire d'optimalité excluant toute constante
+  universelle `K < 2`. Le module et son fichier d'audit ont été intégrés à la
+  demande explicite de l'auteur avant vérification locale de compilation.
+  Jusqu'à cette vérification, T2 n'est pas classé **AUDITED** ni **PUBLISHED**.
+
 ### Non établis
 
 - dynamique temporelle ;
@@ -55,17 +65,21 @@ Aucun de ces résultats n'est promis par les étapes formalisées.
   et T1 dépendent toujours de `D` ;
 - **indépendance du nombre de cellules** : non établie pour les agrégats
   d'opérateurs ED3B–ED4B et T1, contrairement à la borne état-vers-record ED2B
-  qui est dimension-free au sens du nombre de cellules ;
+  qui est dimension-free au sens du nombre de cellules ; T2 étudie la
+  sharpness de la constante ED2B sur une perspective binaire fixe et ne change
+  pas cette distinction ;
 - **stabilité temporelle** : non établie — ED4A et ED4B décrivent des
   compositions algébriques finies, et T1 une comparaison de projecteurs, pas
   une dynamique temporelle.
 
 Toute quantité passant par `bornRecord`, notamment les transferts vers
-`recordProfileL1`, reste explicitement **BORN-SENSITIVE**. Le contrôle T1 est
-explicitement **NON BORN-SENSITIVE** : il porte uniquement sur des projecteurs,
-leur conjugaison par `U` et des normes d'opérateur. Les défauts de commutateur,
-leurs bornes de composition/itération et T1 sont algébriques et ne constituent
-ni une décohérence physique ni une émergence de perspective.
+`recordProfileL1` et T2, reste explicitement **BORN-SENSITIVE**. Le contrôle T1
+est explicitement **NON BORN-SENSITIVE** : il porte uniquement sur des
+projecteurs, leur conjugaison par `U` et des normes d'opérateur. Les défauts de
+commutateur, leurs bornes de composition/itération et T1 sont algébriques et ne
+constituent ni une décohérence physique ni une émergence de perspective. T2 ne
+constitue pas davantage une définition ou une dérivation de décohérence ; il
+porte uniquement sur l'optimalité métrique d'une borne BORN-SENSITIVE.
 
 ## English
 
@@ -94,6 +108,16 @@ ni une décohérence physique ni une émergence de perspective.
 The ED4A, ED4B, and T1 results are formalized and audited. No additional
 publication status is asserted here.
 
+### Formalized but awaiting compile verification
+
+- **T2 — `DimensionFreeSharpness` (BORN-SENSITIVE)**: the code present on
+  `main` builds an explicit rational family of normalized states in dimension
+  `2`, computes the `recordProfileL1 / ‖x-y‖` ratio, states convergence to `2`,
+  and the sharpness corollary excluding every universal constant `K < 2`. The
+  module and its audit file were integrated at the author's explicit request
+  before local compilation verification. Until that check, T2 is classified
+  as neither **AUDITED** nor **PUBLISHED**.
+
 ### Not established
 
 - time dynamics;
@@ -121,13 +145,15 @@ None of these results is promised by the formalized stages.
   quantities still depend on `D`;
 - **cell-count independence**: not established for the ED3B–ED4B and T1
   operator aggregates, unlike the ED2B state-to-record bound, which is
-  dimension-free in the sense of cell count;
+  dimension-free in the sense of cell count; T2 studies sharpness of the ED2B
+  constant on one fixed binary perspective and does not alter that distinction;
 - **temporal stability**: not established — ED4A and ED4B describe finite
   algebraic compositions, and T1 compares projectors; none is time dynamics.
 
 Every quantity passing through `bornRecord`, including transfers to
-`recordProfileL1`, remains explicitly **BORN-SENSITIVE**. T1 is explicitly
-**NON BORN-SENSITIVE**: it uses only projectors, conjugation by `U`, and
-operator norms. The commutator defects, their composition/iteration bounds,
-and T1 are algebraic and constitute neither physical decoherence nor
-perspective emergence.
+`recordProfileL1` and T2, remains explicitly **BORN-SENSITIVE**. T1 is
+explicitly **NON BORN-SENSITIVE**: it uses only projectors, conjugation by `U`,
+and operator norms. The commutator defects, their composition/iteration
+bounds, and T1 are algebraic and constitute neither physical decoherence nor
+perspective emergence. T2 likewise defines or derives no decoherence notion;
+it concerns only metric sharpness of a BORN-SENSITIVE bound.

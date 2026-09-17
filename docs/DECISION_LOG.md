@@ -90,6 +90,16 @@
   obtenir un résultat de stabilité structurelle indépendant de `bornRecord`.
   Portée : résultat algébrique uniquement, sans dynamique, décohérence,
   émergence de perspective ni nouvelle prémisse.
+- **D0021 — T2 sharpness code may be integrated before local compile verification only by explicit author request** :
+  T2 utilise une famille rationnelle de type Pell en dimension `2` pour viser
+  l'optimalité de la constante `2` de la borne ED2B. Le module reste
+  BORN-SENSITIVE. À la demande explicite de l'auteur, le code et son audit sont
+  poussés sur `main` avant la vérification locale de compilation afin qu'ils
+  puissent être récupérés et testés sur son poste. Motif : permettre cette
+  vérification sans présenter le résultat comme déjà audité. Portée : T2
+  seulement ; tant que `lake build`, `guard.sh` et `validate.sh` n'ont pas
+  réussi sur ce commit, le statut est FORMALIZED / NOT YET COMPILE-VERIFIED,
+  et aucune revendication AUDITED ou PUBLISHED n'est autorisée.
 
 ## English
 
@@ -180,3 +190,12 @@
   structural stability result independent of `bornRecord`. Scope: algebraic
   result only, with no dynamics, decoherence, perspective emergence, or new
   premise.
+- **D0021 — T2 sharpness code may be integrated before local compile verification only by explicit author request**:
+  T2 uses a Pell-type rational family in dimension `2` to target sharpness of
+  the ED2B constant `2`. The module remains BORN-SENSITIVE. At the author's
+  explicit request, the code and its audit are pushed to `main` before local
+  compilation verification so they can be retrieved and tested on the
+  author's workstation. Reason: enable that check without representing the
+  result as already audited. Scope: T2 only; until `lake build`, `guard.sh`,
+  and `validate.sh` succeed on this commit, the status is FORMALIZED / NOT YET
+  COMPILE-VERIFIED, and no AUDITED or PUBLISHED claim is permitted.
