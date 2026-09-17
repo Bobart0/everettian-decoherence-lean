@@ -24,7 +24,7 @@ open EverettianDecoherence.Approximation
 #check iterationSharpnessTwoStepList
 #check iterationSharpnessTwoStep
 #check iterationSharpnessTwoStepS
-#check iterationSharpnessTwoStepS_pos
+#check iterationSharpnessTwoStepS_nonneg
 #check operatorNormProjectorCommutatorL2_iterationSharpnessTwoStep
 #check operatorNormProjectorCommutatorSum_iterationSharpnessTwoStep
 #check operatorNormProjectorCommutatorSum_iterationSharpnessTwoStep_pos
