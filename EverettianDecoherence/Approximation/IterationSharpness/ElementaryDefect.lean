@@ -77,8 +77,9 @@ theorem iterationSharpnessOrthogonal_proj (x : H 2) :
 /-- Orthogonal projection as the complementary projector. -/
 theorem iterationSharpnessOrthogonal_proj_sub (x : H 2) :
     projL sharpnessLineᗮ x = x - projL sharpnessLine x := by
-  change sharpnessLineᗮ.starProjection x = _
-  rw [Submodule.starProjection_orthogonal_val]
+  rw [iterationSharpnessOrthogonal_proj, iterationSharpnessLine_proj]
+  ext i
+  fin_cases i <;> simp [sharpnessE0, sharpnessE1]
 
 private theorem iterationSharpnessLineCommutator_zero (n : ℕ) (x : H 2) :
     (perspectiveProjectorCommutatorCLM sharpnessPerspective
