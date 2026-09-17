@@ -48,12 +48,12 @@ private theorem re_inner_recordSubsetProjector_eq_norm_sq
     Complex.re
         ⟪Gleason.projL (recordSubsetSubspace D S) x, x⟫_ℂ =
       ‖Gleason.projL (recordSubsetSubspace D S) x‖ ^ 2 := by
-  change Complex.re
+  change RCLike.re
       ⟪(recordSubsetSubspace D S).starProjection x, x⟫_ℂ =
     ‖(recordSubsetSubspace D S).starProjection x‖ ^ 2
   have h := Submodule.re_inner_starProjection_eq_normSq
     (𝕜 := ℂ) (recordSubsetSubspace D S) x
-  simpa only [Submodule.starProjection_apply] using h
+  simpa only [Submodule.starProjection_apply, Submodule.norm_coe] using h
 
 /-- Difference of the squared projection norms is the real part of the
 aggregate commutator expectation. -/
