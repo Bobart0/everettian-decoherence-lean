@@ -87,6 +87,7 @@ theorem workedUnitary_zero (x : H 2) :
         ((7 : ℝ) / 25 : ℂ) * x (1 : Fin 2) := by
   unfold workedUnitary
   rw [iterationSharpnessRotation_zero, workedC_exact, workedS_exact]
+  norm_num
 
 /-- Second row of the explicit unitary matrix. -/
 theorem workedUnitary_one (x : H 2) :
@@ -95,6 +96,7 @@ theorem workedUnitary_one (x : H 2) :
         ((24 : ℝ) / 25 : ℂ) * x (1 : Fin 2) := by
   unfold workedUnitary
   rw [iterationSharpnessRotation_one, workedC_exact, workedS_exact]
+  norm_num
 
 /-- The selected input state is normalized. -/
 theorem workedState_norm : ‖workedState‖ = 1 := by
