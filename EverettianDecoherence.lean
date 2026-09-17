@@ -13,6 +13,7 @@ import EverettianDecoherence.Approximation.IterationSharpness.RotationParameters
 import EverettianDecoherence.Approximation.IterationSharpness.RationalRotation
 import EverettianDecoherence.Approximation.IterationSharpness.ElementaryDefect
 import EverettianDecoherence.Approximation.IterationSharpness
+import EverettianDecoherence.Approximation.UniformTransferSharpness
 import EverettianDecoherence.Factorization.FiniteBipartiteFactorization
 import EverettianDecoherence.Factorization.FiniteBipartiteSlices
 import EverettianDecoherence.Factorization.AmbientBipartiteCoordinateMasks
@@ -34,11 +35,17 @@ défaut exact du composé et la somme des défauts élémentaires tend vers `1`.
 T4 `WorkedInstance` fournit en dimension `2` une instance entièrement calculée
 avec unitaire rationnel, défaut de commutateur exact, borne ED3B rationnelle,
 poids borniens, profil L1 réel et gap explicite ; le défaut est NON
-BORN-SENSITIVE tandis que le profil et le gap sont BORN-SENSITIVE. ED5A fournit
-une factorisation bipartite finie typée en coordonnées, ED5B des tranches
-bipartites et profils de normes purement coordonnés, et ED5C des masques finis
-de coordonnées bipartites transportés dans l'espace ambiant. Aucune API locale
-stable ni théorème de décohérence n'est annoncé.
+BORN-SENSITIVE tandis que le profil et le gap sont BORN-SENSITIVE. T5A
+`UniformTransferSharpness` ouvre un front transversal : sur la même famille
+rationnelle, la rotation T3 envoie exactement `sharpnessX` sur `sharpnessY`, et
+le rapport entre variation réelle du profil et défaut uniforme vaut exactement
+`sqrt 2`. Il en résulte seulement qu'aucune constante ED3B universelle
+strictement inférieure à `sqrt 2` n'est possible ; l'optimalité universelle de
+`sqrt 2` n'est pas revendiquée. ED5A fournit une factorisation bipartite finie
+typée en coordonnées, ED5B des tranches bipartites et profils de normes
+purement coordonnés, et ED5C des masques finis de coordonnées bipartites
+transportés dans l'espace ambiant. Aucune API locale stable ni théorème de
+décohérence n'est annoncé.
 
 **EN.** ED1 provides L1 geometry, ED2A an explicit cell-count-dependent bound,
 ED2B a global bound independent of that count, ED3A a statewise defect, ED3B
@@ -56,8 +63,13 @@ exact composite defect and the sum of elementary defects tends to `1`. T4
 `WorkedInstance` gives a fully calculated dimension-`2` example with a
 rational unitary, exact commutator defect, rational ED3B bound, Born weights,
 actual L1 profile, and explicit gap; the defect is NON BORN-SENSITIVE while the
-profile and gap are BORN-SENSITIVE. ED5A provides a typed finite bipartite
-coordinate factorization, ED5B purely coordinate bipartite slices and norm
-profiles, and ED5C finite bipartite coordinate masks transported into the
-ambient space. No stable local API or decoherence theorem is announced.
+profile and gap are BORN-SENSITIVE. T5A `UniformTransferSharpness` opens a
+transversal front: on the same rational family, the T3 rotation maps
+`sharpnessX` exactly to `sharpnessY`, and the ratio between actual profile
+variation and uniform defect is exactly `sqrt 2`. This proves only that no
+universal ED3B constant strictly below `sqrt 2` can hold; universal optimality
+of `sqrt 2` is not claimed. ED5A provides a typed finite bipartite coordinate
+factorization, ED5B purely coordinate bipartite slices and norm profiles, and
+ED5C finite bipartite coordinate masks transported into the ambient space. No
+stable local API or decoherence theorem is announced.
 -/
