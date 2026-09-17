@@ -100,6 +100,19 @@
   seulement ; tant que `lake build`, `guard.sh` et `validate.sh` n'ont pas
   réussi sur ce commit, le statut est FORMALIZED / NOT YET COMPILE-VERIFIED,
   et aucune revendication AUDITED ou PUBLISHED n'est autorisée.
+- **D0022 — Two steps suffice to prove sharpness of the ED4B additive coefficient** :
+  T3 utilise deux copies identiques de la rotation rationnelle `Uₙ` sur la
+  perspective binaire fixe. Le défaut élémentaire L2 vaut `sqrt 2 * sₙ`, le
+  défaut exact du composé vaut `sqrt 2 * (2 cₙ sₙ)`, et la somme additive ED4B
+  vaut `2 * sqrt 2 * sₙ`; le ratio est donc exactement `cₙ`. La forme
+  rationnelle `cₙ = 1 - 2/(pₙ^2+1)` et `pₙ → +∞` donnent un ratio tendant vers
+  `1`, puis un contre-exemple explicite à tout coefficient uniforme `K < 1`.
+  Motif : établir l'optimalité asymptotique de la constante additive sans
+  ouvrir un formalisme général de puissances ni renforcer les hypothèses ED4B.
+  Portée : résultat algébrique fini, dimension `2`, perspective fournie,
+  listes de longueur deux ; **NON BORN-SENSITIVE**, sans temps, dynamique
+  physique, décohérence, émergence de perspective ni revendication de
+  publication.
 
 ## English
 
@@ -199,3 +212,15 @@
   result as already audited. Scope: T2 only; until `lake build`, `guard.sh`,
   and `validate.sh` succeed on this commit, the status is FORMALIZED / NOT YET
   COMPILE-VERIFIED, and no AUDITED or PUBLISHED claim is permitted.
+- **D0022 — Two steps suffice to prove sharpness of the ED4B additive coefficient**:
+  T3 uses two identical copies of the rational rotation `Uₙ` on the fixed
+  binary perspective. The elementary L2 defect is `sqrt 2 * sₙ`, the exact
+  composite defect is `sqrt 2 * (2 cₙ sₙ)`, and the ED4B additive sum is
+  `2 * sqrt 2 * sₙ`; hence the ratio is exactly `cₙ`. The rational form
+  `cₙ = 1 - 2/(pₙ^2+1)` together with `pₙ → +∞` makes this ratio tend to `1`,
+  yielding an explicit counterexample to every uniform coefficient `K < 1`.
+  Reason: establish asymptotic optimality of the additive constant without
+  opening a general power formalism or strengthening the ED4B assumptions.
+  Scope: finite algebraic result in dimension `2`, supplied perspective,
+  length-two lists; **NON BORN-SENSITIVE**, with no time, physical dynamics,
+  decoherence, perspective emergence, or publication claim.
