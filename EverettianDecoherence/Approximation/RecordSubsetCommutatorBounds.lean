@@ -257,5 +257,69 @@ theorem norm_sq_recordSubsetProjectorCommutator_le_subsetSq_mul_norm_sq
       rw [hpartition]
 
 
+
+/-- The commutator of the finite complement aggregate projector is the
+negative of the subset commutator. -/
+theorem recordSubsetProjectorCommutator_compl_apply
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
+    recordSubsetProjectorCommutator D U Sᶜ x =
+      - recordSubsetProjectorCommutator D U S x := by
+  rw [recordSubsetProjectorCommutator_apply,
+    recordSubsetProjectorCommutator_apply,
+    recordSubsetProjector_compl_apply_eq_sub D S (U x),
+    recordSubsetProjector_compl_apply_eq_sub D S x,
+    map_sub]
+  module
+
+/-- The same aggregate commutator is also controlled by the squared defect
+budget carried by the finite complement. -/
+theorem norm_sq_recordSubsetProjectorCommutator_le_complSq_mul_norm_sq
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
+    ‖recordSubsetProjectorCommutator D U S x‖ ^ 2 ≤
+      subsetProjectorCommutatorOpNormSq D U Sᶜ * ‖x‖ ^ 2 := by
+  have h :=
+    norm_sq_recordSubsetProjectorCommutator_le_subsetSq_mul_norm_sq
+      D U Sᶜ x
+  rw [recordSubsetProjectorCommutator_compl_apply D U S x,
+    norm_neg] at h
+  exact h
+
+/-- The aggregate commutator is controlled by the smaller of the subset and
+complement squared defect budgets. -/
+theorem norm_sq_recordSubsetProjectorCommutator_le_minSq_mul_norm_sq
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
+    ‖recordSubsetProjectorCommutator D U S x‖ ^ 2 ≤
+      min (subsetProjectorCommutatorOpNormSq D U S)
+          (subsetProjectorCommutatorOpNormSq D U Sᶜ) * ‖x‖ ^ 2 := by
+  rcases le_total
+      (subsetProjectorCommutatorOpNormSq D U S)
+      (subsetProjectorCommutatorOpNormSq D U Sᶜ) with hle | hle
+  · rw [min_eq_left hle]
+    exact norm_sq_recordSubsetProjectorCommutator_le_subsetSq_mul_norm_sq
+      D U S x
+  · rw [min_eq_right hle]
+    exact norm_sq_recordSubsetProjectorCommutator_le_complSq_mul_norm_sq
+      D U S x
+
+/-- Universal half-square estimate for every aggregated subset commutator. -/
+theorem norm_sq_recordSubsetProjectorCommutator_le_half_globalSq_mul_norm_sq
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
+    ‖recordSubsetProjectorCommutator D U S x‖ ^ 2 ≤
+      (operatorNormProjectorCommutatorL2 D U ^ 2 / 2) * ‖x‖ ^ 2 := by
+  exact
+    (norm_sq_recordSubsetProjectorCommutator_le_minSq_mul_norm_sq D U S x).trans
+      (mul_le_mul_of_nonneg_right
+        (min_subset_compl_commutatorSq_le_half D U S)
+        (sq_nonneg ‖x‖))
+
+
 end
 end EverettianDecoherence.Approximation
