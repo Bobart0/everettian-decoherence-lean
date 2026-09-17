@@ -48,9 +48,12 @@ private theorem re_inner_recordSubsetProjector_eq_norm_sq
     Complex.re
         ⟪Gleason.projL (recordSubsetSubspace D S) x, x⟫_ℂ =
       ‖Gleason.projL (recordSubsetSubspace D S) x‖ ^ 2 := by
-  simpa [Gleason.projL, Submodule.starProjection_apply] using
-    (Submodule.re_inner_starProjection_eq_normSq
-      (𝕜 := ℂ) (recordSubsetSubspace D S) x)
+  change Complex.re
+      ⟪(recordSubsetSubspace D S).starProjection x, x⟫_ℂ =
+    ‖(recordSubsetSubspace D S).starProjection x‖ ^ 2
+  have h := Submodule.re_inner_starProjection_eq_normSq
+    (𝕜 := ℂ) (recordSubsetSubspace D S) x
+  simpa only [Submodule.starProjection_apply] using h
 
 /-- Difference of the squared projection norms is the real part of the
 aggregate commutator expectation. -/
@@ -65,7 +68,7 @@ theorem recordSubsetProjector_norm_sq_sub_eq_re_inner_commutator
   rw [recordSubsetProjectorCommutator_apply]
   rw [inner_sub_left]
   rw [U.inner_map_map]
-  rw [map_sub]
+  rw [Complex.sub_re]
   rw [re_inner_recordSubsetProjector_eq_norm_sq D S (U x),
     re_inner_recordSubsetProjector_eq_norm_sq D S x]
 
@@ -83,7 +86,7 @@ theorem abs_recordSubsetProjector_norm_sq_sub_le_commutator
     |Complex.re
         ⟪recordSubsetProjectorCommutator D U S x, U x⟫_ℂ| ≤
       ‖⟪recordSubsetProjectorCommutator D U S x, U x⟫_ℂ‖ :=
-        RCLike.abs_re_le_norm _
+        Complex.abs_re_le_norm _
     _ ≤ ‖recordSubsetProjectorCommutator D U S x‖ * ‖U x‖ :=
       norm_inner_le_norm _ _
     _ = ‖recordSubsetProjectorCommutator D U S x‖ * ‖x‖ := by
@@ -151,9 +154,20 @@ theorem norm_sq_recordSubsetProjectorCommutator_eq_cross_sum
     ‖recordSubsetProjectorCommutator D U S x‖ ^ 2 =
       ‖recordSubsetIncoming D U S x‖ ^ 2 +
         ‖recordSubsetOutgoing D U S x‖ ^ 2 := by
-  rw [recordSubsetProjectorCommutator_eq_incoming_sub_outgoing D U S x,
-    norm_sub_sq, inner_recordSubsetIncoming_outgoing_eq_zero D U S x]
-  simp
+  rw [recordSubsetProjectorCommutator_eq_incoming_sub_outgoing D U S x]
+  calc
+    ‖recordSubsetIncoming D U S x - recordSubsetOutgoing D U S x‖ ^ 2 =
+        ‖recordSubsetIncoming D U S x‖ ^ 2 -
+          2 * Complex.re
+            ⟪recordSubsetIncoming D U S x,
+              recordSubsetOutgoing D U S x⟫_ℂ +
+          ‖recordSubsetOutgoing D U S x‖ ^ 2 :=
+      norm_sub_sq (𝕜 := ℂ)
+        (recordSubsetIncoming D U S x) (recordSubsetOutgoing D U S x)
+    _ = ‖recordSubsetIncoming D U S x‖ ^ 2 +
+        ‖recordSubsetOutgoing D U S x‖ ^ 2 := by
+      rw [inner_recordSubsetIncoming_outgoing_eq_zero D U S x]
+      norm_num
 
 
 end
