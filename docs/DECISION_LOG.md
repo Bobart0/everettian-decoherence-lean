@@ -127,6 +127,19 @@
   aucun temps, Hamiltonien, canal, décohérence, base émergente ou statut de
   publication.
 
+- **D0024 — T5A and T5B fix the optimal ED3B transfer coefficient at `sqrt 2`** :
+  T5A fournit une famille normalisée explicite dont le ratio
+  `recordProfileL1 / operatorNormProjectorCommutatorL2` vaut exactement
+  `sqrt 2`. T5B utilise l'identité de variation totale, un projecteur agrégé
+  sur les cellules de variation positive, la décomposition subset/complément
+  et le partage quadratique du défaut pour établir la borne universelle
+  correspondante. Leur combinaison prouve qu'un coefficient réel `K` est
+  universel sur les états normalisés si et seulement si `sqrt 2 ≤ K`.
+  Portée : perspectives finies fournies et unitaires fournis ; le défaut reste
+  **NON BORN-SENSITIVE** tandis que le transfert de profil est
+  **BORN-SENSITIVE**. Aucun temps, dynamique physique, décohérence, émergence
+  de perspective ou statut de publication n'est revendiqué.
+
 ## English
 
 - **D0001 — Separate downstream repository**: isolate the approximate and
@@ -249,3 +262,14 @@
   profile/gap transfer explicit, without changing any theorem or assumption.
   Scope: static dimension-`2` calculation, supplied perspective, no time,
   Hamiltonian, channel, decoherence, emergent basis, or publication claim.
+- **D0024 — T5A and T5B fix the optimal ED3B transfer coefficient at `sqrt 2`**:
+  T5A supplies an explicit normalized family whose
+  `recordProfileL1 / operatorNormProjectorCommutatorL2` ratio is exactly
+  `sqrt 2`. T5B uses the total-variation identity, an aggregate projector on
+  the positive-variation cells, the subset/complement decomposition, and the
+  quadratic split of the defect to prove the matching universal upper bound.
+  Together they show that a real coefficient `K` is universal on normalized
+  states if and only if `sqrt 2 ≤ K`. Scope: supplied finite perspectives
+  and supplied unitaries; the defect remains **NON BORN-SENSITIVE** while the
+  profile transfer is **BORN-SENSITIVE**. No time, physical dynamics,
+  decoherence, perspective emergence, or publication status is claimed.

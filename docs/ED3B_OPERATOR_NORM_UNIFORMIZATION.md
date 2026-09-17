@@ -77,6 +77,25 @@ recordProfileL1 D (U x) x
 ≤ 2 * operatorNormProjectorCommutatorL2 D U.
 ```
 
+La couche T5B affine ensuite cette borne à la constante optimale :
+
+```text
+recordProfileL1 D (U x) x
+≤ sqrt 2 * ‖x‖ ^ 2 * operatorNormProjectorCommutatorL2 D U.
+```
+
+Pour un état normalisé :
+
+```text
+recordProfileL1 D (U x) x
+≤ sqrt 2 * operatorNormProjectorCommutatorL2 D U.
+```
+
+Combinée au témoin T5A de ratio exactement `sqrt 2`, cette borne caractérise
+les coefficients universels normalisés : `K` convient si et seulement si
+`sqrt 2 ≤ K`. L'ancienne borne de constante `2` reste un théorème valide,
+mais n'est plus la meilleure constante connue.
+
 ### 7. Limite exacte
 
 ```text
@@ -229,6 +248,25 @@ For a normalized state:
 recordProfileL1 D (U x) x
 ≤ 2 * operatorNormProjectorCommutatorL2 D U.
 ```
+
+T5B then sharpens this to the optimal coefficient:
+
+```text
+recordProfileL1 D (U x) x
+≤ sqrt 2 * ‖x‖ ^ 2 * operatorNormProjectorCommutatorL2 D U.
+```
+
+For a normalized state:
+
+```text
+recordProfileL1 D (U x) x
+≤ sqrt 2 * operatorNormProjectorCommutatorL2 D U.
+```
+
+Combined with the T5A witness whose ratio is exactly `sqrt 2`, this
+characterizes normalized universal coefficients: `K` works if and only if
+`sqrt 2 ≤ K`. The former coefficient-`2` bound remains a valid theorem, but
+is no longer the best known constant.
 
 ### 7. Exact limit
 

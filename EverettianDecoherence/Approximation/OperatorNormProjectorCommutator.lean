@@ -162,4 +162,5 @@ theorem statewiseProjectorCommutatorWithin_of_normalized_operatorNormWithin
   simpa [hx] using
     statewiseProjectorCommutatorWithin_of_operatorNormProjectorCommutatorWithin D U x ε h
 
+
 end EverettianDecoherence.Approximation
