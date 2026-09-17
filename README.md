@@ -31,7 +31,10 @@ Résultats locaux actuels :
   et transfert BORN-SENSITIVE correspondant ;
 - **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE** — composition
   d'une liste finie, majoration du défaut par la somme des défauts élémentaires
-  et transfert BORN-SENSITIVE itéré.
+  et transfert BORN-SENSITIVE itéré ;
+- **T5A/T5B** — coefficient optimal exact `sqrt 2` pour le transfert uniforme
+  ED3B sur les états normalisés : T5A fournit la saturation et T5B la borne
+  universelle.
 
 ED1–ED4B sont formalisés. Les déclarations principales ED4A et ED4B sont aussi
 auditées dans `EverettianDecoherence/Audit/ComposedRecordPreservation.lean` et
@@ -53,6 +56,7 @@ import EverettianDecoherence.Approximation.ApproximateRecordPreservation
 import EverettianDecoherence.Approximation.UniformRecordPreservation
 import EverettianDecoherence.Approximation.ComposedRecordPreservation
 import EverettianDecoherence.Approximation.IteratedRecordPreservation
+import EverettianDecoherence.Approximation.UniformTransferOptimality
 ```
 
 Limites physiques actuelles : aucune dynamique temporelle, aucun Hamiltonien,
@@ -95,7 +99,10 @@ Current local results:
   and the corresponding BORN-SENSITIVE transfer;
 - **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE** — composition
   of a finite list, a bound of the resulting defect by the sum of elementary
-  defects, and the iterated BORN-SENSITIVE transfer.
+  defects, and the iterated BORN-SENSITIVE transfer;
+- **T5A/T5B** — exact optimal `sqrt 2` coefficient for the uniform ED3B
+  transfer on normalized states: T5A supplies saturation and T5B the universal
+  upper bound.
 
 ED1–ED4B are formalized. The principal ED4A and ED4B declarations are also
 audited in `EverettianDecoherence/Audit/ComposedRecordPreservation.lean` and

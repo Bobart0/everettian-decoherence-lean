@@ -11,6 +11,7 @@ import EverettianDecoherence.Audit.ProjectorStructureStability
 import EverettianDecoherence.Audit.IterationSharpness
 import EverettianDecoherence.Audit.WorkedInstance
 import EverettianDecoherence.Audit.UniformTransferSharpness
+import EverettianDecoherence.Audit.UniformTransferOptimality
 import EverettianDecoherence.Audit.FiniteBipartiteFactorization
 import EverettianDecoherence.Audit.FiniteBipartiteSlices
 import EverettianDecoherence.Audit.FiniteBipartiteCoordinateMasks
@@ -23,8 +24,10 @@ NON BORN-SENSITIVE de sharpness de l'accumulation additive ED4B, de l'instance
 numérique T4 dont la partie commutateur est NON BORN-SENSITIVE et la partie
 profil/gap BORN-SENSITIVE, et du front transversal T5A BORN-SENSITIVE qui
 établit une barrière inférieure exacte `sqrt 2` pour toute constante uniforme
-du transfert ED3B. ED5A, ED5B et ED5C restent également audités comme briques
-de factorisation coordonnées. T2, T3, T4 et T5A sont formalisés et audités ;
+du transfert ED3B, et de T5B qui établit la borne supérieure universelle
+correspondante puis l'optimalité exacte. ED5A, ED5B et ED5C restent également
+audités comme briques de factorisation coordonnées. T2, T3, T4, T5A et T5B
+sont formalisés et audités ;
 aucun statut de publication n'est affirmé ici.
 
 **EN.** Aggregator of local ED1, ED2A, ED2B, ED3A, ED3B, ED4A, ED4B result
@@ -33,8 +36,9 @@ BORN-SENSITIVE sharpness module for constant `2`, the T3 NON BORN-SENSITIVE
 sharpness module for ED4B additive accumulation, the T4 numerical instance
 whose commutator part is NON BORN-SENSITIVE and whose profile/gap part is
 BORN-SENSITIVE, and the transversal BORN-SENSITIVE T5A front establishing an
-exact `sqrt 2` lower barrier for any uniform ED3B transfer constant. ED5A,
+exact `sqrt 2` lower barrier for any uniform ED3B transfer constant, and T5B,
+which proves the matching universal upper bound and exact optimality. ED5A,
 ED5B, and ED5C remain audited as coordinate-factorization building blocks. T2,
-T3, T4, and T5A are formalized and audited; no publication status is asserted
+T3, T4, T5A, and T5B are formalized and audited; no publication status is asserted
 here.
 -/

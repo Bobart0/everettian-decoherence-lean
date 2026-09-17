@@ -14,6 +14,7 @@ import EverettianDecoherence.Approximation.IterationSharpness.RationalRotation
 import EverettianDecoherence.Approximation.IterationSharpness.ElementaryDefect
 import EverettianDecoherence.Approximation.IterationSharpness
 import EverettianDecoherence.Approximation.UniformTransferSharpness
+import EverettianDecoherence.Approximation.UniformTransferOptimality
 import EverettianDecoherence.Factorization.FiniteBipartiteFactorization
 import EverettianDecoherence.Factorization.FiniteBipartiteSlices
 import EverettianDecoherence.Factorization.AmbientBipartiteCoordinateMasks
@@ -39,9 +40,9 @@ BORN-SENSITIVE tandis que le profil et le gap sont BORN-SENSITIVE. T5A
 `UniformTransferSharpness` ouvre un front transversal : sur la même famille
 rationnelle, la rotation T3 envoie exactement `sharpnessX` sur `sharpnessY`, et
 le rapport entre variation réelle du profil et défaut uniforme vaut exactement
-`sqrt 2`. Il en résulte seulement qu'aucune constante ED3B universelle
-strictement inférieure à `sqrt 2` n'est possible ; l'optimalité universelle de
-`sqrt 2` n'est pas revendiquée. ED5A fournit une factorisation bipartite finie
+`sqrt 2`. T5B `UniformTransferOptimality` complète cette barrière par une
+borne universelle `sqrt 2` et caractérise exactement les coefficients
+universels normalisés : `K` convient si et seulement si `sqrt 2 ≤ K`. ED5A fournit une factorisation bipartite finie
 typée en coordonnées, ED5B des tranches bipartites et profils de normes
 purement coordonnés, et ED5C des masques finis de coordonnées bipartites
 transportés dans l'espace ambiant. Aucune API locale stable ni théorème de
@@ -66,9 +67,9 @@ actual L1 profile, and explicit gap; the defect is NON BORN-SENSITIVE while the
 profile and gap are BORN-SENSITIVE. T5A `UniformTransferSharpness` opens a
 transversal front: on the same rational family, the T3 rotation maps
 `sharpnessX` exactly to `sharpnessY`, and the ratio between actual profile
-variation and uniform defect is exactly `sqrt 2`. This proves only that no
-universal ED3B constant strictly below `sqrt 2` can hold; universal optimality
-of `sqrt 2` is not claimed. ED5A provides a typed finite bipartite coordinate
+variation and uniform defect is exactly `sqrt 2`. T5B `UniformTransferOptimality` complements this lower barrier with
+a universal `sqrt 2` upper bound and exactly characterizes normalized
+universal coefficients: `K` works if and only if `sqrt 2 ≤ K`. ED5A provides a typed finite bipartite coordinate
 factorization, ED5B purely coordinate bipartite slices and norm profiles, and
 ED5C finite bipartite coordinate masks transported into the ambient space. No
 stable local API or decoherence theorem is announced.
