@@ -70,6 +70,12 @@ theorem iterationSharpnessOrthogonal_proj (x : H 2) :
   ext i
   fin_cases i <;> simp [sharpnessE0, sharpnessE1]
 
+/-- Orthogonal projection as the complementary projector. -/
+theorem iterationSharpnessOrthogonal_proj_sub (x : H 2) :
+    projL sharpnessLineᗮ x = x - projL sharpnessLine x := by
+  change sharpnessLineᗮ.starProjection x = _
+  rw [Submodule.starProjection_orthogonal_val]
+
 private theorem iterationSharpnessLineCommutator_zero (n : ℕ) (x : H 2) :
     (perspectiveProjectorCommutatorCLM sharpnessPerspective
       (iterationSharpnessRotation n) iterationSharpnessLineCell x) (0 : Fin 2) =
@@ -92,6 +98,7 @@ private theorem iterationSharpnessLineCommutator_one (n : ℕ) (x : H 2) :
       iterationSharpnessRotation n (projL sharpnessLine x)) (1 : Fin 2) = _
   rw [iterationSharpnessLine_proj, iterationSharpnessLine_proj]
   simp [iterationSharpnessRotation_one, sharpnessE0]
+  ring
 
 /-- Pointwise norm of the first-cell commutator. -/
 theorem iterationSharpnessLineCommutator_norm (n : ℕ) (x : H 2) :
@@ -115,7 +122,7 @@ theorem iterationSharpnessLineCommutator_norm (n : ℕ) (x : H 2) :
           (‖x (0 : Fin 2)‖ ^ 2 + ‖x (1 : Fin 2)‖ ^ 2) := by
         rw [iterationSharpnessLineCommutator_zero,
           iterationSharpnessLineCommutator_one]
-        simp [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hs]
+        simp [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hs]
         ring
       _ = iterationSharpnessS n ^ 2 * ‖x‖ ^ 2 := by
         rw [EuclideanSpace.norm_sq_eq, Fin.sum_univ_two]
@@ -147,21 +154,20 @@ private theorem iterationSharpnessOrthogonalCommutator_eq_neg (n : ℕ) :
         (iterationSharpnessRotation n) iterationSharpnessLineCell := by
   apply ContinuousLinearMap.ext
   intro x
-  rw [perspectiveProjectorCommutatorCLM_apply,
-    perspectiveProjectorCommutatorCLM_apply,
-    perspectiveProjectorCommutator_apply,
+  change
+    perspectiveProjectorCommutator sharpnessPerspective
+      (iterationSharpnessRotation n) iterationSharpnessOrthogonalCell x =
+      -(perspectiveProjectorCommutator sharpnessPerspective
+        (iterationSharpnessRotation n) iterationSharpnessLineCell x)
+  rw [perspectiveProjectorCommutator_apply,
     perspectiveProjectorCommutator_apply]
   change
     projL sharpnessLineᗮ (iterationSharpnessRotation n x) -
       iterationSharpnessRotation n (projL sharpnessLineᗮ x) =
       -(projL sharpnessLine (iterationSharpnessRotation n x) -
         iterationSharpnessRotation n (projL sharpnessLine x))
-  rw [Submodule.starProjection_orthogonal_val,
-    Submodule.starProjection_orthogonal_val]
-  change
-    (iterationSharpnessRotation n x - projL sharpnessLine (iterationSharpnessRotation n x)) -
-      iterationSharpnessRotation n (x - projL sharpnessLine x) = _
-  rw [map_sub]
+  rw [iterationSharpnessOrthogonal_proj_sub,
+    iterationSharpnessOrthogonal_proj_sub, map_sub]
   abel
 
 /-- Exact operator norm of the orthogonal-cell commutator. -/
@@ -177,8 +183,13 @@ theorem iterationSharpnessCommutatorOpNormProfile_eq (n : ℕ)
     (c : (EverettianProbability.Abstract.Projective.interface 2).Cell sharpnessPerspective) :
     perspectiveProjectorCommutatorOpNormProfile sharpnessPerspective
       (iterationSharpnessRotation n) c = iterationSharpnessS n := by
+  have hc0 : c.val ∈ sharpnessPerspective.cells := c.property
+  change c.val ∈ ({sharpnessLine, sharpnessLineᗮ} :
+    Finset (Submodule ℂ (H 2))) at hc0
   have hc : c.val = sharpnessLine ∨ c.val = sharpnessLineᗮ := by
-    simpa [sharpnessPerspective, Perspective.binary] using c.property
+    rcases Finset.mem_insert.mp hc0 with h | h
+    · exact Or.inl h
+    · exact Or.inr (Finset.mem_singleton.mp h)
   rcases hc with hc | hc
   · have hcell : c = iterationSharpnessLineCell := Subtype.ext hc
     subst c
@@ -212,8 +223,7 @@ theorem operatorNormProjectorCommutatorL2_iterationSharpnessRotation (n : ℕ) :
     EverettianDecoherence.Metrics.finiteL2Sq
   rw [Finset.sum_const, Finset.card_univ, iterationSharpnessPerspective_cell_card]
   norm_num
-  rw [Real.sqrt_mul (by norm_num : (0 : ℝ) ≤ 2),
-    Real.sqrt_sq (le_of_lt (iterationSharpnessS_pos n))]
+  rw [Real.sqrt_sq (le_of_lt (iterationSharpnessS_pos n))]
 
 end
 end EverettianDecoherence.Approximation
