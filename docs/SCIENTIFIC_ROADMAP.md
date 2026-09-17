@@ -65,14 +65,27 @@ du coefficient additif `1` dans cette portée finie ; il ne définit ni temps,
 ni dynamique physique, ni décohérence. Aucun statut **PUBLISHED** n'est
 revendiqué.
 
+T4 `WorkedInstance` est **FORMALIZED / AUDITED**. En dimension `2`, sur la
+même perspective binaire fournie, il instancie la rotation rationnelle au rang
+`n = 1`, de matrice réelle `[[24/25,-7/25],[7/25,24/25]]`, et l'état normalisé
+`e₀`. Le défaut uniforme L2 vaut exactement `7 * sqrt 2 / 25` et admet le
+certificat rationnel `≤ 2/5` ; cette partie est **NON BORN-SENSITIVE**. Les
+poids borniens calculés passent de `(1,0)` à `(576/625,49/625)`, le profil L1
+réel vaut exactement `98/625`, la borne ED3B rationnelle choisie vaut `4/5`,
+et le gap correspondant vaut exactement `402/625` ; ces quantités sont
+**BORN-SENSITIVE**. L'exemple est numérique et illustratif : il ne constitue
+ni une dynamique, ni une décohérence, ni une émergence de perspective. Aucun
+statut **PUBLISHED** n'est revendiqué.
+
 ED5–ED12 sont **NOT OPENED** dans cette feuille de route. Aucun de ces statuts
 ne promet de résultat.
 
 ED1 utilise `bornRecord` et n'est donc pas un critère indépendant de
 décohérence ; il en va de même pour tout transfert ED2A–ED4B utilisant
-`recordProfileL1` ou `SameRecord`, ainsi que pour T2. Les défauts de
-commutateur ED3A–ED4B, le contrôle T1 et T3, qui n'utilisent pas `bornRecord`,
-restent des quantités algébriques distinctes des transferts BORN-SENSITIVE.
+`recordProfileL1` ou `SameRecord`, ainsi que pour T2 et la partie profil/gap de
+T4. Les défauts de commutateur ED3A–ED4B, le contrôle T1, T3 et la partie
+défaut de T4, qui n'utilisent pas `bornRecord`, restent des quantités
+algébriques distinctes des transferts BORN-SENSITIVE.
 
 ### Chaîne conditionnelle visée
 
@@ -95,19 +108,24 @@ T1 est un résultat de contrôle algébrique transversal ajouté sans ouvrir une
 nouvelle étape physique de cette chaîne. T2 est un résultat de sharpness
 métrique BORN-SENSITIVE, également transversal. T3 est un résultat de sharpness
 algébrique NON BORN-SENSITIVE de la borne d'accumulation ED4B, lui aussi
-transversal. Les étapes au-delà d'ED4B restent **NOT OPENED** dans cette feuille
-de route et ne sont pas numérotées de façon définitive tant qu'un incrément
-d'architecture séparé ne les ouvre pas.
+transversal. T4 est une instance numérique transversale mêlant explicitement
+une couche de défaut NON BORN-SENSITIVE et son transfert de profil
+BORN-SENSITIVE, sans ouvrir de nouvelle étape physique. Les étapes au-delà
+d'ED4B restent **NOT OPENED** dans cette feuille de route et ne sont pas
+numérotées de façon définitive tant qu'un incrément d'architecture séparé ne
+les ouvre pas.
 
 ### Pare-feu logique
 
-Mathématiques génériques → approximation algébrique (ED3A–ED4B, T1 et T3) →
-dynamiques explicites futures → décohérence algébrique future → émergence ou
-stabilité future des records → transfert sensible à Born → conséquences
-décisionnelles conditionnelles. Les futures couches physiques n'utilisent pas
-de crédence, vraisemblance ou axiome de rationalité. Toute quantité utilisant
-`bornRecord` est **BORN-SENSITIVE** ; T1 et T3 sont **NON BORN-SENSITIVE** et T2
-est **BORN-SENSITIVE**. Une faible distance de profils, une faible variation de
+Mathématiques génériques → approximation algébrique (ED3A–ED4B, T1, T3 et la
+partie défaut de T4) → dynamiques explicites futures → décohérence algébrique
+future → émergence ou stabilité future des records → transfert sensible à
+Born → conséquences décisionnelles conditionnelles. Les futures couches
+physiques n'utilisent pas de crédence, vraisemblance ou axiome de rationalité.
+Toute quantité utilisant `bornRecord` est **BORN-SENSITIVE** ; T1 et T3 sont
+**NON BORN-SENSITIVE**, T2 est **BORN-SENSITIVE**, et T4 sépare explicitement
+sa partie commutateur NON BORN-SENSITIVE de sa partie profil/gap
+BORN-SENSITIVE. Une faible distance de profils, une faible variation de
 projecteurs, une quasi-commutation composée presque saturante ou une
 commutation globale de projecteurs n'est pas une décohérence physique. Trace
 partielle, canal ou matrice densité devront distinguer identité mathématique,
@@ -176,14 +194,26 @@ asymptotic sharpness of the additive coefficient `1` in this finite scope; it
 defines neither time, physical dynamics, nor decoherence. No **PUBLISHED**
 status is claimed.
 
+T4 `WorkedInstance` is **FORMALIZED / AUDITED**. In dimension `2`, on the same
+supplied binary perspective, it instantiates the rational rotation at `n = 1`,
+with real matrix `[[24/25,-7/25],[7/25,24/25]]`, and the normalized state `e₀`.
+The uniform L2 defect is exactly `7 * sqrt 2 / 25` and has the rational
+certificate `≤ 2/5`; this part is **NON BORN-SENSITIVE**. The calculated Born
+weights move from `(1,0)` to `(576/625,49/625)`, the actual L1 profile is
+exactly `98/625`, the chosen rational ED3B bound is `4/5`, and the resulting
+gap is exactly `402/625`; these quantities are **BORN-SENSITIVE**. The example
+is numerical and illustrative: it is neither dynamics, decoherence, nor an
+emergent perspective. No **PUBLISHED** status is claimed.
+
 ED5–ED12 are **NOT OPENED** in this roadmap. None of these statuses promises a
 result.
 
 ED1 uses `bornRecord` and is therefore not an independent decoherence
 criterion; the same holds for every ED2A–ED4B transfer using
-`recordProfileL1` or `SameRecord`, and for T2. The ED3A–ED4B commutator defects,
-T1 control, and T3, which do not use `bornRecord`, remain algebraic quantities
-distinct from BORN-SENSITIVE transfers.
+`recordProfileL1` or `SameRecord`, for T2, and for the profile/gap part of T4.
+The ED3A–ED4B commutator defects, T1 control, T3, and the defect part of T4,
+which do not use `bornRecord`, remain algebraic quantities distinct from
+BORN-SENSITIVE transfers.
 
 ### Conditional target chain
 
@@ -205,18 +235,22 @@ distinct from BORN-SENSITIVE transfers.
 T1 is a transversal algebraic control result added without opening a new
 physical stage of this chain. T2 is a transversal BORN-SENSITIVE metric
 sharpness result. T3 is a transversal NON BORN-SENSITIVE algebraic sharpness
-result for the ED4B accumulation bound. Stages beyond ED4B remain **NOT
-OPENED** in this roadmap and are not definitively numbered until a separate
-architecture increment opens them.
+result for the ED4B accumulation bound. T4 is a transversal numerical instance
+that explicitly combines a NON BORN-SENSITIVE defect layer with its
+BORN-SENSITIVE profile transfer, without opening a new physical stage. Stages
+beyond ED4B remain **NOT OPENED** in this roadmap and are not definitively
+numbered until a separate architecture increment opens them.
 
 ### Logical firewall
 
-Generic mathematics → algebraic approximation (ED3A–ED4B, T1, and T3) → future
-explicit dynamics → future algebraic decoherence → future record emergence or
-stability → Born-sensitive transfer → conditional decision-theoretic
-consequences. Future physical layers use no credence, likelihood, or
-rationality axiom. Every `bornRecord` quantity is **BORN-SENSITIVE**; T1 and T3
-are **NON BORN-SENSITIVE**, while T2 is **BORN-SENSITIVE**. A small profile
+Generic mathematics → algebraic approximation (ED3A–ED4B, T1, T3, and the T4
+defect part) → future explicit dynamics → future algebraic decoherence → future
+record emergence or stability → Born-sensitive transfer → conditional
+decision-theoretic consequences. Future physical layers use no credence,
+likelihood, or rationality axiom. Every `bornRecord` quantity is
+**BORN-SENSITIVE**; T1 and T3 are **NON BORN-SENSITIVE**, T2 is
+**BORN-SENSITIVE**, and T4 explicitly separates its NON BORN-SENSITIVE
+commutator part from its BORN-SENSITIVE profile/gap part. A small profile
 distance, small projector displacement, near-saturation of a composed
 commutator bound, or global projector commutation is not physical decoherence.
 Partial traces, channels, and density matrices must distinguish mathematical
