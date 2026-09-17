@@ -48,7 +48,9 @@ theorem iterationSharpnessRotation_sharpnessX_eq_sharpnessY (n : ℕ) :
     iterationSharpnessRotation n (sharpnessX n) = sharpnessY n := by
   ext i
   fin_cases i
-  · rw [iterationSharpnessRotation_zero, sharpnessX_zero, sharpnessX_one,
+  · change iterationSharpnessRotation n (sharpnessX n) (0 : Fin 2) =
+      sharpnessY n (0 : Fin 2)
+    rw [iterationSharpnessRotation_zero, sharpnessX_zero, sharpnessX_one,
       sharpnessY_zero]
     have hreal :
         iterationSharpnessC n * sharpnessA n -
@@ -56,7 +58,9 @@ theorem iterationSharpnessRotation_sharpnessX_eq_sharpnessY (n : ℕ) :
       unfold iterationSharpnessC iterationSharpnessS
       nlinarith [sharpnessA_sq_add_B_sq n]
     exact_mod_cast hreal
-  · rw [iterationSharpnessRotation_one, sharpnessX_zero, sharpnessX_one,
+  · change iterationSharpnessRotation n (sharpnessX n) (1 : Fin 2) =
+      sharpnessY n (1 : Fin 2)
+    rw [iterationSharpnessRotation_one, sharpnessX_zero, sharpnessX_one,
       sharpnessY_one]
     have hreal :
         iterationSharpnessS n * sharpnessA n +
