@@ -115,5 +115,147 @@ theorem norm_sq_recordSubsetOutgoing_le_complSq_mul_subset_norm_sq
       simp_rw [mul_pow]
       rw [Finset.sum_mul]
 
+
+private theorem norm_recordSubsetOutgoing_cell_le
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D))
+    (c : (Projective.interface n).Cell D) (hc : c ∈ S) (x : H n) :
+    ‖Gleason.projL (recordSubsetSubspace D Sᶜ)
+        (U (Gleason.projL c.val x))‖ ≤
+      perspectiveProjectorCommutatorOpNormProfile D U c *
+        ‖Gleason.projL c.val x‖ := by
+  have hzero :
+      Gleason.projL (recordSubsetSubspace D Sᶜ)
+        (Gleason.projL c.val
+          (U (Gleason.projL c.val x))) = 0 :=
+    recordSubsetComplementProjector_cell_apply_eq_zero_of_mem
+      D S c hc (U (Gleason.projL c.val x))
+  have hcomm :
+      Gleason.projL (recordSubsetSubspace D Sᶜ)
+          (perspectiveProjectorCommutator D U c
+            (Gleason.projL c.val x)) =
+        - Gleason.projL (recordSubsetSubspace D Sᶜ)
+            (U (Gleason.projL c.val x)) := by
+    rw [perspectiveProjectorCommutator_apply, map_sub, hzero,
+      zero_sub]
+  calc
+    ‖Gleason.projL (recordSubsetSubspace D Sᶜ)
+        (U (Gleason.projL c.val x))‖ =
+      ‖Gleason.projL (recordSubsetSubspace D Sᶜ)
+        (perspectiveProjectorCommutator D U c
+          (Gleason.projL c.val x))‖ := by
+        rw [hcomm, norm_neg]
+    _ ≤ ‖perspectiveProjectorCommutator D U c
+          (Gleason.projL c.val x)‖ := by
+        unfold Gleason.projL
+        exact Submodule.norm_starProjection_apply_le _
+    _ ≤ perspectiveProjectorCommutatorOpNormProfile D U c *
+        ‖Gleason.projL c.val x‖ := by
+      simpa [perspectiveProjectorCommutatorNormProfile] using
+        (perspectiveProjectorCommutatorNormProfile_le_opNorm_mul_norm
+          D U (Gleason.projL c.val x) c)
+
+/-- Input-side estimate for the block leaving `S`, obtained by finite
+Cauchy--Schwarz over the cell decomposition of the input. -/
+theorem norm_recordSubsetOutgoing_le_sqrt_subsetSq_mul_subset_norm
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
+    ‖recordSubsetOutgoing D U S x‖ ≤
+      Real.sqrt (subsetProjectorCommutatorOpNormSq D U S) *
+        ‖Gleason.projL (recordSubsetSubspace D S) x‖ := by
+  have hout :
+      recordSubsetOutgoing D U S x =
+        ∑ c ∈ S,
+          Gleason.projL (recordSubsetSubspace D Sᶜ)
+            (U (Gleason.projL c.val x)) := by
+    unfold recordSubsetOutgoing
+    rw [recordSubsetProjector_eq_sum D S]
+    simp only [LinearMap.sum_apply, map_sum]
+  rw [hout]
+  calc
+    ‖∑ c ∈ S,
+        Gleason.projL (recordSubsetSubspace D Sᶜ)
+          (U (Gleason.projL c.val x))‖ ≤
+      ∑ c ∈ S,
+        ‖Gleason.projL (recordSubsetSubspace D Sᶜ)
+          (U (Gleason.projL c.val x))‖ := norm_sum_le _ _
+    _ ≤ ∑ c ∈ S,
+        perspectiveProjectorCommutatorOpNormProfile D U c *
+          ‖Gleason.projL c.val x‖ := by
+      exact Finset.sum_le_sum fun c hc =>
+        norm_recordSubsetOutgoing_cell_le D U S c hc x
+    _ ≤ Real.sqrt
+          (∑ c ∈ S,
+            (perspectiveProjectorCommutatorOpNormProfile D U c) ^ 2) *
+        Real.sqrt (∑ c ∈ S, ‖Gleason.projL c.val x‖ ^ 2) :=
+      Real.sum_mul_le_sqrt_mul_sqrt S
+        (perspectiveProjectorCommutatorOpNormProfile D U)
+        (fun c => ‖Gleason.projL c.val x‖)
+    _ = Real.sqrt (subsetProjectorCommutatorOpNormSq D U S) *
+        ‖Gleason.projL (recordSubsetSubspace D S) x‖ := by
+      rw [← norm_sq_recordSubsetProjector_eq_sum D S x,
+        Real.sqrt_sq (norm_nonneg _)]
+      rfl
+
+/-- Squared input-side estimate for the block leaving `S`. -/
+theorem norm_sq_recordSubsetOutgoing_le_subsetSq_mul_subset_norm_sq
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
+    ‖recordSubsetOutgoing D U S x‖ ^ 2 ≤
+      subsetProjectorCommutatorOpNormSq D U S *
+        ‖Gleason.projL (recordSubsetSubspace D S) x‖ ^ 2 := by
+  have h := norm_recordSubsetOutgoing_le_sqrt_subsetSq_mul_subset_norm
+    D U S x
+  have hs := (sq_le_sq₀ (norm_nonneg _)
+    (mul_nonneg (Real.sqrt_nonneg _) (norm_nonneg _))).2 h
+  rw [mul_pow,
+    Real.sq_sqrt (subsetProjectorCommutatorOpNormSq_nonneg D U S)] at hs
+  exact hs
+
+/-- The full aggregate commutator is controlled by the squared defect budget
+on `S` alone. -/
+theorem norm_sq_recordSubsetProjectorCommutator_le_subsetSq_mul_norm_sq
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
+    ‖recordSubsetProjectorCommutator D U S x‖ ^ 2 ≤
+      subsetProjectorCommutatorOpNormSq D U S * ‖x‖ ^ 2 := by
+  rw [norm_sq_recordSubsetProjectorCommutator_eq_cross_sum D U S x]
+  calc
+    ‖recordSubsetIncoming D U S x‖ ^ 2 +
+        ‖recordSubsetOutgoing D U S x‖ ^ 2 ≤
+      subsetProjectorCommutatorOpNormSq D U S *
+          ‖Gleason.projL (recordSubsetSubspace D Sᶜ) x‖ ^ 2 +
+        subsetProjectorCommutatorOpNormSq D U S *
+          ‖Gleason.projL (recordSubsetSubspace D S) x‖ ^ 2 :=
+      add_le_add
+        (norm_sq_recordSubsetIncoming_le_subsetSq_mul_compl_norm_sq D U S x)
+        (norm_sq_recordSubsetOutgoing_le_subsetSq_mul_subset_norm_sq D U S x)
+    _ = subsetProjectorCommutatorOpNormSq D U S *
+        (‖Gleason.projL (recordSubsetSubspace D S) x‖ ^ 2 +
+          ‖Gleason.projL (recordSubsetSubspace D Sᶜ) x‖ ^ 2) := by ring
+    _ = subsetProjectorCommutatorOpNormSq D U S * ‖x‖ ^ 2 := by
+      have hsum :=
+        sum_sq_recordCellNormProfile_eq_norm_sq D x
+      have hpartition :
+          ‖Gleason.projL (recordSubsetSubspace D S) x‖ ^ 2 +
+              ‖Gleason.projL (recordSubsetSubspace D Sᶜ) x‖ ^ 2 =
+            ‖x‖ ^ 2 := by
+        rw [norm_sq_recordSubsetProjector_eq_sum D S x,
+          norm_sq_recordSubsetProjector_eq_sum D Sᶜ x]
+        have hsplit :=
+          Finset.sum_filter_add_sum_filter_not Finset.univ
+            (fun c : (Projective.interface n).Cell D => c ∈ S)
+            (fun c => ‖Gleason.projL c.val x‖ ^ 2)
+        change
+          (∑ c : (Projective.interface n).Cell D,
+              ‖Gleason.projL c.val x‖ ^ 2) = ‖x‖ ^ 2 at hsum
+        exact hsplit.trans hsum
+      rw [hpartition]
+
+
 end
 end EverettianDecoherence.Approximation
