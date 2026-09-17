@@ -56,8 +56,14 @@ theorem iterationSharpnessRotation_sharpnessX_eq_sharpnessY (n : ℕ) :
         iterationSharpnessC n * sharpnessA n -
             iterationSharpnessS n * sharpnessB n = sharpnessB n := by
       unfold iterationSharpnessC iterationSharpnessS
-      nlinarith [sharpnessA_sq_add_B_sq n]
-    exact_mod_cast hreal
+      calc
+        2 * sharpnessA n * sharpnessB n * sharpnessA n -
+            (sharpnessA n ^ 2 - sharpnessB n ^ 2) * sharpnessB n =
+          sharpnessB n * (sharpnessA n ^ 2 + sharpnessB n ^ 2) := by ring
+        _ = sharpnessB n := by rw [sharpnessA_sq_add_B_sq]; ring
+    apply Complex.ext
+    · simpa using hreal
+    · simp
   · change iterationSharpnessRotation n (sharpnessX n) (1 : Fin 2) =
       sharpnessY n (1 : Fin 2)
     rw [iterationSharpnessRotation_one, sharpnessX_zero, sharpnessX_one,
@@ -66,8 +72,14 @@ theorem iterationSharpnessRotation_sharpnessX_eq_sharpnessY (n : ℕ) :
         iterationSharpnessS n * sharpnessA n +
             iterationSharpnessC n * sharpnessB n = sharpnessA n := by
       unfold iterationSharpnessC iterationSharpnessS
-      nlinarith [sharpnessA_sq_add_B_sq n]
-    exact_mod_cast hreal
+      calc
+        (sharpnessA n ^ 2 - sharpnessB n ^ 2) * sharpnessA n +
+            2 * sharpnessA n * sharpnessB n * sharpnessB n =
+          sharpnessA n * (sharpnessA n ^ 2 + sharpnessB n ^ 2) := by ring
+        _ = sharpnessA n := by rw [sharpnessA_sq_add_B_sq]; ring
+    apply Complex.ext
+    · simpa using hreal
+    · simp
 
 /-- Exact BORN-SENSITIVE profile produced by the T2/T3 compatible family. -/
 theorem uniformTransferSharpness_profile_exact (n : ℕ) :
