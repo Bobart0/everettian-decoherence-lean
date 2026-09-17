@@ -332,7 +332,7 @@ theorem iterationSharpnessC_tendsto_one :
     funext n
     exact iterationSharpnessC_eq_one_sub_two_div n
   rw [hfun]
-  exact h
+  simpa only [sub_zero] using h
 
 /-- Main T3 sharpness theorem: the exact composite-to-sum ratio tends to `1`. -/
 theorem iterationSharpnessAdditiveRatio_tendsto_one :
