@@ -147,6 +147,43 @@ theorem recordCell_le_recordSubsetSubspace
   unfold recordSubsetSubspace
   exact Finset.le_sup hc
 
+
+/-- The aggregate projector acts as the identity on every selected cell. -/
+theorem recordSubsetProjector_cell_apply_eq_self_of_mem
+    {n : ℕ} (D : Perspective n)
+    (S : Finset ((Projective.interface n).Cell D))
+    (c : (Projective.interface n).Cell D) (hc : c ∈ S) (x : H n) :
+    Gleason.projL (recordSubsetSubspace D S)
+        (Gleason.projL c.val x) = Gleason.projL c.val x := by
+  unfold Gleason.projL
+  apply Submodule.starProjection_eq_self_iff.mpr
+  exact recordCell_le_recordSubsetSubspace D S c hc
+    (Submodule.starProjection_apply_mem c.val x)
+
+/-- The complement aggregate projector annihilates every selected cell. -/
+theorem recordSubsetComplementProjector_cell_apply_eq_zero_of_mem
+    {n : ℕ} (D : Perspective n)
+    (S : Finset ((Projective.interface n).Cell D))
+    (c : (Projective.interface n).Cell D) (hc : c ∈ S) (x : H n) :
+    Gleason.projL (recordSubsetSubspace D Sᶜ)
+        (Gleason.projL c.val x) = 0 := by
+  rw [recordSubsetProjector_compl_apply_eq_sub D S,
+    recordSubsetProjector_cell_apply_eq_self_of_mem D S c hc x,
+    sub_self]
+
+/-- Symmetric form: the aggregate projector onto `S` annihilates a cell in
+the finite complement. -/
+theorem recordSubsetProjector_cell_apply_eq_zero_of_mem_compl
+    {n : ℕ} (D : Perspective n)
+    (S : Finset ((Projective.interface n).Cell D))
+    (c : (Projective.interface n).Cell D) (hc : c ∈ Sᶜ) (x : H n) :
+    Gleason.projL (recordSubsetSubspace D S)
+        (Gleason.projL c.val x) = 0 := by
+  simpa using
+    (recordSubsetComplementProjector_cell_apply_eq_zero_of_mem
+      D Sᶜ c hc x)
+
+
 /-- A cell selected in `S` annihilates the aggregate projection onto
 `Sᶜ`. -/
 theorem recordCellProjector_compl_apply_eq_zero_of_mem
