@@ -161,7 +161,10 @@ private theorem norm_recordSubsetOutgoing_cell_le
             (Gleason.projL c.val x))‖ ≤
           ‖perspectiveProjectorCommutator D U c
             (Gleason.projL c.val x)‖
-        exact Submodule.norm_starProjection_apply_le _
+        exact Submodule.norm_starProjection_apply_le
+          (K := recordSubsetSubspace D Sᶜ)
+          (perspectiveProjectorCommutator D U c
+            (Gleason.projL c.val x))
     _ ≤ perspectiveProjectorCommutatorOpNormProfile D U c *
         ‖Gleason.projL c.val x‖ := by
       simpa [perspectiveProjectorCommutatorNormProfile] using
