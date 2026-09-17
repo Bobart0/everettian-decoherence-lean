@@ -28,6 +28,12 @@
   composé/somme avec `iterationSharpnessC`, convergence de ce ratio vers `1`,
   et corollaire excluant tout coefficient uniforme `K < 1` devant la somme
   additive ED4B, déjà pour des listes de longueur deux ;
+- **T4 — `WorkedInstance`** : instance entièrement calculée en dimension `2`
+  sur la perspective binaire fixe, avec matrice unitaire rationnelle
+  `[[24/25,-7/25],[7/25,24/25]]`, défaut L2 exact `7 * sqrt 2 / 25` et
+  certificat `≤ 2/5` (**NON BORN-SENSITIVE**), poids borniens transformés
+  `(576/625,49/625)`, profil L1 exact `98/625`, borne rationnelle `4/5` et gap
+  exact `402/625` (**BORN-SENSITIVE** pour les poids, le profil et le gap) ;
 - transfert vers `recordProfileL1` pour les défauts statewise, uniforme,
   composé et itéré (BORN-SENSITIVE) ;
 - limite exacte : défaut nul équivalent à `SameRecord` (ED3A, ponctuel) ou à
@@ -35,7 +41,7 @@
   propriété sous les compositions ED4A et ED4B lorsque chaque défaut
   élémentaire est nul.
 
-Les résultats ED4A, ED4B, T1, T2 et T3 sont formalisés et audités. Aucun
+Les résultats ED4A, ED4B, T1, T2, T3 et T4 sont formalisés et audités. Aucun
 statut de publication supplémentaire n'est affirmé ici.
 
 ### Non établis
@@ -60,28 +66,32 @@ Aucun de ces résultats n'est promis par les étapes formalisées.
 
 - **uniformité sur les états** : établie par ED3B, pour une perspective `D`
   et une transformation `U` fixées (`operatorNormProjectorCommutatorL2 D U`
-  ne dépend pas de `x`) ;
+  ne dépend pas de `x`) ; T4 en donne une instance numérique pour une
+  perspective et unitaire particuliers ;
 - **uniformité sur les perspectives** : non établie — les quantités ED3B–ED4B,
-  T1 et T3 dépendent toujours d'une perspective fournie ;
+  T1, T3 et T4 dépendent toujours d'une perspective fournie ;
 - **indépendance du nombre de cellules** : non établie pour les agrégats
-  d'opérateurs ED3B–ED4B, T1 et T3, contrairement à la borne état-vers-record
+  d'opérateurs ED3B–ED4B, T1, T3 et T4, contrairement à la borne état-vers-record
   ED2B qui est dimension-free au sens du nombre de cellules ; T2 étudie la
-  sharpness de la constante ED2B sur une perspective binaire fixe et T3 la
-  sharpness du coefficient additif ED4B sur cette même géométrie binaire ;
+  sharpness de la constante ED2B sur une perspective binaire fixe, T3 la
+  sharpness du coefficient additif ED4B sur cette même géométrie binaire, et
+  T4 n'est qu'une instance binaire particulière ;
 - **stabilité temporelle** : non établie — ED4A et ED4B décrivent des
-  compositions algébriques finies, T1 une comparaison de projecteurs, et T3
-  une famille algébrique de deux compositions ; aucune de ces constructions
-  n'est une dynamique temporelle.
+  compositions algébriques finies, T1 une comparaison de projecteurs, T3 une
+  famille algébrique de deux compositions, et T4 un calcul statique ; aucune de
+  ces constructions n'est une dynamique temporelle.
 
 Toute quantité passant par `bornRecord`, notamment les transferts vers
-`recordProfileL1` et T2, reste explicitement **BORN-SENSITIVE**. Les contrôles
-T1 et T3 sont explicitement **NON BORN-SENSITIVE** : ils portent uniquement
-sur des projecteurs, transformations linéaires isométriques et normes
-d'opérateur. Les défauts de commutateur, leurs bornes de composition/itération,
-T1 et T3 sont algébriques et ne constituent ni une décohérence physique ni une
-émergence de perspective. T2 ne constitue pas davantage une définition ou une
-dérivation de décohérence ; il porte uniquement sur l'optimalité métrique d'une
-borne BORN-SENSITIVE.
+`recordProfileL1`, T2 et la partie poids/profil/gap de T4, reste explicitement
+**BORN-SENSITIVE**. Les contrôles T1 et T3 sont explicitement **NON
+BORN-SENSITIVE** ; la partie défaut de T4 l'est également. Ils portent
+uniquement sur des projecteurs, transformations linéaires isométriques et
+normes d'opérateur. Les défauts de commutateur, leurs bornes de
+composition/itération, T1, T3 et la partie commutateur de T4 sont algébriques
+et ne constituent ni une décohérence physique ni une émergence de perspective.
+T2 et la partie profil de T4 ne constituent pas davantage une définition ou
+une dérivation de décohérence ; ils portent sur des quantités métriques
+BORN-SENSITIVE.
 
 ## English
 
@@ -112,13 +122,19 @@ borne BORN-SENSITIVE.
   composite/sum ratio with `iterationSharpnessC`, convergence of that ratio to
   `1`, and the corollary excluding every uniform coefficient `K < 1` in front
   of the ED4B additive sum, already for lists of length two;
+- **T4 — `WorkedInstance`**: a fully calculated dimension-`2` instance on the
+  fixed binary perspective, with rational unitary matrix
+  `[[24/25,-7/25],[7/25,24/25]]`, exact L2 defect `7 * sqrt 2 / 25` and
+  certificate `≤ 2/5` (**NON BORN-SENSITIVE**), transformed Born weights
+  `(576/625,49/625)`, exact L1 profile `98/625`, rational bound `4/5`, and exact
+  gap `402/625` (**BORN-SENSITIVE** for the weights, profile, and gap);
 - transfer to `recordProfileL1` for statewise, uniform, composed, and iterated
   defects (BORN-SENSITIVE);
 - exact limit: zero defect equivalent to `SameRecord` (ED3A, pointwise) or to
   global commutation (ED3B, for every state), with this property preserved by
   ED4A and ED4B compositions when every elementary defect is zero.
 
-The ED4A, ED4B, T1, T2, and T3 results are formalized and audited. No
+The ED4A, ED4B, T1, T2, T3, and T4 results are formalized and audited. No
 additional publication status is asserted here.
 
 ### Not established
@@ -143,23 +159,26 @@ None of these results is promised by the formalized stages.
 
 - **uniformity over states**: established by ED3B, for a fixed perspective
   `D` and transformation `U` (`operatorNormProjectorCommutatorL2 D U` does
-  not depend on `x`);
-- **uniformity over perspectives**: not established — the ED3B–ED4B, T1, and
-  T3 quantities still depend on a supplied perspective;
-- **cell-count independence**: not established for the ED3B–ED4B, T1, and T3
-  operator aggregates, unlike the ED2B state-to-record bound, which is
+  not depend on `x`); T4 gives one numerical instance for a particular
+  perspective and unitary;
+- **uniformity over perspectives**: not established — the ED3B–ED4B, T1, T3,
+  and T4 quantities still depend on a supplied perspective;
+- **cell-count independence**: not established for the ED3B–ED4B, T1, T3, and
+  T4 operator aggregates, unlike the ED2B state-to-record bound, which is
   dimension-free in the sense of cell count; T2 studies sharpness of the ED2B
-  constant on one fixed binary perspective, and T3 studies sharpness of the
-  ED4B additive coefficient on that same binary geometry;
+  constant on one fixed binary perspective, T3 studies sharpness of the ED4B
+  additive coefficient on that same binary geometry, and T4 is only one
+  particular binary instance;
 - **temporal stability**: not established — ED4A and ED4B describe finite
-  algebraic compositions, T1 compares projectors, and T3 uses an algebraic
-  family of two compositions; none is time dynamics.
+  algebraic compositions, T1 compares projectors, T3 uses an algebraic family
+  of two compositions, and T4 is a static calculation; none is time dynamics.
 
 Every quantity passing through `bornRecord`, including transfers to
-`recordProfileL1` and T2, remains explicitly **BORN-SENSITIVE**. T1 and T3 are
-explicitly **NON BORN-SENSITIVE**: they use only projectors, linear-isometric
+`recordProfileL1`, T2, and the weight/profile/gap part of T4, remains explicitly
+**BORN-SENSITIVE**. T1 and T3 are explicitly **NON BORN-SENSITIVE**, and so is
+the defect part of T4. They use only projectors, linear-isometric
 transformations, and operator norms. The commutator defects, their
-composition/iteration bounds, T1, and T3 are algebraic and constitute neither
-physical decoherence nor perspective emergence. T2 likewise defines or
-derives no decoherence notion; it concerns only metric sharpness of a
-BORN-SENSITIVE bound.
+composition/iteration bounds, T1, T3, and the commutator part of T4 are
+algebraic and constitute neither physical decoherence nor perspective
+emergence. T2 and the profile part of T4 likewise define or derive no
+decoherence notion; they concern BORN-SENSITIVE metric quantities.
