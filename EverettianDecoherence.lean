@@ -3,6 +3,7 @@ import EverettianDecoherence.Metrics.RecordProfileL1
 import EverettianDecoherence.Metrics.StateRecordPerturbation
 import EverettianDecoherence.Metrics.StateRecordDimensionFree
 import EverettianDecoherence.Metrics.DimensionFreeSharpness
+import EverettianDecoherence.Metrics.WorkedInstance
 import EverettianDecoherence.Approximation.ApproximateRecordPreservation
 import EverettianDecoherence.Approximation.UniformRecordPreservation
 import EverettianDecoherence.Approximation.ComposedRecordPreservation
@@ -30,10 +31,14 @@ rationnelle explicite. T3 `IterationSharpness`, NON BORN-SENSITIVE, montre sur
 une famille explicite de deux rotations identiques que le coefficient `1` de
 l'accumulation additive ED4B est asymptotiquement optimal : le ratio entre le
 défaut exact du composé et la somme des défauts élémentaires tend vers `1`.
-ED5A fournit une factorisation bipartite finie typée en coordonnées, ED5B des
-tranches bipartites et profils de normes purement coordonnés, et ED5C des
-masques finis de coordonnées bipartites transportés dans l'espace ambiant.
-Aucune API locale stable ni théorème de décohérence n'est annoncé.
+T4 `WorkedInstance` fournit en dimension `2` une instance entièrement calculée
+avec unitaire rationnel, défaut de commutateur exact, borne ED3B rationnelle,
+poids borniens, profil L1 réel et gap explicite ; le défaut est NON
+BORN-SENSITIVE tandis que le profil et le gap sont BORN-SENSITIVE. ED5A fournit
+une factorisation bipartite finie typée en coordonnées, ED5B des tranches
+bipartites et profils de normes purement coordonnés, et ED5C des masques finis
+de coordonnées bipartites transportés dans l'espace ambiant. Aucune API locale
+stable ni théorème de décohérence n'est annoncé.
 
 **EN.** ED1 provides L1 geometry, ED2A an explicit cell-count-dependent bound,
 ED2B a global bound independent of that count, ED3A a statewise defect, ED3B
@@ -47,9 +52,12 @@ displacement between transported and original projectors. T2
 T3 `IterationSharpness`, which is NON BORN-SENSITIVE, shows on an explicit
 family of two identical rotations that the coefficient `1` in the ED4B
 additive accumulation bound is asymptotically sharp: the ratio between the
-exact composite defect and the sum of elementary defects tends to `1`. ED5A
-provides a typed finite bipartite coordinate factorization, ED5B purely
-coordinate bipartite slices and norm profiles, and ED5C finite bipartite
-coordinate masks transported into the ambient space. No stable local API or
-decoherence theorem is announced.
+exact composite defect and the sum of elementary defects tends to `1`. T4
+`WorkedInstance` gives a fully calculated dimension-`2` example with a
+rational unitary, exact commutator defect, rational ED3B bound, Born weights,
+actual L1 profile, and explicit gap; the defect is NON BORN-SENSITIVE while the
+profile and gap are BORN-SENSITIVE. ED5A provides a typed finite bipartite
+coordinate factorization, ED5B purely coordinate bipartite slices and norm
+profiles, and ED5C finite bipartite coordinate masks transported into the
+ambient space. No stable local API or decoherence theorem is announced.
 -/
