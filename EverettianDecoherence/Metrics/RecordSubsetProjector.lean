@@ -62,6 +62,81 @@ theorem norm_sq_recordSubsetProjector_eq_sum
   rw [← inner_conj_symm (Gleason.projL c.val x) (Gleason.projL d.val x), hz]
   simp
 
+
+/-- The projector onto an aggregated subset is the finite sum of its mutually
+orthogonal cell projectors. -/
+theorem recordSubsetProjector_eq_sum
+    {n : ℕ} (D : Perspective n)
+    (S : Finset ((Projective.interface n).Cell D)) :
+    Gleason.projL (recordSubsetSubspace D S) =
+      ∑ c ∈ S, Gleason.projL c.val := by
+  have hortho :
+      ∀ c ∈ S, ∀ d ∈ S, c ≠ d → c.val ⟂ d.val := by
+    intro c hc d hd hcd
+    exact D.ortho c.val c.property d.val d.property
+      (fun hval => hcd (Subtype.ext hval))
+  unfold recordSubsetSubspace
+  exact Gleason.projL_sup_of_pairwise_isOrtho S (fun c => c.val) hortho
+
+/-- The projectors of all cells in a perspective sum to the identity. -/
+theorem sum_recordCellProjectors_eq_id
+    {n : ℕ} (D : Perspective n) :
+    (∑ c : (Projective.interface n).Cell D, Gleason.projL c.val) =
+      LinearMap.id := by
+  have hsubtype :
+      (∑ c : (Projective.interface n).Cell D, Gleason.projL c.val) =
+        ∑ c ∈ D.cells, Gleason.projL c := by
+    symm
+    exact Finset.sum_subtype D.cells (fun c => Iff.rfl)
+      (fun c => Gleason.projL c)
+  rw [hsubtype]
+  have h := Gleason.projL_sup_of_pairwise_isOrtho
+    D.cells (fun c => c) D.ortho
+  rw [Finset.sup_id_eq_sSup, D.span] at h
+  have htop : Gleason.projL (⊤ : Submodule ℂ (H n)) = LinearMap.id := by
+    unfold Gleason.projL
+    rw [Submodule.starProjection_top]
+    rfl
+  rw [htop] at h
+  exact h.symm
+
+/-- The aggregate projectors of a subset and its finite complement decompose
+every vector exactly. -/
+theorem recordSubsetProjector_add_compl_apply_eq
+    {n : ℕ} (D : Perspective n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
+    Gleason.projL (recordSubsetSubspace D S) x +
+        Gleason.projL (recordSubsetSubspace D Sᶜ) x = x := by
+  have hsplit :
+      (∑ c ∈ S, Gleason.projL c.val x) +
+          (∑ c ∈ Sᶜ, Gleason.projL c.val x) =
+        ∑ c : (Projective.interface n).Cell D, Gleason.projL c.val x := by
+    have h :=
+      Finset.sum_filter_add_sum_filter_not Finset.univ
+        (fun c : (Projective.interface n).Cell D => c ∈ S)
+        (fun c => Gleason.projL c.val x)
+    simpa using h
+  have hall := congrArg (fun T : H n →ₗ[ℂ] H n => T x)
+    (sum_recordCellProjectors_eq_id D)
+  rw [recordSubsetProjector_eq_sum D S,
+    recordSubsetProjector_eq_sum D Sᶜ]
+  simp only [LinearMap.sum_apply]
+  calc
+    (∑ c ∈ S, Gleason.projL c.val x) +
+        (∑ c ∈ Sᶜ, Gleason.projL c.val x) =
+      ∑ c : (Projective.interface n).Cell D, Gleason.projL c.val x := hsplit
+    _ = x := by simpa [LinearMap.sum_apply] using hall
+
+/-- The complement aggregate projector is the orthogonal-complement part of
+the subset projector. -/
+theorem recordSubsetProjector_compl_apply_eq_sub
+    {n : ℕ} (D : Perspective n)
+    (S : Finset ((Projective.interface n).Cell D)) (x : H n) :
+    Gleason.projL (recordSubsetSubspace D Sᶜ) x =
+      x - Gleason.projL (recordSubsetSubspace D S) x := by
+  exact eq_sub_of_add_eq (recordSubsetProjector_add_compl_apply_eq D S x)
+
+
 /-- The sum of Born weights over a finite subset of cells is exactly the
 squared norm of the projection onto their aggregated subspace. -/
 theorem sum_bornRecord_subset_eq_norm_sq_projector
