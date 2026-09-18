@@ -192,33 +192,33 @@ Fuad Kittaneh,
 Proceedings of the American Mathematical Society **130**(5) (2002),
 1279–1283, DOI 10.1090/S0002-9939-01-06197-4.
 
-Pour un opérateur positif (P) et une unitaire (U), ce travail étudie
-quantitativement le commutateur (UP-PU) et les objets de conjugaison unitaire
+Pour un opérateur positif $P$ et une unitaire $U$, ce travail étudie
+quantitativement le commutateur $UP-PU$ et les objets de conjugaison unitaire
 associés, dans des normes unitairement invariantes.
 
-Dans le cas particulier où (P) est un projecteur, l'identité algébrique
+Dans le cas particulier où $P$ est un projecteur, l'identité algébrique
 élémentaire
 
-[
-[P,U]U^ast=P-UPU^ast
-]
+$
+[P,U]U^\ast=P-UPU^\ast
+$
 
 donne immédiatement
 
-[
-lVert[P,U]Vert_{mathrm{op}}
+$
+\lVert[P,U]\rVert_{\mathrm{op}}
 =
-lVert P-UPU^astVert_{mathrm{op}}.
-]
+\lVert P-UPU^\ast\rVert_{\mathrm{op}}.
+$
 
 **Proximité avec T5 : très élevée pour la géométrie opératorielle locale du
-projecteur agrégé (P_S), mais pas pour la statistique multi-cellule.**
+projecteur agrégé $P_S$, mais pas pour la statistique multi-cellule.**
 
 Cela renforce le risque que la brique locale « commutateur d'un projecteur
 agrégé versus déplacement de ce projecteur par conjugaison » soit standard.
 L'élément potentiellement distinct de T5 doit donc être recherché dans le
-passage depuis les commutateurs cellule par cellule vers (P_S), puis vers la
-variation (L^1) complète du profil, avec constante universelle optimale et
+passage depuis les commutateurs cellule par cellule vers $P_S$, puis vers la
+variation $L^1$ complète du profil, avec constante universelle optimale et
 famille saturante.
 
 ### 3. Résultat standard à ne pas confondre avec T5
@@ -237,15 +237,22 @@ qu'une simple distance globale entre $x$ et $Ux$.
 
 #### Risque R1 — le lemme agrégé peut être connu sous une autre forme
 
-Le cœur T5B passe du sous-ensemble de variation positive $S$ au projecteur
-agrégé $P_S$, puis utilise la géométrie des blocs croisés de $[P_S,U]$.
+L'identité
+$\lVert[P,U]\rVert_{\mathrm{op}}=\lVert P-UPU^\ast\rVert_{\mathrm{op}}$
+place la brique locale de $P_S$ directement dans la géométrie classique des
+projecteurs et de la conjugaison unitaire ; les inégalités de Kittaneh
+renforcent ce point. Le risque d'antériorité porte donc surtout sur les étapes
+suivantes : construction du sous-ensemble de variation positive, agrégation du
+budget $L^2$ cellule par cellule, décomposition en blocs croisés et facteur
+quadratique sharp $1/2$.
+
 Des résultats très proches peuvent être cachés dans la littérature sur :
 
 - paires de projections et angles principaux ;
 - pinching/dephasing et conditional expectations ;
 - almost commuting PVMs ;
 - gentle measurement / disturbance ;
-- operator-space norm inequalities.
+- block operator matrices et operator-space norm inequalities.
 
 **R1 reste ouvert.**
 
@@ -465,31 +472,31 @@ Fuad Kittaneh,
 Proceedings of the American Mathematical Society **130**(5) (2002),
 1279–1283, DOI 10.1090/S0002-9939-01-06197-4.
 
-For a positive operator (P) and a unitary (U), this paper quantitatively
-studies the commutator (UP-PU) and associated unitary-conjugation objects
+For a positive operator $P$ and a unitary $U$, this paper quantitatively
+studies the commutator $UP-PU$ and associated unitary-conjugation objects
 under unitarily invariant norms.
 
-When (P) is a projection, the elementary algebraic identity
+When $P$ is a projection, the elementary algebraic identity
 
-[
-[P,U]U^ast=P-UPU^ast
-]
+$
+[P,U]U^\ast=P-UPU^\ast
+$
 
 immediately gives
 
-[
-lVert[P,U]Vert_{mathrm{op}}
+$
+\lVert[P,U]\rVert_{\mathrm{op}}
 =
-lVert P-UPU^astVert_{mathrm{op}}.
-]
+\lVert P-UPU^\ast\rVert_{\mathrm{op}}.
+$
 
 **Proximity to T5: very high for the local operator geometry of the aggregate
-projector (P_S), but not for the multicell statistical statement.**
+projector $P_S$, but not for the multicell statistical statement.**
 
 This increases the risk that the local step relating an aggregate-projector
 commutator to unitary displacement is standard. The potentially distinctive
 part of T5 must therefore be sought in the passage from per-cell commutators to
-(P_S), then to the full (L^1) profile variation, with an optimal universal
+$P_S$, then to the full $L^1$ profile variation, with an optimal universal
 constant and an explicit saturating family.
 
 ### 3. Standard measurement-contraction bound is not T5
@@ -508,12 +515,14 @@ rather than merely global state distance.
 
 **R1 — aggregate-projector lemma may already exist under operator-algebra
 language.** The identity
-(lVert[P,U]Vert_{m op}=lVert P-UPU^astVert_{m op}) places the
-local (P_S) step directly inside classical projection/unitary-conjugation
-geometry; Kittaneh's commutator inequalities reinforce this point. The
-positive-variation subset, aggregation from the cellwise (L^2) budget,
-cross-block decomposition, and sharp factor (1/2) must therefore be checked
-against work on pairs of projections, pinching, conditional expectations, and
+$\lVert[P,U]\rVert_{\mathrm{op}}=\lVert P-UPU^\ast\rVert_{\mathrm{op}}$
+places the local $P_S$ step directly inside classical projection and
+unitary-conjugation geometry; Kittaneh's commutator inequalities reinforce this
+point. The prior-art risk therefore concentrates on the subsequent steps:
+constructing the positive-variation subset, aggregating the cellwise $L^2$
+budget, using the cross-block decomposition, and obtaining the sharp quadratic
+factor $1/2$. Closely related statements may occur in work on pairs of
+projections, pinching, conditional expectations, almost commuting PVMs, and
 block operator matrices.
 
 **R2 — combination-of-standard-lemmas risk.** Even absent an identical printed
