@@ -252,6 +252,70 @@ cherché dans la manière dont une PVM entière fournit simultanément le budget
 cellulaire, dans la sélection du sous-ensemble de variation positive, et dans
 le théorème global de meilleure constante.
 
+#### J. Rieffel / Arveson — distance à une sous-algèbre et projections du commutant
+
+Marc A. Rieffel,
+*Quantum Hamming Metrics*, arXiv:2507.23046 (2025), théorème 12.1,
+s'appuie sur la norme quotient
+\[
+L_q(a)=\operatorname{dist}(a,\mathcal B)
+\]
+pour une sous-algèbre unitaire \(\mathcal B\subseteq B(H)\) en dimension
+finie. Le théorème représente cette distance par le supremum des
+\(\lVert[P,a]\rVert\) lorsque \(P\) parcourt certaines projections du commutant
+\(\mathcal B'\). Rieffel relie explicitement ce résultat à Christensen (1977)
+et à la formule de distance d'Arveson (1975).
+
+Appliquons extérieurement ce cadre à la sous-algèbre bloc-diagonale associée à
+la PVM \(D\),
+\[
+\mathcal B_D
+=
+\{T:[T,P_c]=0\ \text{pour tout }c\}
+\simeq \bigoplus_c B(P_cH).
+\]
+Son commutant est l'algèbre des scalaires par bloc,
+\[
+\mathcal B_D'=\left\{\sum_c\lambda_cP_c\right\},
+\]
+et ses projections sont exactement les projecteurs agrégés
+\(P_S=\sum_{c\in S}P_c\). Dans le cadre fini à blocs non nuls, la restriction
+de rang du théorème 12.1 est automatique puisque, si \(r_c=\operatorname{rank}
+P_c\),
+\[
+\dim\mathcal B_D=\sum_c r_c^2\ge\sum_c r_c=\dim H.
+\]
+On obtient donc la reformulation externe
+\[
+\operatorname{dist}(U,\mathcal B_D)
+=
+\sup_S\lVert[P_S,U]\rVert_{\mathrm{op}}.
+\]
+
+**Statut dans ce dépôt : OBSERVATION EXTERNE / NON FORMALISÉE EN LEAN sous
+cette forme.** Elle ne change aucun statut de T5.
+
+En prenant le supremum sur les vecteurs unitaires dans la borne T5B déjà
+formalisée pour chaque \(S\), on obtient mathématiquement
+\[
+\operatorname{dist}(U,\mathcal B_D)
+\le
+\frac1{\sqrt2}
+\left(\sum_c\lVert[P_c,U]\rVert_{\mathrm{op}}^2\right)^{1/2}.
+\]
+Dans une décomposition binaire \(P_1=I-P_0\),
+\([P_1,U]=-[P_0,U]\), donc le rapport entre le membre de gauche exprimé par le
+supremum des projecteurs agrégés et l'agrégat \(L^2\) vaut exactement
+\(1/\sqrt2\) dès que le commutateur est non nul. La constante opératorielle
+\(1/\sqrt2\) est ainsi naturellement sharp dans ce cadre.
+
+**Conséquence pour la nouveauté : très importante.** La formule de distance
+montre que le supremum sur les projecteurs agrégés n'est pas en lui-même un
+nouvel objet. Le front bibliographique pertinent se réduit désormais à
+l'inégalité sharp qui compare cette distance quotient à l'agrégat \(L^2\) des
+commutateurs atomiques \( [P_c,U] \), puis au corollaire de variation totale
+des poids projectifs.
+
 ### 3. Résultat standard à ne pas confondre avec T5
 
 Pour une mesure fixée, la distance de variation totale entre les distributions
@@ -320,6 +384,7 @@ sur le nombre $\sqrt2$ lui-même.
 | Hastings 2009 | $[A,B]$ | distance à des matrices commutantes | deux opérateurs | quantitative | non |
 | Kittaneh 2002 | $UP-PU$ / conjugaison unitaire | inégalités de normes opératorielles | un opérateur positif + unitaire | sharpness locale selon inégalité | non, mais brique locale proche |
 | Halmos 1969 | paire de projections | forme canonique en blocs | réduction à deux blocs | structure exacte | non, mais géométrie locale fondamentale |
+| Rieffel 2025 / Arveson | distance à (mathcal B_D) | supremum de commutateurs avec projections du commutant | tous les (P_S) | formule de distance exacte | non, mais reformule le côté gauche opératoriel |
 
 ### 6. Conclusion provisoire
 
@@ -333,20 +398,28 @@ Ce statut signifie exactement :
   complet ;
 - l'absence actuelle de match exact ne suffit pas à établir la nouveauté.
 
-L'audit réduit maintenant la zone d'incertitude : la géométrie locale de deux
-projections est classique (Halmos, Kittaneh, Conde). Le prochain audit doit
-donc cibler prioritairement les résultats **multi-cellules** sur les PVMs,
-pinching maps, conditional expectations et familles de blocs, en recherchant
-une borne uniforme d'un projecteur grossier $P_S$ à partir d'un budget
-quadratique sur tous les $[P_c,U]$.
+L'audit réduit maintenant fortement la zone d'incertitude : la géométrie
+locale de deux projections est classique (Halmos, Kittaneh, Conde), et le
+supremum sur les projecteurs agrégés a une interprétation standard de distance
+à la sous-algèbre bloc-diagonale (Rieffel/Arveson). Le prochain audit doit donc
+cibler presque exclusivement la comparaison **multi-cellules**
+[
+operatorname{dist}(U,mathcal B_D)
+stackrel{?}{le}
+rac1{sqrt2}
+left(sum_clVert[P_c,U]Vert_{mathrm{op}}^2ight)^{1/2},
+]
+sa meilleure constante, et le passage de cette inégalité à la variation totale
+du profil projectif.
 
 ### 7. Critère avant soumission
 
 Avant toute revendication de nouveau théorème, il faut au minimum :
 
-1. rechercher un équivalent du lemme de projecteur agrégé pour $[P_S,U]$ ;
-2. rechercher explicitement des bornes de variation totale des statistiques
-   d'une PVM en fonction de commutateurs ;
+1. rechercher explicitement la comparaison entre distance à l'algèbre
+   bloc-diagonale et norme (L^2) de la famille des commutateurs atomiques ;
+2. rechercher des bornes de variation totale des statistiques d'une PVM en
+   fonction de cette distance quotient ou des commutateurs ;
 3. remonter les références citées par Halmos, Kittaneh, Conde, Hastings,
    de la Salle et Czajkowski–Grilo ;
 4. vérifier si la constante $\sqrt2$ peut être obtenue comme corollaire direct
@@ -563,6 +636,69 @@ new.** Any potentially distinctive content must instead lie in how the whole
 PVM supplies the simultaneous cellwise budget, in the positive-variation
 subset selection, and in the global best-constant theorem.
 
+#### J. Rieffel / Arveson — distance to a subalgebra and commutant projections
+
+Marc A. Rieffel,
+*Quantum Hamming Metrics*, arXiv:2507.23046 (2025), Theorem 12.1,
+uses the quotient norm
+\[
+L_q(a)=\operatorname{dist}(a,\mathcal B)
+\]
+for a unital subalgebra \(\mathcal B\subseteq B(H)\) in finite dimension. The
+theorem represents this distance through the supremum of
+\(\lVert[P,a]\rVert\) over suitable projections \(P\) in the commutant
+\(\mathcal B'\). Rieffel explicitly relates the theorem to Christensen (1977)
+and the Arveson distance formula (1975).
+
+Apply this framework externally to the block-diagonal algebra associated with
+the PVM \(D\),
+\[
+\mathcal B_D
+=
+\{T:[T,P_c]=0\ \text{for every }c\}
+\simeq \bigoplus_c B(P_cH).
+\]
+Its commutant is the block-scalar algebra
+\[
+\mathcal B_D'=\left\{\sum_c\lambda_cP_c\right\},
+\]
+whose projections are exactly the aggregate projectors
+\(P_S=\sum_{c\in S}P_c\). In the finite nonzero-block setting, the rank
+restriction in Theorem 12.1 is automatic: with
+\(r_c=\operatorname{rank}P_c\),
+\[
+\dim\mathcal B_D=\sum_c r_c^2\ge\sum_c r_c=\dim H.
+\]
+Thus the external reformulation is
+\[
+\operatorname{dist}(U,\mathcal B_D)
+=
+\sup_S\lVert[P_S,U]\rVert_{\mathrm{op}}.
+\]
+
+**Repository status: EXTERNAL OBSERVATION / NOT FORMALIZED IN LEAN in this
+form.** It changes no T5 status.
+
+Taking the supremum over unit vectors in the already formalized T5B estimate
+for every \(S\) gives mathematically
+\[
+\operatorname{dist}(U,\mathcal B_D)
+\le
+\frac1{\sqrt2}
+\left(\sum_c\lVert[P_c,U]\rVert_{\mathrm{op}}^2\right)^{1/2}.
+\]
+For a binary decomposition \(P_1=I-P_0\),
+\([P_1,U]=-[P_0,U]\), so the ratio of the left side, expressed through the
+aggregate-projector supremum, to the cellwise \(L^2\) aggregate is exactly
+\(1/\sqrt2\) whenever the commutator is nonzero. The operator-theoretic
+coefficient \(1/\sqrt2\) is therefore naturally sharp in this setting.
+
+**Novelty consequence: very important.** The distance formula shows that the
+aggregate-projector supremum is not by itself a new object. The relevant
+literature question now narrows to the sharp comparison between this quotient
+distance and the \(L^2\) aggregate of the atomic commutators \([P_c,U]\), and
+then to the total-variation corollary for the projective weights.
+
 ### 3. Standard measurement-contraction bound is not T5
 
 For a fixed measurement, total variation distance between outcome
@@ -613,6 +749,7 @@ Any future claim must concern the precise T5 inequality and its optimality.
 | Hastings 2009 | $[A,B]$ | distance to commuting matrices | two operators | quantitative | no |
 | Kittaneh 2002 | $UP-PU$ / unitary conjugation | operator-norm inequalities | positive operator + unitary | inequality-dependent local sharpness | no, but close local ingredient |
 | Halmos 1969 | pair of projections | canonical block form | two-block reduction | exact structure | no, but fundamental local geometry |
+| Rieffel 2025 / Arveson | distance to (mathcal B_D) | supremum of commutators with commutant projections | all (P_S) | exact distance formula | no, but reformulates the operator-side quantity |
 
 ### 6. Provisional conclusion
 
@@ -623,20 +760,28 @@ This means only that important structural antecedents exist and that none of
 the works inspected above manifestly states the entire T5 package. It is not a
 novelty certificate.
 
-The audit now narrows the uncertainty region: local two-projection geometry is
-classical (Halmos, Kittaneh, Conde). The highest-priority remaining search is
-therefore **multicell** operator-analysis for PVMs, pinching/dephasing maps,
-conditional expectations, and block families, looking specifically for a
-uniform coarse-projector bound derived from a quadratic budget over all
-$[P_c,U]$.
+The audit now narrows the uncertainty region substantially: local
+two-projection geometry is classical (Halmos, Kittaneh, Conde), and the
+aggregate-projector supremum has a standard interpretation as distance to the
+block-diagonal subalgebra (Rieffel/Arveson). The highest-priority remaining
+search is therefore almost entirely the **multicell** comparison
+[
+operatorname{dist}(U,mathcal B_D)
+stackrel{?}{le}
+rac1{sqrt2}
+left(sum_clVert[P_c,U]Vert_{mathrm{op}}^2ight)^{1/2},
+]
+its best constant, and the passage from this inequality to total variation of
+the projective profile.
 
 ### 7. Gate before submission
 
 Before any new-theorem claim:
 
-1. search for an equivalent aggregate-projector commutator lemma;
-2. search explicitly for total-variation bounds on PVM statistics in terms of
-   commutators;
+1. search explicitly for the comparison between distance to the block-diagonal
+   algebra and the (L^2) norm of the atomic-commutator family;
+2. search for total-variation bounds on PVM statistics in terms of this
+   quotient distance or the commutators;
 3. follow backward citations from Halmos, Kittaneh, Conde, Hastings,
    de la Salle, and Czajkowski–Grilo;
 4. test whether $\sqrt2$ follows immediately from a more general published
