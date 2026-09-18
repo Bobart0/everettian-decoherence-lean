@@ -585,7 +585,7 @@ Avant toute revendication de nouveau théorème, il faut au minimum :
 Aucun passage de **UNRESOLVED** à **NOVEL** ne doit être fait sans cet audit.
 
 
-## English## English
+## English
 
 Date: **2026-09-18**. Status: **PRELIMINARY LITERATURE AUDIT**.
 
