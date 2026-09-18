@@ -379,6 +379,74 @@ donc être cherchée dans le paquet complet : identification du \(S\) de variati
 positive, passage exact à la variation \(L^1\), constante universelle optimale,
 famille saturante, composition/itération et formalisation Lean.
 
+#### L. Dualité de variation totale — le passage final au profil \(L^1\)
+
+Le dernier passage T5B peut lui aussi être isolé sous une forme standard.
+Posons
+
+\[
+d_c=p_c(Ux)-p_c(x).
+\]
+
+Comme \(\sum_c d_c=0\), si
+\(S=\{c:d_c\ge 0\}\), l'identité classique de variation totale donne
+
+\[
+\sum_c |d_c|
+=
+2\sum_{c\in S} d_c.
+\]
+
+En introduisant le projecteur agrégé \(P_S\),
+
+\[
+\sum_{c\in S}d_c
+=
+\langle Ux,P_SUx\rangle-\langle x,P_Sx\rangle
+=
+\langle x,(U^\ast P_SU-P_S)x\rangle.
+\]
+
+Or
+
+\[
+U^\ast P_SU-P_S
+=
+U^\ast[P_S,U],
+\]
+
+d'où
+
+\[
+\sum_c |d_c|
+\le
+2\,\lVert[P_S,U]\rVert_{\mathrm{op}}\,\lVert x\rVert^2.
+\]
+
+En combinant avec la borne row/column de la section précédente,
+
+\[
+\sum_c |d_c|
+\le
+\sqrt2\,
+\left(
+\sum_c\lVert[P_c,U]\rVert_{\mathrm{op}}^2
+\right)^{1/2}
+\lVert x\rVert^2.
+\]
+
+Ainsi, même le passage final vers la métrique \(L^1\) est une combinaison
+directe de l'identité standard de variation totale avec la géométrie
+opératorielle précédente.
+
+**Conséquence éditoriale : très forte.** Aucun ingrédient essentiel de la
+preuve T5B n'apparaît désormais comme techniquement nouveau pris isolément.
+L'absence d'un article antérieur écrivant exactement la même formule ne suffit
+donc pas à soutenir une revendication forte de nouveauté mathématique. La
+contribution la plus défendable semble être le **paquet sharp explicitement
+formulé et formalisé** : meilleure constante, saturation, composition,
+itération, audit Lean et clarification précise des dépendances.
+
 ### 3. Résultat standard à ne pas confondre avec T5
 
 Pour une mesure fixée, la distance de variation totale entre les distributions
@@ -488,11 +556,13 @@ question suivante : **le corollaire qui transforme cette géométrie en distance
 constante universelle optimale \(\sqrt2\) et famille saturante, a-t-il déjà été
 énoncé ou utilisé sous une autre formulation ?**
 
-Même en l'absence d'antécédent exact, le risque éditorial reste élevé qu'un
-referee considère ce corollaire comme une combinaison naturelle de faits
-standards. La valeur publiable éventuelle doit donc être évaluée au niveau du
-paquet complet : formulation de meilleure constante, saturation explicite,
-composition/itération, séparation Born/non-Born et formalisation Lean auditée.
+Même en l'absence d'antécédent exact, le risque éditorial est désormais
+**très élevé** qu'un referee considère ce corollaire comme une combinaison
+naturelle de faits standards. La valeur publiable éventuelle doit donc être
+évaluée au niveau du paquet complet : formulation de meilleure constante,
+saturation explicite, composition/itération, séparation Born/non-Born et
+formalisation Lean auditée. Un positionnement « nouveau théorème d'analyse
+opératorielle » n'est pas encore défendable sur la base de cet audit.
 
 ### 7. Critère avant soumission
 
@@ -848,6 +918,72 @@ subset selection, exact passage to full \(L^1\) profile variation, optimal
 universal constant, explicit saturation, composition/iteration, and Lean
 formalization.
 
+#### L. Total-variation duality — the final passage to the \(L^1\) profile
+
+The last T5B step can also be isolated as a standard argument. Set
+
+\[
+d_c=p_c(Ux)-p_c(x).
+\]
+
+Since \(\sum_c d_c=0\), for
+\(S=\{c:d_c\ge0\}\), the classical total-variation identity gives
+
+\[
+\sum_c|d_c|
+=
+2\sum_{c\in S}d_c.
+\]
+
+With the aggregate projector \(P_S\),
+
+\[
+\sum_{c\in S}d_c
+=
+\langle Ux,P_SUx\rangle-\langle x,P_Sx\rangle
+=
+\langle x,(U^\ast P_SU-P_S)x\rangle.
+\]
+
+Because
+
+\[
+U^\ast P_SU-P_S
+=
+U^\ast[P_S,U],
+\]
+
+we obtain
+
+\[
+\sum_c|d_c|
+\le
+2\,\lVert[P_S,U]\rVert_{\mathrm{op}}\,\lVert x\rVert^2.
+\]
+
+Combining this with the row/column bound from the preceding section yields
+
+\[
+\sum_c|d_c|
+\le
+\sqrt2\,
+\left(
+\sum_c\lVert[P_c,U]\rVert_{\mathrm{op}}^2
+\right)^{1/2}
+\lVert x\rVert^2.
+\]
+
+Thus even the final passage to the \(L^1\) metric is a direct combination of
+standard total-variation duality with the preceding operator geometry.
+
+**Editorial consequence: very strong.** None of the essential T5B proof
+ingredients now appears technically new in isolation. Failure to find an
+earlier paper writing the exact same formula is therefore insufficient for a
+strong mathematical-novelty claim. The most defensible contribution appears
+to be the **explicit sharp package and its verification**: best constant,
+saturation, composition, iteration, Lean audit, and precise logical
+dependency control.
+
 ### 3. Standard measurement-contraction bound is not T5
 
 For a fixed measurement, total variation distance between outcome
@@ -936,12 +1072,13 @@ mechanism of T5B. It is concentrated almost entirely on whether the **full
 universal coefficient \(\sqrt2\) and an explicit saturating family, has already
 been stated or used in another formulation**.
 
-Even if no exact antecedent is found, there remains a substantial editorial
-risk that a referee regards this corollary as a natural combination of standard
+Even if no exact antecedent is found, the editorial risk is now **very high**
+that a referee regards this corollary as a natural combination of standard
 facts. Any publication case must therefore be assessed at the level of the
 whole package: best-constant formulation, explicit saturation,
 composition/iteration, Born/non-Born separation, and audited Lean
-formalization.
+formalization. A positioning as a technically new operator-analysis theorem is
+not yet defensible on the basis of this audit.
 
 ### 7. Gate before submission
 
