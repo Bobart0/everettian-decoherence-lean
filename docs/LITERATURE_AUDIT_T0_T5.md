@@ -221,6 +221,37 @@ passage depuis les commutateurs cellule par cellule vers $P_S$, puis vers la
 variation $L^1$ complète du profil, avec constante universelle optimale et
 famille saturante.
 
+#### I. Halmos — forme canonique de deux projections
+
+Paul R. Halmos,
+*Two Subspaces*, Transactions of the American Mathematical Society **144**
+(1969), 381–389.
+
+La théorie classique de deux sous-espaces réduit, sur la partie en position
+générique, une paire de projecteurs orthogonaux à la forme bloc
+
+$
+P \simeq
+\begin{pmatrix} I&0\\0&0\end{pmatrix},
+\qquad
+Q \simeq
+\begin{pmatrix} C^2&CS\\CS&S^2\end{pmatrix},
+\qquad C^2+S^2=I,
+$
+
+avec $C$ et $S$ contractions positives commutantes.
+
+Conde 2022 réutilise cette géométrie de deux projections et décompose notamment
+$P-Q$ à l'aide des deux blocs croisés
+$P(I-Q)$ et $(I-P)Q$, dont les images sont orthogonales.
+
+**Conséquence pour T5 : la réduction locale à deux blocs et le fait que les
+extrémaux puissent déjà apparaître en dimension $2$ ne doivent pas être
+présentés comme nouveaux.** Le contenu éventuellement distinct doit être
+cherché dans la manière dont une PVM entière fournit simultanément le budget
+cellulaire, dans la sélection du sous-ensemble de variation positive, et dans
+le théorème global de meilleure constante.
+
 ### 3. Résultat standard à ne pas confondre avec T5
 
 Pour une mesure fixée, la distance de variation totale entre les distributions
@@ -288,6 +319,7 @@ sur le nombre $\sqrt2$ lui-même.
 | Conde 2022 | $[P,Q]$ | normes opératorielles de deux projections | aucune | bornes exactes/locales | non |
 | Hastings 2009 | $[A,B]$ | distance à des matrices commutantes | deux opérateurs | quantitative | non |
 | Kittaneh 2002 | $UP-PU$ / conjugaison unitaire | inégalités de normes opératorielles | un opérateur positif + unitaire | sharpness locale selon inégalité | non, mais brique locale proche |
+| Halmos 1969 | paire de projections | forme canonique en blocs | réduction à deux blocs | structure exacte | non, mais géométrie locale fondamentale |
 
 ### 6. Conclusion provisoire
 
@@ -301,10 +333,12 @@ Ce statut signifie exactement :
   complet ;
 - l'absence actuelle de match exact ne suffit pas à établir la nouveauté.
 
-Le prochain audit doit cibler prioritairement la littérature d'analyse
-fonctionnelle et d'algèbres d'opérateurs sur les PVMs, pinching maps,
-conditional expectations et matrices bloc, où un théorème équivalent pourrait
-être formulé sans vocabulaire de probabilités quantiques.
+L'audit réduit maintenant la zone d'incertitude : la géométrie locale de deux
+projections est classique (Halmos, Kittaneh, Conde). Le prochain audit doit
+donc cibler prioritairement les résultats **multi-cellules** sur les PVMs,
+pinching maps, conditional expectations et familles de blocs, en recherchant
+une borne uniforme d'un projecteur grossier $P_S$ à partir d'un budget
+quadratique sur tous les $[P_c,U]$.
 
 ### 7. Critère avant soumission
 
@@ -313,8 +347,8 @@ Avant toute revendication de nouveau théorème, il faut au minimum :
 1. rechercher un équivalent du lemme de projecteur agrégé pour $[P_S,U]$ ;
 2. rechercher explicitement des bornes de variation totale des statistiques
    d'une PVM en fonction de commutateurs ;
-3. remonter les références citées par Kittaneh, Conde, Hastings, de la Salle
-   et Czajkowski–Grilo ;
+3. remonter les références citées par Halmos, Kittaneh, Conde, Hastings,
+   de la Salle et Czajkowski–Grilo ;
 4. vérifier si la constante $\sqrt2$ peut être obtenue comme corollaire direct
    d'un théorème général déjà publié ;
 5. documenter la différence exacte si un résultat plus général est trouvé.
@@ -499,6 +533,36 @@ part of T5 must therefore be sought in the passage from per-cell commutators to
 $P_S$, then to the full $L^1$ profile variation, with an optimal universal
 constant and an explicit saturating family.
 
+#### I. Halmos — canonical form for two projections
+
+Paul R. Halmos,
+*Two Subspaces*, Transactions of the American Mathematical Society **144**
+(1969), 381–389.
+
+The classical two-subspace theory reduces a pair of orthogonal projections, on
+their generic-position component, to the block form
+
+$
+P \simeq
+\begin{pmatrix} I&0\\0&0\end{pmatrix},
+\qquad
+Q \simeq
+\begin{pmatrix} C^2&CS\\CS&S^2\end{pmatrix},
+\qquad C^2+S^2=I,
+$
+
+with commuting positive contractions $C$ and $S$.
+
+Conde 2022 uses this two-projection geometry and in particular decomposes
+$P-Q$ through the two cross blocks $P(I-Q)$ and $(I-P)Q$, whose ranges are
+orthogonal.
+
+**Consequence for T5: the local two-block reduction and the fact that
+extremizers may already occur in dimension $2$ should not be presented as
+new.** Any potentially distinctive content must instead lie in how the whole
+PVM supplies the simultaneous cellwise budget, in the positive-variation
+subset selection, and in the global best-constant theorem.
+
 ### 3. Standard measurement-contraction bound is not T5
 
 For a fixed measurement, total variation distance between outcome
@@ -548,6 +612,7 @@ Any future claim must concern the precise T5 inequality and its optimality.
 | Conde 2022 | $[P,Q]$ | two-projection operator norms | none | sharp local bounds | no |
 | Hastings 2009 | $[A,B]$ | distance to commuting matrices | two operators | quantitative | no |
 | Kittaneh 2002 | $UP-PU$ / unitary conjugation | operator-norm inequalities | positive operator + unitary | inequality-dependent local sharpness | no, but close local ingredient |
+| Halmos 1969 | pair of projections | canonical block form | two-block reduction | exact structure | no, but fundamental local geometry |
 
 ### 6. Provisional conclusion
 
@@ -558,10 +623,12 @@ This means only that important structural antecedents exist and that none of
 the works inspected above manifestly states the entire T5 package. It is not a
 novelty certificate.
 
-The highest-priority remaining search is operator-analysis literature on PVMs,
-pinching/dephasing maps, conditional expectations, block matrices, and
-projection angles, where the result could be formulated without quantum
-probability language.
+The audit now narrows the uncertainty region: local two-projection geometry is
+classical (Halmos, Kittaneh, Conde). The highest-priority remaining search is
+therefore **multicell** operator-analysis for PVMs, pinching/dephasing maps,
+conditional expectations, and block families, looking specifically for a
+uniform coarse-projector bound derived from a quadratic budget over all
+$[P_c,U]$.
 
 ### 7. Gate before submission
 
@@ -570,8 +637,8 @@ Before any new-theorem claim:
 1. search for an equivalent aggregate-projector commutator lemma;
 2. search explicitly for total-variation bounds on PVM statistics in terms of
    commutators;
-3. follow backward citations from Kittaneh, Conde, Hastings, de la Salle, and
-   Czajkowski–Grilo;
+3. follow backward citations from Halmos, Kittaneh, Conde, Hastings,
+   de la Salle, and Czajkowski–Grilo;
 4. test whether $\sqrt2$ follows immediately from a more general published
    operator inequality;
 5. if a more general theorem is found, state precisely what remains new:
