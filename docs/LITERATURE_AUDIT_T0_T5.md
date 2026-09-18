@@ -316,6 +316,69 @@ l'inégalité sharp qui compare cette distance quotient à l'agrégat \(L^2\) de
 commutateurs atomiques \( [P_c,U] \), puis au corollaire de variation totale
 des poids projectifs.
 
+#### K. Row/column operators — la borne multi-cellule comme inégalité bloc standard
+
+La borne multi-cellule de T5B admet une lecture élémentaire en opérateurs-lignes
+et opérateurs-colonnes. Pour un sous-ensemble \(S\subseteq C\), l'opérateur
+
+\[
+P_SU P_{S^c}
+\]
+
+est l'opérateur-ligne formé des blocs \(P_cUP_{S^c}\), \(c\in S\). Comme les
+espaces de sortie \(P_cH\) sont orthogonaux,
+
+\[
+\lVert P_SU P_{S^c}\rVert_{\mathrm{op}}^2
+=
+\left\|
+\sum_{c\in S}
+(P_cUP_{S^c})^\ast(P_cUP_{S^c})
+\right\|_{\mathrm{op}}
+\le
+\sum_{c\in S}\lVert P_cUP_{S^c}\rVert_{\mathrm{op}}^2.
+\]
+
+Or chaque bloc vérifie
+
+\[
+\lVert P_cUP_{S^c}\rVert_{\mathrm{op}}
+\le
+\lVert[P_c,U]\rVert_{\mathrm{op}}.
+\]
+
+Le même argument côté complément donne
+
+\[
+\lVert[P_S,U]\rVert_{\mathrm{op}}^2
+\le
+\min\!\left(
+\sum_{c\in S}\lVert[P_c,U]\rVert_{\mathrm{op}}^2,\,
+\sum_{c\notin S}\lVert[P_c,U]\rVert_{\mathrm{op}}^2
+\right).
+\]
+
+Comme les deux sommes partitionnent le budget global,
+
+\[
+\lVert[P_S,U]\rVert_{\mathrm{op}}^2
+\le
+\frac12
+\sum_c\lVert[P_c,U]\rVert_{\mathrm{op}}^2.
+\]
+
+Cette dérivation est essentiellement une application de la formule standard de
+norme pour un row/column operator, suivie de
+\(\min(A,B)\le(A+B)/2\).
+
+**Conséquence pour la nouveauté : majeure.** Le facteur \(1/2\) de la borne
+quadratique T5B ne repose pas sur une nouvelle théorie opératorielle profonde ;
+il résulte d'une combinaison courte de faits standards une fois le bon
+projecteur agrégé \(P_S\) choisi. La valeur scientifique éventuelle de T5 doit
+donc être cherchée dans le paquet complet : identification du \(S\) de variation
+positive, passage exact à la variation \(L^1\), constante universelle optimale,
+famille saturante, composition/itération et formalisation Lean.
+
 ### 3. Résultat standard à ne pas confondre avec T5
 
 Pour une mesure fixée, la distance de variation totale entre les distributions
@@ -353,15 +416,16 @@ Des résultats très proches peuvent être cachés dans la littérature sur :
 
 #### Risque R2 — combinaison de lemmes standards
 
-Même si l'énoncé complet n'est pas publié explicitement, un referee peut
-considérer que la preuve combine des outils standards : identité de variation
-totale, agrégation de projecteurs, décomposition orthogonale des blocs et
-Cauchy–Schwarz/Pythagore.
+Ce risque est désormais **élevé**. La partie opératorielle multi-cellule se
+réduit à une estimation standard de row/column operator, à la partition
+(S/S^c) et à (min(A,B)le(A+B)/2). Même si l'énoncé complet n'est pas
+publié explicitement, un referee peut considérer la preuve principale comme
+une combinaison courte de faits standards.
 
-Le caractère publiable dépend donc non seulement de “personne n'a écrit la
-même formule”, mais de la valeur ajoutée du **best-constant theorem**, de la
-famille saturante, de l'extension composition/itération et de la formalisation
-Lean.
+Le caractère publiable dépend donc moins de la nouveauté technique de la preuve
+que de la valeur ajoutée du **best-constant theorem** dans cette métrique
+précise, de la famille saturante, du paquet composition/itération et de la
+formalisation Lean.
 
 #### Risque R3 — la constante $\sqrt2$ n'est pas un marqueur de nouveauté
 
@@ -388,8 +452,8 @@ sur le nombre $\sqrt2$ lui-même.
 
 ### 6. Conclusion provisoire
 
-**NOVELTY STATUS: UNRESOLVED, WITH NO EXACT ANTECEDENT IDENTIFIED IN THIS
-PRELIMINARY AUDIT.**
+**NOVELTY STATUS: UNRESOLVED; EXACT ANTECEDENT NOT IDENTIFIED, BUT
+STANDARD-LEMMA RISK IS HIGH.**
 
 Ce statut signifie exactement :
 
@@ -699,6 +763,68 @@ literature question now narrows to the sharp comparison between this quotient
 distance and the \(L^2\) aggregate of the atomic commutators \([P_c,U]\), and
 then to the total-variation corollary for the projective weights.
 
+#### K. Row/column operators — the multicell estimate as a standard block inequality
+
+The T5B multicell estimate has an elementary row/column-operator formulation.
+For a subset \(S\subseteq C\), the operator
+
+\[
+P_SU P_{S^c}
+\]
+
+is the row operator formed by the blocks \(P_cUP_{S^c}\), \(c\in S\). Since
+the output spaces \(P_cH\) are orthogonal,
+
+\[
+\lVert P_SU P_{S^c}\rVert_{\mathrm{op}}^2
+=
+\left\|
+\sum_{c\in S}
+(P_cUP_{S^c})^\ast(P_cUP_{S^c})
+\right\|_{\mathrm{op}}
+\le
+\sum_{c\in S}\lVert P_cUP_{S^c}\rVert_{\mathrm{op}}^2.
+\]
+
+Each block satisfies
+
+\[
+\lVert P_cUP_{S^c}\rVert_{\mathrm{op}}
+\le
+\lVert[P_c,U]\rVert_{\mathrm{op}}.
+\]
+
+Applying the same argument to the complement gives
+
+\[
+\lVert[P_S,U]\rVert_{\mathrm{op}}^2
+\le
+\min\!\left(
+\sum_{c\in S}\lVert[P_c,U]\rVert_{\mathrm{op}}^2,\,
+\sum_{c\notin S}\lVert[P_c,U]\rVert_{\mathrm{op}}^2
+\right).
+\]
+
+Because the two sums partition the full budget,
+
+\[
+\lVert[P_S,U]\rVert_{\mathrm{op}}^2
+\le
+\frac12
+\sum_c\lVert[P_c,U]\rVert_{\mathrm{op}}^2.
+\]
+
+This is essentially the standard row/column-operator norm formula followed by
+\(\min(A,B)\le(A+B)/2\).
+
+**Novelty consequence: major.** The quadratic factor \(1/2\) in T5B does not
+appear to require a deep new operator-theoretic mechanism once the correct
+aggregate projector \(P_S\) is chosen. Any remaining publication value must
+therefore be assessed at the level of the whole package: positive-variation
+subset selection, exact passage to full \(L^1\) profile variation, optimal
+universal constant, explicit saturation, composition/iteration, and Lean
+formalization.
+
 ### 3. Standard measurement-contraction bound is not T5
 
 For a fixed measurement, total variation distance between outcome
@@ -725,11 +851,14 @@ factor $1/2$. Closely related statements may occur in work on pairs of
 projections, pinching, conditional expectations, almost commuting PVMs, and
 block operator matrices.
 
-**R2 — combination-of-standard-lemmas risk.** Even absent an identical printed
-statement, a referee may regard the proof as a short combination of standard
-total-variation and projection-geometry facts. Publication value must therefore
-rest on the best-constant theorem, explicit saturation, composition/iteration
-package, and verified formalization rather than formula novelty alone.
+**R2 — combination-of-standard-lemmas risk: HIGH.** The multicell operator
+estimate reduces to a standard row/column-operator norm estimate, the
+(S/S^c) partition, and (min(A,B)le(A+B)/2). Even absent an identical
+printed statement, a referee may therefore regard the main proof as a short
+combination of standard facts. Publication value must rest primarily on the
+best-constant theorem in this precise metric, explicit saturation, the
+composition/iteration package, and verified formalization rather than on a
+claim of technically novel operator geometry.
 
 **R3 — $\sqrt2$ is not a novelty marker.** The same numerical factor appears
 in distinct projector-commutation and measurement-disturbance problems.
@@ -753,8 +882,8 @@ Any future claim must concern the precise T5 inequality and its optimality.
 
 ### 6. Provisional conclusion
 
-**NOVELTY STATUS: UNRESOLVED, WITH NO EXACT ANTECEDENT IDENTIFIED IN THIS
-PRELIMINARY AUDIT.**
+**NOVELTY STATUS: UNRESOLVED; EXACT ANTECEDENT NOT IDENTIFIED, BUT
+STANDARD-LEMMA RISK IS HIGH.**
 
 This means only that important structural antecedents exist and that none of
 the works inspected above manifestly states the entire T5 package. It is not a
