@@ -185,6 +185,42 @@ dimension.
 **Proximité avec T5 : arrière-plan conceptuel**, mais ni la quantité de sortie
 ni la meilleure constante T5 ne coïncident.
 
+#### H. Kittaneh — commutateur et conjugaison unitaire
+
+Fuad Kittaneh,
+*Commutator inequalities associated with the polar decomposition*,
+Proceedings of the American Mathematical Society **130**(5) (2002),
+1279–1283, DOI 10.1090/S0002-9939-01-06197-4.
+
+Pour un opérateur positif (P) et une unitaire (U), ce travail étudie
+quantitativement le commutateur (UP-PU) et les objets de conjugaison unitaire
+associés, dans des normes unitairement invariantes.
+
+Dans le cas particulier où (P) est un projecteur, l'identité algébrique
+élémentaire
+
+[
+[P,U]U^ast=P-UPU^ast
+]
+
+donne immédiatement
+
+[
+lVert[P,U]Vert_{mathrm{op}}
+=
+lVert P-UPU^astVert_{mathrm{op}}.
+]
+
+**Proximité avec T5 : très élevée pour la géométrie opératorielle locale du
+projecteur agrégé (P_S), mais pas pour la statistique multi-cellule.**
+
+Cela renforce le risque que la brique locale « commutateur d'un projecteur
+agrégé versus déplacement de ce projecteur par conjugaison » soit standard.
+L'élément potentiellement distinct de T5 doit donc être recherché dans le
+passage depuis les commutateurs cellule par cellule vers (P_S), puis vers la
+variation (L^1) complète du profil, avec constante universelle optimale et
+famille saturante.
+
 ### 3. Résultat standard à ne pas confondre avec T5
 
 Pour une mesure fixée, la distance de variation totale entre les distributions
@@ -244,6 +280,7 @@ sur le nombre $\sqrt2$ lui-même.
 | Zhou–Wu–Chau 2016 | incompatibilité de mesures | distance entre distributions successives | selon mesure | autre trade-off | non identifié |
 | Conde 2022 | $[P,Q]$ | normes opératorielles de deux projections | aucune | bornes exactes/locales | non |
 | Hastings 2009 | $[A,B]$ | distance à des matrices commutantes | deux opérateurs | quantitative | non |
+| Kittaneh 2002 | $UP-PU$ / conjugaison unitaire | inégalités de normes opératorielles | un opérateur positif + unitaire | sharpness locale selon inégalité | non, mais brique locale proche |
 
 ### 6. Conclusion provisoire
 
@@ -269,8 +306,8 @@ Avant toute revendication de nouveau théorème, il faut au minimum :
 1. rechercher un équivalent du lemme de projecteur agrégé pour $[P_S,U]$ ;
 2. rechercher explicitement des bornes de variation totale des statistiques
    d'une PVM en fonction de commutateurs ;
-3. remonter les références citées par Conde, Hastings, de la Salle et
-   Czajkowski–Grilo ;
+3. remonter les références citées par Kittaneh, Conde, Hastings, de la Salle
+   et Czajkowski–Grilo ;
 4. vérifier si la constante $\sqrt2$ peut être obtenue comme corollaire direct
    d'un théorème général déjà publié ;
 5. documenter la différence exacte si un résultat plus général est trouvé.
@@ -421,6 +458,40 @@ This is important conceptual background for quantitative almost-commutation,
 but its target is approximation by commuting operators rather than T5 profile
 stability.
 
+#### H. Kittaneh — commutator and unitary conjugation
+
+Fuad Kittaneh,
+*Commutator inequalities associated with the polar decomposition*,
+Proceedings of the American Mathematical Society **130**(5) (2002),
+1279–1283, DOI 10.1090/S0002-9939-01-06197-4.
+
+For a positive operator (P) and a unitary (U), this paper quantitatively
+studies the commutator (UP-PU) and associated unitary-conjugation objects
+under unitarily invariant norms.
+
+When (P) is a projection, the elementary algebraic identity
+
+[
+[P,U]U^ast=P-UPU^ast
+]
+
+immediately gives
+
+[
+lVert[P,U]Vert_{mathrm{op}}
+=
+lVert P-UPU^astVert_{mathrm{op}}.
+]
+
+**Proximity to T5: very high for the local operator geometry of the aggregate
+projector (P_S), but not for the multicell statistical statement.**
+
+This increases the risk that the local step relating an aggregate-projector
+commutator to unitary displacement is standard. The potentially distinctive
+part of T5 must therefore be sought in the passage from per-cell commutators to
+(P_S), then to the full (L^1) profile variation, with an optimal universal
+constant and an explicit saturating family.
+
 ### 3. Standard measurement-contraction bound is not T5
 
 For a fixed measurement, total variation distance between outcome
@@ -436,9 +507,14 @@ rather than merely global state distance.
 ### 4. Prior-art risks
 
 **R1 — aggregate-projector lemma may already exist under operator-algebra
-language.** The positive-variation subset, aggregate projector, cross-block
-decomposition, and quadratic budget may occur in work on pairs of projections,
-pinching, conditional expectations, or block operator matrices.
+language.** The identity
+(lVert[P,U]Vert_{m op}=lVert P-UPU^astVert_{m op}) places the
+local (P_S) step directly inside classical projection/unitary-conjugation
+geometry; Kittaneh's commutator inequalities reinforce this point. The
+positive-variation subset, aggregation from the cellwise (L^2) budget,
+cross-block decomposition, and sharp factor (1/2) must therefore be checked
+against work on pairs of projections, pinching, conditional expectations, and
+block operator matrices.
 
 **R2 — combination-of-standard-lemmas risk.** Even absent an identical printed
 statement, a referee may regard the proof as a short combination of standard
@@ -462,6 +538,7 @@ Any future claim must concern the precise T5 inequality and its optimality.
 | Zhou–Wu–Chau 2016 | incompatible measurements | statistical distribution disturbance | measurement dependent | different trade-off | no identified match |
 | Conde 2022 | $[P,Q]$ | two-projection operator norms | none | sharp local bounds | no |
 | Hastings 2009 | $[A,B]$ | distance to commuting matrices | two operators | quantitative | no |
+| Kittaneh 2002 | $UP-PU$ / unitary conjugation | operator-norm inequalities | positive operator + unitary | inequality-dependent local sharpness | no, but close local ingredient |
 
 ### 6. Provisional conclusion
 
@@ -484,7 +561,7 @@ Before any new-theorem claim:
 1. search for an equivalent aggregate-projector commutator lemma;
 2. search explicitly for total-variation bounds on PVM statistics in terms of
    commutators;
-3. follow backward citations from Conde, Hastings, de la Salle, and
+3. follow backward citations from Kittaneh, Conde, Hastings, de la Salle, and
    Czajkowski–Grilo;
 4. test whether $\sqrt2$ follows immediately from a more general published
    operator inequality;
