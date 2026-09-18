@@ -103,34 +103,62 @@ T5A coïncident.
 
 ### 4. Positionnement candidat de l'article
 
-Titre de travail recommandé :
+L'audit bibliographique du 18 septembre 2026 modifie le positionnement
+recommandé.
 
-**Optimal commutator control of finite projective measurement profiles**
+**Piste A — recommandée à ce stade : formalisation vérifiée + paquet sharp.**
 
-Variante plus descriptive :
+Titre de travail possible :
 
-**Sharp stability of finite projective measurement profiles under approximately commuting unitaries**
+**Lean-verified sharp stability of finite projective measurement profiles**
+
+ou, plus neutre :
+
+**Machine-checked stability bounds for finite projective measurement profiles**
+
+La contribution mise en avant serait alors :
+
+- une formulation unifiée des bornes de stabilité ;
+- la constante optimale \(\sqrt2\) et une famille saturante explicite ;
+- les extensions composition/itération et leur sharpness ;
+- la séparation systématique entre couches NON BORN-SENSITIVE et
+  BORN-SENSITIVE ;
+- la formalisation Lean et l'audit d'axiomes ;
+- une carte précise des dépendances logiques et des limites d'interprétation.
+
+**Piste B — non recommandée sans résultat supplémentaire : nouveau théorème
+d'analyse opératorielle.**
+
+L'audit montre que la preuve T5B se décompose en briques standards :
+géométrie de deux projections, formule de distance à une sous-algèbre,
+row/column operators, partition \(S/S^c\) et dualité de variation totale.
+Aucun antécédent exact du paquet complet n'a été identifié, mais cela ne suffit
+pas à soutenir une forte revendication de nouveauté technique.
 
 Le vocabulaire principal devrait rester celui des décompositions projectives,
-profils de probabilités, commutateurs et stabilité quantitative. Le terme
-« decoherence » ne devrait pas porter le titre tant qu'aucune dynamique de
-système ouvert, suppression hors diagonale ou redondance environnementale
-n'est formalisée.
+profils de probabilités, commutateurs, stabilité quantitative et vérification
+formelle. Le terme « decoherence » ne devrait pas porter le titre tant
+qu'aucune dynamique de système ouvert, suppression hors diagonale ou
+redondance environnementale n'est formalisée.
 
 ### 5. Architecture possible du manuscrit
 
-1. décomposition projective finie et profil $p(x)$ ;
-2. défaut uniforme $\delta(D,U)$ ;
-3. borne élémentaire puis borne optimale ;
-4. géométrie subset/complément et preuve de $\sqrt{2}$ ;
-5. famille saturante et optimalité ;
-6. composition et itération, avec sharpness du coefficient additif ;
-7. contrôle structurel des projecteurs ;
-8. formalisation Lean et audit d'axiomes ;
+1. décomposition projective finie et profil \(p(x)\) ;
+2. défaut uniforme \(\delta(D,U)\) ;
+3. dérivation courte de la borne sharp à partir des briques standards ;
+4. famille saturante et optimalité de \(\sqrt2\) ;
+5. composition et itération, avec sharpness du coefficient additif ;
+6. contrôle structurel des projecteurs ;
+7. formalisation Lean, architecture des dépendances et audit d'axiomes ;
+8. comparaison détaillée avec Halmos, Kittaneh, Conde, Rieffel/Arveson,
+   almost-commutation et disturbance ;
 9. limites : aucune dynamique physique ni décohérence n'est déduite.
 
-Le résultat principal à mettre en avant est le théorème de meilleure constante,
-non l'historique ED1–ED4B.
+Dans cette version, le résultat de meilleure constante reste le centre
+mathématique, mais **la valeur de l'article ne doit pas être présentée comme
+reposant sur une preuve opératorielle techniquement nouvelle**. Le point fort
+est le paquet sharp complet, sa vérification mécanique et la clarification de
+sa portée.
 
 ### 6. Pare-feu d'interprétation
 
@@ -144,38 +172,51 @@ règle de Born, une preuve de décohérence, une sélection de base ou une
 
 ### 7. État de nouveauté
 
-**NOVELTY STATUS: UNRESOLVED.**
+**NOVELTY STATUS: UNRESOLVED; STANDARD-LEMMA RISK HIGH.**
 
-Des recherches externes ciblées initiales n'ont pas identifié d'énoncé
-manifestement identique combinant exactement :
+L'audit bibliographique détaillé est consigné dans
+\`docs/LITERATURE_AUDIT_T0_T5.md\`.
 
-- une décomposition projective finie arbitraire ;
-- la distance $L^1$ complète des distributions de poids projectifs avant et
-  après une unitaire ;
-- l'agrégat $L^2$ des normes d'opérateur des commutateurs cellule par cellule ;
-- une meilleure constante universelle égale à $\sqrt{2}$ ;
-- une famille explicite saturant cette constante.
+État actuel :
 
-Cette absence de correspondance immédiate ne constitue **pas** une preuve de
-nouveauté. Avant toute soumission, un audit bibliographique dédié doit couvrir
-au minimum : perturbation de mesures projectives, stabilité des mesures
-spectrales, inégalités commutatoriales, disturbance/incompatibility,
-approximate commutation et distances statistiques des distributions de
-mesure.
+- aucun antécédent exact du paquet T5 complet n'a été identifié ;
+- la géométrie locale de deux projections est classique ;
+- le supremum sur les projecteurs agrégés a une interprétation standard de
+  distance à la sous-algèbre bloc-diagonale ;
+- la borne multi-cellule se réduit à une estimation standard de row/column
+  operator et à la partition \(S/S^c\) ;
+- le passage final au profil \(L^1\) se réduit à l'identité standard de
+  variation totale.
+
+Par conséquent, **l'absence de formule identique dans la littérature ne doit
+pas être confondue avec une preuve de nouveauté mathématique substantielle**.
+Le risque est très élevé qu'un referee juge T5B comme un corollaire naturel de
+faits standards, même si la constante optimale, la saturation explicite et
+l'intégration formalisée sont propres.
 
 ### 8. Critère de passage au manuscrit
 
-Le passage à un manuscrit scientifique est justifié si l'audit bibliographique
-confirme soit :
+Deux voies sont désormais distinguées.
 
-- l'absence d'un théorème équivalent avec la constante optimale $\sqrt{2}$, ou
-- une formulation antérieure plus générale dont la présente contribution
-  apporte une formalisation Lean substantielle, une preuve nouvelle, une
-  sharpness explicite ou un corollaire non documenté.
+**Voie A — manuscrit de formalisation / vérification : GO conditionnel.**
 
-En cas d'antériorité exacte, le cycle reste mathématiquement correct mais le
-positionnement devra basculer vers la formalisation vérifiée et l'intégration
-des résultats, plutôt que vers une revendication de nouveau théorème.
+Un manuscrit peut être préparé sans revendiquer un nouveau mécanisme
+opératoriel, à condition que la contribution soit clairement formulée comme
+une intégration sharp machine-checkée : théorème de meilleure constante,
+saturation, composition/itération, audits et dépendances logiques.
+
+**Voie B — manuscrit de nouveau résultat mathématique : NO-GO en l'état.**
+
+Pour revenir à cette voie, il faudrait obtenir au moins un incrément
+mathématique non trivial qui ne se réduise pas immédiatement aux briques
+standards identifiées. Exemples de directions possibles : généralisation aux
+POVMs, aux états mixtes/channels, à une autre classe de normes avec meilleure
+constante non triviale, ou un résultat structurel de composition/dynamique qui
+dépasse les inégalités bloc élémentaires.
+
+Aucun statut **PUBLISHED** n'est revendiqué et aucun choix de revue n'est fixé
+par ce document.
+
 
 ## English
 
@@ -277,33 +318,58 @@ is exactly $\sqrt{2}$, so the T5B upper bound and the T5A lower bound coincide.
 
 ### 4. Candidate paper positioning
 
-Recommended working title:
+The September 18, 2026 literature audit changes the recommended positioning.
 
-**Optimal commutator control of finite projective measurement profiles**
+**Track A — currently recommended: verified formalization + sharp package.**
 
-More descriptive alternative:
+Possible working title:
 
-**Sharp stability of finite projective measurement profiles under approximately commuting unitaries**
+**Lean-verified sharp stability of finite projective measurement profiles**
 
-The primary language should be finite projective decompositions, probability
-profiles, commutators, and quantitative stability. “Decoherence” should not
-carry the title while no open-system dynamics, off-diagonal suppression, or
-environmental redundancy is formalized.
+or, more neutral:
+
+**Machine-checked stability bounds for finite projective measurement profiles**
+
+The contribution would emphasize:
+
+- a unified formulation of the stability bounds;
+- the optimal coefficient \(\sqrt2\) and an explicit saturating family;
+- composition/iteration extensions and their sharpness;
+- systematic separation of NON BORN-SENSITIVE and BORN-SENSITIVE layers;
+- Lean formalization and axioms auditing;
+- a precise logical-dependency and interpretation-scope map.
+
+**Track B — not recommended without an additional result: new
+operator-analysis theorem.**
+
+The audit shows that the T5B proof decomposes into standard ingredients:
+two-projection geometry, distance to a subalgebra, row/column operators, the
+\(S/S^c\) budget split, and total-variation duality. No exact antecedent for
+the whole package has been identified, but this is insufficient for a strong
+technical-novelty claim.
+
+The primary language should remain finite projective decompositions,
+probability profiles, commutators, quantitative stability, and formal
+verification. “Decoherence” should not carry the title while no open-system
+dynamics, off-diagonal suppression, or environmental redundancy is formalized.
 
 ### 5. Possible manuscript structure
 
-1. finite projective decompositions and the profile $p(x)$;
-2. the uniform defect $\delta(D,U)$;
-3. elementary and then optimal transfer bounds;
-4. subset/complement geometry and the $\sqrt{2}$ proof;
-5. saturating family and optimality;
-6. composition and iteration, including additive sharpness;
-7. transported-projector structural control;
-8. Lean formalization and axioms audit;
+1. finite projective decompositions and the profile \(p(x)\);
+2. the uniform defect \(\delta(D,U)\);
+3. a short derivation of the sharp bound from standard ingredients;
+4. the saturating family and optimality of \(\sqrt2\);
+5. composition and iteration, including additive sharpness;
+6. transported-projector structural control;
+7. Lean formalization, dependency architecture, and axioms audit;
+8. detailed comparison with Halmos, Kittaneh, Conde, Rieffel/Arveson,
+   almost-commutation, and disturbance literature;
 9. limitations: no physical dynamics or decoherence is inferred.
 
-The headline result should be the best-constant theorem, not the ED1–ED4B
-development history.
+In this version the best-constant result remains the mathematical centerpiece,
+but **the paper should not claim value from a technically new operator proof**.
+The strength is the complete sharp package, its machine verification, and its
+carefully delimited scope.
 
 ### 6. Interpretation firewall
 
@@ -316,33 +382,46 @@ Born rule, a decoherence theorem, basis selection, or branch emergence.
 
 ### 7. Novelty status
 
-**NOVELTY STATUS: UNRESOLVED.**
+**NOVELTY STATUS: UNRESOLVED; STANDARD-LEMMA RISK HIGH.**
 
-Initial targeted external searches did not identify an obviously identical
-statement simultaneously combining:
+The detailed literature audit is recorded in
+\`docs/LITERATURE_AUDIT_T0_T5.md\`.
 
-- an arbitrary finite projective decomposition;
-- the full $L^1$ distance between projective-weight distributions before and
-  after a unitary;
-- the $L^2$ aggregate of per-cell operator commutator norms;
-- the optimal universal coefficient $\sqrt{2}$;
-- an explicit family saturating that coefficient.
+Current assessment:
 
-Failure to find an immediate match is **not** evidence of novelty. Before
-submission, a dedicated literature audit must cover at least projective
-measurement perturbation, spectral-measure stability, commutator inequalities,
-measurement disturbance/incompatibility, approximate commutation, and
-statistical distances between measurement distributions.
+- no exact antecedent for the complete T5 package has been identified;
+- local two-projection geometry is classical;
+- the aggregate-projector supremum has a standard distance-to-block-diagonal
+  algebra interpretation;
+- the multicell estimate reduces to a standard row/column-operator estimate
+  plus the \(S/S^c\) budget split;
+- the final \(L^1\)-profile passage reduces to standard total-variation
+  duality.
+
+Accordingly, **failure to find the identical formula should not be confused
+with evidence of substantial mathematical novelty**. There is a very high risk
+that a referee views T5B as a natural corollary of standard facts, even though
+the optimal constant, explicit saturation, and verified integration are clean.
 
 ### 8. Gate to manuscript drafting
 
-A scientific manuscript is justified if the literature audit confirms either:
+Two tracks are now distinguished.
 
-- no equivalent theorem with optimal constant $\sqrt{2}$, or
-- an earlier more general statement for which the present work contributes a
-  substantial Lean formalization, a new proof, explicit sharpness, or a
-  previously undocumented corollary.
+**Track A — formalization / verification manuscript: CONDITIONAL GO.**
 
-If an exact antecedent is found, the mathematics remains correct but the
-positioning should shift toward verified formalization and integration rather
-than a new-theorem claim.
+A manuscript can be prepared without claiming a new operator-theoretic
+mechanism, provided the contribution is framed as a machine-checked sharp
+integration: best-constant theorem, saturation, composition/iteration, audits,
+and logical dependencies.
+
+**Track B — new-mathematics manuscript: NO-GO in the present state.**
+
+Reopening this track would require at least one nontrivial mathematical
+increment that does not collapse immediately to the standard ingredients
+identified by the audit. Possible directions include POVMs, mixed
+states/channels, another norm class with a genuinely nontrivial optimal
+constant, or a structural composition/dynamical result beyond elementary
+block inequalities.
+
+No **PUBLISHED** status is claimed and no target journal is fixed by this
+document.
