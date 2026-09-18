@@ -462,37 +462,60 @@ Ce statut signifie exactement :
   complet ;
 - l'absence actuelle de match exact ne suffit pas à établir la nouveauté.
 
-L'audit réduit maintenant fortement la zone d'incertitude : la géométrie
-locale de deux projections est classique (Halmos, Kittaneh, Conde), et le
-supremum sur les projecteurs agrégés a une interprétation standard de distance
-à la sous-algèbre bloc-diagonale (Rieffel/Arveson). Le prochain audit doit donc
-cibler presque exclusivement la comparaison **multi-cellules**
-[
-operatorname{dist}(U,mathcal B_D)
-stackrel{?}{le}
-rac1{sqrt2}
-left(sum_clVert[P_c,U]Vert_{mathrm{op}}^2ight)^{1/2},
-]
-sa meilleure constante, et le passage de cette inégalité à la variation totale
-du profil projectif.
+L'audit réduit maintenant fortement la zone d'incertitude. La géométrie locale
+de deux projections est classique (Halmos, Kittaneh, Conde). Le supremum des
+commutateurs avec les projecteurs agrégés s'interprète comme distance à
+l'algèbre bloc-diagonale (Rieffel/Arveson). Enfin, la borne
+
+$
+\operatorname{dist}(U,\mathcal B_D)
+\le
+\frac1{\sqrt2}
+\left(
+\sum_c\lVert[P_c,U]\rVert_{\mathrm{op}}^2
+\right)^{1/2}
+$
+
+se déduit elle-même de la formule standard de norme d'un row/column operator,
+de la partition \(S/S^c\) et de
+\(\min(A,B)\le(A+B)/2\). Sa constante \(1/\sqrt2\) est déjà forcée par le cas
+binaire.
+
+Le front bibliographique réellement ouvert n'est donc plus la mécanique
+opératorielle de T5B. Il est désormais presque entièrement concentré sur la
+question suivante : **le corollaire qui transforme cette géométrie en distance
+\(L^1\) complète entre les profils projectifs avant/après une unitaire, avec
+constante universelle optimale \(\sqrt2\) et famille saturante, a-t-il déjà été
+énoncé ou utilisé sous une autre formulation ?**
+
+Même en l'absence d'antécédent exact, le risque éditorial reste élevé qu'un
+referee considère ce corollaire comme une combinaison naturelle de faits
+standards. La valeur publiable éventuelle doit donc être évaluée au niveau du
+paquet complet : formulation de meilleure constante, saturation explicite,
+composition/itération, séparation Born/non-Born et formalisation Lean auditée.
 
 ### 7. Critère avant soumission
 
 Avant toute revendication de nouveau théorème, il faut au minimum :
 
-1. rechercher explicitement la comparaison entre distance à l'algèbre
-   bloc-diagonale et norme (L^2) de la famille des commutateurs atomiques ;
-2. rechercher des bornes de variation totale des statistiques d'une PVM en
-   fonction de cette distance quotient ou des commutateurs ;
-3. remonter les références citées par Halmos, Kittaneh, Conde, Hastings,
-   de la Salle et Czajkowski–Grilo ;
-4. vérifier si la constante $\sqrt2$ peut être obtenue comme corollaire direct
-   d'un théorème général déjà publié ;
-5. documenter la différence exacte si un résultat plus général est trouvé.
+1. rechercher explicitement une borne de variation totale ou de distance
+   \(L^1\) des statistiques d'une PVM sous une unitaire en fonction de
+   commutateurs avec les projecteurs de la PVM ;
+2. rechercher la même assertion sous les vocabulaires de disturbance,
+   incompatibility, pinching/dephasing, block-diagonal approximation et
+   conditional expectation ;
+3. remonter les références citées par Halmos, Kittaneh, Conde, Rieffel,
+   Arveson, Christensen, Hastings, de la Salle et Czajkowski–Grilo ;
+4. vérifier si le corollaire \(\sqrt2\) suit explicitement d'un résultat général
+   déjà publié sur statistiques de mesure ou distances à une sous-algèbre ;
+5. si aucun antécédent exact n'est trouvé, évaluer séparément si la combinaison
+   « sharp theorem + saturation + composition/iteration + Lean » franchit le
+   seuil de nouveauté éditoriale d'une revue ciblée.
 
 Aucun passage de **UNRESOLVED** à **NOVEL** ne doit être fait sans cet audit.
 
-## English
+
+## English## English
 
 Date: **2026-09-18**. Status: **PRELIMINARY LITERATURE AUDIT**.
 
@@ -889,34 +912,53 @@ This means only that important structural antecedents exist and that none of
 the works inspected above manifestly states the entire T5 package. It is not a
 novelty certificate.
 
-The audit now narrows the uncertainty region substantially: local
-two-projection geometry is classical (Halmos, Kittaneh, Conde), and the
-aggregate-projector supremum has a standard interpretation as distance to the
-block-diagonal subalgebra (Rieffel/Arveson). The highest-priority remaining
-search is therefore almost entirely the **multicell** comparison
-[
-operatorname{dist}(U,mathcal B_D)
-stackrel{?}{le}
-rac1{sqrt2}
-left(sum_clVert[P_c,U]Vert_{mathrm{op}}^2ight)^{1/2},
-]
-its best constant, and the passage from this inequality to total variation of
-the projective profile.
+The audit now narrows the uncertainty region substantially. Local
+two-projection geometry is classical (Halmos, Kittaneh, Conde). The supremum of
+commutators with aggregate projectors has a standard interpretation as
+distance to the block-diagonal algebra (Rieffel/Arveson). Finally, the bound
+
+$
+\operatorname{dist}(U,\mathcal B_D)
+\le
+\frac1{\sqrt2}
+\left(
+\sum_c\lVert[P_c,U]\rVert_{\mathrm{op}}^2
+\right)^{1/2}
+$
+
+itself follows from the standard row/column-operator norm formula, the
+\(S/S^c\) partition, and \(\min(A,B)\le(A+B)/2\). Its coefficient
+\(1/\sqrt2\) is already forced by the binary case.
+
+The genuinely open literature question is therefore no longer the operator
+mechanism of T5B. It is concentrated almost entirely on whether the **full
+\(L^1\) projective-profile corollary before/after a unitary, with optimal
+universal coefficient \(\sqrt2\) and an explicit saturating family, has already
+been stated or used in another formulation**.
+
+Even if no exact antecedent is found, there remains a substantial editorial
+risk that a referee regards this corollary as a natural combination of standard
+facts. Any publication case must therefore be assessed at the level of the
+whole package: best-constant formulation, explicit saturation,
+composition/iteration, Born/non-Born separation, and audited Lean
+formalization.
 
 ### 7. Gate before submission
 
 Before any new-theorem claim:
 
-1. search explicitly for the comparison between distance to the block-diagonal
-   algebra and the (L^2) norm of the atomic-commutator family;
-2. search for total-variation bounds on PVM statistics in terms of this
-   quotient distance or the commutators;
-3. follow backward citations from Halmos, Kittaneh, Conde, Hastings,
-   de la Salle, and Czajkowski–Grilo;
-4. test whether $\sqrt2$ follows immediately from a more general published
-   operator inequality;
-5. if a more general theorem is found, state precisely what remains new:
-   formulation, sharpness family, Lean formalization, composition results, or
-   another corollary.
+1. search explicitly for a total-variation or \(L^1\) bound on the statistics
+   of a PVM under a unitary in terms of commutators with the PVM projections;
+2. search the same statement under measurement-disturbance,
+   incompatibility, pinching/dephasing, block-diagonal approximation, and
+   conditional-expectation terminology;
+3. follow backward citations from Halmos, Kittaneh, Conde, Rieffel, Arveson,
+   Christensen, Hastings, de la Salle, and Czajkowski–Grilo;
+4. test whether the sharp \(\sqrt2\) profile corollary follows explicitly from
+   a published general result on measurement statistics or distance to a
+   subalgebra;
+5. if no exact antecedent is found, separately assess whether the package
+   “sharp theorem + saturation + composition/iteration + Lean” clears the
+   editorial novelty threshold of a target journal.
 
 No transition from **UNRESOLVED** to **NOVEL** is justified before that work.
