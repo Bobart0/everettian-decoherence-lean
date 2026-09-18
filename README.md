@@ -2,7 +2,8 @@
 
 ## Français
 
-Statut : **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE**. Ce dépôt
+Statut : **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE** ;
+**cycle transversal T0–T5 — CLOSED ; T1–T5 FORMALIZED / AUDITED**. Ce dépôt
 formalise en Lean 4 une chaîne quantitative finie reliant la structure exacte
 finie exposée par `everettian-probability-lean`, une géométrie de profils de
 records, une perturbation état-vers-record, des défauts de commutation de
@@ -36,7 +37,8 @@ Résultats locaux actuels :
   ED3B sur les états normalisés : T5A fournit la saturation et T5B la borne
   universelle.
 
-ED1–ED4B sont formalisés. Les déclarations principales ED4A et ED4B sont aussi
+ED1–ED4B ainsi que T1–T5 sont formalisés et audités dans leur portée
+documentée. Les déclarations principales ED4A et ED4B sont aussi
 auditées dans `EverettianDecoherence/Audit/ComposedRecordPreservation.lean` et
 `EverettianDecoherence/Audit/IteratedRecordPreservation.lean`, importés par
 `Audit/MainResults.lean`. Aucun statut de publication supplémentaire n'est
@@ -70,7 +72,8 @@ formalisée. Licence : Apache-2.0.
 
 ## English
 
-Status: **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE**. This
+Status: **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE**;
+**transversal T0–T5 cycle — CLOSED; T1–T5 FORMALIZED / AUDITED**. This
 repository formalizes in Lean 4 a finite quantitative chain connecting the
 exact finite structure exposed by `everettian-probability-lean`, a
 record-profile geometry, a state-to-record perturbation bound, projector-
@@ -104,7 +107,8 @@ Current local results:
   transfer on normalized states: T5A supplies saturation and T5B the universal
   upper bound.
 
-ED1–ED4B are formalized. The principal ED4A and ED4B declarations are also
+ED1–ED4B and T1–T5 are formalized and audited in their documented scope.
+The principal ED4A and ED4B declarations are also
 audited in `EverettianDecoherence/Audit/ComposedRecordPreservation.lean` and
 `EverettianDecoherence/Audit/IteratedRecordPreservation.lean`, both imported by
 `Audit/MainResults.lean`. No additional publication status is asserted here.
@@ -123,6 +127,7 @@ import EverettianDecoherence.Approximation.ApproximateRecordPreservation
 import EverettianDecoherence.Approximation.UniformRecordPreservation
 import EverettianDecoherence.Approximation.ComposedRecordPreservation
 import EverettianDecoherence.Approximation.IteratedRecordPreservation
+import EverettianDecoherence.Approximation.UniformTransferOptimality
 ```
 
 Current physical limitations: no time dynamics, Hamiltonian, channel, open

@@ -166,12 +166,19 @@ de cellules de `D`.
 - aucune dérivation de Born ;
 - aucune optimalité de l'agrégation L2.
 
-### 12. Étape suivante
+### 12. État aval
 
-ED4A et ED4B sont **PLANNED / NOT OPENED**. ED4A concernera la composition de
-transformations à perspective fixée. ED4B concernera l'itération finie et
-l'accumulation d'erreurs. Aucun développement mathématique d'ED4 n'est
-commencé par ce document ou par ED3B.
+ED4A et ED4B sont désormais **FORMALIZED / AUDITED** dans leurs portées finies
+respectives de composition à perspective fixée et d'itération/accumulation.
+Le cycle transversal T0–T5 a ensuite étudié les contrôles de structure et de
+sharpness associés. En particulier, T5A et T5B établissent ensemble que le
+coefficient universel optimal du transfert ED3B sur les états normalisés est
+`sqrt 2`.
+
+Ces développements ne changent pas la nature d'ED3B : le défaut de
+commutateur reste une quantité algébrique NON BORN-SENSITIVE, tandis que le
+transfert vers `recordProfileL1` est BORN-SENSITIVE. Aucun T6 ni nouveau
+jalon physique n'est ouvert par cette mise à jour documentaire.
 
 ## English
 
@@ -338,9 +345,16 @@ count of `D`.
 - no derivation of Born;
 - no optimality of the L2 aggregation.
 
-### 12. Next step
+### 12. Downstream status
 
-ED4A and ED4B are **PLANNED / NOT OPENED**. ED4A will concern composition of
-transformations at a fixed perspective. ED4B will concern finite iteration and
-error accumulation. No mathematical development of ED4 is started by this
-document or by ED3B.
+ED4A and ED4B are now **FORMALIZED / AUDITED** in their respective finite
+scopes of fixed-perspective composition and finite iteration/error
+accumulation. The transversal T0–T5 cycle then studied the associated
+structure and sharpness controls. In particular, T5A and T5B together establish
+that the optimal universal ED3B transfer coefficient on normalized states is
+`sqrt 2`.
+
+These developments do not change the nature of ED3B: the commutator defect
+remains a NON BORN-SENSITIVE algebraic quantity, while transfer to
+`recordProfileL1` is BORN-SENSITIVE. This documentation update opens neither
+T6 nor any new physical milestone.

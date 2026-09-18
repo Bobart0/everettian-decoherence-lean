@@ -140,6 +140,16 @@
   **BORN-SENSITIVE**. Aucun temps, dynamique physique, décohérence, émergence
   de perspective ou statut de publication n'est revendiqué.
 
+- **D0025 — Tx closes T0–T5 without opening T6** :
+  après intégration de T5B, le cycle transversal T0–T5 est clos sur son objet :
+  audits de structure, sharpness ED2B/ED4B, instance calculée et constante
+  universelle ED3B optimale `sqrt 2`. Tx réconcilie uniquement la documentation
+  de statut et la feuille de route. Motif : empêcher qu'une clôture de cycle
+  documentaire soit interprétée comme l'ouverture implicite d'un nouveau
+  programme scientifique. Portée : documentation seulement ; aucun nouvel
+  énoncé Lean, aucune nouvelle hypothèse physique, aucun T6, aucun statut
+  **PUBLISHED**.
+
 ## English
 
 - **D0001 — Separate downstream repository**: isolate the approximate and
@@ -273,3 +283,11 @@
   and supplied unitaries; the defect remains **NON BORN-SENSITIVE** while the
   profile transfer is **BORN-SENSITIVE**. No time, physical dynamics,
   decoherence, perspective emergence, or publication status is claimed.
+- **D0025 — Tx closes T0–T5 without opening T6**:
+  after T5B integration, the transversal T0–T5 cycle is closed on its stated
+  object: structure audits, ED2B/ED4B sharpness, a worked instance, and the
+  optimal universal ED3B coefficient `sqrt 2`. Tx only reconciles status
+  documentation and the roadmap. Reason: prevent a documentation-cycle
+  closure from being read as an implicit opening of a new scientific
+  programme. Scope: documentation only; no new Lean theorem, no new physical
+  assumption, no T6, and no **PUBLISHED** status.
