@@ -219,7 +219,6 @@ par ce document.
 
 
 ## English
-## English
 
 Date: **2026-09-18**. Status: **preparation document**.
 
