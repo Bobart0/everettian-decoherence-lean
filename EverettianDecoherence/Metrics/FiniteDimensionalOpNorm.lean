@@ -40,4 +40,24 @@ theorem exists_unit_norm_apply_eq_opNorm
     exact hmax y (by simpa [Metric.mem_sphere, hy])
   exact ⟨x, hxnorm, le_antisymm happ_le hop_le⟩
 
+
+/-- Positive operator norm supplies the nontriviality needed for norm
+attainment, so callers do not need a separate `Nontrivial` assumption. -/
+theorem exists_unit_norm_apply_eq_opNorm_of_pos
+    {E F : Type*}
+    [NormedAddCommGroup E] [InnerProductSpace ℂ E] [FiniteDimensional ℂ E]
+    [NormedAddCommGroup F] [NormedSpace ℂ F]
+    (T : E →L[ℂ] F) (hT : 0 < ‖T‖) :
+    ∃ x : E, ‖x‖ = 1 ∧ ‖T x‖ = ‖T‖ := by
+  have hnotsub : ¬ Subsingleton E := by
+    intro hsub
+    have hzero : T = 0 := by
+      ext x
+      have hx : x = 0 := hsub.elim x 0
+      simp [hx]
+    rw [hzero, norm_zero] at hT
+    exact lt_irrefl 0 hT
+  letI : Nontrivial E := not_subsingleton_iff_nontrivial.mp hnotsub
+  exact exists_unit_norm_apply_eq_opNorm T
+
 end EverettianDecoherence.Metrics
