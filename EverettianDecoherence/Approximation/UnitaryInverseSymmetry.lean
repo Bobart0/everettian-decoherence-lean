@@ -30,7 +30,7 @@ theorem recordSubsetOutgoingCLM_adjoint_eq_incoming_symm
     {n : ℕ} (D : Perspective n)
     (U : H n ≃ₗᵢ[ℂ] H n)
     (S : Finset ((Projective.interface n).Cell D)) :
-    (recordSubsetOutgoingCLM D U S)† =
+    ContinuousLinearMap.adjoint (recordSubsetOutgoingCLM D U S) =
       recordSubsetIncomingCLM D U.symm S := by
   apply ContinuousLinearMap.ext
   intro x
@@ -54,7 +54,7 @@ theorem recordSubsetIncomingCLM_adjoint_eq_outgoing_symm
     {n : ℕ} (D : Perspective n)
     (U : H n ≃ₗᵢ[ℂ] H n)
     (S : Finset ((Projective.interface n).Cell D)) :
-    (recordSubsetIncomingCLM D U S)† =
+    ContinuousLinearMap.adjoint (recordSubsetIncomingCLM D U S) =
       recordSubsetOutgoingCLM D U.symm S := by
   apply ContinuousLinearMap.ext
   intro x
@@ -80,7 +80,7 @@ theorem recordSubsetOutgoingCLM_opNorm_eq_incoming_symm
     ‖recordSubsetOutgoingCLM D U S‖ =
       ‖recordSubsetIncomingCLM D U.symm S‖ := by
   have hnorm :
-      ‖(recordSubsetOutgoingCLM D U S)†‖ =
+      ‖ContinuousLinearMap.adjoint (recordSubsetOutgoingCLM D U S)‖ =
         ‖recordSubsetOutgoingCLM D U S‖ :=
     LinearIsometryEquiv.norm_map ContinuousLinearMap.adjoint
       (recordSubsetOutgoingCLM D U S)
@@ -94,7 +94,7 @@ theorem recordSubsetIncomingCLM_opNorm_eq_outgoing_symm
     ‖recordSubsetIncomingCLM D U S‖ =
       ‖recordSubsetOutgoingCLM D U.symm S‖ := by
   have hnorm :
-      ‖(recordSubsetIncomingCLM D U S)†‖ =
+      ‖ContinuousLinearMap.adjoint (recordSubsetIncomingCLM D U S)‖ =
         ‖recordSubsetIncomingCLM D U S‖ :=
     LinearIsometryEquiv.norm_map ContinuousLinearMap.adjoint
       (recordSubsetIncomingCLM D U S)
@@ -107,7 +107,7 @@ theorem perspectiveProjectorCommutatorCLM_adjoint_eq_neg_symm
     {n : ℕ} (D : Perspective n)
     (U : H n ≃ₗᵢ[ℂ] H n)
     (c : (Projective.interface n).Cell D) :
-    (perspectiveProjectorCommutatorCLM D U c)† =
+    ContinuousLinearMap.adjoint (perspectiveProjectorCommutatorCLM D U c) =
       - perspectiveProjectorCommutatorCLM D U.symm c := by
   apply ContinuousLinearMap.ext
   intro x
@@ -138,7 +138,7 @@ theorem perspectiveProjectorCommutatorOpNormProfile_symm
       perspectiveProjectorCommutatorOpNormProfile D U c := by
   unfold perspectiveProjectorCommutatorOpNormProfile
   have hnorm :
-      ‖(perspectiveProjectorCommutatorCLM D U c)†‖ =
+      ‖ContinuousLinearMap.adjoint (perspectiveProjectorCommutatorCLM D U c)‖ =
         ‖perspectiveProjectorCommutatorCLM D U c‖ :=
     LinearIsometryEquiv.norm_map ContinuousLinearMap.adjoint
       (perspectiveProjectorCommutatorCLM D U c)
