@@ -24,13 +24,13 @@ noncomputable def stabilitySharpnessBasis3 :
   EuclideanSpace.basisFun (Fin 3) ℂ
 
 noncomputable def stabilitySharpnessPerspective3 : Perspective 3 :=
-  Perspective.basisPerspective stabilitySharpnessBasis3
+  basisPerspective stabilitySharpnessBasis3
 
 noncomputable def stabilitySharpnessCell3 (i : Fin 3) :
     (Projective.interface 3).Cell stabilitySharpnessPerspective3 := by
   refine ⟨ℂ ∙ (stabilitySharpnessBasis3 i : H 3), ?_⟩
   unfold stabilitySharpnessPerspective3
-  unfold Perspective.basisPerspective
+  unfold basisPerspective
   simp [stabilitySharpnessBasis3]
 
 theorem stabilitySharpnessCell3_val (i : Fin 3) :
@@ -57,7 +57,7 @@ theorem stabilitySharpnessCell3_ne
         ℂ ∙ (stabilitySharpnessBasis3 j : H 3) := by
     exact congrArg Subtype.val h
   have hinj :=
-    Perspective.line_injective stabilitySharpnessBasis3
+    line_injective stabilitySharpnessBasis3
       (show i ∈ (↑(Finset.univ : Finset (Fin 3)) : Set (Fin 3)) by simp)
       (show j ∈ (↑(Finset.univ : Finset (Fin 3)) : Set (Fin 3)) by simp)
       hval
