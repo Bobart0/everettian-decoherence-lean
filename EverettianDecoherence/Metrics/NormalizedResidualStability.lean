@@ -58,9 +58,9 @@ theorem normalized_residual_close
     exact hinner
   have hscalar :
       star (((Real.sqrt r : ℝ) : ℂ)⁻¹) *
-          inner ℂ q v * ((Real.sqrt p : ℝ) : ℂ) =
+          (((Real.sqrt p : ℝ) : ℂ) * inner ℂ q v) =
         (((Real.sqrt p / Real.sqrt r : ℝ) : ℂ) * inner ℂ q v) := by
-    simp only [map_inv₀, conj_ofReal]
+    simp only [map_inv₀, RCLike.conj_ofReal]
     rw [← Complex.ofReal_inv]
     field_simp [hsr0]
     ring
