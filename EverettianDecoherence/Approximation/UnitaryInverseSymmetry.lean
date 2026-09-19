@@ -44,10 +44,36 @@ theorem recordSubsetOutgoingCLM_adjoint_eq_incoming_symm
       inner ℂ y
         (Gleason.projL (recordSubsetSubspace D S)
           (U.symm (Gleason.projL (recordSubsetSubspace D Sᶜ) x)))
-  unfold Gleason.projL
-  rw [Submodule.inner_starProjection_left_eq_right,
-    LinearIsometryEquiv.inner_map_eq_flip,
-    ← Submodule.inner_starProjection_left_eq_right]
+  have hQ (a b : H n) :
+      inner ℂ (Gleason.projL (recordSubsetSubspace D Sᶜ) a) b =
+        inner ℂ a (Gleason.projL (recordSubsetSubspace D Sᶜ) b) := by
+    change inner ℂ
+      ((recordSubsetSubspace D Sᶜ).starProjection a) b =
+        inner ℂ a ((recordSubsetSubspace D Sᶜ).starProjection b)
+    exact Submodule.inner_starProjection_left_eq_right _ _ _
+  have hP (a b : H n) :
+      inner ℂ (Gleason.projL (recordSubsetSubspace D S) a) b =
+        inner ℂ a (Gleason.projL (recordSubsetSubspace D S) b) := by
+    change inner ℂ
+      ((recordSubsetSubspace D S).starProjection a) b =
+        inner ℂ a ((recordSubsetSubspace D S).starProjection b)
+    exact Submodule.inner_starProjection_left_eq_right _ _ _
+  calc
+    inner ℂ
+        (Gleason.projL (recordSubsetSubspace D Sᶜ)
+          (U (Gleason.projL (recordSubsetSubspace D S) y))) x =
+      inner ℂ
+        (U (Gleason.projL (recordSubsetSubspace D S) y))
+        (Gleason.projL (recordSubsetSubspace D Sᶜ) x) :=
+          hQ _ _
+    _ = inner ℂ
+        (Gleason.projL (recordSubsetSubspace D S) y)
+        (U.symm (Gleason.projL (recordSubsetSubspace D Sᶜ) x)) :=
+          U.inner_map_eq_flip _ _
+    _ = inner ℂ y
+        (Gleason.projL (recordSubsetSubspace D S)
+          (U.symm (Gleason.projL (recordSubsetSubspace D Sᶜ) x))) :=
+          hP _ _
 
 /-- The adjoint of the incoming block for U is the outgoing block for U⁻¹. -/
 theorem recordSubsetIncomingCLM_adjoint_eq_outgoing_symm
@@ -68,10 +94,36 @@ theorem recordSubsetIncomingCLM_adjoint_eq_outgoing_symm
       inner ℂ y
         (Gleason.projL (recordSubsetSubspace D Sᶜ)
           (U.symm (Gleason.projL (recordSubsetSubspace D S) x)))
-  unfold Gleason.projL
-  rw [Submodule.inner_starProjection_left_eq_right,
-    LinearIsometryEquiv.inner_map_eq_flip,
-    ← Submodule.inner_starProjection_left_eq_right]
+  have hP (a b : H n) :
+      inner ℂ (Gleason.projL (recordSubsetSubspace D S) a) b =
+        inner ℂ a (Gleason.projL (recordSubsetSubspace D S) b) := by
+    change inner ℂ
+      ((recordSubsetSubspace D S).starProjection a) b =
+        inner ℂ a ((recordSubsetSubspace D S).starProjection b)
+    exact Submodule.inner_starProjection_left_eq_right _ _ _
+  have hQ (a b : H n) :
+      inner ℂ (Gleason.projL (recordSubsetSubspace D Sᶜ) a) b =
+        inner ℂ a (Gleason.projL (recordSubsetSubspace D Sᶜ) b) := by
+    change inner ℂ
+      ((recordSubsetSubspace D Sᶜ).starProjection a) b =
+        inner ℂ a ((recordSubsetSubspace D Sᶜ).starProjection b)
+    exact Submodule.inner_starProjection_left_eq_right _ _ _
+  calc
+    inner ℂ
+        (Gleason.projL (recordSubsetSubspace D S)
+          (U (Gleason.projL (recordSubsetSubspace D Sᶜ) y))) x =
+      inner ℂ
+        (U (Gleason.projL (recordSubsetSubspace D Sᶜ) y))
+        (Gleason.projL (recordSubsetSubspace D S) x) :=
+          hP _ _
+    _ = inner ℂ
+        (Gleason.projL (recordSubsetSubspace D Sᶜ) y)
+        (U.symm (Gleason.projL (recordSubsetSubspace D S) x)) :=
+          U.inner_map_eq_flip _ _
+    _ = inner ℂ y
+        (Gleason.projL (recordSubsetSubspace D Sᶜ)
+          (U.symm (Gleason.projL (recordSubsetSubspace D S) x))) :=
+          hQ _ _
 
 theorem recordSubsetOutgoingCLM_opNorm_eq_incoming_symm
     {n : ℕ} (D : Perspective n)
@@ -122,12 +174,30 @@ theorem perspectiveProjectorCommutatorCLM_adjoint_eq_neg_symm
         (-(Gleason.projL c.val (U.symm x) -
           U.symm (Gleason.projL c.val x)))
   rw [inner_sub_left, inner_neg_right, inner_sub_right]
-  unfold Gleason.projL
-  rw [Submodule.inner_starProjection_left_eq_right,
-    LinearIsometryEquiv.inner_map_eq_flip,
-    LinearIsometryEquiv.inner_map_eq_flip,
-    ← Submodule.inner_starProjection_left_eq_right]
-  module
+  have hP (a b : H n) :
+      inner ℂ (Gleason.projL c.val a) b =
+        inner ℂ a (Gleason.projL c.val b) := by
+    change inner ℂ (c.val.starProjection a) b =
+      inner ℂ a (c.val.starProjection b)
+    exact Submodule.inner_starProjection_left_eq_right _ _ _
+  have hfirst :
+      inner ℂ (Gleason.projL c.val (U y)) x =
+        inner ℂ y (U.symm (Gleason.projL c.val x)) := by
+    calc
+      inner ℂ (Gleason.projL c.val (U y)) x =
+          inner ℂ (U y) (Gleason.projL c.val x) := hP _ _
+      _ = inner ℂ y (U.symm (Gleason.projL c.val x)) :=
+          U.inner_map_eq_flip _ _
+  have hsecond :
+      inner ℂ (U (Gleason.projL c.val y)) x =
+        inner ℂ y (Gleason.projL c.val (U.symm x)) := by
+    calc
+      inner ℂ (U (Gleason.projL c.val y)) x =
+          inner ℂ (Gleason.projL c.val y) (U.symm x) :=
+            U.inner_map_eq_flip _ _
+      _ = inner ℂ y (Gleason.projL c.val (U.symm x)) := hP _ _
+  rw [hfirst, hsecond]
+  ring
 
 /-- Cellwise operator-norm commutator profiles are invariant under U ↦ U⁻¹. -/
 theorem perspectiveProjectorCommutatorOpNormProfile_symm
@@ -144,7 +214,7 @@ theorem perspectiveProjectorCommutatorOpNormProfile_symm
       (perspectiveProjectorCommutatorCLM D U c)
   rw [perspectiveProjectorCommutatorCLM_adjoint_eq_neg_symm D U c,
     norm_neg] at hnorm
-  exact hnorm.symm
+  exact hnorm
 
 theorem subsetProjectorCommutatorOpNormSq_symm
     {n : ℕ} (D : Perspective n)
