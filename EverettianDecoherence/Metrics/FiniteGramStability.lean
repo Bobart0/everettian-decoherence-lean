@@ -226,5 +226,35 @@ theorem gram_offDiagonal_spread_le_288
     nlinarith
   exact hbase.trans hbound
 
+
+/-- Cardinality-free inverse theorem obtained by composing Gram stability with
+the finite concentration lemma. -/
+theorem exists_dominant_of_gram_close
+    {ι E : Type*} [Fintype ι] [DecidableEq ι] [Nonempty ι]
+    [NormedAddCommGroup E] [InnerProductSpace ℂ E]
+    (ξ ζ : ι → E) (p : ι → ℝ) (ε L : ℝ)
+    (hξ : Orthonormal ℂ ξ)
+    (hp : ∀ i, 0 ≤ p i)
+    (hgram : ∀ i j, i ≠ j →
+      p i * p j = ‖inner ℂ (ζ i) (ζ j)‖ ^ 2)
+    (hε0 : 0 ≤ ε) (hεhalf : ε ≤ 1 / 2)
+    (hclose : (∑ i, ‖ζ i - ξ i‖ ^ 2) ≤ 12 * ε)
+    (hL : L ≤ ∑ i, p i) (hLpos : 0 < L) :
+    ∃ i : ι, (∑ j ∈ Finset.univ.erase i, p j) ≤ (288 * ε) / L := by
+  have hgramSpread :=
+    gram_offDiagonal_spread_le_288 ξ ζ p ε hξ hp hgram hε0 hεhalf hclose
+  have hspread :
+      (∑ i, p i) ^ 2 - (∑ i, p i ^ 2) ≤ 288 * ε := by
+    rw [← sum_offDiagonal_mul_eq_sum_sq_sub_sum_sq p]
+    exact hgramSpread
+  obtain ⟨i, _hi, htail⟩ :=
+    exists_tail_le_of_spread_le
+      (Finset.univ : Finset ι) p (288 * ε) L
+      Finset.univ_nonempty
+      (by intro j _; exact hp j)
+      (by simpa using hspread)
+      (by simpa using hL) hLpos
+  exact ⟨i, by simpa using htail⟩
+
 end
 end EverettianDecoherence.Metrics
