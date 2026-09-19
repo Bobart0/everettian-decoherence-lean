@@ -66,7 +66,7 @@ theorem normalized_residual_close
           (((Real.sqrt r : ℝ) : ℂ)⁻¹ • q)
           (((Real.sqrt p : ℝ) : ℂ) • v)) =
         (Real.sqrt p / Real.sqrt r) * r := by
-    rw [hinvCast, inner_smul_ofReal_left, inner_smul_ofReal_right,
+    rw [hinvCast, InnerProductSpace.Core.inner_smul_ofReal_left, InnerProductSpace.Core.inner_smul_ofReal_right,
       RCLike.re_mul_ofReal, RCLike.re_mul_ofReal, hrev]
     field_simp [hsr0]
     ring
