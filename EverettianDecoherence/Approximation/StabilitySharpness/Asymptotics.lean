@@ -1,4 +1,5 @@
 import EverettianDecoherence.Approximation.StabilitySharpness.TopTwoTail
+import EverettianDecoherence.Approximation.IterationSharpness
 
 namespace EverettianDecoherence.Approximation
 
