@@ -207,5 +207,49 @@ theorem exists_two_cell_concentration_of_cut_eta_rho
     simpa [A, K] using htail
   exact htail'.trans (by simpa [A, K] using hscaled)
 
+
+/-- Explicit relative two-cell stability modulus. -/
+noncomputable def twoCellStabilityModulus (ρ η : ℝ) : ℝ :=
+  2 * η + (36 * η / (1 - 3 * η)) / ρ ^ 2
+
+theorem twoCellStabilityModulus_nonneg
+    {ρ η : ℝ} (hρ : 0 < ρ) (hη0 : 0 ≤ η) (hηthird : η < 1 / 3) :
+    0 ≤ twoCellStabilityModulus ρ η := by
+  unfold twoCellStabilityModulus
+  have hq : 0 < 1 - 3 * η := by nlinarith
+  positivity
+
+/-- For eta <= 1/6 the exact modulus admits the transparent linear bound
+eta * (2 + 72 / rho^2). This exhibits the dimension-free O(eta / rho^2)
+scale dependence. -/
+theorem twoCellStabilityModulus_le_linear
+    {ρ η : ℝ} (hρ : 0 < ρ) (hη0 : 0 ≤ η) (hηsix : η ≤ 1 / 6) :
+    twoCellStabilityModulus ρ η ≤
+      η * (2 + 72 / ρ ^ 2) := by
+  have hq : (1 / 2 : ℝ) ≤ 1 - 3 * η := by
+    nlinarith
+  have hqpos : 0 < 1 - 3 * η := lt_of_lt_of_le (by norm_num) hq
+  have hnum :
+      36 * η ≤ 72 * η * (1 - 3 * η) := by
+    calc
+      36 * η = (72 * η) * (1 / 2 : ℝ) := by ring
+      _ ≤ (72 * η) * (1 - 3 * η) :=
+        mul_le_mul_of_nonneg_left hq
+          (mul_nonneg (by norm_num) hη0)
+  have hfrac :
+      36 * η / (1 - 3 * η) ≤ 72 * η :=
+    (div_le_iff₀ hqpos).2 (by simpa [mul_comm, mul_left_comm, mul_assoc] using hnum)
+  have hρsqpos : 0 < ρ ^ 2 := sq_pos_of_pos hρ
+  have hscaled :
+      (36 * η / (1 - 3 * η)) / ρ ^ 2 ≤
+        (72 * η) / ρ ^ 2 :=
+    div_le_div_of_nonneg_right hfrac hρsqpos.le
+  unfold twoCellStabilityModulus
+  calc
+    2 * η + (36 * η / (1 - 3 * η)) / ρ ^ 2 ≤
+        2 * η + (72 * η) / ρ ^ 2 :=
+      add_le_add_left hscaled _
+    _ = η * (2 + 72 / ρ ^ 2) := by ring
+
 end
 end EverettianDecoherence.Approximation
