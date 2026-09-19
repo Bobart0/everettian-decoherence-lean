@@ -113,8 +113,11 @@ theorem stabilitySharpnessRotationMatrix_mem_unitary (n m : ℕ) :
   have hR := stabilitySharpnessPlaneRotationMatrix_mem_unitary m
   have hQstar :
       star (stabilitySharpnessBasisMatrix n) ∈
-        Matrix.unitaryGroup (Fin 3) ℂ :=
-    star_mem hQ
+        Matrix.unitaryGroup (Fin 3) ℂ := by
+    rw [Matrix.mem_unitaryGroup_iff'] at hQ ⊢
+    constructor
+    · simpa using hQ.2
+    · simpa using hQ.1
   exact (Matrix.unitaryGroup (Fin 3) ℂ).mul_mem
     ((Matrix.unitaryGroup (Fin 3) ℂ).mul_mem hQ hR) hQstar
 
