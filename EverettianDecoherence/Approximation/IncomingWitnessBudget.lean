@@ -170,6 +170,29 @@ theorem sum_bad_incomingWitnessP_le_two_mul_alpha_sum
         exact incomingWitnessAlpha_nonneg_of_mem
           D U S c hcS v hv hvcompl
 
+
+/-- The good and bad cells partition the full subset p-budget. -/
+theorem good_add_bad_incomingWitnessP_eq_budget
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D))
+    (v : H n) :
+    (∑ c ∈ incomingWitnessGoodCells D U S v,
+        incomingWitnessP D U c) +
+      (∑ c ∈ incomingWitnessBadCells D U S v,
+        incomingWitnessP D U c) =
+      subsetProjectorCommutatorOpNormSq D U S := by
+  unfold incomingWitnessGoodCells incomingWitnessBadCells
+  unfold subsetProjectorCommutatorOpNormSq incomingWitnessP
+  have hsplit :=
+    Finset.sum_filter_add_sum_filter_not
+      S
+      (fun c =>
+        incomingWitnessAlpha D U c v ≤
+          (perspectiveProjectorCommutatorOpNormProfile D U c ^ 2) / 2)
+      (fun c => perspectiveProjectorCommutatorOpNormProfile D U c ^ 2)
+  simpa [not_le] using hsplit
+
 theorem good_incomingWitnessP_mass_lower
     {n : ℕ} (D : Perspective n)
     (U : H n ≃ₗᵢ[ℂ] H n)
@@ -181,22 +204,8 @@ theorem good_incomingWitnessP_mass_lower
         2 * (∑ c ∈ S, incomingWitnessAlpha D U c v) ≤
       ∑ c ∈ incomingWitnessGoodCells D U S v,
         incomingWitnessP D U c := by
-  have hsplitP :
-      (∑ c ∈ incomingWitnessGoodCells D U S v,
-          incomingWitnessP D U c) +
-        (∑ c ∈ incomingWitnessBadCells D U S v,
-          incomingWitnessP D U c) =
-        subsetProjectorCommutatorOpNormSq D U S := by
-    unfold incomingWitnessGoodCells incomingWitnessBadCells
-    unfold subsetProjectorCommutatorOpNormSq incomingWitnessP
-    have hsplit :=
-      Finset.sum_filter_add_sum_filter_not
-        S
-        (fun c =>
-          incomingWitnessAlpha D U c v ≤
-            (perspectiveProjectorCommutatorOpNormProfile D U c ^ 2) / 2)
-        (fun c => perspectiveProjectorCommutatorOpNormProfile D U c ^ 2)
-    simpa [not_le] using hsplit
+  have hsplitP :=
+    good_add_bad_incomingWitnessP_eq_budget D U S v
   have hbad :=
     sum_bad_incomingWitnessP_le_two_mul_alpha_sum
       D U S v hv hvcompl
