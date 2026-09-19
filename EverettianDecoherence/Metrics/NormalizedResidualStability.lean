@@ -39,7 +39,7 @@ theorem normalized_residual_close
     have hsqrt_mono : Real.sqrt r ≤ Real.sqrt p :=
       Real.sqrt_le_sqrt hrp
     nlinarith [Real.sq_sqrt hr0, Real.sq_sqrt hp0]
-  rw [norm_sub_sq]
+  rw [norm_sub_sq (𝕜 := ℂ)]
   have hnormq :
       ‖(((Real.sqrt r : ℝ) : ℂ)⁻¹ • q)‖ ^ 2 ≤ p := by
     rw [norm_smul, norm_inv, Complex.norm_real, Real.norm_eq_abs,
