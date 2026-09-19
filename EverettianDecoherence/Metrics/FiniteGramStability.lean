@@ -129,7 +129,8 @@ theorem gram_offDiagonal_spread_le
             intro j hj
             exact hpair i j (Finset.ne_of_mem_erase hj).symm
       _ = 3 * (T₁ + T₂ + T₃) := by
-        simp only [T₁, T₂, T₃, Finset.mul_sum, Finset.sum_add_distrib]
+        dsimp [T₁, T₂, T₃]
+        simp_rw [Finset.sum_add_distrib, Finset.sum_mul]
         ring
   have hT₁ : T₁ ≤ q := by
     calc
@@ -173,15 +174,16 @@ theorem gram_offDiagonal_spread_le
                 apply Finset.sum_le_sum
                 intro j _
                 have hinner := norm_inner_le_norm (e i) (e j)
-                exact (sq_le_sq₀ (norm_nonneg _)
+                have hs := (sq_le_sq₀ (norm_nonneg _)
                   (mul_nonneg (norm_nonneg _) (norm_nonneg _))).2 hinner
+                simpa [mul_pow] using hs
           _ ≤ ∑ j, ‖e i‖ ^ 2 * ‖e j‖ ^ 2 :=
             Finset.sum_le_sum_of_subset_of_nonneg
               (Finset.erase_subset _ _)
               (by intro j _ _; positivity)
       _ = q ^ 2 := by
         dsimp [q]
-        simp_rw [Finset.mul_sum]
+        simp_rw [← Finset.mul_sum]
         rw [Finset.sum_mul]
         ring
   have hq0 : 0 ≤ q := by
