@@ -58,7 +58,6 @@ theorem stabilitySharpnessA_eq_P_div (n : ℕ) :
   have hq : (sharpnessQ n : ℝ) ≠ 0 :=
     ne_of_gt (sharpnessQ_real_pos n)
   field_simp [hq, stabilitySharpness_sqrt_two_ne]
-  ring
 
 theorem stabilitySharpnessB_eq_inv (n : ℕ) :
     stabilitySharpnessB n =
@@ -68,17 +67,20 @@ theorem stabilitySharpnessB_eq_inv (n : ℕ) :
   have hq : (sharpnessQ n : ℝ) ≠ 0 :=
     ne_of_gt (sharpnessQ_real_pos n)
   field_simp [hq, stabilitySharpness_sqrt_two_ne]
-  ring
 
 theorem stabilitySharpnessA_nonneg (n : ℕ) :
     0 ≤ stabilitySharpnessA n := by
-  unfold stabilitySharpnessA
-  positivity
+  rw [stabilitySharpnessA_eq_P_div]
+  exact div_nonneg (Nat.cast_nonneg _)
+    (mul_nonneg (stabilitySharpness_sqrt_two_pos.le)
+      (sharpnessQ_real_pos n).le)
 
 theorem stabilitySharpnessB_pos (n : ℕ) :
     0 < stabilitySharpnessB n := by
   rw [stabilitySharpnessB_eq_inv]
-  positivity
+  exact one_div_pos.mpr
+    (mul_pos stabilitySharpness_sqrt_two_pos
+      (sharpnessQ_real_pos n))
 
 theorem stabilitySharpnessB_nonneg (n : ℕ) :
     0 ≤ stabilitySharpnessB n :=
@@ -104,8 +106,8 @@ theorem stabilitySharpnessB_tendsto_zero :
       Tendsto
         (fun n : ℕ => Real.sqrt 2 * (sharpnessQ n : ℝ))
         atTop atTop := by
-    exact tendsto_const_mul_atTop_of_pos
-      stabilitySharpness_sqrt_two_pos
+    exact (tendsto_const_mul_atTop_of_pos
+      stabilitySharpness_sqrt_two_pos).2
       sharpnessQ_tendsto_atTop_for_stability
   have hinv :
       Tendsto
@@ -118,7 +120,7 @@ theorem stabilitySharpnessB_tendsto_zero :
         fun n : ℕ => (Real.sqrt 2 * (sharpnessQ n : ℝ))⁻¹ := by
     funext n
     rw [stabilitySharpnessB_eq_inv]
-    rfl
+    simp [one_div]
   rw [hfun]
   exact hinv
 
