@@ -60,7 +60,7 @@ theorem normalized_residual_close
       star (((Real.sqrt r : ℝ) : ℂ)⁻¹) *
           (((Real.sqrt p : ℝ) : ℂ) * inner ℂ q v) =
         (((Real.sqrt p / Real.sqrt r : ℝ) : ℂ) * inner ℂ q v) := by
-    simp only [map_inv₀, RCLike.conj_ofReal]
+    simp only [map_inv₀, RCLike.star_def, RCLike.conj_ofReal]
     rw [← Complex.ofReal_inv]
     field_simp [hsr0]
     ring
