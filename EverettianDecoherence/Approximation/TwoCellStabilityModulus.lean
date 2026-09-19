@@ -139,5 +139,73 @@ theorem exists_two_cell_concentration_of_cut_eta
     2 * η * A + 36 * η / (1 - 3 * η)
   exact hbase.trans (add_le_add htwoE h18frac)
 
+
+/-- Scale-sensitive eta-rho form. If the global defect is at least rho > 0,
+then the two-cell tail is controlled by a fraction of the global squared
+defect. -/
+theorem exists_two_cell_concentration_of_cut_eta_rho
+    {n : ℕ} (D : Perspective n)
+    (U : H n ≃ₗᵢ[ℂ] H n)
+    (S : Finset ((Projective.interface n).Cell D))
+    (η ρ : ℝ)
+    (hη0 : 0 ≤ η)
+    (hηfive : η ≤ 1 / 5)
+    (hρpos : 0 < ρ)
+    (hρdelta : ρ ≤ operatorNormProjectorCommutatorL2 D U)
+    (hEη :
+      operatorNormProjectorCommutatorL2 D U ^ 2 -
+          2 * ‖recordSubsetProjectorCommutatorCLM D U S‖ ^ 2 ≤
+        η * operatorNormProjectorCommutatorL2 D U ^ 2) :
+    ∃ i ∈ S, ∃ j ∈ Sᶜ,
+      operatorNormProjectorCommutatorL2 D U ^ 2 -
+          incomingWitnessP D U i - incomingWitnessP D U j ≤
+        operatorNormProjectorCommutatorL2 D U ^ 2 *
+          (2 * η +
+            (36 * η / (1 - 3 * η)) / ρ ^ 2) := by
+  have hdelta :
+      0 < operatorNormProjectorCommutatorL2 D U :=
+    lt_of_lt_of_le hρpos hρdelta
+  obtain ⟨i, hi, j, hj, htail⟩ :=
+    exists_two_cell_concentration_of_cut_eta
+      D U S η hη0 hηfive hdelta hEη
+  let A : ℝ := operatorNormProjectorCommutatorL2 D U ^ 2
+  let K : ℝ := 36 * η / (1 - 3 * η)
+  have hδ0 : 0 ≤ operatorNormProjectorCommutatorL2 D U :=
+    operatorNormProjectorCommutatorL2_nonneg D U
+  have hρ0 : 0 ≤ ρ := hρpos.le
+  have hρsq : ρ ^ 2 ≤ A := by
+    dsimp [A]
+    exact (sq_le_sq₀ hρ0 hδ0).2 hρdelta
+  have hρsqpos : 0 < ρ ^ 2 := sq_pos_of_pos hρpos
+  have hqpos : 0 < 1 - 3 * η := by
+    nlinarith
+  have hK0 : 0 ≤ K := by
+    dsimp [K]
+    exact div_nonneg
+      (mul_nonneg (by norm_num) hη0) hqpos.le
+  have hKrho :
+      K ≤ A * (K / ρ ^ 2) := by
+    have hcoef0 : 0 ≤ K / ρ ^ 2 :=
+      div_nonneg hK0 hρsqpos.le
+    calc
+      K = ρ ^ 2 * (K / ρ ^ 2) := by
+        field_simp [ne_of_gt hρsqpos]
+      _ ≤ A * (K / ρ ^ 2) :=
+        mul_le_mul_of_nonneg_right hρsq hcoef0
+  refine ⟨i, hi, j, hj, ?_⟩
+  have hscaled :
+      2 * η * A + K ≤
+        A * (2 * η + K / ρ ^ 2) := by
+    calc
+      2 * η * A + K ≤
+          2 * η * A + A * (K / ρ ^ 2) :=
+        add_le_add_left hKrho _
+      _ = A * (2 * η + K / ρ ^ 2) := by ring
+  have htail' :
+      A - incomingWitnessP D U i - incomingWitnessP D U j ≤
+        2 * η * A + K := by
+    simpa [A, K] using htail
+  exact htail'.trans (by simpa [A, K] using hscaled)
+
 end
 end EverettianDecoherence.Approximation
