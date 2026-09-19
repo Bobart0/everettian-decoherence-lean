@@ -59,7 +59,7 @@ theorem normalized_residual_close
   have hinvCast :
       (((Real.sqrt r : ℝ) : ℂ)⁻¹) =
         (((Real.sqrt r)⁻¹ : ℝ) : ℂ) := by
-    exact_mod_cast (inv_eq_inv₀ (Real.sqrt r))
+    simpa using (Complex.ofReal_inv (Real.sqrt r)).symm
   have hcross :
       RCLike.re
         (inner ℂ
