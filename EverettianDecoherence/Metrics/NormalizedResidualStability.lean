@@ -54,25 +54,22 @@ theorem normalized_residual_close
     rw [norm_smul, Complex.norm_real, Real.norm_eq_abs,
       abs_of_nonneg hsp0, hv, mul_one, Real.sq_sqrt hp0]
   have hrev : RCLike.re (inner ℂ q v) = r := by
-    rw [← inner_conj_symm]
-    simpa using hinner
+    rw [inner_re_symm]
+    exact hinner
+  have hinvCast :
+      (((Real.sqrt r : ℝ) : ℂ)⁻¹) =
+        (((Real.sqrt r)⁻¹ : ℝ) : ℂ) := by
+    exact_mod_cast (inv_eq_inv₀ (Real.sqrt r))
   have hcross :
       RCLike.re
         (inner ℂ
           (((Real.sqrt r : ℝ) : ℂ)⁻¹ • q)
           (((Real.sqrt p : ℝ) : ℂ) • v)) =
         (Real.sqrt p / Real.sqrt r) * r := by
-    rw [inner_smul_left, inner_smul_right]
-    simp only [map_inv₀]
-    have hreal :
-        star (((Real.sqrt r : ℝ) : ℂ)⁻¹) *
-            inner ℂ q v * (Real.sqrt p : ℂ) =
-          (((Real.sqrt p / Real.sqrt r : ℝ) : ℂ) *
-            inner ℂ q v) := by
-      field_simp [hsr0]
-      ring
-    rw [hreal, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
-      zero_mul, sub_zero, hrev]
+    rw [hinvCast, inner_smul_ofReal_left, inner_smul_ofReal_right,
+      RCLike.re_mul_ofReal, RCLike.re_mul_ofReal, hrev]
+    field_simp [hsr0]
+    ring
   calc
     ‖(((Real.sqrt r : ℝ) : ℂ)⁻¹ • q) -
         (((Real.sqrt p : ℝ) : ℂ) • v)‖ ^ 2
