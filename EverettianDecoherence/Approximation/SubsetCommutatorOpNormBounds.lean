@@ -31,8 +31,8 @@ theorem recordSubsetProjectorCommutatorCLM_opNorm_sq_le_subsetSq
     ‖recordSubsetProjectorCommutatorCLM D U S‖ ^ 2 ≤
       subsetProjectorCommutatorOpNormSq D U S := by
   by_cases hz : ‖recordSubsetProjectorCommutatorCLM D U S‖ = 0
-  · rw [hz, zero_pow]
-    exact subsetProjectorCommutatorOpNormSq_nonneg D U S
+  · simpa [hz] using
+      (subsetProjectorCommutatorOpNormSq_nonneg D U S)
   · have hpos : 0 < ‖recordSubsetProjectorCommutatorCLM D U S‖ :=
       lt_of_le_of_ne (norm_nonneg _) (Ne.symm hz)
     obtain ⟨x, hx, hnorm⟩ :=
