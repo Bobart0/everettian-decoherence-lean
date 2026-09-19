@@ -35,8 +35,16 @@ private theorem incomingCLM_project_compl_eq
         (Gleason.projL (recordSubsetSubspace D Sᶜ) x) =
       recordSubsetIncoming D U S x
   unfold recordSubsetIncoming Gleason.projL
-  rw [Submodule.starProjection_eq_self_iff.mpr
-    (Submodule.starProjection_apply_mem (recordSubsetSubspace D Sᶜ) x)]
+  have hidem :
+      (recordSubsetSubspace D Sᶜ).starProjection
+          ((recordSubsetSubspace D Sᶜ).starProjection x) =
+        (recordSubsetSubspace D Sᶜ).starProjection x :=
+    Submodule.starProjection_eq_self_iff.mpr
+      (Submodule.starProjection_apply_mem (recordSubsetSubspace D Sᶜ) x)
+  exact congrArg
+    (fun y =>
+      (recordSubsetSubspace D S).starProjection (U y))
+    hidem
 
 /-- A positive incoming-block norm is attained by a unit vector fixed by the
 complement projector. -/
@@ -78,7 +86,7 @@ theorem exists_unit_complWitness_norm_incoming
       ‖recordSubsetIncomingCLM D U S‖ =
           ‖recordSubsetIncomingCLM D U S v‖ := hTvnorm.symm
       _ ≤ ‖recordSubsetIncomingCLM D U S‖ * ‖v‖ :=
-        ContinuousLinearMap.le_opNorm _ _
+        (recordSubsetIncomingCLM D U S).le_opNorm v
   have hvge : 1 ≤ ‖v‖ := by
     nlinarith
   have hv : ‖v‖ = 1 := le_antisymm hvle hvge
