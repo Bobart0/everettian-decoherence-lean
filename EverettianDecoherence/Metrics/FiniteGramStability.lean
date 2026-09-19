@@ -227,6 +227,35 @@ theorem gram_offDiagonal_spread_le_288
   exact hbase.trans hbound
 
 
+
+/-- Sharper linearized Gram stability for the residual normalization used in
+the T5 application. If the total squared error is at most 2 e and e ≤ 1/2,
+then the off-diagonal spread is at most 18 e. -/
+theorem gram_offDiagonal_spread_le_18
+    {ι E : Type*} [Fintype ι] [DecidableEq ι]
+    [NormedAddCommGroup E] [InnerProductSpace ℂ E]
+    (ξ ζ : ι → E) (p : ι → ℝ) (ε : ℝ)
+    (hξ : Orthonormal ℂ ξ)
+    (hp : ∀ i, 0 ≤ p i)
+    (hgram : ∀ i j, i ≠ j →
+      p i * p j = ‖inner ℂ (ζ i) (ζ j)‖ ^ 2)
+    (hε0 : 0 ≤ ε) (hεhalf : ε ≤ 1 / 2)
+    (hclose : (∑ i, ‖ζ i - ξ i‖ ^ 2) ≤ 2 * ε) :
+    (∑ i, ∑ j ∈ Finset.univ.erase i, p i * p j) ≤ 18 * ε := by
+  have hbase := gram_offDiagonal_spread_le ξ ζ p hξ hp hgram
+  let q : ℝ := ∑ i, ‖ζ i - ξ i‖ ^ 2
+  have hq0 : 0 ≤ q := by
+    dsimp [q]
+    positivity
+  have hq : q ≤ 2 * ε := by simpa [q] using hclose
+  have hq_sq : q ^ 2 ≤ 4 * ε ^ 2 := by
+    nlinarith
+  have hεsq : ε ^ 2 ≤ ε / 2 := by
+    nlinarith
+  have hbound : 6 * q + 3 * q ^ 2 ≤ 18 * ε := by
+    nlinarith
+  exact hbase.trans hbound
+
 /-- Cardinality-free inverse theorem obtained by composing Gram stability with
 the finite concentration lemma. -/
 theorem exists_dominant_of_gram_close
