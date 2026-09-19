@@ -64,12 +64,11 @@ theorem normalized_residual_close
   have hstarInv :
       star (((Real.sqrt r : ℝ) : ℂ)⁻¹) =
         (((Real.sqrt r)⁻¹ : ℝ) : ℂ) := by
-    rw [map_inv₀, hstarReal, ← Complex.ofReal_inv]
+    rw [star_inv₀, hstarReal, ← Complex.ofReal_inv]
   have hcoef :
       (Real.sqrt r)⁻¹ * Real.sqrt p =
         Real.sqrt p / Real.sqrt r := by
     field_simp [hsr0]
-    ring
   have hscalar :
       star (((Real.sqrt r : ℝ) : ℂ)⁻¹) *
           (((Real.sqrt p : ℝ) : ℂ) * inner ℂ q v) =
@@ -86,7 +85,11 @@ theorem normalized_residual_close
       (star (((Real.sqrt r : ℝ) : ℂ)⁻¹) *
         (((Real.sqrt p : ℝ) : ℂ) * inner ℂ q v)) =
       (Real.sqrt p / Real.sqrt r) * r
-    rw [hscalar, RCLike.re_ofReal_mul, hrev]
+    rw [hscalar]
+    change Complex.re
+      (((Real.sqrt p / Real.sqrt r : ℝ) : ℂ) * inner ℂ q v) =
+        (Real.sqrt p / Real.sqrt r) * r
+    rw [Complex.re_ofReal_mul, hrev]
   calc
     ‖(((Real.sqrt r : ℝ) : ℂ)⁻¹ • q) -
         (((Real.sqrt p : ℝ) : ℂ) • v)‖ ^ 2
