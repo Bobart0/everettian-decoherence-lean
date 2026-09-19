@@ -130,7 +130,7 @@ theorem gram_offDiagonal_spread_le
             exact hpair i j (Finset.ne_of_mem_erase hj).symm
       _ = 3 * (T₁ + T₂ + T₃) := by
         dsimp [T₁, T₂, T₃]
-        simp_rw [Finset.sum_add_distrib, Finset.sum_mul]
+        simp_rw [mul_add, Finset.sum_add_distrib, ← Finset.mul_sum]
         ring
   have hT₁ : T₁ ≤ q := by
     calc
