@@ -56,22 +56,37 @@ theorem normalized_residual_close
   have hrev : RCLike.re (inner ℂ q v) = r := by
     rw [inner_re_symm]
     exact hinner
+  have hstarReal :
+      star (((Real.sqrt r : ℝ) : ℂ)) =
+        (((Real.sqrt r : ℝ) : ℂ)) := by
+    simpa [Complex.star_def] using
+      (Complex.conj_ofReal (Real.sqrt r))
+  have hstarInv :
+      star (((Real.sqrt r : ℝ) : ℂ)⁻¹) =
+        (((Real.sqrt r)⁻¹ : ℝ) : ℂ) := by
+    rw [map_inv₀, hstarReal, ← Complex.ofReal_inv]
+  have hcoef :
+      (Real.sqrt r)⁻¹ * Real.sqrt p =
+        Real.sqrt p / Real.sqrt r := by
+    field_simp [hsr0]
+    ring
   have hscalar :
       star (((Real.sqrt r : ℝ) : ℂ)⁻¹) *
           (((Real.sqrt p : ℝ) : ℂ) * inner ℂ q v) =
         (((Real.sqrt p / Real.sqrt r : ℝ) : ℂ) * inner ℂ q v) := by
-    simp only [map_inv₀, RCLike.star_def, RCLike.conj_ofReal]
-    rw [← Complex.ofReal_inv]
-    field_simp [hsr0]
-    ring
+    rw [hstarInv, ← mul_assoc, ← Complex.ofReal_mul, hcoef]
   have hcross :
       RCLike.re
         (inner ℂ
           (((Real.sqrt r : ℝ) : ℂ)⁻¹ • q)
           (((Real.sqrt p : ℝ) : ℂ) • v)) =
         (Real.sqrt p / Real.sqrt r) * r := by
-    rw [inner_smul_left, inner_smul_right, hscalar,
-      RCLike.re_ofReal_mul, hrev]
+    rw [inner_smul_left, inner_smul_right]
+    change RCLike.re
+      (star (((Real.sqrt r : ℝ) : ℂ)⁻¹) *
+        (((Real.sqrt p : ℝ) : ℂ) * inner ℂ q v)) =
+      (Real.sqrt p / Real.sqrt r) * r
+    rw [hscalar, RCLike.re_ofReal_mul, hrev]
   calc
     ‖(((Real.sqrt r : ℝ) : ℂ)⁻¹ • q) -
         (((Real.sqrt p : ℝ) : ℂ) • v)‖ ^ 2
