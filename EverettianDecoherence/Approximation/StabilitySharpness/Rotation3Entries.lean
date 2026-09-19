@@ -26,7 +26,8 @@ def stabilitySharpnessD (m : ℕ) : ℝ :=
   unfold stabilitySharpnessRotationMatrix stabilitySharpnessBasisMatrix
     stabilitySharpnessPlaneRotationMatrix stabilitySharpnessD
   simp [Matrix.mul_apply, Fin.sum_univ_three]
-  ring
+  have hAB := stabilitySharpnessA_sq_add_B_sq_complex n
+  linear_combination hAB
 
 @[simp] theorem stabilitySharpnessRotationMatrix_01 (n m : ℕ) :
     stabilitySharpnessRotationMatrix n m (0 : Fin 3) (1 : Fin 3) =
@@ -60,7 +61,8 @@ def stabilitySharpnessD (m : ℕ) : ℝ :=
   unfold stabilitySharpnessRotationMatrix stabilitySharpnessBasisMatrix
     stabilitySharpnessPlaneRotationMatrix stabilitySharpnessD
   simp [Matrix.mul_apply, Fin.sum_univ_three]
-  ring
+  have hAB := stabilitySharpnessA_sq_add_B_sq_complex n
+  linear_combination hAB
 
 @[simp] theorem stabilitySharpnessRotationMatrix_12 (n m : ℕ) :
     stabilitySharpnessRotationMatrix n m (1 : Fin 3) (2 : Fin 3) =
@@ -76,7 +78,6 @@ def stabilitySharpnessD (m : ℕ) : ℝ :=
   unfold stabilitySharpnessRotationMatrix stabilitySharpnessBasisMatrix
     stabilitySharpnessPlaneRotationMatrix
   simp [Matrix.mul_apply, Fin.sum_univ_three]
-  ring
 
 @[simp] theorem stabilitySharpnessRotationMatrix_21 (n m : ℕ) :
     stabilitySharpnessRotationMatrix n m (2 : Fin 3) (1 : Fin 3) =
@@ -84,7 +85,6 @@ def stabilitySharpnessD (m : ℕ) : ℝ :=
   unfold stabilitySharpnessRotationMatrix stabilitySharpnessBasisMatrix
     stabilitySharpnessPlaneRotationMatrix
   simp [Matrix.mul_apply, Fin.sum_univ_three]
-  ring
 
 @[simp] theorem stabilitySharpnessRotationMatrix_22 (n m : ℕ) :
     stabilitySharpnessRotationMatrix n m (2 : Fin 3) (2 : Fin 3) =
@@ -92,7 +92,6 @@ def stabilitySharpnessD (m : ℕ) : ℝ :=
   unfold stabilitySharpnessRotationMatrix stabilitySharpnessBasisMatrix
     stabilitySharpnessPlaneRotationMatrix
   simp [Matrix.mul_apply, Fin.sum_univ_three]
-  ring
 
 end
 end EverettianDecoherence.Approximation
