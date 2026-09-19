@@ -127,8 +127,16 @@ private theorem recordSubsetIncoming_project_compl
         (Gleason.projL (recordSubsetSubspace D Sᶜ) x) =
       recordSubsetIncoming D U S x := by
   unfold recordSubsetIncoming Gleason.projL
-  rw [Submodule.starProjection_eq_self_iff.mpr
-    (Submodule.starProjection_apply_mem (recordSubsetSubspace D Sᶜ) x)]
+  have hidem :
+      (recordSubsetSubspace D Sᶜ).starProjection
+          ((recordSubsetSubspace D Sᶜ).starProjection x) =
+        (recordSubsetSubspace D Sᶜ).starProjection x :=
+    Submodule.starProjection_eq_self_iff.mpr
+      (Submodule.starProjection_apply_mem (recordSubsetSubspace D Sᶜ) x)
+  exact congrArg
+    (fun y =>
+      (recordSubsetSubspace D S).starProjection (U y))
+    hidem
 
 private theorem recordSubsetOutgoing_project
     {n : ℕ} (D : Perspective n)
@@ -138,8 +146,16 @@ private theorem recordSubsetOutgoing_project
         (Gleason.projL (recordSubsetSubspace D S) x) =
       recordSubsetOutgoing D U S x := by
   unfold recordSubsetOutgoing Gleason.projL
-  rw [Submodule.starProjection_eq_self_iff.mpr
-    (Submodule.starProjection_apply_mem (recordSubsetSubspace D S) x)]
+  have hidem :
+      (recordSubsetSubspace D S).starProjection
+          ((recordSubsetSubspace D S).starProjection x) =
+        (recordSubsetSubspace D S).starProjection x :=
+    Submodule.starProjection_eq_self_iff.mpr
+      (Submodule.starProjection_apply_mem (recordSubsetSubspace D S) x)
+  exact congrArg
+    (fun y =>
+      (recordSubsetSubspace D Sᶜ).starProjection (U y))
+    hidem
 
 private theorem norm_recordSubsetIncoming_le_commutator
     {n : ℕ} (D : Perspective n)
@@ -172,7 +188,7 @@ theorem recordSubsetIncomingCLM_opNorm_le_commutator
   apply ContinuousLinearMap.opNorm_le_bound _ (norm_nonneg _)
   intro x
   exact (norm_recordSubsetIncoming_le_commutator D U S x).trans
-    (ContinuousLinearMap.le_opNorm _ _)
+    ((recordSubsetProjectorCommutatorCLM D U S).le_opNorm x)
 
 theorem recordSubsetOutgoingCLM_opNorm_le_commutator
     {n : ℕ} (D : Perspective n)
@@ -183,7 +199,7 @@ theorem recordSubsetOutgoingCLM_opNorm_le_commutator
   apply ContinuousLinearMap.opNorm_le_bound _ (norm_nonneg _)
   intro x
   exact (norm_recordSubsetOutgoing_le_commutator D U S x).trans
-    (ContinuousLinearMap.le_opNorm _ _)
+    ((recordSubsetProjectorCommutatorCLM D U S).le_opNorm x)
 
 private theorem recordSubset_projection_norm_sq_add_compl
     {n : ℕ} (D : Perspective n)
@@ -216,7 +232,7 @@ private theorem norm_recordSubsetProjectorCommutator_le_max_cross_mul_norm
     ‖recordSubsetOutgoingCLM D U S‖
   have hM0 : 0 ≤ M := by
     dsimp [M]
-    exact max_nonneg (norm_nonneg _) (norm_nonneg _)
+    exact (norm_nonneg _).trans (le_max_left _ _)
   have hin :
       ‖recordSubsetIncoming D U S x‖ ≤
         M * ‖Gleason.projL (recordSubsetSubspace D Sᶜ) x‖ := by
@@ -282,7 +298,7 @@ theorem recordSubsetProjectorCommutatorCLM_opNorm_eq_max_cross
           ‖recordSubsetOutgoingCLM D U S‖ := by
   apply le_antisymm
   · apply ContinuousLinearMap.opNorm_le_bound _
-      (max_nonneg (norm_nonneg _) (norm_nonneg _))
+      ((norm_nonneg _).trans (le_max_left _ _))
     intro x
     exact norm_recordSubsetProjectorCommutator_le_max_cross_mul_norm
       D U S x
