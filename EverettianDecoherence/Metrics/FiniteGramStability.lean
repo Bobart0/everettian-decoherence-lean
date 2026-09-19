@@ -192,7 +192,9 @@ theorem gram_offDiagonal_spread_le
               ∑ j ∈ Finset.univ.erase i, ‖e i‖ ^ 2 * ‖e j‖ ^ 2 := by
                 apply Finset.sum_le_sum
                 intro j _
-                have hinner := norm_inner_le_norm (e i) (e j)
+                have hinner :
+                    ‖inner ℂ (e i) (e j)‖ ≤ ‖e i‖ * ‖e j‖ :=
+                  norm_inner_le_norm (𝕜 := ℂ) (e i) (e j)
                 calc
                   ‖inner ℂ (e i) (e j)‖ ^ 2 ≤
                       (‖e i‖ * ‖e j‖) ^ 2 :=
@@ -205,8 +207,25 @@ theorem gram_offDiagonal_spread_le
               (by intro j _ _; positivity)
       _ = q ^ 2 := by
         dsimp [q]
-        rw [← Finset.sum_mul]
-        ring
+        have hinnerSum (i : ι) :
+            (∑ j : ι, ‖e i‖ ^ 2 * ‖e j‖ ^ 2) =
+              ‖e i‖ ^ 2 * (∑ j : ι, ‖e j‖ ^ 2) := by
+          simpa using
+            (Finset.mul_sum (Finset.univ : Finset ι)
+              (fun j => ‖e j‖ ^ 2) (‖e i‖ ^ 2)).symm
+        calc
+          (∑ i : ι, ∑ j : ι, ‖e i‖ ^ 2 * ‖e j‖ ^ 2) =
+              ∑ i : ι, ‖e i‖ ^ 2 * (∑ j : ι, ‖e j‖ ^ 2) := by
+                apply Finset.sum_congr rfl
+                intro i hi
+                exact hinnerSum i
+          _ = (∑ i : ι, ‖e i‖ ^ 2) *
+                (∑ j : ι, ‖e j‖ ^ 2) := by
+                simpa using
+                  (Finset.sum_mul (Finset.univ : Finset ι)
+                    (fun i => ‖e i‖ ^ 2)
+                    (∑ j : ι, ‖e j‖ ^ 2)).symm
+          _ = (∑ i : ι, ‖e i‖ ^ 2) ^ 2 := by ring
   have hq0 : 0 ≤ q := by
     dsimp [q]
     positivity
