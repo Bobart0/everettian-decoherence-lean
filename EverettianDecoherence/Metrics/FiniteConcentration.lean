@@ -61,7 +61,14 @@ theorem exists_tail_mul_sum_le_of_spread_le
   have hprod :
       (∑ j ∈ S.erase i, p j) * (∑ j ∈ S, p j) ≤
         (∑ j ∈ S, p j) ^ 2 - (∑ j ∈ S, p j ^ 2) := by
-    nlinarith
+    calc
+      (∑ j ∈ S.erase i, p j) * (∑ j ∈ S, p j) =
+          (∑ j ∈ S, p j) ^ 2 -
+            p i * (∑ j ∈ S, p j) := by
+        rw [hdecomp]
+        ring
+      _ ≤ (∑ j ∈ S, p j) ^ 2 - (∑ j ∈ S, p j ^ 2) := by
+        linarith
   exact hprod.trans hspread
 
 /-- Quantitative concentration with an external positive lower bound on the
@@ -107,7 +114,7 @@ theorem sum_offDiagonal_mul_eq_sum_sq_sub_sum_sq
     rw [← Finset.sum_erase_add _ _ hi]
     ring
   simp_rw [hrow, Finset.sum_sub_distrib]
-  rw [Finset.sum_mul]
+  rw [← Finset.sum_mul]
   ring
 
 end
