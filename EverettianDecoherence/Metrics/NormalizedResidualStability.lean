@@ -42,13 +42,20 @@ theorem normalized_residual_close
   have hnormq :
       ‖(((Real.sqrt r : ℝ) : ℂ)⁻¹ • q)‖ ^ 2 ≤ p := by
     rw [norm_smul, norm_inv, Complex.norm_real, Real.norm_eq_abs,
-      abs_of_pos hsr, div_pow]
-    rw [Real.sq_sqrt hr0]
+      abs_of_pos hsr]
+    have hcalc :
+        ((Real.sqrt r)⁻¹ * ‖q‖) ^ 2 = ‖q‖ ^ 2 / r := by
+      field_simp [hsr0]
+      nlinarith [Real.sq_sqrt hr0]
+    rw [hcalc]
     exact (div_le_iff₀ hr).2 (by simpa [mul_comm] using hq)
   have hnormv :
       ‖(((Real.sqrt p : ℝ) : ℂ) • v)‖ ^ 2 = p := by
     rw [norm_smul, Complex.norm_real, Real.norm_eq_abs,
       abs_of_nonneg hsp0, hv, mul_one, Real.sq_sqrt hp0]
+  have hrev : RCLike.re (inner ℂ q v) = r := by
+    rw [← inner_conj_symm]
+    simpa using hinner
   have hcross :
       RCLike.re
         (inner ℂ
@@ -56,10 +63,16 @@ theorem normalized_residual_close
           (((Real.sqrt p : ℝ) : ℂ) • v)) =
         (Real.sqrt p / Real.sqrt r) * r := by
     rw [inner_smul_left, inner_smul_right]
-    simp only [map_inv₀, conj_ofReal, Complex.ofReal_mul, RCLike.re_to_real,
-      Complex.ofReal_inv]
-    rw [← inner_conj_symm, map_conj, hinner]
-    field_simp [hsr0]
+    simp only [map_inv₀]
+    have hreal :
+        star (((Real.sqrt r : ℝ) : ℂ)⁻¹) *
+            inner ℂ q v * (Real.sqrt p : ℂ) =
+          (((Real.sqrt p / Real.sqrt r : ℝ) : ℂ) *
+            inner ℂ q v) := by
+      field_simp [hsr0]
+      ring
+    rw [hreal, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+      zero_mul, sub_zero, hrev]
   calc
     ‖(((Real.sqrt r : ℝ) : ℂ)⁻¹ • q) -
         (((Real.sqrt p : ℝ) : ℂ) • v)‖ ^ 2
@@ -75,8 +88,7 @@ theorem normalized_residual_close
       linarith
     _ = 2 * p - 2 * (Real.sqrt p * Real.sqrt r) := by
       field_simp [hsr0]
-      rw [Real.sq_sqrt hr0]
-      ring
+      nlinarith [Real.sq_sqrt hr0]
     _ ≤ 2 * (p - r) := by
       nlinarith
 
