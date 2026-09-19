@@ -37,7 +37,7 @@ theorem exists_unit_norm_apply_eq_opNorm
   have hop_le : ‖T‖ ≤ ‖T x‖ := by
     apply ContinuousLinearMap.opNorm_le_of_unit_norm (norm_nonneg (T x))
     intro y hy
-    exact hmax y (by simpa [Metric.mem_sphere, hy])
+    exact hmax (by simpa [Metric.mem_sphere, hy])
   exact ⟨x, hxnorm, le_antisymm happ_le hop_le⟩
 
 
