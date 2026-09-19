@@ -91,5 +91,24 @@ theorem exists_tail_le_of_spread_le
   apply (le_div_iff₀ hLpos).2
   simpa [mul_comm] using hmul
 
+
+/-- The off-diagonal quadratic mass is exactly total-square minus the sum of
+individual squares. -/
+theorem sum_offDiagonal_mul_eq_sum_sq_sub_sum_sq
+    {α : Type*} [Fintype α] [DecidableEq α] (p : α → ℝ) :
+    (∑ i, ∑ j ∈ Finset.univ.erase i, p i * p j) =
+      (∑ i, p i) ^ 2 - ∑ i, p i ^ 2 := by
+  have hrow : ∀ i : α,
+      (∑ j ∈ Finset.univ.erase i, p i * p j) =
+        p i * (∑ j, p j) - p i ^ 2 := by
+    intro i
+    rw [← Finset.mul_sum]
+    have hi : i ∈ (Finset.univ : Finset α) := Finset.mem_univ i
+    rw [← Finset.sum_erase_add _ _ hi]
+    ring
+  simp_rw [hrow, Finset.sum_sub_distrib]
+  rw [Finset.sum_mul]
+  ring
+
 end
 end EverettianDecoherence.Metrics
