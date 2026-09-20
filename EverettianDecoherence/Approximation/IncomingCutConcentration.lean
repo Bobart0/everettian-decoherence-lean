@@ -136,6 +136,7 @@ theorem exists_cell_concentration_of_incoming_max
             incomingWitnessP D U j.1) := by
     dsimp [A]
     rw [← hsplit, hactiveGood']
+    simp only [Finset.attach_eq_univ]
     abel
   refine ⟨i.1, hiS, ?_⟩
   rw [show subsetProjectorCommutatorOpNormSq D U S = A by rfl]
