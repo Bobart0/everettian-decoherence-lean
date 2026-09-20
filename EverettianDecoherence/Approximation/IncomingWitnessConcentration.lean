@@ -106,7 +106,15 @@ theorem exists_dominant_activeGood_incomingWitness
   have hmass :
       L ≤ ∑ i : ↥(incomingWitnessActiveGoodCells D U S v),
         incomingWitnessP D U i.1 := by
-    simpa [Finset.sum_subtype] using hL
+    calc
+      L ≤ ∑ c ∈ incomingWitnessActiveGoodCells D U S v,
+          incomingWitnessP D U c := hL
+      _ = ∑ i : ↥(incomingWitnessActiveGoodCells D U S v),
+          incomingWitnessP D U i.1 := by
+        exact
+          (Finset.sum_coe_sort
+            (incomingWitnessActiveGoodCells D U S v)
+            (fun c => incomingWitnessP D U c)).symm
   have hdom :=
     exists_dominant_of_gram_close_18
       (incomingWitnessXi D U S v)
