@@ -102,7 +102,7 @@ theorem outgoing_rankOne_norm_sq
       1 =
         ‖c.starProjection (U e)‖ ^ 2 +
           ‖U e - c.starProjection (U e)‖ ^ 2
-    exact hpyth
+    simpa using hpyth
   linarith
 
 /-- The squared outgoing block norm of a rank-one cell is one minus the
