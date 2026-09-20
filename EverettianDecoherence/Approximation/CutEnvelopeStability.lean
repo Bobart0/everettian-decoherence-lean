@@ -59,7 +59,7 @@ theorem twoCellCommutatorConcentratedWithin_of_maxCut_near_saturated
   refine ⟨i, j, hij, ?_⟩
   simpa [TwoCellCommutatorConcentratedWithin,
     cellCommutatorOpNormSq, incomingWitnessP,
-    twoCellStabilityModulus] using htail
+    twoCellStabilityModulus, mul_comm] using htail
 
 /-- Linear transparent form of finite-envelope stability. -/
 theorem twoCellCommutatorConcentratedWithin_linear_of_maxCut_near_saturated
