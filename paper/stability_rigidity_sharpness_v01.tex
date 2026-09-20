@@ -685,23 +685,44 @@ the full finite-dimensional stability theorem.
 
 \section{Related work and priority status}
 
-% This section is intentionally conservative in v0.1.
-% A systematic literature search must be completed before submission.
+The operator-theoretic background includes several neighboring but distinct
+stability questions.  Halmos' analysis of pairs of subspaces provides a
+canonical geometric framework for two projections
+\cite{Halmos1969TwoSubspaces}, while Davis--Kahan perturbation theory
+quantifies the displacement of invariant subspaces under spectral
+perturbations \cite{DavisKahan1970}.  These results concern the geometry of
+subspaces or spectral projectors, rather than the finite cut envelope studied
+here.
 
-The results sit at the intersection of quantitative near-equality problems,
-operator-norm commutator estimates, almost-invariant subspaces, and stability
-questions for finite projective decompositions.  The exact relationship with
-existing quantitative results for almost commuting projections and unitaries
-requires a dedicated priority audit.
+A second neighboring line asks whether matrices with small commutators are
+close to exactly commuting matrices.  For self-adjoint matrices, Lin proved
+dimension-independent approximation by commuting self-adjoints
+\cite{Lin1997AlmostCommuting}; see also the short proof of Friis and R{\o}rdam
+\cite{FriisRordam1996} and quantitative work of Hastings
+\cite{Hastings2009}.  The unitary problem has a different obstruction theory:
+Exel and Loring exhibited and analyzed topological obstructions for almost
+commuting unitaries \cite{ExelLoring1989,ExelLoring1991}, and effective
+commutator-control questions remain active
+\cite{DorOnHallKachkovskiy2025}.
 
-Accordingly, this draft makes no claim of historical priority.  Before
-submission, the related-work section will distinguish:
-(i) estimates controlling projectors or invariant subspaces from commutator
-norms;
-(ii) stability and near-equality theorems for matrix/operator inequalities;
-(iii) results on almost commuting matrices or projections; and
-(iv) formalized operator theory and quantum foundations relevant to the
-machine-checked artifact.
+The present problem is not an approximation-to-a-commuting-tuple theorem.
+The projectors $(P_i)$ are fixed and already commute mutually; the unitary
+$U$ is not replaced by a nearby commuting operator.  Instead, we study a
+specific finite functional of the family of commutators $[P_i,U]$: the
+largest operator norm after aggregating cells into an arbitrary cut.  The
+main questions are the equality structure of its sharp quadratic envelope
+and the stability of its near-equality cases.
+
+The searches completed for this draft have not identified a prior theorem
+with the same combination of (i) the finite cut envelope
+$\cmax^2\le\dd^2/2$, (ii) an exact two-active-cell equality classification,
+(iii) a dimension-free near-saturation theorem with an explicit scale
+parameter, and (iv) a three-cell family proving the necessity of the
+inverse-square scale.  This is not yet a claim of historical priority.
+Before submission, the search will be extended systematically through
+operator-theory databases and citation chains, with particular attention to
+near-equality results for projection commutators and block-operator norm
+inequalities.
 
 \section{Conclusion}
 
@@ -725,5 +746,8 @@ eliminated: the asymptotic scaled ratio tends to $4$.  This closes the
 qualitative--quantitative--sharpness chain for the finite cut envelope and
 provides a machine-checked basis for further study of near-extremizers of
 projective record-transfer inequalities.
+
+\bibliographystyle{plain}
+\bibliography{references_v01}
 
 \end{document}
