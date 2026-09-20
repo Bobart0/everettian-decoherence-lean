@@ -89,7 +89,10 @@ theorem normalized_residual_close
     change Complex.re
       (((Real.sqrt p / Real.sqrt r : ℝ) : ℂ) * inner ℂ q v) =
         (Real.sqrt p / Real.sqrt r) * r
-    rw [Complex.re_ofReal_mul, hrev]
+    rw [Complex.re_ofReal_mul]
+    have hrev' : Complex.re (inner ℂ q v) = r := by
+      simpa using hrev
+    rw [hrev']
   calc
     ‖(((Real.sqrt r : ℝ) : ℂ)⁻¹ • q) -
         (((Real.sqrt p : ℝ) : ℂ) • v)‖ ^ 2
