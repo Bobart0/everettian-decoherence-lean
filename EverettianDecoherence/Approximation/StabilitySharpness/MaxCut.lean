@@ -84,7 +84,8 @@ private theorem stabilitySharpnessCell1_budget_le_s_sq (n m : ℕ) :
       unfold stabilitySharpnessD
       nlinarith
     rw [hrewrite]
-    positivity
+    exact le_add_of_nonneg_right
+      (mul_nonneg hD0 (sq_nonneg _))
   have hdiag0 :
       0 ≤ 1 - stabilitySharpnessD m * stabilitySharpnessB n ^ 2 :=
     hC0.trans hdiag
@@ -114,7 +115,12 @@ theorem stabilitySharpness_cell_budget_le_s_sq
   fin_cases i
   · exact stabilitySharpnessCell0_budget_le_s_sq n m
   · exact stabilitySharpnessCell1_budget_le_s_sq n m
-  · rw [stabilitySharpnessCell2_budget_sq]
+  · change
+      cellCommutatorOpNormSq stabilitySharpnessPerspective3
+          (stabilitySharpnessRotation n m)
+          (stabilitySharpnessCell3 (2 : Fin 3)) ≤
+        iterationSharpnessS m ^ 2
+    rw [stabilitySharpnessCell2_budget_sq]
 
 private theorem stabilitySharpness_subset_opNorm_le_s_of_card_le_one
     (n m : ℕ)
