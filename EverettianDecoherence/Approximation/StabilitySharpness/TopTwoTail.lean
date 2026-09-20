@@ -60,7 +60,9 @@ theorem stabilitySharpnessCell1_budget_le_cell0 (n m : ℕ) :
       0 ≤
         (stabilitySharpnessA n ^ 2 - stabilitySharpnessB n ^ 2) *
           iterationSharpnessS m ^ 2 := by
-    positivity
+    exact mul_nonneg
+      (sub_nonneg.mpr (stabilitySharpnessB_sq_le_A_sq n))
+      (sq_nonneg (iterationSharpnessS m))
   nlinarith
 
 theorem stabilitySharpnessCell1_budget_le_cell2 (n m : ℕ) :
