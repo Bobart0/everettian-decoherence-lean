@@ -94,7 +94,12 @@ theorem outgoing_rankOne_norm_sq
   have hUnorm : ‖U e‖ = 1 := by
     rw [U.norm_map, he]
   rw [hUnorm] at hpyth
-  nlinarith
+  have hpyth' :
+      1 =
+        ‖Gleason.projL c (U e)‖ ^ 2 +
+          ‖U e - Gleason.projL c (U e)‖ ^ 2 := by
+    simpa using hpyth
+  linarith
 
 /-- The squared outgoing block norm of a rank-one cell is one minus the
 squared projected diagonal amplitude. -/
