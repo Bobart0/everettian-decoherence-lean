@@ -4,87 +4,123 @@ Primary target: **Linear Algebra and its Applications (LAA)**.
 
 ## Current reference manuscript
 
-- `stability_rigidity_sharpness_v09_visually_audited.tex`: current submission candidate after Lean audit, focused priority audit, LAA-facing rewrite, compilation, and visual PDF audit.
-- `references_v03.bib`: current bibliography after priority and metadata audit.
-- `MANUSCRIPT_LEAN_AUDIT_v01.md`: traceability ledger for paper claims versus Lean, including the upstream formalization lineage.
-- `PRIORITY_AUDIT_v01.md`: focused literature/priority audit.
-- `highlights_v02.txt`: current submission highlights; to be synchronized with the v0.9 title before portal submission.
+- \`stability_rigidity_sharpness_v10_gap_recast.tex\`: current reference manuscript after the adversarial LAA-style audit and gap-metric recast.
+- \`references_v04.bib\`: current bibliography, expanded to principal-angle, projection-geometry, fixed-commutator, and pinching literature.
+- \`MANUSCRIPT_LEAN_AUDIT_v02.md\`: v0.10 theorem-by-theorem traceability against Lean, explicitly separating DIRECT, DERIVED, and PAPER-ONLY statements.
+- \`PRIORITY_AUDIT_v02_GAP_RECAST.md\`: renewed novelty search under the intrinsic gap/coarsening formulation.
+- \`PRIORITY_AUDIT_v01.md\` and \`MANUSCRIPT_LEAN_AUDIT_v01.md\`: retained as historical audits.
+- \`highlights_v02.txt\`: historical highlights; these must be rewritten before submission because the v0.10 framing and title have changed.
 
-Earlier manuscript states v01--v08 are retained for provenance.
+Earlier manuscript states v01--v09 are retained for provenance.
 
 ## Current title
 
-**Sharp Stability and Two-Cell Rigidity for Finite Projector--Unitary Commutator Profiles**
+**Rigidity and Scale-Sharp Stability for Gaps of Finite Orthogonal Decompositions**
 
-## Formalization visibility
+## What changed in v0.10
 
-The abstract retains explicit search-visible provenance for the broader audited
-formalization library. It states that the principal theorems and sharpness
-construction are machine-checked in Lean 4 and that the upstream library also
-formalizes the Busch and Gleason representation theorems, Naimark dilation,
-Wigner's theorem, Uhlhorn-type uniqueness, Riedel's branch decomposition, and
-Kent's contrary-inference construction.
+The manuscript is now formulated intrinsically for two labelled orthogonal
+resolutions \((P_i)\) and \((Q_i)\) with matching cell ranks.  The identity
+\[
+\|P_i-Q_i\|_{\mathrm{op}}=\|[P_i,U]\|_{\mathrm{op}},
+\qquad Q_i=UP_iU^*,
+\]
+connects the new gap formulation to the existing unitary formalization.
 
-The manuscript explicitly distinguishes library coverage from logical
-dependency: Kent is an upstream conceptual contrast, not a premise of the
-present cut-envelope theorem.
+The main editorial/mathematical changes are:
 
-Current search-oriented keywords include:
-projector--unitary commutators; near-equality stability; rigidity;
-Lean 4 formal verification; Gleason theorem; Busch theorem;
-Kent contrary inference.
+1. the elementary cut envelope is isolated and generalized in the paper to an arbitrary finite-dimensional linear operator \(T\);
+2. the main stability theorem is stated intrinsically in the observed defect \(\delta\), with the \(\delta\ge\rho\) form demoted to a corollary;
+3. the Gram-stability and one-sided concentration proof is written out in full, including the comparison vectors and the \(6q+3q^2\) estimate;
+4. the Pell-based published sharpness presentation is replaced by a one-parameter \(3\times3\) real orthogonal family \(t\downarrow0\);
+5. the title now says **scale-sharp**, avoiding any implication that the universal constants \(36\) or \(72\) are optimal;
+6. related work is reorganized around principal angles, gap geometry, projection commutators, pinching, and almost-commuting operators;
+7. Busch/Gleason/Kent and the broader quantum-foundations catalogue are removed from the abstract and keywords; Lean is presented as a verification artifact rather than as the mathematical subject.
 
-## Formal reference state
+## Main v0.10 theorem chain
 
-The paper branch was forked from Lean head
-`81eb3ff53f6219749b84491513ff437fe7c545c1`, for which the complete CI passed,
-including the library build, audit aggregate, guards, and diff-hygiene checks.
+For
+\[
+p_i=\|P_i-Q_i\|_{\mathrm{op}}^2,\qquad
+\delta^2=\sum_i p_i,\qquad
+G_{\max}=\max_{S\subseteq I}\|P_S-Q_S\|_{\mathrm{op}},
+\]
+the manuscript proves
+\[
+G_{\max}^2\le\frac{\delta^2}{2}.
+\]
 
-## Manuscript ↔ Lean audit
+For \(\delta>0\), equality holds if and only if exactly two cell gaps are nonzero.
 
-No mismatch has been identified in the principal quantitative results.
+If
+\[
+G_{\max}^2\ge(1-\eta)\frac{\delta^2}{2},
+\qquad
+0\le\eta\le\frac15,
+\]
+then the optimal relative tail after retaining two cells satisfies
+\[
+\tau\le
+2\eta+\frac{36\eta}{(1-3\eta)\delta^2}.
+\]
 
-Important qualifications retained in the paper:
+The one-parameter three-cell family satisfies
+\[
+\delta_t^2\to0,\qquad
+\eta_t\to0,\qquad
+\delta_t^2\frac{\tau_t}{\eta_t}\to4,
+\]
+so the inverse-square defect-scale dependence is necessary up to constants.
 
-1. Lean checks canonical finite-dimensional coordinate Hilbert spaces; the coordinate-free paper formulation is obtained by unitary identification.
-2. The general optimal top-two tail used in the paper is explicitly connected to the three-cell sharpness quantity by `stabilitySharpnessTopTwoTail_eq_Tau`.
-3. The quantified inverse-square obstruction is a mathematical consequence of several machine-checked limits and exact formulas; it is marked DERIVED rather than presented as a separate Lean declaration.
-4. The upstream theorem names in the abstract are claims about the audited formal library, not about the logical premises of the current theorem.
+## Lean scope
 
-## Priority audit
+The CI-verified Lean head underlying the manuscript branch is
+\`81eb3ff53f6219749b84491513ff437fe7c545c1\`.
 
-The focused search found substantial neighboring literature on two projections,
-projection commutators, almost commuting operators, and perturbative projection
-stability, but no direct predecessor for the combined finite-family package:
-cut envelope + exact two-cell rigidity + quantitative near-equality
-concentration + three-cell inverse-square scale obstruction.
+The v0.10 paper accurately distinguishes:
+- the machine-checked unitary envelope/stability/rigidity chain;
+- the machine-checked rank-one identity and discrete three-cell scale obstruction;
+- the paper-only arbitrary-\(T\) extension of the elementary envelope;
+- the paper-only continuous one-parameter reparametrization of the sharpness mechanism.
 
-The novelty language remains intentionally non-absolute because an equivalent
-base envelope lemma could exist under older block-operator or pinching
-terminology.
+See \`MANUSCRIPT_LEAN_AUDIT_v02.md\` for exact status by statement.
 
-## v0.9 submission-candidate audit
+## Priority status
 
-The v0.9 source is compiled reproducibly by GitHub Actions.
+The renewed search under gap, principal-angle, projection-difference,
+coarsening, pinching, and finite-family terminology found no direct predecessor
+for the combined package:
+- matched-coarsening envelope;
+- exact two-cell equality rigidity;
+- dimension- and cardinality-free near-equality concentration;
+- inverse-square three-cell scale obstruction.
 
-Final generic-article PDF audit:
-- 14 pages;
-- all labels and bibliography references resolve;
-- no LaTeX `Overfull`, `Underfull`, `Undefined`, `Warning`, `Error`, or `Fatal` entries in the final log;
-- no hyperlink boxes in the rendered manuscript;
-- first-page title/abstract/keywords visually inspected;
-- formal-verification page visually inspected after line-overflow corrections;
-- bibliography visually inspected after capitalization/arXiv metadata corrections.
+The elementary envelope remains exposed to a residual folklore risk under
+older block-operator or pinching terminology, so v0.10 makes no priority claim
+for that lemma alone.
 
-The LAA-facing v0.9 deliberately removes the standalone record-transfer
-digression from the body. The broader quantum-foundations provenance remains
-visible in the abstract and formal-verification section, while the mathematical
-narrative stays centered on projector--unitary commutator profiles.
+## Submission-candidate checks
+
+The v0.10 source has been compiled by the standard GitHub Actions paper
+workflow and visually inspected in generic article format.  The principal
+pages checked include:
+- title/abstract/keywords;
+- arbitrary-operator envelope;
+- Gram lemma and one-sided concentration;
+- intrinsic stability theorem;
+- exact rigidity;
+- one-parameter sharpness family;
+- formal-verification scope;
+- related work and bibliography.
+
+The final promotion build should remain free of unresolved references and
+typographic overflow before submission.
 
 ## Remaining pre-submission work
 
-1. Check the current LAA/Elsevier author guidelines and required submission files.
-2. Apply the final LAA/Elsevier class/template if required by the portal.
-3. Create a tagged archival formalization release and persistent DOI, then replace/supplement the raw commit reference.
-4. Synchronize highlights with the v0.9 title and abstract.
-5. Prepare cover letter, data/code availability statement if required, declarations, and portal metadata.
+1. Freeze a final v0.10 build after the documentation commits and inspect its log.
+2. Check current LAA/Elsevier author guidelines and required submission files.
+3. Apply the final LAA/Elsevier class/template if required by the portal.
+4. Create a tagged archival formalization release and persistent DOI, then replace/supplement the raw commit reference.
+5. Rewrite highlights for the gap formulation.
+6. Prepare cover letter, declarations, code/data availability wording, and portal metadata.
