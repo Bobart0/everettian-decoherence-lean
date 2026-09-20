@@ -137,6 +137,7 @@ import EverettianDecoherence.Approximation.UniformRecordPreservation
 import EverettianDecoherence.Approximation.ComposedRecordPreservation
 import EverettianDecoherence.Approximation.IteratedRecordPreservation
 import EverettianDecoherence.Approximation.UniformTransferOptimality
+import EverettianDecoherence.Approximation.StabilitySharpness
 ```
 
 Current physical limitations: no time dynamics, Hamiltonian, channel, open
