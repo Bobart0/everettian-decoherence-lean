@@ -231,7 +231,11 @@ theorem re_inner_incomingWitnessCellResidual_eq_norm_sq
           c.val.starProjection (U v) := by
       exact Submodule.starProjection_eq_self_iff.mpr
         (Submodule.starProjection_apply_mem c.val (U v))
-    rw [← Submodule.inner_starProjection_left_eq_right c.val, hidem]
+    have hself :=
+      Submodule.inner_starProjection_left_eq_right c.val
+        (U v) (c.val.starProjection (U v))
+    rw [hidem] at hself
+    exact hself.symm
   unfold incomingWitnessCellResidual
   rw [inner_sub_right, hprojzero, sub_zero, hvz,
     inner_self_eq_norm_sq]
