@@ -113,14 +113,16 @@ pages checked include:
 - formal-verification scope;
 - related work and bibliography.
 
-The final promotion build should remain free of unresolved references and
-typographic overflow before submission.
+Final promotion build: GitHub Actions run `35534640711` on manuscript commit
+`e5747058e7b7e5e4ef7825f6fcfc76f365aed64f` completed successfully.
+The final pdflatex pass contains no unresolved-reference, citation, overfull,
+underfull, LaTeX-error, or fatal-warning diagnostics.  The PDF remains 14 pages
+and the modified envelope and related-work pages were re-inspected visually.
 
 ## Remaining pre-submission work
 
-1. Freeze a final v0.10 build after the documentation commits and inspect its log.
-2. Check current LAA/Elsevier author guidelines and required submission files.
-3. Apply the final LAA/Elsevier class/template if required by the portal.
-4. Create a tagged archival formalization release and persistent DOI, then replace/supplement the raw commit reference.
-5. Rewrite highlights for the gap formulation.
-6. Prepare cover letter, declarations, code/data availability wording, and portal metadata.
+1. Check current LAA/Elsevier author guidelines and required submission files.
+2. Apply the final LAA/Elsevier class/template if required by the portal.
+3. Create a tagged archival formalization release and persistent DOI, then replace/supplement the raw commit reference.
+4. Rewrite highlights for the gap formulation.
+5. Prepare cover letter, declarations, code/data availability wording, and portal metadata.
