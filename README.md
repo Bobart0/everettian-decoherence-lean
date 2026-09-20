@@ -35,7 +35,11 @@ Résultats locaux actuels :
   et transfert BORN-SENSITIVE itéré ;
 - **T5A/T5B** — coefficient optimal exact `sqrt 2` pour le transfert uniforme
   ED3B sur les états normalisés : T5A fournit la saturation et T5B la borne
-  universelle.
+  universelle ;
+- **front post-T5 de stabilité quantitative** — classification exacte du cas
+  de saturation sur deux cellules, modulus explicite à échelle fixée, et
+  famille tridimensionnelle établissant la nécessité de la dépendance
+  `η / ρ^2` à constante près.
 
 ED1–ED4B ainsi que T1–T5 sont formalisés et audités dans leur portée
 documentée. Les déclarations principales ED4A et ED4B sont aussi
@@ -59,6 +63,7 @@ import EverettianDecoherence.Approximation.UniformRecordPreservation
 import EverettianDecoherence.Approximation.ComposedRecordPreservation
 import EverettianDecoherence.Approximation.IteratedRecordPreservation
 import EverettianDecoherence.Approximation.UniformTransferOptimality
+import EverettianDecoherence.Approximation.StabilitySharpness
 ```
 
 Limites physiques actuelles : aucune dynamique temporelle, aucun Hamiltonien,
@@ -105,7 +110,11 @@ Current local results:
   defects, and the iterated BORN-SENSITIVE transfer;
 - **T5A/T5B** — exact optimal `sqrt 2` coefficient for the uniform ED3B
   transfer on normalized states: T5A supplies saturation and T5B the universal
-  upper bound.
+  upper bound;
+- **post-T5 quantitative-stability front** — exact two-cell saturation
+  classification, an explicit fixed-scale modulus, and a three-dimensional
+  family establishing the necessity of the `η / ρ^2` dependence up to
+  constants.
 
 ED1–ED4B and T1–T5 are formalized and audited in their documented scope.
 The principal ED4A and ED4B declarations are also
