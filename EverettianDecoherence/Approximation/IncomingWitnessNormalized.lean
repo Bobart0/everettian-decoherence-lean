@@ -179,8 +179,13 @@ private theorem projectedWitness_inner_complWitness_eq_zero
       Gleason.projL (recordSubsetSubspace D Sᶜ) v = v) :
     inner ℂ
       (Gleason.projL c.val (incomingWitnessCellVector D U c v)) v = 0 := by
-  rw [Submodule.inner_starProjection_left_eq_right c.val,
-    cellProjector_complWitness_eq_zero D S c hc v hvcompl,
+  have hzero :=
+    cellProjector_complWitness_eq_zero D S c hc v hvcompl
+  change c.val.starProjection v = 0 at hzero
+  change
+    inner ℂ
+      (c.val.starProjection (incomingWitnessCellVector D U c v)) v = 0
+  rw [Submodule.inner_starProjection_left_eq_right c.val, hzero,
     inner_zero_right]
 
 private theorem complWitness_inner_projectedWitness_eq_zero
@@ -236,6 +241,9 @@ theorem incomingWitnessZeta_gram
   simp [Complex.norm_real, Real.norm_eq_abs,
     abs_of_nonneg (Real.sqrt_nonneg _),
     Real.sq_sqrt hpi0, Real.sq_sqrt hpj0, mul_pow]
+  rw [hv]
+  norm_num
+  ring
 
 theorem incomingWitnessXi_sub_Zeta_norm_sq_le
     {n : ℕ} (D : Perspective n)
@@ -308,9 +316,11 @@ theorem sum_incomingWitnessXi_sub_Zeta_norm_sq_le
       rw [Finset.mul_sum]
     _ ≤ 2 * (∑ c ∈ S, incomingWitnessAlpha D U c v) := by
       gcongr
-      rw [Finset.sum_subtype]
+      rw [Finset.sum_coe_sort]
       apply Finset.sum_le_sum_of_subset_of_nonneg
-      · exact Finset.filter_subset _ _
+      · intro c hc
+        exact
+          ((mem_incomingWitnessActiveGoodCells D U S v c).mp hc).1
       · intro c hcS _hcnot
         exact incomingWitnessAlpha_nonneg_of_mem
           D U S c hcS v hv hvcompl
