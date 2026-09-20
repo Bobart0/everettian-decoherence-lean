@@ -114,7 +114,7 @@ This is the manuscript point corrected in v0.5.
 | No scale-independent \(\tau\le K\eta\), and no \(\tau\le\eta g(\delta)\) with \(g(\delta)=o(\delta^{-2})\) | quantified obstruction above | DERIVED | Logical consequence of the positive lower bound on \((\tau/\eta)\delta^2\) along arbitrarily small-defect members. |
 | “inverse-square scale is necessary up to constants” | preceding limits and quantified obstruction | DERIVED | Precise interpretation of the formally checked asymptotics; it does not assert that the coefficient 4 is the best universal stability constant. |
 
-## 9. Companion transfer bound
+## 9. Companion transfer bound (formalized upstream/downstream context; not in the v0.9 body)
 
 | Paper item | Lean source | Status | Audit note |
 |---|---|---|---|
@@ -123,7 +123,7 @@ This is the manuscript point corrected in v0.5.
 
 ## 10. Formalization lineage and scope statements
 
-The v0.7 abstract and introduction mention the broader four-repository stack
+The v0.9 abstract and formal-verification section mention the broader four-repository stack
 for indexing and provenance. The named upstream results have the following
 audited status:
 
@@ -135,14 +135,14 @@ audited status:
 - `QuantumFoundations.BranchesRiedel.riedel`: formalization of Riedel's branch-decomposition theorem;
 - `QuantumFoundations.HistoriesKent.contrary_inferences`: formalization of Kent's contrary-inference construction.
 
-These upstream named results are cited in v0.7 as the **coverage of the broader
+These upstream named results are cited in v0.9 as the **coverage of the broader
 formal library**, not as assumptions of the present cut-envelope theorem.
 In particular, the Kent construction is a conceptual contrast in
 `quantum-foundations-lean`, not a logical premise of the stability chain.
 
 - The stability / rigidity / sharpness core is **NON BORN-SENSITIVE** in the Lean dependency structure.
 - No theorem in the audited core asserts time evolution, decoherence, environment-induced selection, or emergence of a preferred perspective.
-- The full record-transfer inequality mentioned in the companion section is Born-sensitive and is explicitly separated from the operator-theoretic core.
+- The full record-transfer inequality remains formally available and is Born-sensitive, but its standalone companion section was removed from the v0.9 LAA-facing manuscript; the current paper body stays on the non-Born-sensitive operator-theoretic core.
 - Bibliographic novelty is **not** a Lean property and remains subject to the independent literature audit.
 
 ## Audit conclusion
