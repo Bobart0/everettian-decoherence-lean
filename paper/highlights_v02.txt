@@ -1,7 +1,7 @@
 Highlights
 
-- Sharp finite cut envelope: C_max^2 <= delta^2/2.
-- Equality is equivalent to exactly two active cell commutators.
-- Near saturation forces dimension-free two-cell concentration.
-- The stability modulus has inverse-square defect-scale dependence.
-- A three-cell family proves that scale dependence is necessary.
+- A sharp cut bound controls aggregate projector commutators.
+- Equality occurs exactly when two cells carry all commutator defect.
+- Near equality forces dimension-free concentration onto two cells.
+- The stability modulus necessarily depends on the inverse defect scale.
+- An explicit three-cell family proves the scale dependence is sharp.
