@@ -121,7 +121,24 @@ This is the manuscript point corrected in v0.5.
 | \(\|r_D(Ux)-r_D(x)\|_1\le\sqrt2\,\delta\) for normalized \(x\) | \`recordProfileL1_unitary_le_sqrt_two_mul_operatorNormCommutatorL2\` | DIRECT | Exact. This statement is Born-sensitive, unlike the core stability theorem. |
 | Optimality of \(\sqrt2\) | \`isUniversalUniformTransferCoefficient_iff_sqrt_two_le\` | DIRECT | Exact. |
 
-## 10. Scope statements
+## 10. Formalization lineage and scope statements
+
+The v0.7 abstract and introduction mention the broader four-repository stack
+for indexing and provenance. The named upstream results have the following
+audited status:
+
+- `Gleason.busch`: Busch effect-measure representation theorem, formalized in `gleason-theorem-lean`;
+- `Gleason.gleason`: finite-dimensional complex Gleason representation theorem, formalized in `gleason-theorem-lean`;
+- `QuantumFoundations.naimark`: Naimark dilation theorem;
+- `QuantumFoundations.Wigner.wigner`: Wigner theorem in the repository's documented strengthened formulation;
+- `QuantumFoundations.Uhlhorn.uhlhorn_finite_dim`: Uhlhorn-type uniqueness, specifically the Šemrl-based finite-dimensional result documented upstream;
+- `QuantumFoundations.BranchesRiedel.riedel`: formalization of Riedel's branch-decomposition theorem;
+- `QuantumFoundations.HistoriesKent.contrary_inferences`: formalization of Kent's contrary-inference construction.
+
+These upstream named results are cited in v0.7 as the **coverage of the broader
+formal library**, not as assumptions of the present cut-envelope theorem.
+In particular, the Kent construction is a conceptual contrast in
+`quantum-foundations-lean`, not a logical premise of the stability chain.
 
 - The stability / rigidity / sharpness core is **NON BORN-SENSITIVE** in the Lean dependency structure.
 - No theorem in the audited core asserts time evolution, decoherence, environment-induced selection, or emergence of a preferred perspective.
