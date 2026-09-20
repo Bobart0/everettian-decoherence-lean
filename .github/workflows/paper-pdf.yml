@@ -1,0 +1,31 @@
+name: Build paper PDF
+
+on:
+  push:
+    branches:
+      - paper-post-t5-stability
+  workflow_dispatch:
+
+jobs:
+  build-paper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compile v0.8 submission candidate
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: stability_rigidity_sharpness_v08_submission_candidate.tex
+          working_directory: paper
+          latexmk_use_xelatex: false
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+
+      - name: Upload paper PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: stability-rigidity-sharpness-v08-pdf
+          path: |
+            paper/stability_rigidity_sharpness_v08_submission_candidate.pdf
+            paper/stability_rigidity_sharpness_v08_submission_candidate.log
+          if-no-files-found: error
