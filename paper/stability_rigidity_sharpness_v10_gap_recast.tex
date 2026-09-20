@@ -1,0 +1,1047 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\cmax}{C_{\max}}
+\newcommand{\gmax}{G_{\max}}
+\newcommand{\dd}{\delta}
+\newcommand{\etaq}{\eta}
+\newcommand{\tauq}{\tau}
+\newcommand{\PhiRho}{\Phi_{\rho}}
+
+\title{Rigidity and Scale-Sharp Stability for Gaps of\\
+Finite Orthogonal Decompositions}
+
+\author{Bertrand Dalimier\\
+Independent Researcher}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Let $(P_i)_{i\in I}$ and $(Q_i)_{i\in I}$ be two labelled finite orthogonal
+resolutions of the identity on a finite-dimensional complex Hilbert space,
+with $\operatorname{rank}P_i=\operatorname{rank}Q_i$ for every $i$.  Put
+\[
+  p_i=\|P_i-Q_i\|_{\op}^2,\qquad
+  \dd^2=\sum_i p_i,
+\]
+and, for $S\subseteq I$,
+\[
+  P_S=\sum_{i\in S}P_i,\qquad
+  Q_S=\sum_{i\in S}Q_i,\qquad
+  \gmax=\max_{S\subseteq I}\|P_S-Q_S\|_{\op}.
+\]
+We prove the envelope $\gmax^2\le\dd^2/2$ and characterize positive-defect
+equality by the fact that exactly two cell gaps are nonzero.  The main result
+is a cardinality- and dimension-free inverse theorem: if
+$0\le\eta\le1/5$, $\dd>0$, and
+$\gmax^2\ge(1-\eta)\dd^2/2$, then the optimal relative defect left after
+retaining two cells satisfies
+\[
+  \tau\le
+  2\eta+\frac{36\eta}{(1-3\eta)\dd^2}.
+\]
+Thus the theorem is uniform on every positive defect scale.  A one-parameter
+three-cell family satisfies
+\[
+  \dd_t^2\to0,\qquad \eta_t\to0,\qquad
+  \dd_t^2\,\frac{\tau_t}{\eta_t}\to4,
+\]
+showing that the inverse-square dependence on the defect scale is necessary
+up to constants.  Equivalently, the problem concerns unitary conjugation:
+if $Q_i=UP_iU^*$, then
+$\|P_i-Q_i\|_{\op}=\|[P_i,U]\|_{\op}$.  The unitary theorem chain and a
+discrete specialization of the scale obstruction are machine-checked in
+Lean 4.
+\end{abstract}
+
+\noindent\textbf{Keywords.}
+orthogonal projections; gap between subspaces; principal angles;
+near-equality stability; rigidity; commutator inequalities; Lean 4
+
+\noindent\textbf{2020 Mathematics Subject Classification.}
+15A60 (primary); 15A45, 47A63 (secondary).
+
+\section{Introduction}
+
+Let
+\[
+  \mathcal P=(P_i)_{i\in I},
+  \qquad
+  \mathcal Q=(Q_i)_{i\in I}
+\]
+be two labelled finite orthogonal decompositions of a finite-dimensional
+complex Hilbert space.  Assume that corresponding summands have equal
+dimension.  The operator norm
+\[
+  \|P_i-Q_i\|_{\op}
+\]
+is the standard gap between the two corresponding subspaces; for
+equal-dimensional subspaces it is the sine of their largest principal angle
+\cite{BjorckGolub1973,MiaoBenIsrael1992,GalantaiHegedus2006,Galantai2008}.
+This makes the family
+\[
+  p_i:=\|P_i-Q_i\|_{\op}^2
+\]
+a natural quadratic profile of cellwise subspace displacement.
+
+The equal-rank hypothesis is equivalent to the existence of a unitary
+$U$ such that
+\[
+  Q_i=UP_iU^*
+  \qquad(i\in I).
+\]
+For any such implementing unitary,
+\begin{equation}\label{eq:gap-comm}
+  [P_i,U]U^*=P_i-UP_iU^*=P_i-Q_i,
+  \qquad
+  \|[P_i,U]\|_{\op}=\|P_i-Q_i\|_{\op}.
+\end{equation}
+Thus the same problem can be read either as geometry of two orthogonal
+decompositions or as a finite profile of projector--unitary commutators.
+
+For a set of labels $S\subseteq I$, define the corresponding coarsenings
+\[
+  P_S:=\sum_{i\in S}P_i,
+  \qquad
+  Q_S:=\sum_{i\in S}Q_i,
+\]
+and their gap
+\[
+  G_S:=\|P_S-Q_S\|_{\op}.
+\]
+We study the maximal coarsening gap
+\[
+  \gmax:=\max_{S\subseteq I}G_S
+\]
+relative to the global quadratic cell budget
+\[
+  \dd^2:=\sum_{i\in I}p_i.
+\]
+The elementary envelope is
+\begin{equation}\label{eq:envelope}
+  \gmax^2\le\frac{\dd^2}{2}.
+\end{equation}
+The principal contribution of the paper is not the scalar factor $1/2$ in
+\eqref{eq:envelope}, but the structure of its extremizers and
+near-extremizers.
+
+There are three results.  First, when $\dd>0$, equality in
+\eqref{eq:envelope} holds exactly when two cells, and only two cells, have
+nonzero gap.  Second, near equality forces an approximate version of the same
+two-cell concentration.  If
+\[
+  \gmax^2\ge(1-\eta)\frac{\dd^2}{2},
+  \qquad 0\le\eta\le\frac15,
+\]
+then the relative defect outside the best two cells is at most
+\[
+  2\eta+\frac{36\eta}{(1-3\eta)\dd^2}.
+\]
+The constants are independent of the dimension of the Hilbert space and of
+the number of cells.  Third, a one-parameter rank-one example in dimension
+three shows that the factor $\dd^{-2}$ is unavoidable up to multiplicative
+constants: along the example,
+\[
+  \dd_t^2\,\frac{\tau_t}{\eta_t}\longrightarrow4.
+\]
+
+The proof separates into two ingredients.  A cut estimate compares a
+coarsening gap simultaneously with the quadratic budgets on the two sides of
+the cut.  Near equality then produces normalized witness vectors whose Gram
+matrix is close to that of an orthonormal family.  A cardinality-free Gram
+estimate forces one dominant cell on each side of the maximizing cut.
+
+The gap formulation places the result in the classical geometry of pairs of
+subspaces and orthogonal projections
+\cite{Halmos1969TwoSubspaces,BottcherSpitkovsky2010,Galantai2008}.
+The relation to commutator geometry, almost-commuting problems, and recent
+work on pairs of projections is discussed in Section~\ref{sec:related}.
+
+The unitary theorem chain has a companion Lean 4 formalization.  Formal
+verification is described briefly in Section~\ref{sec:formal}; it is used as
+a verification artifact rather than as a premise of the mathematical
+argument.
+
+% TODO before submission:
+% 1. Replace repository commit by archival release/DOI.
+% 2. Apply final LAA/Elsevier template if required.
+% 3. Prepare cover letter and submission metadata.
+
+\section{Two labelled orthogonal decompositions}\label{sec:setup}
+
+Let $H$ be a finite-dimensional complex Hilbert space and let $I$ be a finite
+index set.  Let $(P_i)_{i\in I}$ and $(Q_i)_{i\in I}$ be orthogonal
+projections satisfying
+\begin{equation}\label{eq:decomp}
+  P_iP_j=0,\quad Q_iQ_j=0\quad(i\ne j),
+  \qquad
+  \sum_{i\in I}P_i=\sum_{i\in I}Q_i=I_H,
+\end{equation}
+and assume
+\[
+  \operatorname{rank}P_i=\operatorname{rank}Q_i
+  \qquad(i\in I).
+\]
+Choose, when convenient, a unitary $U$ satisfying $Q_i=UP_iU^*$ for every
+$i$; such a unitary exists by choosing unitary identifications between the
+corresponding summands and taking their orthogonal direct sum.
+
+Define
+\begin{equation}\label{eq:pi}
+  p_i:=\|P_i-Q_i\|_{\op}^2
+      =\|[P_i,U]\|_{\op}^2
+\end{equation}
+and
+\begin{equation}\label{eq:delta}
+  \dd^2:=\sum_{i\in I}p_i.
+\end{equation}
+For $S\subseteq I$, set
+\begin{equation}\label{eq:cut}
+  P_S:=\sum_{i\in S}P_i,\qquad
+  Q_S:=\sum_{i\in S}Q_i,\qquad
+  G_S:=\|P_S-Q_S\|_{\op}.
+\end{equation}
+By \eqref{eq:gap-comm},
+\[
+  G_S=\|[P_S,U]\|_{\op}.
+\]
+Finally,
+\[
+  \gmax:=\max_{S\subseteq I}G_S.
+\]
+
+If $\dd>0$, define the optimal relative two-cell tail
+\begin{equation}\label{eq:tau}
+  \tau:=
+  \min_{\substack{i,j\in I\\i\ne j}}
+  \frac{\dd^2-p_i-p_j}{\dd^2}.
+\end{equation}
+Thus $\tau$ is the fraction of the global quadratic gap budget left after the
+best pair of labelled cells is retained.
+
+The quantities in this formulation depend only on the pair
+$(\mathcal P,\mathcal Q)$, not on the choice of implementing unitary $U$.
+The unitary is used only as a convenient proof device.
+
+\section{The cut envelope}\label{sec:envelope}
+
+We first isolate the elementary part of the argument.  In fact the cut
+estimate itself does not require unitarity.
+
+\begin{proposition}[Operator cut estimate]\label{prop:operator-envelope}
+Let $(P_i)_{i\in I}$ be a finite orthogonal resolution of the identity and
+let $T$ be any linear operator on $H$.  Put
+\[
+  d_i:=\|[P_i,T]\|_{\op},
+  \qquad
+  D^2:=\sum_{i\in I}d_i^2.
+\]
+For $S\subseteq I$ and $P_S=\sum_{i\in S}P_i$,
+\begin{equation}\label{eq:cut-min}
+  \|[P_S,T]\|_{\op}^2
+  \le
+  \min\left\{
+    \sum_{i\in S}d_i^2,\,
+    \sum_{i\notin S}d_i^2
+  \right\}.
+\end{equation}
+Consequently,
+\[
+  \max_{S\subseteq I}\|[P_S,T]\|_{\op}^2
+  \le\frac{D^2}{2}.
+\]
+\end{proposition}
+
+\begin{proof}
+Write $P=P_S$ and $P^\perp=I-P$.  Relative to
+$H=PH\oplus P^\perp H$,
+\[
+  [P,T]
+  =
+  \begin{pmatrix}
+    0 & PTP^\perp\\
+    -P^\perp TP & 0
+  \end{pmatrix},
+\]
+so its norm is the maximum of the norms of the two cross blocks.
+
+We first control both blocks by the budget on $S$.  If
+$x\in P^\perp H$, then $P_i x=0$ for $i\in S$, hence
+$P_iTx=[P_i,T]x$.  Orthogonality of the ranges $P_iH$ gives
+\[
+  \|PTP^\perp x\|^2
+  =
+  \sum_{i\in S}\|P_iTx\|^2
+  \le
+  \left(\sum_{i\in S}d_i^2\right)\|x\|^2.
+\]
+If instead $x\in PH$, write $x=\sum_{i\in S}x_i$ with
+$x_i=P_i x$.  Since
+$P^\perp TP_i=-P^\perp[P_i,T]P_i$,
+\[
+  \|P^\perp TPx\|
+  \le
+  \sum_{i\in S}d_i\|x_i\|
+  \le
+  \left(\sum_{i\in S}d_i^2\right)^{1/2}\|x\|
+\]
+by Cauchy--Schwarz.  Thus
+$\|[P,T]\|_{\op}^2\le\sum_{i\in S}d_i^2$.
+Applying the same argument to the complementary resolution gives the bound by
+$\sum_{i\notin S}d_i^2$, proving \eqref{eq:cut-min}.  The final estimate is
+the scalar inequality $\min\{x,D^2-x\}\le D^2/2$.
+\end{proof}
+
+Applying Proposition~\ref{prop:operator-envelope} to an implementing unitary
+and using \eqref{eq:gap-comm} gives the geometric form.
+
+\begin{theorem}[Gap envelope]\label{thm:envelope}
+For the two labelled decompositions of Section~\ref{sec:setup},
+\begin{equation}\label{eq:gap-envelope}
+  \boxed{\gmax^2\le\frac{\dd^2}{2}}.
+\end{equation}
+The coefficient $1/2$ is attained.
+\end{theorem}
+
+The rest of the paper is concerned with the inverse question: what must the
+cellwise gap profile look like when \eqref{eq:gap-envelope} is nearly an
+equality?
+
+\section{Quantitative stability of near-saturators}\label{sec:stability}
+
+Fix an implementing unitary $U$ with $Q_i=UP_iU^*$.  All quantities in the
+statement remain the intrinsic gap quantities of Section~\ref{sec:setup}.
+
+For $S\subseteq I$, write
+\[
+  A_S:=\sum_{i\in S}p_i,
+  \qquad
+  G:=G_S.
+\]
+
+\subsection{A cardinality-free Gram lemma}
+
+The following elementary lemma is the concentration mechanism used below.
+
+\begin{lemma}[Gram spread]\label{lem:gram}
+Let $(\xi_i)_{i\in J}$ be an orthonormal finite family in a complex Hilbert
+space, let $(\zeta_i)_{i\in J}$ be any family, and let $p_i\ge0$.  Suppose
+that for $i\ne j$,
+\[
+  p_ip_j=|\langle\zeta_i,\zeta_j\rangle|^2.
+\]
+Set
+\[
+  q:=\sum_{i\in J}\|\zeta_i-\xi_i\|^2.
+\]
+Then
+\begin{equation}\label{eq:gram-spread-general}
+  \sum_{i\in J}\sum_{\substack{j\in J\\j\ne i}}p_ip_j
+  \le 6q+3q^2.
+\end{equation}
+In particular, if $0\le e\le1/2$ and $q\le2e$, then the left-hand side is
+at most $18e$.
+\end{lemma}
+
+\begin{proof}
+Put $e_i:=\zeta_i-\xi_i$.  For $i\ne j$, orthogonality gives
+\[
+  \langle\zeta_i,\zeta_j\rangle
+  =
+  \langle e_i,\xi_j\rangle
+  +\langle\xi_i,e_j\rangle
+  +\langle e_i,e_j\rangle.
+\]
+Hence $(a+b+c)^2\le3(a^2+b^2+c^2)$ implies
+\[
+  p_ip_j
+  \le
+  3\left(
+    |\langle e_i,\xi_j\rangle|^2+
+    |\langle\xi_i,e_j\rangle|^2+
+    |\langle e_i,e_j\rangle|^2
+  \right).
+\]
+After summing over ordered pairs $i\ne j$, the first two double sums are each
+at most $q$ by Bessel's inequality.  The third is at most
+\[
+  \sum_{i,j}\|e_i\|^2\|e_j\|^2=q^2
+\]
+by Cauchy--Schwarz.  This proves \eqref{eq:gram-spread-general}.  If
+$q\le2e$ and $e\le1/2$, then
+\[
+  6q+3q^2\le12e+12e^2\le18e.
+\]
+\end{proof}
+
+\subsection{One-sided concentration}
+
+\begin{lemma}[One-sided concentration]\label{lem:onesided}
+Let $S$ be a cut with $G>0$, and put
+\[
+  e:=A_S-G^2.
+\]
+If $e\le G^2/2$, then there exists $i\in S$ such that
+\begin{equation}\label{eq:onesided}
+  A_S-p_i
+  \le
+  2e+\frac{18e}{G^2-e}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Relative to $P_SH\oplus P_{S^c}H$, the commutator $[P_S,U]$ has two cross
+blocks.  We treat the case in which the incoming block
+$P_SU P_{S^c}$ has norm $G$; the other case is identical after exchanging
+the two sides of the cut.
+
+Choose a unit vector $v\in P_{S^c}H$ such that
+$\|P_SUv\|=G$.  For $c\in S$, define
+\[
+  z_c:=U^*P_cUv,\qquad
+  r_c:=\|z_c\|^2,\qquad
+  \alpha_c:=p_c-r_c.
+\]
+The vectors $z_c$ are mutually orthogonal.  Moreover
+$r_c\le p_c$, because on the complementary witness $v$ the vector
+$P_cUv$ is the value of the cell commutator, and
+\[
+  \sum_{c\in S}r_c=\|P_SUv\|^2=G^2.
+\]
+Consequently
+\begin{equation}\label{eq:witness-defect}
+  \alpha_c\ge0,
+  \qquad
+  \sum_{c\in S}\alpha_c=e.
+\end{equation}
+
+Call $c$ bad if $\alpha_c>p_c/2$, and good otherwise.  From
+\eqref{eq:witness-defect},
+\begin{equation}\label{eq:badmass}
+  \sum_{\text{bad }c}p_c\le2e.
+\end{equation}
+Let $J$ be the active good cells, so $p_c>0$ and
+$r_c=p_c-\alpha_c\ge p_c/2>0$ on $J$.
+
+For $c\in J$, put
+\[
+  q_c:=(I-P_c)z_c,\qquad
+  \xi_c:=\frac{z_c}{\sqrt{r_c}},
+  \qquad
+  \zeta_c:=
+  \frac{P_cz_c}{\sqrt{r_c}}+\sqrt{p_c}\,v.
+\]
+The family $(\xi_c)_{c\in J}$ is orthonormal.  Since
+$v\in P_{S^c}H$, the vectors $P_cz_c$ lie in mutually orthogonal cells and
+are orthogonal to $v$.  Therefore, for $c\ne d$,
+\begin{equation}\label{eq:zeta-gram}
+  |\langle\zeta_c,\zeta_d\rangle|^2=p_cp_d.
+\end{equation}
+
+We next estimate the distance from $\zeta_c$ to $\xi_c$.  The residual
+$q_c$ satisfies
+\begin{equation}\label{eq:residual-bounds}
+  \|q_c\|^2\le p_cr_c,
+  \qquad
+  \operatorname{Re}\langle v,q_c\rangle=r_c.
+\end{equation}
+Indeed, $Uq_c=[P_c,U]z_c$, which gives the first inequality, while
+$P_cv=0$ and
+\[
+  \langle v,z_c\rangle
+  =
+  \langle Uv,P_cUv\rangle
+  =
+  \|P_cUv\|^2=r_c
+\]
+give the second.  Since
+\[
+  \xi_c-\zeta_c
+  =
+  \frac{q_c}{\sqrt{r_c}}-\sqrt{p_c}\,v,
+\]
+\eqref{eq:residual-bounds} yields
+\[
+  \|\xi_c-\zeta_c\|^2
+  \le
+  2p_c-2\sqrt{p_cr_c}
+  \le
+  2(p_c-r_c)
+  =
+  2\alpha_c.
+\]
+Thus
+\begin{equation}\label{eq:gram-close}
+  \sum_{c\in J}\|\zeta_c-\xi_c\|^2\le2e.
+\end{equation}
+
+Because $G\le1$ for a difference of orthogonal projections and
+$e\le G^2/2$, we have $e\le1/2$.  Lemma~\ref{lem:gram},
+\eqref{eq:zeta-gram}, and \eqref{eq:gram-close} therefore give
+\begin{equation}\label{eq:gram18}
+  \sum_{c\in J}\sum_{\substack{d\in J\\d\ne c}}p_cp_d
+  \le18e.
+\end{equation}
+The active-good mass
+\[
+  M:=\sum_{c\in J}p_c
+\]
+satisfies, by \eqref{eq:badmass},
+\[
+  M\ge A_S-2e=G^2-e=:L>0.
+\]
+Choose $i\in J$ with $p_i=\max_{c\in J}p_c$.  Since
+\[
+  \sum_{c\ne d}p_cp_d
+  =
+  M^2-\sum_cp_c^2
+  \ge M^2-p_iM
+  =
+  M(M-p_i),
+\]
+\eqref{eq:gram18} implies
+\[
+  M-p_i\le\frac{18e}{M}\le\frac{18e}{L}.
+\]
+Adding the bad-cell mass \eqref{eq:badmass} proves
+\eqref{eq:onesided}.
+\end{proof}
+
+\subsection{Bilateral concentration and the intrinsic stability bound}
+
+For a cut $S$, write
+\[
+  A:=\dd^2,\qquad G:=G_S,\qquad
+  e_S:=A_S-G^2,\qquad
+  e_T:=A_{S^c}-G^2,
+\]
+and
+\[
+  E:=A-2G^2.
+\]
+Since $A_S+A_{S^c}=A$,
+\begin{equation}\label{eq:e-split}
+  e_S+e_T=E.
+\end{equation}
+
+\begin{proposition}[Bilateral cut concentration]\label{prop:bilateral}
+Assume $G>0$ and $E\le G^2/2$.  Then there exist
+$i\in S$ and $j\in S^c$ such that
+\begin{equation}\label{eq:bilateral}
+  A-p_i-p_j
+  \le
+  2E+\frac{18E}{G^2-E}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The cut estimate gives $G^2\le A_S$ and $G^2\le A_{S^c}$, hence
+$e_S,e_T\ge0$.  By \eqref{eq:e-split}, both are at most $E$, so
+Lemma~\ref{lem:onesided} applies on both sides of the cut.  We obtain
+$i\in S$ and $j\in S^c$ with
+\[
+  A_S-p_i
+  \le
+  2e_S+\frac{18e_S}{G^2-e_S},
+  \qquad
+  A_{S^c}-p_j
+  \le
+  2e_T+\frac{18e_T}{G^2-e_T}.
+\]
+Let $d:=G^2-E>0$.  Since
+$d\le G^2-e_S$ and $d\le G^2-e_T$,
+\[
+  \frac{e_S}{G^2-e_S}
+  +
+  \frac{e_T}{G^2-e_T}
+  \le
+  \frac{E}{d}.
+\]
+Adding the two inequalities proves \eqref{eq:bilateral}.
+\end{proof}
+
+\begin{theorem}[Quantitative two-cell stability]\label{thm:stability}
+Assume $\dd>0$, $0\le\eta\le1/5$, and
+\begin{equation}\label{eq:near}
+  \gmax^2\ge(1-\eta)\frac{\dd^2}{2}.
+\end{equation}
+Then
+\begin{equation}\label{eq:stability-intrinsic}
+  \boxed{
+  \tau\le
+  2\eta+\frac{36\eta}{(1-3\eta)\dd^2}.
+  }
+\end{equation}
+Equivalently, there exist distinct $i,j$ such that
+\begin{equation}\label{eq:absolute-tail}
+  \dd^2-p_i-p_j
+  \le
+  2\eta\dd^2+\frac{36\eta}{1-3\eta}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Choose a cut $S$ attaining $\gmax$ and put
+\[
+  A:=\dd^2,\qquad G:=\gmax,\qquad E:=A-2G^2.
+\]
+Theorem~\ref{thm:envelope} gives $E\ge0$, while
+\eqref{eq:near} gives
+\begin{equation}\label{eq:Eeta}
+  E\le\eta A.
+\end{equation}
+Since $\eta\le1/5$ and $A=2G^2+E$,
+\[
+  E\le\frac A5
+  \quad\Longrightarrow\quad
+  E\le\frac{G^2}{2}.
+\]
+Also $G>0$.  Proposition~\ref{prop:bilateral} therefore gives distinct
+$i,j$ with
+\[
+  A-p_i-p_j
+  \le
+  2E+\frac{18E}{G^2-E}.
+\]
+Because $G^2=(A-E)/2$,
+\[
+  G^2-E=\frac{A-3E}{2}
+  \ge\frac{(1-3\eta)A}{2}.
+\]
+Using \eqref{eq:Eeta},
+\[
+  A-p_i-p_j
+  \le
+  2\eta A+\frac{36\eta}{1-3\eta},
+\]
+which is \eqref{eq:absolute-tail}.  Division by $A=\dd^2$ gives
+\eqref{eq:stability-intrinsic}.
+\end{proof}
+
+\begin{corollary}[Uniform positive-scale form]\label{cor:rho}
+If, in addition, $\dd\ge\rho>0$, then
+\begin{equation}\label{eq:rho}
+  \tau\le
+  2\eta+\frac{36\eta}{(1-3\eta)\rho^2}.
+\end{equation}
+If also $\eta\le1/6$, then
+\begin{equation}\label{eq:linear}
+  \tau\le
+  \eta\left(2+\frac{72}{\rho^2}\right).
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Use $\dd^{-2}\le\rho^{-2}$ in
+\eqref{eq:stability-intrinsic}.  For $\eta\le1/6$,
+$1-3\eta\ge1/2$.
+\end{proof}
+
+\section{Exact rigidity at saturation}\label{sec:rigidity}
+
+Call a cell active when $p_i>0$.
+
+\begin{theorem}[Exact equality classification]\label{thm:rigidity}
+Assume $\dd>0$.  Then
+\[
+  \boxed{
+  \gmax^2=\frac{\dd^2}{2}
+  \quad\Longleftrightarrow\quad
+  \text{exactly two cells are active}.
+  }
+\]
+In the equality case, if $i$ and $j$ are the two active cells, then
+\[
+  p_i=p_j=\frac{\dd^2}{2}.
+\]
+\end{theorem}
+
+\begin{proof}
+Assume first that $\gmax^2=\dd^2/2$.  Apply
+Theorem~\ref{thm:stability} with $\eta=0$.  Then $\tau=0$, so there are
+distinct $i,j$ with
+\[
+  \dd^2-p_i-p_j=0.
+\]
+All other $p_k$ therefore vanish.  Since singleton sets are admissible cuts,
+\[
+  p_i\le\gmax^2=\frac{\dd^2}{2},
+  \qquad
+  p_j\le\frac{\dd^2}{2}.
+\]
+Together with $p_i+p_j=\dd^2$, this gives
+$p_i=p_j=\dd^2/2>0$.
+
+Conversely, suppose exactly two cells $i\ne j$ are active.  Then
+$\dd^2=p_i+p_j$, so
+\[
+  \max\{p_i,p_j\}\ge\frac{\dd^2}{2}.
+\]
+A singleton cut gives
+$\gmax^2\ge\max\{p_i,p_j\}$, while
+Theorem~\ref{thm:envelope} gives the reverse bound
+$\gmax^2\le\dd^2/2$.  Equality follows.
+\end{proof}
+
+The hypothesis $\dd>0$ only excludes the degenerate case
+$\mathcal P=\mathcal Q$.
+
+\section{A one-parameter three-cell scale obstruction}\label{sec:sharp}
+
+We now show that the inverse-square factor in
+Theorem~\ref{thm:stability} is not an artifact of the proof.  The example is
+a one-parameter family of rank-one decompositions in $\C^3$.
+
+Let $0<t\le1/2$ and set
+\[
+  A_t:=\sqrt{1-t},
+  \qquad
+  B_t:=\sqrt t,
+\]
+\[
+  c_t:=1-t,
+  \qquad
+  s_t:=\sqrt{2t-t^2}.
+\]
+Thus $A_t^2+B_t^2=1$ and $c_t^2+s_t^2=1$.  Define the real orthogonal
+matrices
+\[
+  W_t=
+  \begin{pmatrix}
+    A_t&-B_t&0\\
+    B_t&A_t&0\\
+    0&0&1
+  \end{pmatrix},
+  \qquad
+  R_t=
+  \begin{pmatrix}
+    c_t&0&-s_t\\
+    0&1&0\\
+    s_t&0&c_t
+  \end{pmatrix},
+\]
+and the unitary
+\[
+  U_t:=W_tR_tW_t^*.
+\]
+Let $P_0,P_1,P_2$ be the coordinate rank-one projections and put
+\[
+  Q_k(t):=U_tP_kU_t^*
+  \qquad(k=0,1,2).
+\]
+
+For a unit vector $e$ and its rank-one projector $P_e$,
+\begin{equation}\label{eq:rankone}
+  \|P_e-UP_eU^*\|_{\op}^2
+  =
+  \|[P_e,U]\|_{\op}^2
+  =
+  1-|\langle e,Ue\rangle|^2.
+\end{equation}
+The diagonal entries of $U_t$ are
+\[
+  1-t(1-t),\qquad 1-t^2,\qquad 1-t.
+\]
+Hence the three squared cell gaps are
+\begin{align}
+  p_0(t)
+  &=2t(1-t)-t^2(1-t)^2, \label{eq:p0}\\
+  p_1(t)
+  &=2t^2-t^4, \label{eq:p1}\\
+  p_2(t)
+  &=2t-t^2. \label{eq:p2}
+\end{align}
+Equivalently, with $d=t$ and $x\in[0,1]$, the first two expressions have
+the form
+\[
+  f_d(x):=2dx-d^2x^2
+\]
+at $x=1-t$ and $x=t$, while $p_2=f_d(1)$.  Since $f_d$ is increasing on
+$[0,1]$ for $0<d\le1$, and $t\le1-t$, we have
+\begin{equation}\label{eq:ordering}
+  p_1(t)\le p_0(t)\le p_2(t).
+\end{equation}
+
+For three cells every nontrivial cut is a singleton or the complement of a
+singleton, and
+\[
+  P_{S^c}-Q_{S^c}=-(P_S-Q_S).
+\]
+Therefore
+\begin{equation}\label{eq:gmax-sharp}
+  \gmax(t)^2=p_2(t)=2t-t^2.
+\end{equation}
+Summing \eqref{eq:p0}--\eqref{eq:p2} gives
+\begin{equation}\label{eq:global-sharp}
+  \dd_t^2
+  =
+  4t-2t^2+2t^3(1-t).
+\end{equation}
+Define the relative saturation deficit by
+\[
+  \eta_t:=
+  \frac{\dd_t^2-2\gmax(t)^2}{\dd_t^2}.
+\]
+Using \eqref{eq:gmax-sharp} and \eqref{eq:global-sharp},
+\begin{equation}\label{eq:eta-sharp}
+  \eta_t=
+  \frac{2t^3(1-t)}{\dd_t^2}.
+\end{equation}
+By \eqref{eq:ordering}, the optimal two-cell tail omits cell $1$, so
+\begin{equation}\label{eq:tau-sharp}
+  \tau_t=
+  \frac{2t^2-t^4}{\dd_t^2}.
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:ratio-sharp}
+  \frac{\tau_t}{\eta_t}
+  =
+  \frac{2-t^2}{2t(1-t)}.
+\end{equation}
+
+\begin{theorem}[Scale-sharp obstruction]\label{thm:scale-sharp}
+As $t\downarrow0$,
+\begin{equation}\label{eq:scale-limit}
+  \dd_t^2\longrightarrow0,
+  \qquad
+  \eta_t\longrightarrow0,
+  \qquad
+  \dd_t^2\,\frac{\tau_t}{\eta_t}\longrightarrow4.
+\end{equation}
+Hence for every $c<4$ and every $\varepsilon>0$ there exists
+$0<t\le1/2$ such that
+\[
+  0<\dd_t^2<\varepsilon,
+  \qquad
+  0<\eta_t<\varepsilon,
+  \qquad
+  \dd_t^2\frac{\tau_t}{\eta_t}>c.
+\]
+In particular, no estimate $\tau\le K\eta$ can hold uniformly with $K$
+independent of the defect scale, and no uniform estimate
+$\tau\le\eta\,g(\dd)$ can have $g(\dd)=o(\dd^{-2})$ as $\dd\downarrow0$.
+\end{theorem}
+
+\begin{proof}
+From \eqref{eq:global-sharp},
+\[
+  \frac{\dd_t^2}{t}\longrightarrow4.
+\]
+Equation \eqref{eq:eta-sharp} then gives $\eta_t\to0$, while
+\eqref{eq:ratio-sharp} gives
+\[
+  t\,\frac{\tau_t}{\eta_t}
+  =
+  \frac{2-t^2}{2(1-t)}
+  \longrightarrow1.
+\]
+Multiplying the last two limits gives the constant $4$ in
+\eqref{eq:scale-limit}.  The quantified statement follows by choosing $t$
+sufficiently small.  The two impossibility statements are immediate.
+\end{proof}
+
+Thus Theorem~\ref{thm:stability} has the correct inverse-square dependence
+on the intrinsic defect $\dd$, up to the value of the universal
+multiplicative constant.
+
+\section{Formal verification}\label{sec:formal}
+
+The unitary form of the envelope, the exact rigidity theorem, the
+cardinality-free stability argument, the rank-one identity, and a discrete
+three-cell specialization of the scale obstruction have been machine-checked
+in Lean 4.  The public repository is
+\begin{center}
+\url{https://github.com/Bobart0/everettian-decoherence-lean}.
+\end{center}
+The formal development uses canonical coordinate spaces $\C^n$; the
+coordinate-free finite-dimensional statements used here are obtained by
+unitary identification.
+
+The theorem-to-code map and a dedicated audit module are included in the
+repository.  The formalization head preceding the manuscript branch is
+\begin{center}
+\small\texttt{81eb3ff53f6219749b84491513ff437fe7c545c1}.
+\end{center}
+Its continuous-integration build, audit aggregate, guards, and
+diff-hygiene checks pass.
+
+Two presentation choices in the present manuscript go beyond the literal
+surface syntax of the formal artifact.  First, Section~\ref{sec:envelope}
+states the elementary cut estimate for an arbitrary operator $T$, whereas
+the publication-facing Lean theorem used downstream is its unitary
+specialization.  Second, Section~\ref{sec:sharp} presents the sharpness
+mechanism as the simpler one-parameter real curve $t\downarrow0$; the Lean
+artifact verifies a discrete two-parameter specialization with the same
+exact budget identities and the same limiting constant $4$.
+
+\paragraph{AI-assisted formalization workflow.}
+OpenAI ChatGPT was used as an interactive assistant during parts of the Lean
+development, including proof-structure exploration, code drafting, and
+diagnosis of compiler errors.  Every Lean declaration referred to as
+machine-checked is checked by the Lean kernel and rebuilt by continuous
+integration.  The author reviewed the mathematical statements and proof
+dependencies and remains responsible for the correctness and interpretation
+of the results.
+
+\section{Discussion}
+
+Theorem~\ref{thm:stability} is intrinsic in the observed gap scale $\dd$.
+The auxiliary lower bound $\dd\ge\rho$ is therefore not part of the principal
+statement; it is only a convenient way to obtain a modulus uniform on a
+positive scale.  Corollary~\ref{cor:rho} recovers that uniform formulation.
+
+The theorem is dimension-free in two senses: its constants do not depend on
+$\dim H$ and do not depend on $|I|$.  The price is the factor
+$\dd^{-2}$ as the two decompositions coalesce.  Section~\ref{sec:sharp}
+shows that this loss is structural.  The constants $36$ and $72$ are not
+claimed to be optimal.  The limiting constant $4$ is established for the
+explicit three-cell family and gives a lower obstruction to any universal
+small-defect theory, but the best universal coefficient remains open.
+
+The stability mechanism is also more specific than perturbation to a nearby
+exact configuration.  Neither decomposition is altered.  Instead, a
+near-extremal value of a coarsening gap forces the already-existing
+cellwise gap profile to concentrate on two labels.  This is why the result is
+naturally an inverse theorem for an inequality rather than an
+almost-commuting approximation theorem.
+
+\section{Relation to existing operator and matrix theory}
+\label{sec:related}
+
+The geometric formulation belongs first to the classical theory of relative
+positions of subspaces.  Principal angles and principal vectors go back much
+further than the present problem; computational and projector-based
+treatments include Bj{\"o}rck--Golub, Miao--Ben-Israel, and
+Gal{\'a}ntai--Heged{\H{u}}s
+\cite{BjorckGolub1973,MiaoBenIsrael1992,GalantaiHegedus2006}.
+For equal-dimensional subspaces, the operator norm of the difference of
+their orthogonal projections is the sine of the largest principal angle.
+Gal{\'a}ntai's treatment of pairs of orthogonal projections gives a
+particularly relevant account of this geometry and its relation to the
+Halmos--Wedin canonical forms \cite{Galantai2008}; see also
+Halmos' two-subspaces theorem and the survey of B{\"o}ttcher--Spitkovsky
+\cite{Halmos1969TwoSubspaces,BottcherSpitkovsky2010}.
+
+The present problem differs from the classical two-subspace setting because
+its datum is a pair of complete labelled decompositions and the observable is
+not merely a single gap.  It compares the collection of cell gaps
+\[
+  \bigl(\|P_i-Q_i\|_{\op}\bigr)_{i\in I}
+\]
+with the maximal gap over all matched coarsenings
+\[
+  S\longmapsto\|P_S-Q_S\|_{\op}.
+\]
+The equality and near-equality questions therefore concern how a
+finite family of subspace discrepancies can coherently aggregate.
+
+In the equivalent commutator formulation there is extensive work on pairs of
+projections.  Li studied operators representable as commutators of orthogonal
+projections, and later work treats related representation and closure
+questions
+\cite{Li2004,ShiJi2019,MarcouxRadjaviZhang2024}.
+Andruchow and Di Iorio y Lucero study geometric classes of projections whose
+commutator with a fixed projection belongs to a Schatten ideal
+\cite{AndruchowDiIorio2021}.  Recent work of Chaile and Chiumiento studies the
+geometry of pairs of projections with a fixed commutator
+\cite{ChaileChiumiento2026}.  These questions concern the geometry or
+representation of a pair of projections, rather than a finite labelled
+decomposition and concentration of its gap profile.
+
+The numerical value $1/2$ also appears in the classical estimate
+$\|[P,Q]\|_{\op}\le1/2$ for two orthogonal projections.  This is a different
+inequality: Theorem~\ref{thm:envelope} compares a maximal coarsening gap with
+the adaptive quadratic budget
+$\sum_i\|P_i-Q_i\|_{\op}^2$.  The envelope is elementary once the two-sided
+cut estimate has been isolated; the nontrivial part of the present work is
+the inverse theory of its equality and near-equality regimes.
+
+Sharp commutator inequalities for arbitrary matrices provide another
+methodological comparison.  The B{\"o}ttcher--Wenzel inequality is a
+Frobenius-norm commutator inequality with a substantial extremal theory
+\cite{BottcherWenzel2008}.  The norms and objects here are different, but the
+general paradigm of classifying equality and near equality is similar.
+
+Finally, the conclusion of Theorem~\ref{thm:stability} is distinct from
+almost-commuting approximation results.  Lin's theorem and quantitative work
+of Hastings ask whether matrices with small commutator can be approximated
+by exactly commuting matrices
+\cite{Lin1997AlmostCommuting,FriisRordam1996,Hastings2009}.  For unitaries,
+topological obstructions and effective variants lead to a different theory
+\cite{Voiculescu1983,ExelLoring1989,ExelLoring1991,
+DorOnHallKachkovskiy2025,Herrera2024,Herrera2026}.
+Here the projections and the unitary are left fixed; near equality instead
+forces concentration of the existing finite defect profile.
+
+To our knowledge, the specific finite-family statement proved here---maximal
+matched-coarsening gap versus the quadratic cell-gap budget, together with
+two-cell equality rigidity, a cardinality-free inverse theorem, and a
+three-cell inverse-square scale obstruction---does not follow from the
+results above.  We make no claim that the elementary envelope inequality
+itself has not appeared in equivalent block-operator language.
+
+\section{Conclusion}
+
+For two labelled finite orthogonal decompositions with matching cell
+dimensions, let $p_i=\|P_i-Q_i\|_{\op}^2$ and
+$\dd^2=\sum_i p_i$.  The maximal gap between corresponding coarsenings
+satisfies
+\[
+  \gmax^2\le\frac{\dd^2}{2}.
+\]
+At positive defect, equality is rigid: exactly two cells carry nonzero gap,
+and each carries half of the total quadratic budget.
+
+Near equality has a dimension- and cardinality-free quantitative form.  If
+\[
+  \gmax^2\ge(1-\eta)\frac{\dd^2}{2},
+  \qquad 0\le\eta\le\frac15,
+\]
+then the optimal relative tail outside two cells satisfies
+\[
+  \tau\le
+  2\eta+\frac{36\eta}{(1-3\eta)\dd^2}.
+\]
+A one-parameter three-cell family shows that the exponent of $\dd$ is
+unavoidable: as the two decompositions coalesce,
+\[
+  \dd_t^2\frac{\tau_t}{\eta_t}\longrightarrow4.
+\]
+Thus the equality classification, the inverse stability theorem, and the
+scale obstruction form a single near-extremal theory for gaps of finite
+orthogonal decompositions.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+
+During the preparation of this work, the author used OpenAI ChatGPT to assist
+with organization of the manuscript, language editing, literature
+organization, and consistency checks between the mathematical exposition and
+the Lean formalization. After using this service, the author reviewed and
+edited the content as needed and takes full responsibility for the content of
+the publication.
+
+\bibliographystyle{plain}
+\bibliography{references_v04}
+
+\end{document}
