@@ -163,12 +163,16 @@ theorem sum_bad_incomingWitnessP_le_two_mul_alpha_sum
           incomingWitnessAlpha D U c v := by
       rw [Finset.mul_sum]
     _ ≤ 2 * ∑ c ∈ S, incomingWitnessAlpha D U c v := by
-      gcongr
-      apply Finset.sum_le_sum_of_subset_of_nonneg
-      · exact Finset.filter_subset _ _
-      · intro c hcS _hcnot
-        exact incomingWitnessAlpha_nonneg_of_mem
-          D U S c hcS v hv hvcompl
+      have hsum :
+          (∑ c ∈ incomingWitnessBadCells D U S v,
+              incomingWitnessAlpha D U c v) ≤
+            ∑ c ∈ S, incomingWitnessAlpha D U c v := by
+        apply Finset.sum_le_sum_of_subset_of_nonneg
+        · exact Finset.filter_subset _ _
+        · intro c hcS _hcnot
+          exact incomingWitnessAlpha_nonneg_of_mem
+            D U S c hcS v hv hvcompl
+      exact mul_le_mul_of_nonneg_left hsum (by norm_num)
 
 
 /-- The good and bad cells partition the full subset p-budget. -/
