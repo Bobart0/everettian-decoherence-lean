@@ -874,7 +874,7 @@ canonical-coordinate versions.
 
 For manuscript version 0.9, the four publication-facing landmarks are:
 \begin{quote}
-\small
+\scriptsize
 Cut envelope:\quad
 \nolinkurl{maxSubsetCommutatorOpNorm_sq_le_half_globalSq}
 
@@ -887,15 +887,15 @@ Quantitative stability:\quad
 Scale obstruction:\quad
 \nolinkurl{stabilitySharpnessScaleLimit_tendsto_four}
 \end{quote}
-The remaining exact formulas and intermediate declarations are mapped in
-\nolinkurl{docs/STABILITY_RIGIDITY_SHARPNESS_MAPPING.md}; the dedicated audit
-module is
-\nolinkurl{EverettianDecoherence.Audit.StabilityRigiditySharpness}.
-The formalization head preceding the manuscript branch is
-\nolinkurl{81eb3ff53f6219749b84491513ff437fe7c545c1}; its complete CI passed,
-including the library build, audit aggregate, guards, and diff-hygiene checks.
-For archival submission this commit reference should be supplemented by a
-tagged release and a persistent archive identifier.
+The repository also contains a theorem-by-theorem mapping document and a
+dedicated audit module for the publication-facing surface.  The formalization
+head preceding the manuscript branch is
+\begin{center}
+\small\texttt{81eb3ff53f6219749b84491513ff437fe7c545c1}
+\end{center}
+Its complete CI passed, including the library build, audit aggregate, guards,
+and diff-hygiene checks.  For archival submission this commit reference should
+be supplemented by a tagged release and a persistent archive identifier.
 
 \paragraph{AI-assisted formalization workflow.}
 OpenAI ChatGPT was used as an interactive assistant during parts of the Lean
