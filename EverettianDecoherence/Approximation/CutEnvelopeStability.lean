@@ -57,9 +57,22 @@ theorem twoCellCommutatorConcentratedWithin_of_maxCut_near_saturated
     apply hjnot
     simpa [hij] using hi
   refine ⟨i, j, hij, ?_⟩
+  have htail' :
+      operatorNormProjectorCommutatorL2 D U ^ 2 -
+          incomingWitnessP D U i - incomingWitnessP D U j ≤
+        twoCellStabilityModulus ρ η *
+          operatorNormProjectorCommutatorL2 D U ^ 2 := by
+    calc
+      operatorNormProjectorCommutatorL2 D U ^ 2 -
+            incomingWitnessP D U i - incomingWitnessP D U j ≤
+          operatorNormProjectorCommutatorL2 D U ^ 2 *
+            twoCellStabilityModulus ρ η := by
+        simpa [twoCellStabilityModulus] using htail
+      _ = twoCellStabilityModulus ρ η *
+            operatorNormProjectorCommutatorL2 D U ^ 2 := by
+        ac_rfl
   simpa [TwoCellCommutatorConcentratedWithin,
-    cellCommutatorOpNormSq, incomingWitnessP,
-    twoCellStabilityModulus, mul_comm] using htail
+    cellCommutatorOpNormSq, incomingWitnessP] using htail'
 
 /-- Linear transparent form of finite-envelope stability. -/
 theorem twoCellCommutatorConcentratedWithin_linear_of_maxCut_near_saturated
