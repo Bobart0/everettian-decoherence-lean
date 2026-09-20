@@ -210,6 +210,7 @@ theorem re_inner_incomingWitnessCellResidual_eq_norm_sq
   have hprojzero :
       inner ℂ v
         (Gleason.projL c.val (incomingWitnessCellVector D U c v)) = 0 := by
+    unfold Gleason.projL at hcellzero ⊢
     rw [← Submodule.inner_starProjection_left_eq_right c.val, hcellzero,
       inner_zero_left]
   have hvz :
@@ -224,6 +225,7 @@ theorem re_inner_incomingWitnessCellResidual_eq_norm_sq
       unfold Gleason.projL
       exact Submodule.starProjection_eq_self_iff.mpr
         (Submodule.starProjection_apply_mem c.val (U v))
+    unfold Gleason.projL at hidem ⊢
     rw [← Submodule.inner_starProjection_left_eq_right c.val, hidem]
   unfold incomingWitnessCellResidual
   rw [inner_sub_right, hprojzero, sub_zero, hvz,
