@@ -315,15 +315,27 @@ theorem sum_incomingWitnessXi_sub_Zeta_norm_sq_le
         incomingWitnessAlpha D U i.1 v := by
       rw [Finset.mul_sum]
     _ ≤ 2 * (∑ c ∈ S, incomingWitnessAlpha D U c v) := by
-      gcongr
-      rw [Finset.sum_coe_sort]
-      apply Finset.sum_le_sum_of_subset_of_nonneg
-      · intro c hc
-        exact
-          ((mem_incomingWitnessActiveGoodCells D U S v c).mp hc).1
-      · intro c hcS _hcnot
-        exact incomingWitnessAlpha_nonneg_of_mem
-          D U S c hcS v hv hvcompl
+      have hactive :
+          (∑ i : ↥(incomingWitnessActiveGoodCells D U S v),
+              incomingWitnessAlpha D U i.1 v) ≤
+            ∑ c ∈ S, incomingWitnessAlpha D U c v := by
+        calc
+          (∑ i : ↥(incomingWitnessActiveGoodCells D U S v),
+              incomingWitnessAlpha D U i.1 v) =
+              ∑ c ∈ incomingWitnessActiveGoodCells D U S v,
+                incomingWitnessAlpha D U c v := by
+            exact Finset.sum_coe_sort
+              (incomingWitnessActiveGoodCells D U S v)
+              (fun c => incomingWitnessAlpha D U c v)
+          _ ≤ ∑ c ∈ S, incomingWitnessAlpha D U c v := by
+            apply Finset.sum_le_sum_of_subset_of_nonneg
+            · intro c hc
+              exact
+                ((mem_incomingWitnessActiveGoodCells D U S v c).mp hc).1
+            · intro c hcS _hcnot
+              exact incomingWitnessAlpha_nonneg_of_mem
+                D U S c hcS v hv hvcompl
+      exact mul_le_mul_of_nonneg_left hactive (by norm_num)
 
 end
 end EverettianDecoherence.Approximation
