@@ -22,11 +22,11 @@ jobs:
         uses: xu-cheng/latex-action@v4
         with:
           working_directory: paper
-          root_file: stability_rigidity_sharpness_v09_visually_audited.tex
+          root_file: stability_rigidity_sharpness_v10_gap_recast.tex
           texlive_version: 2026
 
       - name: Upload manuscript PDF
         uses: actions/upload-artifact@v6
         with:
-          name: stability-rigidity-sharpness-v09
-          path: paper/stability_rigidity_sharpness_v09_visually_audited.pdf
+          name: stability-rigidity-sharpness-v10
+          path: paper/stability_rigidity_sharpness_v10_gap_recast.pdf
