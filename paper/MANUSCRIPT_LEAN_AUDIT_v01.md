@@ -147,7 +147,7 @@ In particular, the Kent construction is a conceptual contrast in
 
 ## Audit conclusion
 
-After the v0.5 corrections and the v0.6 priority/sharpness refinement, no mismatch has been found between the main
+After the v0.5 corrections, the v0.6 priority/sharpness refinement, and the v0.9 LAA-facing editorial/visual pass, no mismatch has been found between the main
 quantitative statements in the manuscript and the publication-facing Lean
 surface.
 
@@ -159,3 +159,24 @@ The two qualifications that should remain visible in the paper are:
 2. the “necessity up to constants” sentence is a mathematical interpretation
    of the formally checked asymptotic limit, rather than a separately named
    impossibility theorem in Lean.
+
+
+## 11. v0.9 editorial-scope audit
+
+The v0.9 LAA-facing pass changes presentation but not the mathematical theorem set.
+
+- The standalone section connecting the cut envelope to the Born-sensitive
+  record-transfer inequality was removed from the submission candidate.
+  This does not remove or weaken any theorem proved in the paper.
+- The abstract still exposes the broader formal-library provenance for search
+  visibility, but now says that the **principal theorems and sharpness
+  construction** are machine-checked rather than asserting that every
+  coordinate-free or derived prose statement is a single Lean theorem.
+- The formal-verification section lists four publication-facing landmarks
+  (cut envelope, exact rigidity, quantitative stability, scale obstruction);
+  the full declaration-level traceability remains in this audit ledger and the
+  repository mapping document.
+- The discussion is now purely finite-dimensional/operator-theoretic.  No
+  physical claim has been added.
+- The final v0.9 PDF build is warning-free and visually audited; this is an
+  editorial validation, not an additional mathematical claim.
