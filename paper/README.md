@@ -4,44 +4,35 @@ Primary target: **Linear Algebra and its Applications (LAA)**.
 
 ## Current reference manuscript
 
-- `stability_rigidity_sharpness_v07_laa_indexed.tex`: current reference manuscript, with LAA-facing title/abstract and explicit searchable formalization lineage.
-- `references_v03.bib`: current bibliography after priority audit.
+- `stability_rigidity_sharpness_v09_visually_audited.tex`: current submission candidate after Lean audit, focused priority audit, LAA-facing rewrite, compilation, and visual PDF audit.
+- `references_v03.bib`: current bibliography after priority and metadata audit.
 - `MANUSCRIPT_LEAN_AUDIT_v01.md`: traceability ledger for paper claims versus Lean, including the upstream formalization lineage.
 - `PRIORITY_AUDIT_v01.md`: focused literature/priority audit.
-- `highlights_v02.txt`: current five submission highlights.
+- `highlights_v02.txt`: current submission highlights; to be synchronized with the v0.9 title before portal submission.
 
-Earlier manuscript states v01--v06 are retained for provenance.
+Earlier manuscript states v01--v08 are retained for provenance.
 
-## Formalization stack exposed in v0.7
-
-The abstract and introduction now expose the pinned four-repository stack:
-
-`gleason-theorem-lean`
-→ `quantum-foundations-lean`
-→ `everettian-probability-lean`
-→ `everettian-decoherence-lean`.
-
-For search visibility and provenance, the abstract explicitly names major
-machine-checked results available in the upstream library: Busch's theorem,
-Gleason's theorem, Naimark dilation, Wigner's theorem, Uhlhorn-type uniqueness,
-Riedel's branch-decomposition theorem, and Kent's contrary-inference
-construction.
-
-The manuscript states explicitly that these named results describe the broader
-library coverage; they are not all premises of the present cut-envelope theorem.
-Kent is a conceptual contrast upstream, not a logical dependency of the
-stability result.
-
-## Current title and indexing
-
-Current title:
+## Current title
 
 **Sharp Stability and Two-Cell Rigidity for Finite Projector--Unitary Commutator Profiles**
 
-Current keywords include:
-projector--unitary commutators; orthogonal resolutions of the identity;
-near-equality stability; rigidity; Lean 4 formal verification;
-Gleason theorem; Busch theorem; Kent contrary inference.
+## Formalization visibility
+
+The abstract retains explicit search-visible provenance for the broader audited
+formalization library. It states that the principal theorems and sharpness
+construction are machine-checked in Lean 4 and that the upstream library also
+formalizes the Busch and Gleason representation theorems, Naimark dilation,
+Wigner's theorem, Uhlhorn-type uniqueness, Riedel's branch decomposition, and
+Kent's contrary-inference construction.
+
+The manuscript explicitly distinguishes library coverage from logical
+dependency: Kent is an upstream conceptual contrast, not a premise of the
+present cut-envelope theorem.
+
+Current search-oriented keywords include:
+projector--unitary commutators; near-equality stability; rigidity;
+Lean 4 formal verification; Gleason theorem; Busch theorem;
+Kent contrary inference.
 
 ## Formal reference state
 
@@ -60,12 +51,6 @@ Important qualifications retained in the paper:
 3. The quantified inverse-square obstruction is a mathematical consequence of several machine-checked limits and exact formulas; it is marked DERIVED rather than presented as a separate Lean declaration.
 4. The upstream theorem names in the abstract are claims about the audited formal library, not about the logical premises of the current theorem.
 
-Static checks on v0.7:
-- no unresolved or duplicated labels;
-- no unresolved citation keys;
-- no duplicated BibTeX keys;
-- balanced LaTeX environments and braces.
-
 ## Priority audit
 
 The focused search found substantial neighboring literature on two projections,
@@ -78,10 +63,28 @@ The novelty language remains intentionally non-absolute because an equivalent
 base envelope lemma could exist under older block-operator or pinching
 terminology.
 
+## v0.9 submission-candidate audit
+
+The v0.9 source is compiled reproducibly by GitHub Actions.
+
+Final generic-article PDF audit:
+- 14 pages;
+- all labels and bibliography references resolve;
+- no LaTeX `Overfull`, `Underfull`, `Undefined`, `Warning`, `Error`, or `Fatal` entries in the final log;
+- no hyperlink boxes in the rendered manuscript;
+- first-page title/abstract/keywords visually inspected;
+- formal-verification page visually inspected after line-overflow corrections;
+- bibliography visually inspected after capitalization/arXiv metadata corrections.
+
+The LAA-facing v0.9 deliberately removes the standalone record-transfer
+digression from the body. The broader quantum-foundations provenance remains
+visible in the abstract and formal-verification section, while the mathematical
+narrative stays centered on projector--unitary commutator profiles.
+
 ## Remaining pre-submission work
 
-1. Final editorial pass on the first two pages and section ordering.
-2. Compile and inspect the submission PDF.
-3. Replace the raw GitHub commit by a tagged archival release and persistent DOI.
-4. Apply the final Elsevier/LAA template or class if required by the submission portal.
-5. Prepare cover letter, highlights, declarations, and submission metadata.
+1. Check the current LAA/Elsevier author guidelines and required submission files.
+2. Apply the final LAA/Elsevier class/template if required by the portal.
+3. Create a tagged archival formalization release and persistent DOI, then replace/supplement the raw commit reference.
+4. Synchronize highlights with the v0.9 title and abstract.
+5. Prepare cover letter, data/code availability statement if required, declarations, and portal metadata.
