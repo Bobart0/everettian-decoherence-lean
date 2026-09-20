@@ -33,7 +33,8 @@ theorem stabilitySharpnessCell3_bijective :
     obtain ⟨i, _hi, hVi⟩ := Finset.mem_image.mp hV
     refine ⟨i, ?_⟩
     apply Subtype.ext
-    exact hVi.symm
+    rw [stabilitySharpnessCell3_val]
+    exact hVi
 
 noncomputable def stabilitySharpnessCellEquiv3 :
     Fin 3 ≃
