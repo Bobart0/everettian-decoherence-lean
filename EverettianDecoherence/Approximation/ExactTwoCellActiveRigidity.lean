@@ -88,9 +88,11 @@ theorem exactlyTwoActiveCellCommutators_of_maxCut_saturation
     dsimp [C]
     exact maxSubsetCommutatorOpNorm_nonneg D U
   have hiC : p i ≤ C ^ 2 := by
+    change cellCommutatorOpNormSq D U i ≤ C ^ 2
     rw [← singletonSubsetCommutatorOpNormSq_eq_cell D U i]
     exact (sq_le_sq₀ (norm_nonneg _) hC0).2 hCi
   have hjC : p j ≤ C ^ 2 := by
+    change cellCommutatorOpNormSq D U j ≤ C ^ 2
     rw [← singletonSubsetCommutatorOpNormSq_eq_cell D U j]
     exact (sq_le_sq₀ (norm_nonneg _) hC0).2 hCj
   have hCeq : C ^ 2 = A / 2 := by
