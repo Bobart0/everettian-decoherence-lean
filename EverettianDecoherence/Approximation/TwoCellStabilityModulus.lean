@@ -117,7 +117,6 @@ theorem exists_two_cell_concentration_of_cut_eta
       (η * A) / (((1 - 3 * η) * A) / 2) =
         2 * η / (1 - 3 * η) := by
     field_simp [hAne, hqne]
-    ring
   have hfrac :
       E / d ≤ 2 * η / (1 - 3 * η) := by
     calc
@@ -132,8 +131,13 @@ theorem exists_two_cell_concentration_of_cut_eta
     linarith
   have h18frac :
       18 * E / d ≤ 36 * η / (1 - 3 * η) := by
-    have hmul := mul_le_mul_of_nonneg_left hfrac (by norm_num : (0 : ℝ) ≤ 18)
-    simpa [mul_div_assoc] using hmul
+    have hmul :
+        18 * (E / d) ≤ 18 * (2 * η / (1 - 3 * η)) :=
+      mul_le_mul_of_nonneg_left hfrac (by norm_num : (0 : ℝ) ≤ 18)
+    calc
+      18 * E / d = 18 * (E / d) := by ring
+      _ ≤ 18 * (2 * η / (1 - 3 * η)) := hmul
+      _ = 36 * η / (1 - 3 * η) := by ring
   refine ⟨i, hi, j, hj, ?_⟩
   change A - incomingWitnessP D U i - incomingWitnessP D U j ≤
     2 * η * A + 36 * η / (1 - 3 * η)
@@ -199,7 +203,7 @@ theorem exists_two_cell_concentration_of_cut_eta_rho
     calc
       2 * η * A + K ≤
           2 * η * A + A * (K / ρ ^ 2) :=
-        add_le_add_left hKrho _
+        add_le_add_right hKrho _
       _ = A * (2 * η + K / ρ ^ 2) := by ring
   have htail' :
       A - incomingWitnessP D U i - incomingWitnessP D U j ≤
@@ -248,7 +252,7 @@ theorem twoCellStabilityModulus_le_linear
   calc
     2 * η + (36 * η / (1 - 3 * η)) / ρ ^ 2 ≤
         2 * η + (72 * η) / ρ ^ 2 :=
-      add_le_add_left hscaled _
+      add_le_add_right hscaled _
     _ = η * (2 + 72 / ρ ^ 2) := by ring
 
 end
