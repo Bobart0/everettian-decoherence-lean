@@ -84,7 +84,7 @@ theorem exists_cell_concentration_of_incoming_max
       L ≤ ∑ c ∈ incomingWitnessActiveGoodCells D U S v,
         incomingWitnessP D U c := by
     dsimp [L, e, A, C]
-    rw [← heq] at hmass0
+    rw [heq] at hmass0
     nlinarith
   obtain ⟨i, hitail⟩ :=
     exists_dominant_activeGood_incomingWitness
@@ -126,7 +126,8 @@ theorem exists_cell_concentration_of_incoming_max
         incomingWitnessP D U i.1 +
           ∑ j ∈ Finset.univ.erase i, incomingWitnessP D U j.1 := by
     rw [← hactiveGood]
-    simpa [Finset.sum_subtype] using hidecomp
+    rw [← Finset.sum_attach, Finset.attach_eq_univ]
+    exact hidecomp
   have hbudgetDecomp :
       A - incomingWitnessP D U i.1 =
         (∑ c ∈ incomingWitnessBadCells D U S v,
@@ -135,7 +136,7 @@ theorem exists_cell_concentration_of_incoming_max
             incomingWitnessP D U j.1) := by
     dsimp [A]
     rw [← hsplit, hactiveGood']
-    ring
+    abel
   refine ⟨i.1, hiS, ?_⟩
   rw [show subsetProjectorCommutatorOpNormSq D U S = A by rfl]
   rw [hbudgetDecomp]
