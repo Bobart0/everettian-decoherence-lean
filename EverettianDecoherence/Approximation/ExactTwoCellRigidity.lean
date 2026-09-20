@@ -116,8 +116,7 @@ theorem cellCommutatorSupportedOnTwo_of_maxCut_saturation
   have hnear :
       2 * (1 - (0 : ℝ)) * δ ^ 2 ≤ (2 * C) ^ 2 := by
     dsimp [δ, C]
-    rw [hsat]
-    ring_nf
+    nlinarith [hsat]
   have hconc :
       TwoCellCommutatorConcentratedWithin D U
         (twoCellStabilityModulus
