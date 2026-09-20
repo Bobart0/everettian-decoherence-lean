@@ -110,7 +110,9 @@ This is the manuscript point corrected in v0.5.
 | Fixed-\(m\) product limit | \`stabilitySharpness_scaled_ratio_tendsto_scaleLimit\` | DIRECT | Exact. |
 | Scale limit \(=4-2d_m\) | \`stabilitySharpnessScaleLimit_eq_four_sub_two_D\` | DIRECT | Exact. |
 | \(m\to\infty\): scale limit \(\to4\) | \`stabilitySharpnessScaleLimit_tendsto_four\` | DIRECT | Exact. |
-| “inverse-square scale is necessary up to constants” | preceding limits | DERIVED | Correct interpretation: along the explicit family, \((\tau/\eta)\delta^2\) approaches a nonzero finite constant. A universal \(O(\eta)\) tail bound independent of defect scale is therefore impossible. |
+| Quantified obstruction: for every \(c<4\) and \(\varepsilon>0\), some family member has \(0<\eta<\varepsilon\), \(0<\delta^2<\varepsilon\), and \((\tau/\eta)\delta^2>c\) | `stabilitySharpness_scaled_ratio_tendsto_scaleLimit`, `stabilitySharpnessScaleLimit_tendsto_four`, `stabilitySharpness_delta_sq_tendsto_two_s_sq`, `stabilitySharpnessEta_exact` | DERIVED | Obtained by first taking \(m\) large, then \(n\) large. This is not packaged as one named Lean theorem. |
+| No scale-independent \(\tau\le K\eta\), and no \(\tau\le\eta g(\delta)\) with \(g(\delta)=o(\delta^{-2})\) | quantified obstruction above | DERIVED | Logical consequence of the positive lower bound on \((\tau/\eta)\delta^2\) along arbitrarily small-defect members. |
+| “inverse-square scale is necessary up to constants” | preceding limits and quantified obstruction | DERIVED | Precise interpretation of the formally checked asymptotics; it does not assert that the coefficient 4 is the best universal stability constant. |
 
 ## 9. Companion transfer bound
 
@@ -128,7 +130,7 @@ This is the manuscript point corrected in v0.5.
 
 ## Audit conclusion
 
-After the v0.5 corrections, no mismatch has been found between the main
+After the v0.5 corrections and the v0.6 priority/sharpness refinement, no mismatch has been found between the main
 quantitative statements in the manuscript and the publication-facing Lean
 surface.
 
