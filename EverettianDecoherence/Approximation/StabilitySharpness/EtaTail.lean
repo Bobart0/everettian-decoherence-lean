@@ -29,7 +29,10 @@ noncomputable def stabilitySharpnessTau (n m : ℕ) : ℝ :=
 theorem stabilitySharpnessA_pos (n : ℕ) :
     0 < stabilitySharpnessA n := by
   rw [stabilitySharpnessA_eq_P_div]
-  positivity
+  exact div_pos
+    (by exact_mod_cast sharpnessP_pos n)
+    (mul_pos stabilitySharpness_sqrt_two_pos
+      (sharpnessQ_real_pos n))
 
 theorem stabilitySharpnessD_pos (m : ℕ) :
     0 < stabilitySharpnessD m := by
@@ -101,7 +104,6 @@ theorem stabilitySharpnessTau_div_Eta_exact (n m : ℕ) :
   have hs : iterationSharpnessS m ≠ 0 :=
     ne_of_gt (iterationSharpnessS_pos m)
   field_simp [hD, hA, hB, hs]
-  ring
 
 end
 end EverettianDecoherence.Approximation
