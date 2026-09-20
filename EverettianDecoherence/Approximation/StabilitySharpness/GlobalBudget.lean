@@ -22,7 +22,7 @@ theorem stabilitySharpnessCell3_bijective :
     rcases c with ⟨V, hV⟩
     change
       V ∈
-        (Perspective.basisPerspective stabilitySharpnessBasis3).cells
+        (basisPerspective stabilitySharpnessBasis3).cells
       at hV
     change
       V ∈
