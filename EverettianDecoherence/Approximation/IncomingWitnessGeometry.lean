@@ -210,37 +210,28 @@ theorem re_inner_incomingWitnessCellResidual_eq_norm_sq
   have hprojzero :
       inner ℂ v
         (Gleason.projL c.val (incomingWitnessCellVector D U c v)) = 0 := by
-    calc
+    change
       inner ℂ v
-          (Gleason.projL c.val (incomingWitnessCellVector D U c v)) =
-          inner ℂ (Gleason.projL c.val v)
-            (incomingWitnessCellVector D U c v) := by
-        simpa only [Gleason.projL] using
-          (Submodule.inner_starProjection_left_eq_right c.val v
-            (incomingWitnessCellVector D U c v)).symm
-      _ = 0 := by rw [hcellzero, inner_zero_left]
+        (c.val.starProjection (incomingWitnessCellVector D U c v)) = 0
+    change c.val.starProjection v = 0 at hcellzero
+    rw [← Submodule.inner_starProjection_left_eq_right c.val, hcellzero,
+      inner_zero_left]
   have hvz :
       inner ℂ v (incomingWitnessCellVector D U c v) =
         inner ℂ (Gleason.projL c.val (U v))
           (Gleason.projL c.val (U v)) := by
     unfold incomingWitnessCellVector
     rw [← U.inner_map_eq_flip]
+    change
+      inner ℂ (U v) (c.val.starProjection (U v)) =
+        inner ℂ (c.val.starProjection (U v))
+          (c.val.starProjection (U v))
     have hidem :
-        Gleason.projL c.val (Gleason.projL c.val (U v)) =
-          Gleason.projL c.val (U v) := by
-      unfold Gleason.projL
+        c.val.starProjection (c.val.starProjection (U v)) =
+          c.val.starProjection (U v) := by
       exact Submodule.starProjection_eq_self_iff.mpr
         (Submodule.starProjection_apply_mem c.val (U v))
-    have hself :
-        inner ℂ (Gleason.projL c.val (U v))
-            (Gleason.projL c.val (U v)) =
-          inner ℂ (U v)
-            (Gleason.projL c.val (Gleason.projL c.val (U v))) := by
-      simpa only [Gleason.projL] using
-        (Submodule.inner_starProjection_left_eq_right c.val
-          (U v) (Gleason.projL c.val (U v)))
-    rw [hidem] at hself
-    exact hself.symm
+    rw [← Submodule.inner_starProjection_left_eq_right c.val, hidem]
   unfold incomingWitnessCellResidual
   rw [inner_sub_right, hprojzero, sub_zero, hvz,
     inner_self_eq_norm_sq]
