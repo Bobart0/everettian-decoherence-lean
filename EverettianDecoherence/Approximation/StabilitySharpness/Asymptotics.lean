@@ -145,14 +145,17 @@ theorem stabilitySharpness_scaled_ratio_tendsto_scaleLimit (m : ℕ) :
   have hratio := stabilitySharpnessTau_div_Eta_tendsto_inv_D m
   have hdelta := stabilitySharpness_delta_sq_tendsto_two_s_sq m
   have hprod := hratio.mul hdelta
-  unfold stabilitySharpnessScaleLimit
   have hD : stabilitySharpnessD m ≠ 0 :=
     ne_of_gt (stabilitySharpnessD_pos m)
-  convert hprod using 1
-  · ext n
-    rfl
-  · field_simp [hD]
+  have hconst :
+      1 / stabilitySharpnessD m *
+          (2 * iterationSharpnessS m ^ 2) =
+        stabilitySharpnessScaleLimit m := by
+    unfold stabilitySharpnessScaleLimit
+    field_simp [hD]
     ring
+  rw [hconst] at hprod
+  exact hprod
 
 theorem stabilitySharpnessD_tendsto_zero :
     Tendsto stabilitySharpnessD atTop (𝓝 0) := by
@@ -160,7 +163,10 @@ theorem stabilitySharpnessD_tendsto_zero :
     (tendsto_const_nhds :
       Tendsto (fun _ : ℕ => (1 : ℝ)) atTop (𝓝 1)).sub
         iterationSharpnessC_tendsto_one
-  simpa [stabilitySharpnessD] using h
+  change
+    Tendsto (fun m : ℕ => 1 - iterationSharpnessC m)
+      atTop (𝓝 0)
+  exact h
 
 theorem stabilitySharpnessScaleLimit_eq_four_sub_two_D (m : ℕ) :
     stabilitySharpnessScaleLimit m =
