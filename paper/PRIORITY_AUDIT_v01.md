@@ -1,161 +1,194 @@
-# Priority / related-work audit — v0.1
+# Priority audit v1 — finite cut commutator stability
 
-Date: 2026-09-20
+**Audit date:** 2026-09-20  
+**Reference manuscript:** \`paper/stability_rigidity_sharpness_v05_audited.tex\`
 
-Manuscript branch: \`paper-post-t5-stability\`
+## Claims audited
 
-This note records the targeted literature search used to calibrate the
-submission claims. It is an editorial audit, not a proof of historical
-novelty.
+The search targeted four claims, not the broad topic of commutator inequalities:
 
-## Result to be compared
+1. \(C_{\max}^2\le \frac12\sum_i\|[P_i,U]\|_{\rm op}^2\) for a finite orthogonal resolution;
+2. equality at positive defect iff exactly two cells are active;
+3. near equality implies cardinality-free quantitative two-cell concentration;
+4. a three-cell family gives
+   \(\lim_m\lim_n(\tau_{n,m}/\eta_{n,m})\delta_{n,m}^2=4\).
 
-For finite mutually orthogonal projections \((P_i)_{i\in I}\) summing to the
-identity and a unitary \(U\), set
-\[
-p_i=\|[P_i,U]\|_{\rm op}^2,\qquad
-\delta^2=\sum_i p_i,
-\]
-and
-\[
-C_{\max}=\max_{S\subseteq I}
-\left\|\left[\sum_{i\in S}P_i,U\right]\right\|_{\rm op}.
-\]
+Searches covered journal pages, arXiv, DOI-indexed pages, and citation trails using
+“orthogonal projections”, “finite orthogonal decomposition”, “resolution of the identity”,
+“unitary commutator”, “operator norm”, “sum of squared commutator norms”,
+“maximum over subsets”, “aggregate projection”, “equality case”, “near equality”,
+“near saturation”, “almost invariant subspace”, “almost commuting”, “block operator”,
+“pinching”, and “projection symmetry”.
 
-The paper proves:
-1. \(C_{\max}^2\le\delta^2/2\), with sharp constant.
-2. For \(\delta>0\), equality iff exactly two cells are active.
-3. A dimension-free quantitative near-equality theorem with explicit
-   \(\eta,\rho\) modulus.
-4. A three-cell family proving inverse-square defect-scale dependence is
-   necessary up to constants, with iterated scaled limit \(4\).
+## Closest literature found
 
-Equivalently, for \(Q_i=UP_iU^*\),
-\[
-C_{\max}=D_{\rm op}(P,Q),\qquad
-\|[P_i,U]\|_{\rm op}=\|P_i-Q_i\|_{\rm op},
-\]
-so for matched-rank finite PVMs:
-\[
-D_{\rm op}(P,Q)^2
-\le \frac12\sum_i\|P_i-Q_i\|_{\rm op}^2.
-\]
+### Two-projection geometry
 
-## Search fronts and findings
+Halmos' two-subspaces theorem and the Böttcher--Spitkovsky survey provide the
+canonical two-projection block geometry:
 
-### Projection geometry and invariant subspaces
+- P. R. Halmos, *Two Subspaces*, Trans. AMS 144 (1969), 381--389.
+- A. Böttcher and I. M. Spitkovsky, *A gentle guide to the basics of two
+  projections theory*, Linear Algebra Appl. 432 (2010), 1412--1459,
+  DOI 10.1016/j.laa.2009.11.002.
 
-Classical background includes Halmos (1969), *Two Subspaces*, and
-Davis--Kahan (1970), *The Rotation of Eigenvectors by a Perturbation. III*.
-These give canonical geometry and perturbation theory for subspaces and
-projection pairs. The targeted search did not identify the finite cut
-functional above together with its equality and near-equality structure.
+They do not study a finite family \((P_i)\), a unitary \(U\), a cellwise
+projection--unitary commutator profile, or a maximum over aggregate cuts.
 
-### Commutator inequalities and projection pairs
+**Status:** background, no direct overlap.
 
-Relevant works include Bhatia--Davis--Kittaneh (1991), Kittaneh (2007),
-Li (2004), and Conde (2022). Conde explicitly studies norm inequalities and
-extremal behavior for commutators and anticommutators associated with two
-orthogonal projections. This is a direct neighbor and remains cited.
+### Commutators of two projections
 
-The manuscript instead studies a complete finite orthogonal decomposition,
-all aggregate cuts, and a global \(\ell^2\) budget. No matching theorem was
-identified in this search front for
-\[
-\max_S\left\|\left[\sum_{i\in S}P_i,U\right]\right\|_{\rm op}^2
-\le \frac12\sum_i\|[P_i,U]\|_{\rm op}^2
-\]
-together with the two-active-cell equality classification and quantitative
-near-equality theorem.
+Relevant structural work includes:
 
-### Almost commuting operators / nearby commuting approximants
+- Q. Li, *Commutators of Orthogonal Projections*, Nihonkai Math. J. 15 (2004), 93--99.
+- W. Shi and G. Ji, *Anti-selfadjoint operators as commutators of projections*,
+  JMAA 478 (2019), 539--559, DOI 10.1016/j.jmaa.2019.05.042.
+- L. W. Marcoux, H. Radjavi and Y. Zhang, *Around the closures of the set of
+  commutators and the set of differences of idempotent elements of B(H)*,
+  J. Operator Theory 91 (2024), 97--124, DOI 10.7900/jot.2022feb07.2396.
 
-Relevant works include Voiculescu (1983), Exel--Loring (1989, 1991),
-Lin (1997), Friis--Rørdam (1996), Hastings (2009),
-Marcoux--Popov--Radjavi (2013), Dor-On--Hall--Kachkovskiy (2025), and
-Herrera (2024, 2026).
+This line contains the classical bound \(\|[P,Q]\|\le1/2\) for **two
+projections** and characterizes operators representable as such commutators.
 
-These solve a different inverse problem: operators are perturbed to a
-commuting configuration. In this manuscript the projections and unitary
-remain fixed; near equality constrains the internal distribution of their
-existing commutator defects.
+The manuscript's factor \(1/2\) is a different statement: the second operator
+is unitary and the right-hand side is the adaptive finite-family budget
+\(\sum_i\|[P_i,U]\|_{\rm op}^2\). The paper should explicitly distinguish the
+two uses of \(1/2\).
 
-### Operational distance between quantum measurements
+**Status:** important neighboring result, no direct finite-family overlap found.
 
-For finite POVMs \(M=(M_i)\), \(N=(N_i)\), the operational distance used in
-measurement theory is
-\[
-D_{\rm op}(M,N)
-=\max_{S}\left\|\sum_{i\in S}(M_i-N_i)\right\|_\infty.
-\]
+### Two-projection norm formulas
 
-Relevant works include Navascués--Popescu (2014),
-Puchała--Pawela--Krawiec--Kukulski (2018), and
-Maciejewski--Zimborás--Oszmaniec (2020). The 2020 paper explicitly records
-the subset-max operator-norm formula and its discrimination interpretation.
+Relevant references include Walters' anticommutator formula, Conde's 2022
+paper, and the 2024 refinements of Li--Liu--Deng. These concern sums,
+differences, products, commutators and anticommutators of **two** projections.
 
-For \(Q_i=UP_iU^*\), the manuscript's cut envelope is exactly
-\(D_{\rm op}(P,Q)\). A generic triangle argument gives
-\[
-D_{\rm op}(M,N)
-\le \frac12\sum_i\|M_i-N_i\|_{\rm op}
-\]
-because \(\sum_i(M_i-N_i)=0\). The matched-rank PVM result in the manuscript
-is instead a sharp \(\ell^2\)-type estimate with a dimension-free constant,
-followed by equality and stability theory.
+- S. Walters, *Anticommutator Norm Formula for Projection Operators*,
+  arXiv:1604.00699.
+- C. Conde, JMAA 505 (2022), 125650, DOI 10.1016/j.jmaa.2021.125650.
+- X. Li, M. Liu and C. Deng, Acta Math. Sci. 44 (2024), 1229--1243,
+  DOI 10.1007/s10473-024-0403-9.
 
-The targeted search did not identify
-\[
-D_{\rm op}(P,Q)^2
-\le\frac12\sum_i\|P_i-Q_i\|_{\rm op}^2
-\]
-for matched-rank PVMs together with the exact equality classification and
-quantitative near-equality theorem.
+**Status:** useful context; no equality/near-equality theorem for the present
+finite-family functional was found.
 
-## Search terms used
+### Projection stability under symmetries
 
-Representative queries included:
-- operational distance projective measurements / PVM max subset operator norm;
-- commutator orthogonal projections operator norm equality stability;
-- sum commutators projections unitary operator norm l2 inequality;
-- near equality projections commutator operator norm stability;
-- operational distance POVM max subset operator norm;
-- measurement discrimination operational distance POVM operator norm;
-- exact \(\ell^2\) / square-sum variants of the finite cut inequality.
+The conceptually closest stability literature found is:
 
-## Second-pass citation-chain result
+- S. Walters, *Projection operators nearly orthogonal to their symmetries*,
+  JMAA 446 (2017), 1356--1361, DOI 10.1016/j.jmaa.2016.09.013.
+- I. M. Spitkovsky, *A distance formula related to a family of projections
+  orthogonal to their symmetries*, OTAA 267 (2018), 371--376,
+  DOI 10.1007/978-3-319-72449-2_17.
 
-A second citation-chain pass was run on 2026-09-20, targeting
-projective-measurement operational distance, operator-norm square-sum bounds,
-projection-commutator equality cases, and near-equality stability. It
-recovered additional uses of operational distance and recent two-projection
-norm literature, but did **not** identify the matched-rank PVM \(\ell^2\)
-inequality above or its equality / near-equality classification.
+These perturb a projection toward another projection satisfying an exact
+orthogonality relation. The present theorem does **not** perturb \(P_i\) or
+\(U\): it infers concentration of the existing defect profile from near
+equality in a sharp family-level inequality.
 
-This is a targeted negative search result, not a proof of absolute historical
-novelty.
+**Status:** closest conceptual neighbor, different input/output invariant.
 
-## Claim calibration
+### Almost commuting operators
 
-Safe wording:
-- “We prove ...” followed by the precise theorem.
-- “A targeted literature search did not identify a prior result combining
-  this finite-family envelope, its equality classification, the
-  dimension-free near-equality theorem, and the scale-sharp three-cell
-  family.”
-- “The result is distinct from commuting-approximant stability.”
+Lin, Hastings, Dor-On--Hall--Kachkovskiy, and Herrera study closeness to
+exactly commuting operators, including current 2025--2026 effective and
+projection-characterization results.
 
-Avoid without a stronger bibliographic audit:
-- “first ever,” or “previously unknown” as an absolute historical statement;
-- implying novelty of operational distance itself;
-- implying novelty of projection-pair commutator geometry.
+- M. B. Hastings, CMP 291 (2009), 321--345.
+- A. Dor-On, L. Hall, I. Kachkovskiy, arXiv:2510.03674 (2025).
+- D. Herrera, arXiv:2412.20795 (2024).
+- D. Herrera, arXiv:2609.15057 (submitted 2026-09-14).
 
-## Current assessment
+The target is a nearby commuting pair, unlike the manuscript's inverse
+near-equality statement for a fixed decomposition and fixed unitary.
 
-No overlap found in the targeted search invalidates the manuscript's central
-claim set. The operational-distance connection strengthens the paper's
-positioning and makes measurement-distance literature part of the mandatory
-related work.
+**Status:** active neighboring field, no direct overlap.
 
-If submission is delayed substantially, repeat the recent-literature and
-citation-chain search immediately before submission.
+### Generic commutator equality cases
+
+Böttcher--Wenzel-type work is precedent for classifying equality cases of
+sharp commutator inequalities, but uses Frobenius/unitarily invariant norms
+of commutators of arbitrary matrices, not a finite orthogonal resolution and
+subset maximum.
+
+- A. Böttcher and D. Wenzel, LAA 429 (2008), 1864--1885,
+  DOI 10.1016/j.laa.2008.05.020.
+- C.-M. Cheng, K.-S. Fong, W.-F. Lei, LAA (2013), equality cases for related
+  Frobenius-norm commutator inequalities.
+
+**Status:** methodological precedent, not duplication.
+
+### Multi-projection false positive
+
+V. Mazorchuk and S. Rabanovich, *Multicommutators and multianticommutators of
+orthogonal projections*, Linear Multilinear Algebra 56 (2008), 639--646,
+DOI 10.1080/03081080701339911, studies nested expressions
+\([[\cdots[P_1,P_2],P_3],\ldots]\). It does not study
+\([\sum_{i\in S}P_i,U]\).
+
+**Status:** terminological false positive.
+
+## Claim-by-claim conclusion
+
+### Cut envelope
+
+No direct predecessor was located. However, the proof is elementary once the
+cross-block budget inequalities are isolated, so an equivalent statement could
+exist as folklore or as an unnamed block-matrix lemma.
+
+**Submission wording:** claim the finite-family cut-envelope result as part of
+the theorem package; do not claim that the scalar constant \(1/2\) itself is
+historically new.
+
+### Exact two-cell rigidity
+
+No prior support classification for equality in this finite-family envelope
+was located.
+
+**Submission wording:** “we characterize the equality cases of the
+cut-envelope inequality” is appropriate.
+
+### Quantitative near-equality theorem
+
+No direct predecessor was located. The searched stability literature changes
+the operators to recover an exact relation; it does not derive concentration
+of a fixed commutator-defect profile from near saturation.
+
+**This is the strongest apparent novelty point.**
+
+### Three-cell scale obstruction
+
+No analogue of the explicit three-cell construction or the iterated constant-4
+limit was located.
+
+The paper should state the exact asymptotic theorem and infer from it that a
+scale-independent \(O(\eta)\) tail bound is impossible and that an
+inverse-square scale is necessary up to constants. It should **not** call 4
+the best universal stability constant.
+
+## Overall assessment
+
+As of 2026-09-20, no direct literature overlap was identified for the combined
+package:
+
+- finite orthogonal resolution;
+- subset cut envelope against the global squared projection--unitary
+  commutator budget;
+- exact two-active-cell equality rigidity;
+- cardinality-free quantitative near-equality concentration;
+- explicit three-cell inverse-square scale obstruction.
+
+This is not a proof of absolute historical priority. The residual search risk
+is mainly in older or poorly indexed block-operator, pinching, row/column
+operator, and conditional-expectation literature.
+
+Recommended manuscript language:
+
+> We prove a finite-family cut-envelope inequality and characterize its
+> equality and near-equality regimes. We have not located these finite-family
+> equality and stability statements in the projection-commutator or
+> almost-commuting-operator literature; the closest results concern
+> two-projection norm identities or perturbation to nearby exact relations,
+> rather than concentration of a fixed commutator-defect profile.
