@@ -98,7 +98,7 @@ theorem outgoing_rankOne_norm_sq
       1 =
         ‖Gleason.projL c (U e)‖ ^ 2 +
           ‖U e - Gleason.projL c (U e)‖ ^ 2 := by
-    simpa using hpyth
+    simpa [Gleason.projL] using hpyth
   linarith
 
 /-- The squared outgoing block norm of a rank-one cell is one minus the
