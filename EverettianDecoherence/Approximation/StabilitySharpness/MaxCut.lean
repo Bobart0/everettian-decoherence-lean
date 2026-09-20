@@ -45,7 +45,8 @@ private theorem stabilitySharpnessCell0_budget_le_s_sq (n m : ℕ) :
       unfold stabilitySharpnessD
       nlinarith
     rw [hrewrite]
-    positivity
+    exact le_add_of_nonneg_right
+      (mul_nonneg hD0 (sq_nonneg _))
   have hdiag0 :
       0 ≤ 1 - stabilitySharpnessD m * stabilitySharpnessA n ^ 2 :=
     hC0.trans hdiag
@@ -108,13 +109,8 @@ theorem stabilitySharpness_cell_budget_le_s_sq
     cellCommutatorOpNormSq stabilitySharpnessPerspective3
       (stabilitySharpnessRotation n m) c ≤
       iterationSharpnessS m ^ 2 := by
-  let i : Fin 3 := stabilitySharpnessCellEquiv3.symm c
-  have hc :
-      c = stabilitySharpnessCell3 i := by
-    have h := stabilitySharpnessCellEquiv3.apply_symm_apply c
-    rw [stabilitySharpnessCellEquiv3_apply] at h
-    exact h.symm
-  rw [hc]
+  obtain ⟨i, hi⟩ := stabilitySharpnessCell3_bijective.2 c
+  rw [← hi]
   fin_cases i
   · exact stabilitySharpnessCell0_budget_le_s_sq n m
   · exact stabilitySharpnessCell1_budget_le_s_sq n m
@@ -142,9 +138,7 @@ private theorem stabilitySharpness_subset_opNorm_le_s_of_card_le_one
           (stabilitySharpnessRotation n m) ∅‖ = 0 := by
       unfold subsetProjectorCommutatorOpNormSq at hsq
       simp at hsq
-      nlinarith [norm_nonneg
-        (recordSubsetProjectorCommutatorCLM stabilitySharpnessPerspective3
-          (stabilitySharpnessRotation n m) ∅)]
+      simpa [hsq]
     rw [hnorm0]
     exact hs0
   · have hone : S.card = 1 := by omega
