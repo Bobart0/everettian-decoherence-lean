@@ -1,0 +1,1108 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\cmax}{C_{\max}}
+\newcommand{\dd}{\delta}
+\newcommand{\etaq}{\eta}
+\newcommand{\tauq}{\tau}
+\newcommand{\PhiRho}{\Phi_{\rho}}
+
+\title{Sharp Stability and Two-Cell Rigidity for\\
+Finite Projector--Unitary Commutator Profiles}
+
+\author{Bertrand Dalimier\\
+Independent Researcher}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Let $(P_i)_{i\in I}$ be a finite orthogonal resolution of the identity on a
+finite-dimensional complex Hilbert space and let $U$ be unitary.  Write
+$a_i=\|[P_i,U]\|_{\op}$,
+$\dd^2=\sum_i a_i^2$, and
+\[
+  \cmax=\max_{S\subseteq I}
+  \left\|\left[\sum_{i\in S}P_i,U\right]\right\|_{\op}.
+\]
+We prove the sharp finite-family envelope
+$\cmax^2\le\dd^2/2$.  For $\dd>0$, equality holds if and only if exactly two
+cell commutators are nonzero.  We then prove a dimension-free inverse
+near-equality theorem: if
+\[
+  \cmax^2\ge(1-\etaq)\frac{\dd^2}{2},
+  \qquad
+  0\le\etaq\le\frac15,
+  \qquad
+  \dd\ge\rho>0,
+\]
+then two cells carry all but a relative fraction
+\[
+  2\etaq+\frac{36\etaq}{(1-3\etaq)\rho^2}
+\]
+of the global quadratic defect.  For $\etaq\le1/6$ this is at most
+$\etaq(2+72/\rho^2)$.  An explicit three-cell family proves that the
+inverse-square defect-scale dependence is necessary up to multiplicative
+constants, with
+\[
+  \lim_{m\to\infty}\left[
+    \lim_{n\to\infty}
+    \frac{\tauq_{n,m}}{\etaq_{n,m}}\dd_{n,m}^2
+  \right]=4.
+\]
+The complete argument is machine-checked in Lean 4.  It forms the downstream
+layer of an end-to-end finite-dimensional quantum-foundations library whose
+audited upstream developments also formalize Busch's and Gleason's
+representation theorems, Naimark dilation, Wigner's theorem, Uhlhorn-type
+uniqueness, Riedel's branch-decomposition theorem, and Kent's
+contrary-inference construction.
+\end{abstract}
+
+\noindent\textbf{Keywords.}
+projector--unitary commutators; orthogonal resolutions of the identity;
+near-equality stability; rigidity; Lean 4 formal verification;
+Gleason theorem; Busch theorem; Kent contrary inference
+
+\noindent\textbf{2020 Mathematics Subject Classification.}
+15A60 (primary); 15A45, 47A63 (secondary).
+
+\section{Introduction}
+
+Let a finite-dimensional Hilbert space be decomposed by a finite orthogonal
+resolution of the identity $(P_i)_{i\in I}$.  A unitary $U$ preserves the
+$i$th summand exactly when $[P_i,U]=0$, so the commutator norms provide a
+natural finite defect profile for the failure of $U$ to respect the
+decomposition.  The individual operator norms
+\[
+  a_i:=\|[P_i,U]\|_{\op}
+\]
+therefore define a nonnegative finite defect profile.  The quadratic aggregate
+\[
+  \dd^2:=\sum_{i\in I} a_i^2
+\]
+is a natural dimension-free global measure of failure of simultaneous
+commutation.
+
+A second object is obtained by grouping sectors into a cut.  For
+$S\subseteq I$, let
+\[
+  P_S:=\sum_{i\in S}P_i,\qquad
+  C_S:=\|[P_S,U]\|_{\op}.
+\]
+Since $I$ is finite, the cut envelope
+\[
+  \cmax:=\max_{S\subseteq I}C_S
+\]
+is attained.  The basic inequality studied here is
+\begin{equation}\label{eq:envelope}
+  \cmax^2\le \frac{\dd^2}{2}.
+\end{equation}
+It is a finite operator-theoretic inequality: no probability assignment,
+dynamical assumption, open-system structure, or asymptotic Hilbert-space
+limit is involved.
+
+The purpose of this paper is to analyze the near-equality regime of
+\eqref{eq:envelope}.  There are three levels.
+
+First, we identify the exact equality cases.  For positive global defect,
+saturation of \eqref{eq:envelope} is equivalent to the statement that exactly
+two cells are active: all other cellwise commutator defects vanish.
+
+Second, we prove a quantitative inverse theorem.  If the cut envelope nearly
+saturates \eqref{eq:envelope}, then almost all of the quadratic defect budget
+must be carried by two cells.  The estimate is independent of the number of
+cells.  At a fixed positive defect scale $\rho$, the relative two-cell tail is
+$O(\etaq/\rho^2)$ as the saturation deficit $\etaq$ tends to zero.
+
+Third, we construct an explicit three-cell family showing that the
+$1/\rho^2$ scale is not a proof artifact.  The family has closed formulas for
+the three cell budgets, the global defect, the maximal cut, the
+near-saturation parameter, and the two-cell tail.  Its asymptotics give the
+constant
+\[
+  \lim_{m\to\infty}\left[
+    \lim_{n\to\infty}\frac{\tauq_{n,m}}{\etaq_{n,m}}\dd_{n,m}^2
+  \right]=4.
+\]
+Thus a stability estimate uniform down to zero defect cannot in general have
+a tail bound of order $O(\etaq)$ with a scale-independent constant.
+
+The arguments separate into a finite real concentration layer and an
+operator-theoretic layer.  This separation is also reflected in a companion
+Lean 4 formalization.  The principal theorem statements, equality
+classification, rank-one formula, explicit sharpness family, and asymptotic
+limit are machine checked.  The formal development is used here as a
+verification artifact rather than as the mathematical subject of the paper.
+
+The present repository is the downstream layer of a pinned four-repository
+formalization stack,
+[
+  \texttt{gleason-theorem-lean}
+  \longrightarrow
+  \texttt{quantum-foundations-lean}
+  \longrightarrow
+  \texttt{everettian-probability-lean}
+  \longrightarrow
+  \texttt{everettian-decoherence-lean}.
+]
+The stack includes machine-checked finite-dimensional versions of the Busch
+and Gleason representation theorems, Naimark dilation, Wigner's theorem,
+Uhlhorn-type uniqueness, Riedel's branch-decomposition theorem, and Kent's
+contrary-inference construction, together with conditional Born-probability
+and exact-finite layers.  These named results provide the formalization
+context and search-visible provenance of the present work; they are not
+premises of the cut-envelope stability theorem unless explicitly stated.
+
+% TODO before submission:
+% 1. Replace repository commit by archival release/DOI.
+% 2. Adapt notation/template to target journal.
+% 3. Prepare cover letter and submission metadata.
+
+\section{Finite projective setup}
+
+Let $H$ be a finite-dimensional complex Hilbert space.  Let
+$I$ be a finite index set and let $(P_i)_{i\in I}$ be orthogonal projections
+satisfying
+\begin{equation}\label{eq:decomp}
+  P_iP_j=0\quad(i\neq j),
+  \qquad
+  \sum_{i\in I}P_i=I_H.
+\end{equation}
+We call the family a finite orthogonal resolution of the identity.  Let
+$U:H\to H$ be unitary.  In the broader quantum-foundations development from
+which this problem arose, the same objects are also used as finite projective
+record decompositions; that interpretation is not needed for the results
+below.
+
+For each cell $i$, define
+\begin{equation}\label{eq:ai}
+  a_i:=\|[P_i,U]\|_{\op},
+  \qquad
+  p_i:=a_i^2,
+\end{equation}
+and define the global quadratic commutator defect
+\begin{equation}\label{eq:delta}
+  \dd:=\left(\sum_{i\in I}p_i\right)^{1/2}.
+\end{equation}
+For a cut $S\subseteq I$, set
+\begin{equation}\label{eq:cut}
+  P_S:=\sum_{i\in S}P_i,
+  \qquad
+  C_S:=\|[P_S,U]\|_{\op},
+  \qquad
+  \cmax:=\max_{S\subseteq I}C_S.
+\end{equation}
+
+The quantity $\dd$ is the $\ell^2$ norm of the cellwise operator-norm profile.
+The quantity $\cmax$ instead probes the largest coherent defect visible after
+aggregating an arbitrary subset of the cells.
+
+For later use, suppose $\dd>0$.  Then the decomposition has at least two
+cells: a one-cell decomposition would have $P_1=I_H$ and hence zero
+commutator defect.  We may therefore define the optimal two-cell tail
+\begin{equation}\label{eq:tau}
+  \tauq:=
+  \min_{\substack{i,j\in I\\i\neq j}}
+  \frac{\dd^2-p_i-p_j}{\dd^2}.
+\end{equation}
+Equivalently, $\tauq$ is the fraction of the total quadratic budget left after
+retaining the best pair of distinct cells.
+
+\begin{remark}
+The formal theorem is stated without division by $\dd^2$: it asserts the
+existence of distinct $i,j$ such that
+\[
+  \dd^2-p_i-p_j\le \varepsilon\,\dd^2.
+\]
+This formulation remains meaningful at zero defect.  In the positive-defect
+regime it is equivalent to $\tauq\le\varepsilon$.
+\end{remark}
+
+\section{The finite cut envelope}
+
+The key observation is that a cut commutator is controlled simultaneously by
+the defect budget on the cut and by the defect budget on its complement.
+
+Relative to the orthogonal splitting
+\[
+  H=P_SH\oplus (I-P_S)H,
+\]
+the commutator $[P_S,U]$ is off diagonal.  Its two cross blocks are
+\[
+  P_SU(I-P_S),
+  \qquad
+  (I-P_S)UP_S.
+\]
+For a unitary $U$ the operator norm of the cut commutator is the maximum of
+the norms of these two cross blocks.  The incoming block is controlled by the
+cellwise budgets on $S$, while the outgoing block is controlled by the
+budgets on $S^c$.  Consequently,
+\begin{equation}\label{eq:cut-min}
+  C_S^2
+  \le
+  \min\left\{
+    \sum_{i\in S}p_i,\,
+    \sum_{i\notin S}p_i
+  \right\}.
+\end{equation}
+
+Since the two quantities inside the minimum sum to $\dd^2$, we obtain the
+universal envelope.
+
+\begin{theorem}[Cut-envelope inequality]\label{thm:envelope}
+For every finite projective decomposition and every unitary $U$,
+\[
+  \boxed{\cmax^2\le\frac{\dd^2}{2}}.
+\]
+\end{theorem}
+
+\begin{proof}
+For every $S\subseteq I$, \eqref{eq:cut-min} gives
+\[
+  C_S^2
+  \le
+  \min\{A_S,\dd^2-A_S\},
+  \qquad
+  A_S:=\sum_{i\in S}p_i.
+\]
+The elementary inequality
+$\min\{x,T-x\}\le T/2$ for $0\le x\le T$ yields
+$C_S^2\le\dd^2/2$.  Taking the maximum over the finite set of cuts proves the
+claim.
+\end{proof}
+
+The coefficient $1/2$ is optimal.  More importantly for the present paper,
+its equality cases are rigid.
+
+\section{Quantitative stability of near-saturators}
+
+We now prove the inverse theorem behind Theorem~\ref{thm:rigidity}.  For a
+cut $S\subseteq I$, write
+\[
+  A_S:=\sum_{i\in S}p_i,
+  \qquad
+  C_S:=\|[P_S,U]\|_{\op}.
+\]
+
+\subsection{A one-sided concentration lemma}
+
+The numerical constant in the final stability theorem enters through the
+following dimension-free lemma.
+
+\begin{lemma}[One-sided concentration]\label{lem:onesided}
+Let $S$ be a cut with $C_S>0$, and put
+\[
+  e_S:=A_S-C_S^2.
+\]
+If $e_S\le C_S^2/2$, then there exists $i\in S$ such that
+\begin{equation}\label{eq:onesided}
+  A_S-p_i
+  \le
+  2e_S+\frac{18e_S}{C_S^2-e_S}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Relative to $P_SH\oplus P_{S^c}H$, the cut commutator has incoming and
+outgoing cross blocks.  We give the argument when the incoming block realizes
+$C_S$; the outgoing case follows by the same argument after exchanging the
+two blocks.
+
+Because the space is finite dimensional, choose a unit vector
+$v\in P_{S^c}H$ on which the incoming block attains its norm.  For $c\in S$
+set
+\[
+  z_c:=U^*P_cUv,\qquad
+  r_c:=\|z_c\|^2,\qquad
+  \alpha_c:=p_c-r_c.
+\]
+The vectors $z_c$ are mutually orthogonal and the witness identities give
+\begin{equation}\label{eq:witness-defect}
+  \alpha_c\ge0,\qquad
+  \sum_{c\in S}\alpha_c=e_S.
+\end{equation}
+Call a cell good when $\alpha_c\le p_c/2$.  The total $p$-mass of the bad
+cells is at most
+\begin{equation}\label{eq:badmass}
+  \sum_{\text{bad }c}p_c\le2e_S.
+\end{equation}
+Discarding good cells with $p_c=0$ does not change the good-cell mass.  On
+the remaining active good cells one has $r_c>0$.  Define
+\[
+  \xi_c:=\frac{z_c}{\sqrt{r_c}}
+\]
+and a normalized comparison family $\zeta_c$ obtained by replacing the
+residual component of $\xi_c$ by $\sqrt{p_c}\,v$.  The witness geometry gives
+three facts:
+\begin{align}
+  &(\xi_c)_c\ \text{is orthonormal}, \label{eq:xi-orth}\\
+  &p_cp_d=|\langle\zeta_c,\zeta_d\rangle|^2
+      \quad(c\ne d), \label{eq:zeta-gram}\\
+  &\sum_c\|\zeta_c-\xi_c\|^2\le2e_S. \label{eq:gram-close}
+\end{align}
+
+For completeness, if $\xi$ is any orthonormal family and $\zeta$ satisfies
+\eqref{eq:zeta-gram}, with
+$q:=\sum_c\|\zeta_c-\xi_c\|^2$, expansion of each off-diagonal inner product
+around the orthonormal reference family and Bessel's inequality give
+\begin{equation}\label{eq:gram-spread-general}
+  \sum_c\sum_{d\ne c}p_cp_d
+  \le 6q+3q^2.
+\end{equation}
+Here $C_S\le1$, hence $e_S\le1/2$.  By \eqref{eq:gram-close},
+$q\le2e_S$, so
+\begin{equation}\label{eq:gram18}
+  \sum_c\sum_{d\ne c}p_cp_d\le18e_S.
+\end{equation}
+For a finite nonnegative profile,
+\[
+  \sum_c\sum_{d\ne c}p_cp_d
+  =
+  \left(\sum_cp_c\right)^2-\sum_cp_c^2.
+\]
+Choosing a maximal entry therefore shows that if the total active-good mass
+is at least $L>0$, one active good cell leaves active-good tail at most
+$18e_S/L$.
+
+The witness identities and \eqref{eq:witness-defect} give the lower bound
+\[
+  L=C_S^2-e_S
+\]
+for that active-good mass.  Adding the bad-cell contribution
+\eqref{eq:badmass} yields \eqref{eq:onesided}.
+\end{proof}
+
+\subsection{Bilateral concentration across a cut}
+
+Let
+\[
+  A:=\dd^2,\qquad C:=C_S,\qquad
+  A_T:=A_{S^c},
+\]
+and define
+\[
+  e_S:=A_S-C^2,\qquad
+  e_T:=A_T-C^2,\qquad
+  E:=A-2C^2.
+\]
+The complementary budget identity $A_S+A_T=A$ gives
+\begin{equation}\label{eq:e-split}
+  e_S+e_T=E.
+\end{equation}
+
+\begin{proposition}[Bilateral cut concentration]\label{prop:bilateral}
+Assume $C>0$ and $E\le C^2/2$.  Then there exist
+$i\in S$ and $j\in S^c$ such that
+\begin{equation}\label{eq:bilateral}
+  A-p_i-p_j
+  \le
+  2E+\frac{18E}{C^2-E}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The cut estimate gives $C^2\le A_S$ and $C^2\le A_T$, hence
+$e_S,e_T\ge0$.  By \eqref{eq:e-split}, each is at most $E$ and therefore at
+most $C^2/2$.  Lemma~\ref{lem:onesided}, applied to $S$ and $S^c$, gives
+$i\in S$ and $j\in S^c$ such that
+\[
+  A_S-p_i
+  \le
+  2e_S+\frac{18e_S}{C^2-e_S},
+\]
+\[
+  A_T-p_j
+  \le
+  2e_T+\frac{18e_T}{C^2-e_T}.
+\]
+Set $d:=C^2-E>0$.  Since
+$d\le C^2-e_S$ and $d\le C^2-e_T$,
+\[
+  \frac{e_S}{C^2-e_S}
+  +
+  \frac{e_T}{C^2-e_T}
+  \le
+  \frac{e_S+e_T}{d}
+  =
+  \frac Ed.
+\]
+Adding the two one-sided inequalities proves
+\eqref{eq:bilateral}.  Since $i\in S$ and $j\in S^c$, the two cells are
+distinct.
+\end{proof}
+
+\subsection{The scale-sensitive modulus}
+
+Let $0\le\etaq\le1/5$ and assume
+\begin{equation}\label{eq:near}
+  \cmax^2
+  \ge
+  (1-\etaq)\frac{\dd^2}{2}.
+\end{equation}
+We also impose the positive scale condition
+\begin{equation}\label{eq:scale}
+  \dd\ge\rho>0.
+\end{equation}
+Define
+\begin{equation}\label{eq:modulus}
+  \PhiRho(\etaq):=
+  2\etaq+
+  \frac{36\etaq}{(1-3\etaq)\rho^2}.
+\end{equation}
+
+\begin{theorem}[Quantitative two-cell stability]\label{thm:stability}
+Suppose \eqref{eq:near} and \eqref{eq:scale} hold with
+$0\le\etaq\le1/5$.  Then there exist distinct cells $i,j$ such that
+\begin{equation}\label{eq:stability-conclusion}
+  \boxed{
+  \dd^2-p_i-p_j
+  \le
+  \PhiRho(\etaq)\,\dd^2.
+  }
+\end{equation}
+Equivalently,
+\[
+  \tauq\le
+  2\etaq+
+  \frac{36\etaq}{(1-3\etaq)\rho^2}.
+\]
+\end{theorem}
+
+\begin{proof}
+Choose a cut $S$ attaining $\cmax$ and put
+\[
+  A:=\dd^2,\qquad C:=\cmax,\qquad E:=A-2C^2.
+\]
+Theorem~\ref{thm:envelope} gives $E\ge0$, while
+\eqref{eq:near} gives
+\begin{equation}\label{eq:Eeta}
+  E\le\etaq A.
+\end{equation}
+Since $\etaq\le1/5$ and $A=2C^2+E$,
+\[
+  E\le\frac A5
+  \quad\Longrightarrow\quad
+  E\le\frac{C^2}{2}.
+\]
+Moreover $A>0$, and the same inequalities imply $C>0$.  Proposition
+\ref{prop:bilateral} therefore gives distinct $i,j$ with
+\[
+  A-p_i-p_j
+  \le
+  2E+\frac{18E}{d},
+  \qquad
+  d:=C^2-E.
+\]
+Because $C^2=(A-E)/2$,
+\begin{equation}\label{eq:didentity}
+  d=\frac{A-3E}{2}.
+\end{equation}
+Using \eqref{eq:Eeta},
+\[
+  d\ge\frac{(1-3\etaq)A}{2}>0
+\]
+and hence
+\[
+  \frac Ed
+  \le
+  \frac{2\etaq}{1-3\etaq}.
+\]
+Thus
+\begin{equation}\label{eq:absolute-tail}
+  A-p_i-p_j
+  \le
+  2\etaq A+
+  \frac{36\etaq}{1-3\etaq}.
+\end{equation}
+Finally $A=\dd^2\ge\rho^2$, so
+\[
+  \frac{36\etaq}{1-3\etaq}
+  \le
+  A\,
+  \frac{36\etaq}{(1-3\etaq)\rho^2}.
+\]
+Substitution into \eqref{eq:absolute-tail} gives
+\eqref{eq:stability-conclusion}.
+\end{proof}
+
+At every fixed positive scale,
+\[
+  \PhiRho(\etaq)\longrightarrow0
+  \qquad(\etaq\downarrow0).
+\]
+
+\begin{corollary}[Transparent linear form]\label{cor:linear}
+If in addition $\etaq\le1/6$, then
+\begin{equation}\label{eq:linear}
+  \boxed{
+    \tauq\le
+    \etaq\left(2+\frac{72}{\rho^2}\right).
+  }
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+For $\etaq\le1/6$ one has
+$1-3\etaq\ge1/2$, so
+\[
+  \frac{36\etaq}{(1-3\etaq)\rho^2}
+  \le
+  \frac{72\etaq}{\rho^2}.
+\]
+Apply Theorem~\ref{thm:stability}.
+\end{proof}
+
+
+\section{Exact rigidity at saturation}
+
+Call a cell \emph{active} when $p_i>0$.
+
+\begin{theorem}[Exact equality classification]\label{thm:rigidity}
+Assume $\dd>0$.  Then
+\[
+  \boxed{
+    \cmax^2=\frac{\dd^2}{2}
+    \quad\Longleftrightarrow\quad
+    \text{exactly two cells are active}.
+  }
+\]
+More explicitly, equality holds if and only if there exist distinct
+$i,j\in I$ such that
+\[
+  p_i>0,\qquad p_j>0,\qquad
+  p_k=0\quad\text{for every }k\notin\{i,j\}.
+\]
+\end{theorem}
+
+\begin{proof}
+Set $A=\dd^2$.  First assume saturation,
+$\cmax^2=A/2$.  Apply Theorem~\ref{thm:stability} with
+$\etaq=0$ and $\rho=\dd>0$.  Since $\Phi_{\dd}(0)=0$, there are distinct
+$i,j$ such that
+\[
+  A-p_i-p_j\le0.
+\]
+On the other hand,
+\[
+  A-p_i-p_j=\sum_{k\notin\{i,j\}}p_k\ge0,
+\]
+so every $p_k$ with $k\notin\{i,j\}$ vanishes.
+
+It remains to show that the two selected cells are genuinely active.  A
+singleton is an admissible cut, and therefore
+\[
+  p_i=\|[P_i,U]\|_{\op}^2\le\cmax^2=\frac A2,
+  \qquad
+  p_j\le\frac A2.
+\]
+Since the remaining cells carry zero budget, $p_i+p_j=A$.  Hence
+$p_i=p_j=A/2>0$.
+
+Conversely, suppose exactly two cells $i\ne j$ are active.  Then
+$A=p_i+p_j$, so
+\[
+  \max\{p_i,p_j\}\ge\frac A2.
+\]
+Again using singleton cuts,
+\[
+  \cmax^2\ge\max\{p_i,p_j\}\ge\frac A2.
+\]
+The cut-envelope inequality, Theorem~\ref{thm:envelope}, gives the reverse
+bound $\cmax^2\le A/2$, and equality follows.
+\end{proof}
+
+The hypothesis $\dd>0$ only removes the degenerate configuration in which
+every commutator vanishes.
+
+
+\section{An explicit three-cell sharpness family}\label{sec:sharp}
+
+We construct a family in dimension three whose near-saturation deficit tends
+to zero while the ratio $\tauq/\etaq$ diverges at the inverse-square defect
+scale.
+
+Let $(p_n,q_n)$ be the positive integer recurrence
+\[
+  (p_0,q_0)=(1,1),
+\]
+\[
+  p_{n+1}=3p_n+4q_n,
+  \qquad
+  q_{n+1}=2p_n+3q_n.
+\]
+It preserves
+\begin{equation}\label{eq:pell}
+  p_n^2+1=2q_n^2.
+\end{equation}
+Define
+\[
+  a_n=\frac{p_n+1}{2q_n},
+  \qquad
+  b_n=\frac{p_n-1}{2q_n},
+\]
+so that $a_n^2+b_n^2=1$.  Rotate these amplitudes by $45^\circ$:
+\begin{equation}\label{eq:AB}
+  A_n=\frac{a_n+b_n}{\sqrt2},
+  \qquad
+  B_n=\frac{a_n-b_n}{\sqrt2}.
+\end{equation}
+Then
+\[
+  A_n^2+B_n^2=1,\qquad
+  B_n=\frac{1}{\sqrt2\,q_n},
+\]
+hence
+\begin{equation}\label{eq:AB-limits}
+  B_n^2\to0,\qquad A_n^2\to1.
+\end{equation}
+
+For a second index $m$, let $c_m,s_m$ be the explicit rational unit-circle
+parameters
+\[
+  c_m^2+s_m^2=1,\qquad s_m>0,
+\]
+coming from the same Pell family, and set
+\begin{equation}\label{eq:d}
+  d_m:=1-c_m.
+\end{equation}
+Thus
+\begin{equation}\label{eq:s-d}
+  s_m^2=2d_m-d_m^2,
+  \qquad
+  d_m\to0.
+\end{equation}
+
+The three-dimensional unitary is obtained by conjugating the planar rotation
+with a basis change whose first direction is
+$(A_n,B_n,0)$.  For the three rank-one cells, the exact squared commutator
+budgets are
+\begin{align}
+  p_0 &=
+  2d_mA_n^2-d_m^2A_n^4, \label{eq:p0}\\
+  p_1 &=
+  2d_mB_n^2-d_m^2B_n^4, \label{eq:p1}\\
+  p_2 &= s_m^2. \label{eq:p2}
+\end{align}
+These identities follow from the rank-one formula
+\begin{equation}\label{eq:rankone}
+  \boxed{
+  \|[P_e,U]\|_{\op}^2
+  =
+  1-\bigl|\langle e,Ue\rangle\bigr|^2
+  }
+\end{equation}
+for a unit vector $e$ and the rank-one projector $P_e$.
+
+Summing \eqref{eq:p0}--\eqref{eq:p2} gives
+\begin{equation}\label{eq:global-sharp}
+  \boxed{
+  \dd_{n,m}^2
+  =
+  2s_m^2+
+  2d_m^2A_n^2B_n^2.
+  }
+\end{equation}
+The maximal cut is exact:
+\begin{equation}\label{eq:cmax-sharp}
+  \boxed{
+  \cmax(n,m)=s_m.
+  }
+\end{equation}
+
+Define the relative saturation deficit
+\[
+  \etaq_{n,m}
+  :=
+  \frac{\dd_{n,m}^2-2\cmax(n,m)^2}{\dd_{n,m}^2}.
+\]
+Then
+\begin{equation}\label{eq:eta-sharp}
+  \boxed{
+  \etaq_{n,m}
+  =
+  \frac{
+    2d_m^2A_n^2B_n^2
+  }{
+    2s_m^2+2d_m^2A_n^2B_n^2
+  }.
+  }
+\end{equation}
+The cell-$1$ budget is the smallest of the three:
+\begin{equation}\label{eq:cell1-min}
+  p_1\le p_0,
+  \qquad
+  p_1\le p_2.
+\end{equation}
+Indeed, $B_n^2\le A_n^2$ and the exact budget formulas imply the first
+inequality, while the maximal-cut estimate for the family gives the second.
+Consequently, retaining cells $0$ and $2$ is the optimal two-cell choice in
+the sense of \eqref{eq:tau}.  Thus the general optimal tail is exactly
+\begin{equation}\label{eq:tau-sharp}
+  \boxed{
+  \tauq_{n,m}
+  =
+  \frac{
+    2d_mB_n^2-d_m^2B_n^4
+  }{
+    2s_m^2+2d_m^2A_n^2B_n^2
+  }.
+  }
+\end{equation}
+This identification is important: the sharpness calculation below concerns
+the same optimal two-cell tail that appears in
+Theorem~\ref{thm:stability}, not merely a particular candidate pair.
+The exact quotient simplifies to
+\begin{equation}\label{eq:ratio-sharp}
+  \boxed{
+  \frac{\tauq_{n,m}}{\etaq_{n,m}}
+  =
+  \frac{2-d_mB_n^2}{2d_mA_n^2}.
+  }
+\end{equation}
+
+\begin{theorem}[Scale sharpness]\label{thm:scale-sharp}
+For fixed $m$,
+\begin{equation}\label{eq:fixed-m-ratio}
+  \lim_{n\to\infty}
+  \frac{\tauq_{n,m}}{\etaq_{n,m}}
+  =
+  \frac1{d_m},
+\end{equation}
+and
+\begin{equation}\label{eq:fixed-m-delta}
+  \lim_{n\to\infty}\dd_{n,m}^2=2s_m^2.
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:iterated4}
+  \boxed{
+  \lim_{m\to\infty}
+  \left[
+    \lim_{n\to\infty}
+    \frac{\tauq_{n,m}}{\etaq_{n,m}}
+    \dd_{n,m}^2
+  \right]
+  =4.
+  }
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Equations \eqref{eq:fixed-m-ratio} and \eqref{eq:fixed-m-delta} follow from
+\eqref{eq:AB-limits}, \eqref{eq:global-sharp}, and
+\eqref{eq:ratio-sharp}.  Their product tends, for fixed $m$, to
+\[
+  \frac{2s_m^2}{d_m}.
+\]
+Using \eqref{eq:s-d},
+\[
+  \frac{2s_m^2}{d_m}
+  =
+  4-2d_m.
+\]
+Finally $d_m\to0$, giving \eqref{eq:iterated4}.
+\end{proof}
+
+\begin{corollary}[Necessity of the inverse-square scale]
+For every $c<4$ and every $\varepsilon>0$, there are indices $m,n$ in the
+three-cell family such that
+\[
+  0<\etaq_{n,m}<\varepsilon,\qquad
+  0<\dd_{n,m}^2<\varepsilon,
+\]
+and
+\begin{equation}\label{eq:sharp-obstruction-quantified}
+  \frac{\tauq_{n,m}}{\etaq_{n,m}}\,
+  \dd_{n,m}^2>c.
+\end{equation}
+Consequently there is no universal estimate
+$\tauq\le K\etaq$ with $K$ independent of the defect scale.  More generally,
+a uniform estimate of the form
+$\tauq\le \etaq\,g(\dd)$ cannot have
+$g(\dd)=o(\dd^{-2})$ as $\dd\downarrow0$.  Thus the inverse-square power in
+the scale dependence of Theorem~\ref{thm:stability} is necessary up to
+multiplicative constants.
+\end{corollary}
+
+\begin{proof}
+Choose $m$ sufficiently large that the fixed-$m$ scaled limit
+$4-2d_m$ is larger than $c$ and that $2s_m^2$ is smaller than
+$\varepsilon$.  For this fixed $m$, let $n\to\infty$.  Theorem
+\ref{thm:scale-sharp} gives
+\[
+  \frac{\tauq_{n,m}}{\etaq_{n,m}}\dd_{n,m}^2
+  \longrightarrow 4-2d_m,
+  \qquad
+  \dd_{n,m}^2\longrightarrow2s_m^2,
+\]
+while the explicit formula \eqref{eq:eta-sharp} and
+$B_n^2\to0$ give $\etaq_{n,m}\to0$.  Taking $n$ sufficiently large yields
+\eqref{eq:sharp-obstruction-quantified}.  The two impossibility statements
+follow immediately.
+\end{proof}
+
+\section{Relation with the sharp record-transfer bound}
+
+The cut envelope also enters the sharp uniform transfer inequality for finite
+projective record profiles.  For a normalized state $x$, the companion
+formal development proves
+\begin{equation}\label{eq:transfer}
+  \|r_D(Ux)-r_D(x)\|_1
+  \le
+  \sqrt2\,\dd,
+\end{equation}
+with the universal coefficient $\sqrt2$ optimal.
+
+The present paper addresses the inverse geometry behind near saturation of
+the cut stage that feeds \eqref{eq:transfer}.  Theorems
+\ref{thm:rigidity} and \ref{thm:stability} show that extremal and
+near-extremal cut behavior is effectively two-cell.  This part of the
+argument is independent of the Born-rule interpretation of the record
+profile: it depends only on finite projectors, unitary maps, operator norms,
+and finite real concentration.
+
+A possible extension is to combine the present cut-envelope stability with a
+separate stability analysis of every remaining inequality in the derivation
+of \eqref{eq:transfer}.  Such a result would classify near-extremizers of the
+full $\sqrt2$ transfer inequality, rather than only the operator-theoretic cut
+stage.  We do not claim such a classification here.
+
+\section{Formal verification}
+
+The mathematical core has a companion Lean 4 formalization in the repository
+\[
+  \texttt{Bobart0/everettian-decoherence-lean}.
+\]
+This repository is downstream of the pinned chain
+\[
+  \texttt{gleason-theorem-lean}
+  \to
+  \texttt{quantum-foundations-lean}
+  \to
+  \texttt{everettian-probability-lean}
+  \to
+  \texttt{everettian-decoherence-lean}.
+\]
+Among the audited public results in the upstream stack are
+`Gleason.busch`, `Gleason.gleason`,
+`QuantumFoundations.naimark`,
+`QuantumFoundations.Wigner.wigner`,
+`QuantumFoundations.Uhlhorn.uhlhorn_finite_dim`,
+`QuantumFoundations.BranchesRiedel.riedel`, and
+`QuantumFoundations.HistoriesKent.contrary_inferences`.
+The Kent construction is included as a machine-checked conceptual contrast in
+the upstream foundations library, not as a premise of the theorem proved in
+this article.
+The Lean development works with canonical coordinate Hilbert spaces
+$H_n\cong\C^n$.  Since all statements in this paper are invariant under
+unitary change of coordinates, the coordinate-free finite-dimensional
+formulation is mathematically equivalent; the repository itself checks the
+canonical-coordinate version.
+
+The development is organized so that the publication-facing surface imports
+the exact rigidity theorem, the quantitative stability theorem, and the
+sharpness asymptotics.  A dedicated audit module checks the principal
+declarations and prints their axiomatic dependencies.
+
+For manuscript version 0.7, the reference development is the CI-verified
+repository state containing the following principal declarations:
+\begin{center}
+\begin{tabular}{p{0.39\textwidth}p{0.52\textwidth}}
+\hline
+Mathematical role & Lean declaration\\
+\hline
+Cut envelope &
+\texttt{maxSubsetCommutatorOpNorm\_sq\_le\_half\_globalSq}\\
+Exact rigidity &
+\texttt{maxCut\_saturation\_iff\_exactlyTwoActiveCellCommutators}\\
+Quantitative modulus &
+\texttt{twoCellCommutatorConcentratedWithin\_of\_maxCut\_near\_saturated}\\
+Linear corollary &
+\texttt{twoCellCommutatorConcentratedWithin\_linear\_of\_maxCut\_near\_saturated}\\
+Rank-one identity &
+\texttt{perspectiveProjectorCommutatorOpNormProfile\_sq\_rankOne}\\
+Optimal top-two tail &
+\texttt{stabilitySharpnessTopTwoTail\_eq\_Tau}\\
+Sharpness ratio &
+\texttt{stabilitySharpnessTau\_div\_Eta\_exact}\\
+Fixed-scale asymptotics &
+\texttt{stabilitySharpnessTau\_div\_Eta\_tendsto\_inv\_D}\\
+Defect-scale asymptotics &
+\texttt{stabilitySharpness\_delta\_sq\_tendsto\_two\_s\_sq}\\
+Constant-$4$ obstruction &
+\texttt{stabilitySharpnessScaleLimit\_tendsto\_four}\\
+\hline
+\end{tabular}
+\end{center}
+
+The publication-facing facade is
+\texttt{EverettianDecoherence.Approximation.StabilitySharpness}; the dedicated
+audit module is
+\texttt{EverettianDecoherence.Audit.StabilityRigiditySharpness}.
+The final formalization head preceding this manuscript branch is
+\texttt{81eb3ff53f6219749b84491513ff437fe7c545c1}, whose complete CI passed,
+including the library build, audit aggregate, guards, and diff-hygiene checks.
+
+For archival submission, this commit reference should be replaced or
+supplemented by a tagged release and a persistent archive identifier.
+
+\paragraph{AI-assisted formalization workflow.}
+OpenAI ChatGPT was used as an interactive assistant during parts of the Lean
+development, including proof-structure exploration, code drafting, and
+diagnosis of compiler errors. Every publication-facing declaration reported
+here is checked by Lean itself, and the repository's continuous-integration
+workflow rebuilds the library and the dedicated audit surface. The author
+reviewed the mathematical statements and proof dependencies and remains
+responsible for the correctness and interpretation of the results.
+
+\section{Discussion and limitations}
+
+The stability theorem is dimension-free in the number of projective cells:
+its constants do not grow with $|I|$.  The price is the explicit positive
+scale $\rho$.  The sharpness family shows that this dependence is structural
+rather than merely technical.
+
+The theorem is also deliberately algebraic.  It does not assert that the
+projective decomposition is dynamically selected, that the sectors are
+environmentally redundant, that off-diagonal density-matrix elements decay
+in time, or that a preferred basis emerges.  Nor does the operator-theoretic
+core require a probability interpretation of the cells.  Such physical
+questions require additional hypotheses that are outside the scope of the
+present result.
+
+The constants $36$ and $72$ arise from the quantitative proof architecture
+and are not claimed to be optimal.  The sharpness construction identifies the
+correct inverse-square scale and an asymptotic constant $4$ for the explicit
+family, but it does not by itself determine the best universal coefficient in
+the full finite-dimensional stability theorem.
+
+\section{Relation to existing operator and matrix theory}
+\label{sec:related}
+
+The classical starting point is the geometry of two projections.  Halmos'
+two-subspaces theorem gives a canonical block representation for a pair of
+closed subspaces, and the modern survey of B{\"o}ttcher and Spitkovsky
+develops this two-projection calculus systematically
+\cite{Halmos1969TwoSubspaces,BottcherSpitkovsky2010}.  Our setting differs at
+the level of the basic datum: we fix a complete finite orthogonal resolution
+$(P_i)_{i\in I}$ and one unitary $U$, and study simultaneously the cellwise
+profile
+\[
+  p_i=\|[P_i,U]\|_{\op}^2
+\]
+and the subset functional
+\[
+  S\longmapsto
+  \left\|
+    \left[\sum_{i\in S}P_i,U\right]
+  \right\|_{\op}.
+\]
+
+There is an extensive literature on commutators of two orthogonal
+projections.  Li characterized the operators representable as
+$[P,Q]$ for orthogonal projections, and subsequent work has studied the
+corresponding representation problem and norm closures
+\cite{Li2004,ShiJi2019,MarcouxRadjaviZhang2024}.  In particular, the
+classical two-projection problem has the universal bound
+$\|[P,Q]\|_{\op}\le1/2$; related norm identities and refinements are discussed
+by Walters and Conde \cite{Conde2022}.  The occurrence of the numerical
+constant $1/2$ there should not be confused with
+Theorem~\ref{thm:envelope}: in our inequality the second operator is a
+unitary rather than a projection, and $1/2$ multiplies the adaptive
+finite-family budget
+$\sum_i\|[P_i,U]\|_{\op}^2$.
+
+Sharp commutator inequalities for arbitrary matrices provide another
+methodological precedent.  The B{\"o}ttcher--Wenzel theory, for example,
+bounds a Frobenius norm of a commutator and has its own extremal/equality-case
+theory \cite{BottcherWenzel2008}.  Such results concern different norms and a
+pair of arbitrary matrices; they do not contain the subset maximization or
+the defect-profile concentration problem considered here.
+
+The closest conceptual stability results we located for projections concern
+perturbation toward an exact relation.  Walters showed that a projection
+nearly orthogonal to its image under an order-two symmetry can be approximated
+by one exactly orthogonal to that image, and Spitkovsky obtained an exact
+distance formula in a related Hermitian-involution setting
+\cite{Walters2017,Spitkovsky2018Distance}.  These results modify the
+projection.  By contrast, Theorem~\ref{thm:stability} leaves both the
+resolution $(P_i)$ and $U$ fixed and infers the internal shape of their
+already-existing commutator profile from near equality.
+
+This distinction also separates the present problem from the theory of
+almost commuting operators.  Lin's theorem and quantitative work of Hastings
+ask whether almost commuting matrices are close to exactly commuting ones
+\cite{Lin1997AlmostCommuting,FriisRordam1996,Hastings2009}.  For unitaries,
+topological obstructions appear
+\cite{Voiculescu1983,ExelLoring1989,ExelLoring1991}, and effective or
+structure-preserving versions remain active
+\cite{DorOnHallKachkovskiy2025,Herrera2024,Herrera2026}.  Almost-invariant
+subspaces provide a further related viewpoint
+\cite{MarcouxPopovRadjavi2013}.  Again, the output in these problems is a
+nearby exact relation, rather than concentration of a fixed defect profile.
+
+A targeted literature search through these lines of work did not identify a
+previous result combining the finite-family cut envelope with an exact
+two-active-cell equality classification, a cardinality-free quantitative
+near-equality theorem, and a three-cell inverse-square scale obstruction.
+Because the envelope estimate itself is elementary once the cross-block
+budget inequalities are isolated, an equivalent lemma could conceivably
+exist under different block-operator or pinching terminology.  We therefore
+make no absolute historical-priority claim.  The contribution asserted here
+is the specific finite-family inequality together with its equality,
+stability, and scale-sharpness theory.
+
+\section{Conclusion}
+
+For a finite projective decomposition and a unitary transformation, the
+largest aggregate cut commutator satisfies the sharp quadratic envelope
+\[
+  \cmax^2\le\frac{\dd^2}{2}.
+\]
+Positive-defect equality is rigid: it occurs exactly when two cells, and only
+two cells, carry nonzero commutator defect.  Near equality inherits a
+dimension-free quantitative form.  At defect scale at least $\rho$,
+near-saturation with deficit $\etaq$ forces all but
+\[
+  2\etaq+
+  \frac{36\etaq}{(1-3\etaq)\rho^2}
+\]
+of the relative quadratic budget onto two cells.
+
+An explicit three-cell family proves that the inverse-square scale cannot be
+eliminated: the asymptotic scaled ratio tends to $4$.  This closes the
+qualitative--quantitative--sharpness chain for the finite cut envelope and
+provides a machine-checked basis for further study of near-extremizers of
+projective record-transfer inequalities.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+
+During the preparation of this work, the author used OpenAI ChatGPT to assist
+with organization of the manuscript, language editing, literature
+organization, and consistency checks between the mathematical exposition and
+the Lean formalization. After using this service, the author reviewed and
+edited the content as needed and takes full responsibility for the content of
+the publication.
+
+\bibliographystyle{plain}
+\bibliography{references_v03}
+
+\end{document}
