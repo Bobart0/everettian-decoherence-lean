@@ -13,10 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Compile v0.8 submission candidate
+      - name: Compile v0.9 visually audited candidate
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: stability_rigidity_sharpness_v08_submission_candidate.tex
+          root_file: stability_rigidity_sharpness_v09_visually_audited.tex
           working_directory: paper
           latexmk_use_xelatex: false
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
@@ -24,8 +24,8 @@ jobs:
       - name: Upload paper PDF
         uses: actions/upload-artifact@v4
         with:
-          name: stability-rigidity-sharpness-v08-pdf
+          name: stability-rigidity-sharpness-v09-pdf
           path: |
-            paper/stability_rigidity_sharpness_v08_submission_candidate.pdf
-            paper/stability_rigidity_sharpness_v08_submission_candidate.log
+            paper/stability_rigidity_sharpness_v09_visually_audited.pdf
+            paper/stability_rigidity_sharpness_v09_visually_audited.log
           if-no-files-found: error
