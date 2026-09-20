@@ -1,0 +1,7 @@
+Highlights
+
+- A sharp cut bound controls aggregate projector commutators.
+- Equality occurs exactly when two cells carry all commutator defect.
+- Near equality forces dimension-free concentration onto two cells.
+- The stability modulus necessarily depends on the inverse defect scale.
+- An explicit three-cell family proves the scale dependence is sharp.

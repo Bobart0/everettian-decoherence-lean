@@ -1,0 +1,32 @@
+name: Paper
+
+on:
+  push:
+    branches:
+      - paper-post-t5-stability
+    paths:
+      - 'paper/**'
+      - '.github/workflows/paper.yml'
+  pull_request:
+    paths:
+      - 'paper/**'
+      - '.github/workflows/paper.yml'
+
+jobs:
+  compile-paper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile submission manuscript
+        uses: xu-cheng/latex-action@v4
+        with:
+          working_directory: paper
+          root_file: stability_rigidity_sharpness_v10_gap_recast.tex
+          texlive_version: 2026
+
+      - name: Upload manuscript PDF
+        uses: actions/upload-artifact@v6
+        with:
+          name: stability-rigidity-sharpness-v10
+          path: paper/stability_rigidity_sharpness_v10_gap_recast.pdf
