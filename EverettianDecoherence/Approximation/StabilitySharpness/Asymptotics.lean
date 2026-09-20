@@ -153,7 +153,6 @@ theorem stabilitySharpness_scaled_ratio_tendsto_scaleLimit (m : ℕ) :
         stabilitySharpnessScaleLimit m := by
     unfold stabilitySharpnessScaleLimit
     field_simp [hD]
-    ring
   rw [hconst] at hprod
   exact hprod
 
@@ -166,7 +165,7 @@ theorem stabilitySharpnessD_tendsto_zero :
   change
     Tendsto (fun m : ℕ => 1 - iterationSharpnessC m)
       atTop (𝓝 0)
-  exact h
+  simpa using h
 
 theorem stabilitySharpnessScaleLimit_eq_four_sub_two_D (m : ℕ) :
     stabilitySharpnessScaleLimit m =
