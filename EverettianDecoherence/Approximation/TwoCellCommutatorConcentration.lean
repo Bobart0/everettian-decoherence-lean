@@ -97,7 +97,7 @@ theorem twoCellCommutatorConcentratedWithin_of_near_saturated_state
   refine ⟨i, j, hij, ?_⟩
   simpa [TwoCellCommutatorConcentratedWithin,
     cellCommutatorOpNormSq, incomingWitnessP,
-    twoCellStabilityModulus] using htail
+    twoCellStabilityModulus, mul_comm] using htail
 
 /-- Transparent linear form: for eta <= 1/6, near saturation at scale at least
 rho forces a two-cell tail fraction at most eta * (2 + 72 / rho^2). -/
