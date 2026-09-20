@@ -1,0 +1,7 @@
+Highlights
+
+- Sharp finite cut envelope: C_max^2 <= delta^2/2.
+- Equality is equivalent to exactly two active cell commutators.
+- Near saturation forces dimension-free two-cell concentration.
+- The stability modulus has inverse-square defect-scale dependence.
+- A three-cell family proves that scale dependence is necessary.
