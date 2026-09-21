@@ -2,6 +2,8 @@ import EverettianDecoherence.Approximation.ExactTwoCellActiveRigidity
 import EverettianDecoherence.Approximation.CutEnvelopeStability
 import EverettianDecoherence.Approximation.CutEnvelopeStabilitySharp
 import EverettianDecoherence.Approximation.TwoCellConcentrationThreshold
+import EverettianDecoherence.Approximation.StabilitySharpness.V12SharpConstants
+import EverettianDecoherence.Approximation.MaxCutThresholdStability
 import EverettianDecoherence.Approximation.StabilitySharpness.Asymptotics
 
 /-!
