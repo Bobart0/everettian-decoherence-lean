@@ -39,7 +39,7 @@ private theorem sum_sq_le_sq_sum_of_nonneg
       have hsum0 : 0 ≤ ∑ i ∈ S, p i :=
         Finset.sum_nonneg fun i hi => hpS i hi
       have hih := ih hpS
-      simp only [Finset.sum_insert, ha, Finset.mem_insert]
+      rw [Finset.sum_insert ha, Finset.sum_insert ha]
       nlinarith
 
 /-- Small-spread refinement of the dominant-index tail estimate. -/
@@ -106,7 +106,7 @@ theorem exists_tail_le_of_spread_le_sharp
   have hLT : L - K / L ≤ M - T := by
     linarith
   have hbasepos : 0 < L - K / L := by
-    apply (sub_pos_iff_lt).2
+    apply sub_pos.mpr
     apply (div_lt_iff₀ hLpos).2
     simpa [pow_two, mul_comm] using hKlt
   have hcoefpos : 0 < 2 * (L - K / L) := by positivity
@@ -191,7 +191,7 @@ theorem exists_tail_le_of_spread_le_sharp_with_cap
   have hLT : L - Kbar / L ≤ M - T := by
     linarith
   have hbasepos : 0 < L - Kbar / L := by
-    apply (sub_pos_iff_lt).2
+    apply sub_pos.mpr
     apply (div_lt_iff₀ hLpos).2
     simpa [pow_two, mul_comm] using hKbarlt
   have hcoefpos : 0 < 2 * (L - Kbar / L) := by positivity
