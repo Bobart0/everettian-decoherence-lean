@@ -4,6 +4,10 @@
 
 ### [Unreleased]
 
+- Aucun changement depuis la release archivale v0.1.0.
+
+### [0.1.0] - 2026-09-21
+
 #### Infrastructure
 
 - harnais d'agent ;
@@ -37,6 +41,10 @@ ne sont introduites.
 ## English
 
 ### [Unreleased]
+
+- No changes since archival release v0.1.0.
+
+### [0.1.0] - 2026-09-21
 
 #### Infrastructure
 
