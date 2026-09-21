@@ -134,7 +134,7 @@ theorem gram_offDiagonal_spread_le_weighted
       _ = (14 / 5 : ℝ) * (T₁ + T₂) + (7 / 2 : ℝ) * T₃ := by
         dsimp [T₁, T₂, T₃]
         simp_rw [Finset.sum_add_distrib, Finset.mul_sum]
-        ring
+        ring_nf
   have hT₁ : T₁ ≤ q := by
     calc
       T₁ ≤ ∑ i, ∑ j, ‖inner ℂ (e i) (ξ j)‖ ^ 2 := by
