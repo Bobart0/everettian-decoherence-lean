@@ -317,19 +317,16 @@ theorem exists_threshold_limit_lt_of_four_lt
     apply (div_lt_one (by positivity)).2
     linarith
   refine ⟨eps, heps0, heps1, ?_⟩
-  have hc12 : 0 < c + 12 := by linarith
-  have hc12' : (12 + c : ℝ) ≠ 0 := by linarith
-  have hc4' : (4 + c : ℝ) ≠ 0 := by linarith
-  have heq :
-      4 * (1 + eps) / (1 - eps) =
-        4 * (3 * c + 4) / (c + 12) := by
+  have hden : 0 < 1 - eps := sub_pos.mpr heps1
+  apply (div_lt_iff₀ hden).2
+  have hcancel :
+      (c + 4) * eps = (c - 4) / 2 := by
     dsimp [eps]
-    field_simp [ne_of_gt hc4, ne_of_gt hc12, hc12', hc4'] <;> ring
-  rw [heq]
-  apply (div_lt_iff₀ hc12).2
-  have hprod : 0 < (c - 4) * (c + 4) :=
-    mul_pos (sub_pos.mpr hc) hc4
-  nlinarith
+    field_simp [ne_of_gt hc4] <;> ring
+  have hgap : (c + 4) * eps < c - 4 := by
+    rw [hcancel]
+    linarith
+  linarith
 
 /-- Ultra-near upper coefficient 4, uniform under varying finite dimensions
 and varying cell cardinalities. -/
