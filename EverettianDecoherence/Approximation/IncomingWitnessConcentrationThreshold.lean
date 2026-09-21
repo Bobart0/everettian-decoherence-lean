@@ -77,7 +77,7 @@ theorem exists_dominant_activeGoodAt_incomingWitness
         incomingWitnessXiAt D U S v β i‖ ^ 2
   have hq0 : 0 ≤ q := by
     dsimp [q]
-    positivity
+    exact Finset.sum_nonneg fun i _ => sq_nonneg _
   have hq : q ≤ qB := by
     dsimp [q, qB, e]
     exact sum_incomingWitnessXiAt_sub_ZetaAt_norm_sq_le
