@@ -4,8 +4,7 @@ import EverettianDecoherence.Approximation.StabilitySharpness
 **FR.** Audit du front de stabilité quantitative ouvert après T5. Cette
 surface vérifie les déclarations publication-facing de rigidité exacte,
 stabilité quantitative à deux cellules, constante finie v12 `18`, coefficient
-asymptotique général `8`, coefficient ultra-near `4`, et familles explicites
-atteignant les constantes `8` et `4`. Les résultats restent algébriques, NON BORN-SENSITIVE et
+asymptotique général `8`, coefficient ultra-near `4`, et familles explicites atteignant les constantes `8` et `4`, ainsi que la famille continue C3 à deux paramètres interpolant `4/max{x,1-x}`. Les résultats restent algébriques, NON BORN-SENSITIVE et
 n'introduisent aucune revendication de décohérence ou de nouveauté
 bibliographique.
 
@@ -13,7 +12,7 @@ bibliographique.
 surface checks the publication-facing declarations for exact rigidity,
 quantitative two-cell stability, the v12 finite constant `18`, the general
 asymptotic coefficient `8`, the ultra-near coefficient `4`, and explicit
-three-dimensional families attaining `8` and `4`. The results remain algebraic, NON BORN-SENSITIVE,
+three-dimensional families attaining `8` and `4`, and the continuous two-parameter C3 family interpolating `4/max{x,1-x}`. The results remain algebraic, NON BORN-SENSITIVE,
 and make no decoherence or bibliographic-novelty claim.
 -/
 
@@ -65,6 +64,24 @@ open EverettianDecoherence.Approximation
 #check stabilitySharpnessScaledRatioV12_diag_tendsto_four
 #check stabilitySharpnessEta_div_deltaSq_diag_tendsto_zero
 
+
+#check v12TwoParamRotationMatrix_mem_unitary
+#check v12TwoParamCell0_budget_sq
+#check v12TwoParamCell1_budget_sq
+#check v12TwoParamCell2_budget_sq
+#check v12TwoParam_globalSq
+#check v12TwoParam_maxCut_sq_eq_gap_one
+#check v12TwoParam_envelopeDefect
+#check v12TwoParam_min_cell_budget_eq_tail
+#check v12TwoParamTopTwoTailFraction_eq
+#check v12TwoParamGlobal_tendsto_zero
+#check v12TwoParamEta_tendsto_zero
+#check v12TwoParamScaledRatio_tendsto_fixed_x
+#check v12TwoParamScaledRatio_half_exact
+#check v12TwoParamScaledRatio_half_tendsto_eight
+#check v12TwoParamScaledRatio_diag_tendsto_four
+#check v12TwoParamEtaOverGlobal_diag_tendsto_zero
+
 #print axioms EverettianDecoherence.Approximation.maxSubsetCommutatorOpNorm_sq_le_half_globalSq
 #print axioms EverettianDecoherence.Approximation.maxCut_saturation_iff_exactlyTwoActiveCellCommutators
 #print axioms EverettianDecoherence.Approximation.twoCellCommutatorConcentratedWithin_of_maxCut_near_saturated
@@ -83,3 +100,15 @@ open EverettianDecoherence.Approximation
 #print axioms EverettianDecoherence.Approximation.stabilitySharpnessScaledRatioV12_zero_tendsto_eight
 #print axioms EverettianDecoherence.Approximation.stabilitySharpnessScaledRatioV12_diag_tendsto_four
 #print axioms EverettianDecoherence.Approximation.stabilitySharpnessEta_div_deltaSq_diag_tendsto_zero
+
+
+#print axioms EverettianDecoherence.Approximation.v12TwoParamRotationMatrix_mem_unitary
+#print axioms EverettianDecoherence.Approximation.v12TwoParam_globalSq
+#print axioms EverettianDecoherence.Approximation.v12TwoParam_maxCut_sq_eq_gap_one
+#print axioms EverettianDecoherence.Approximation.v12TwoParam_envelopeDefect
+#print axioms EverettianDecoherence.Approximation.v12TwoParam_min_cell_budget_eq_tail
+#print axioms EverettianDecoherence.Approximation.v12TwoParamScaledRatio_tendsto_fixed_x
+#print axioms EverettianDecoherence.Approximation.v12TwoParamScaledRatio_half_exact
+#print axioms EverettianDecoherence.Approximation.v12TwoParamScaledRatio_half_tendsto_eight
+#print axioms EverettianDecoherence.Approximation.v12TwoParamScaledRatio_diag_tendsto_four
+#print axioms EverettianDecoherence.Approximation.v12TwoParamEtaOverGlobal_diag_tendsto_zero
