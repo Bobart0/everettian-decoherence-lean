@@ -184,8 +184,7 @@ theorem exists_two_cell_of_exact_maxCut_defect
             (A * ((1 - eta) / 2 - eta / eps)) =
         eta * v12GeneralSharpCoefficient eps A eta := by
     unfold v12GeneralSharpCoefficient
-    field_simp [hAne, hepsne, h1eps, hdenne]
-    ring
+    field_simp [hAne, hepsne, h1eps, hdenne] <;> ring
   rw [← hidentity]
   simpa [A] using htail
 
@@ -206,12 +205,13 @@ theorem exists_threshold_limit_lt_of_eight_lt
     linarith
   refine ⟨eps, heps0, heps1, ?_⟩
   have hc24 : 0 < c + 24 := by linarith
+  have hc24' : (24 + c : ℝ) ≠ 0 := by linarith
+  have hc8' : (8 + c : ℝ) ≠ 0 := by linarith
   have heq :
       8 * (1 + eps) / (1 - eps) =
         8 * (3 * c + 8) / (c + 24) := by
     dsimp [eps]
-    field_simp [ne_of_gt hc8, ne_of_gt hc24]
-    ring
+    field_simp [ne_of_gt hc8, ne_of_gt hc24, hc24', hc8'] <;> ring
   rw [heq]
   apply (div_lt_iff₀ hc24).2
   have hprod : 0 < (c - 8) * (c + 8) :=
