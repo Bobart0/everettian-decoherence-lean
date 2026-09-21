@@ -3,15 +3,17 @@ import EverettianDecoherence.Approximation.StabilitySharpness
 /-!
 **FR.** Audit du front de stabilité quantitative ouvert après T5. Cette
 surface vérifie les déclarations publication-facing de rigidité exacte,
-stabilité quantitative à deux cellules et sharpness d'échelle de la famille
-tridimensionnelle. Les résultats restent algébriques, NON BORN-SENSITIVE et
+stabilité quantitative à deux cellules, constante finie v12 `18`, coefficient
+asymptotique général `8`, coefficient ultra-near `4`, et familles explicites
+atteignant les constantes `8` et `4`. Les résultats restent algébriques, NON BORN-SENSITIVE et
 n'introduisent aucune revendication de décohérence ou de nouveauté
 bibliographique.
 
 **EN.** Audit of the quantitative-stability front opened after T5. This
 surface checks the publication-facing declarations for exact rigidity,
-quantitative two-cell stability, and scale sharpness of the explicit
-three-dimensional family. The results remain algebraic, NON BORN-SENSITIVE,
+quantitative two-cell stability, the v12 finite constant `18`, the general
+asymptotic coefficient `8`, the ultra-near coefficient `4`, and explicit
+three-dimensional families attaining `8` and `4`. The results remain algebraic, NON BORN-SENSITIVE,
 and make no decoherence or bibliographic-novelty claim.
 -/
 
@@ -29,6 +31,25 @@ open EverettianDecoherence.Approximation
 #check twoCellCommutatorConcentratedWithin_of_maxCut_near_saturated
 #check twoCellCommutatorConcentratedWithin_linear_of_maxCut_near_saturated
 
+
+#check twoCellStabilityModulus18
+#check twoCellStabilityModulus18_nonneg
+#check twoCellStabilityModulus18_le_linear
+#check exists_two_cell_concentration_of_cut_eta_18
+#check exists_two_cell_concentration_of_cut_eta_rho_18
+#check twoCellCommutatorConcentratedWithin18_of_maxCut_near_saturated
+#check twoCellCommutatorConcentratedWithin18_linear_of_maxCut_near_saturated
+
+#check maxCutEnvelopeDefect
+#check maxCutEnvelopeDefect_nonneg
+#check v12GeneralSharpCoefficient
+#check v12GeneralSharpCoefficient_tendsto
+#check eventually_two_cell_tail_le_of_small_defect
+
+#check v12UltraNearSharpCoefficient
+#check v12UltraNearSharpCoefficient_tendsto
+#check eventually_two_cell_tail_le_of_ultra_near
+
 #check perspectiveProjectorCommutatorOpNormProfile_sq_rankOne
 #check stabilitySharpness_globalSq
 #check stabilitySharpness_maxCut_eq_s
@@ -40,12 +61,25 @@ open EverettianDecoherence.Approximation
 #check stabilitySharpnessScaleLimit_eq_four_sub_two_D
 #check stabilitySharpnessScaleLimit_tendsto_four
 
+#check stabilitySharpnessScaledRatioV12_zero_tendsto_eight
+#check stabilitySharpnessScaledRatioV12_diag_tendsto_four
+#check stabilitySharpnessEta_div_deltaSq_diag_tendsto_zero
+
 #print axioms EverettianDecoherence.Approximation.maxSubsetCommutatorOpNorm_sq_le_half_globalSq
 #print axioms EverettianDecoherence.Approximation.maxCut_saturation_iff_exactlyTwoActiveCellCommutators
 #print axioms EverettianDecoherence.Approximation.twoCellCommutatorConcentratedWithin_of_maxCut_near_saturated
 #print axioms EverettianDecoherence.Approximation.twoCellCommutatorConcentratedWithin_linear_of_maxCut_near_saturated
+
+#print axioms EverettianDecoherence.Approximation.twoCellCommutatorConcentratedWithin18_of_maxCut_near_saturated
+#print axioms EverettianDecoherence.Approximation.twoCellCommutatorConcentratedWithin18_linear_of_maxCut_near_saturated
+#print axioms EverettianDecoherence.Approximation.eventually_two_cell_tail_le_of_small_defect
+#print axioms EverettianDecoherence.Approximation.eventually_two_cell_tail_le_of_ultra_near
 #print axioms EverettianDecoherence.Approximation.perspectiveProjectorCommutatorOpNormProfile_sq_rankOne
 #print axioms EverettianDecoherence.Approximation.stabilitySharpnessTau_div_Eta_exact
 #print axioms EverettianDecoherence.Approximation.stabilitySharpnessTau_div_Eta_tendsto_inv_D
 #print axioms EverettianDecoherence.Approximation.stabilitySharpness_delta_sq_tendsto_two_s_sq
 #print axioms EverettianDecoherence.Approximation.stabilitySharpnessScaleLimit_tendsto_four
+
+#print axioms EverettianDecoherence.Approximation.stabilitySharpnessScaledRatioV12_zero_tendsto_eight
+#print axioms EverettianDecoherence.Approximation.stabilitySharpnessScaledRatioV12_diag_tendsto_four
+#print axioms EverettianDecoherence.Approximation.stabilitySharpnessEta_div_deltaSq_diag_tendsto_zero
