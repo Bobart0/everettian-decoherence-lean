@@ -122,5 +122,91 @@ theorem exists_tail_le_of_spread_le_sharp
   apply (le_div_iff₀ hcoefpos).2
   simpa [mul_comm, mul_left_comm, mul_assoc] using hmul
 
+
+/-- Capped version of the small-spread refinement. The actual spread is
+bounded by K, while Kbar is a common upper cap used only to lower-bound the
+remaining dominant mass. This form is designed for bilateral aggregation. -/
+theorem exists_tail_le_of_spread_le_sharp_with_cap
+    {α : Type*} [DecidableEq α]
+    (S : Finset α) (p : α → ℝ) (K Kbar L : ℝ) (hS : S.Nonempty)
+    (hp : ∀ i ∈ S, 0 ≤ p i)
+    (hspread :
+      (∑ j ∈ S, p j) ^ 2 - (∑ j ∈ S, p j ^ 2) ≤ K)
+    (hL : L ≤ ∑ j ∈ S, p j) (hLpos : 0 < L)
+    (hK0 : 0 ≤ K) (hKbar0 : 0 ≤ Kbar)
+    (hKcap : K ≤ Kbar) (hKbarlt : Kbar < L ^ 2) :
+    ∃ i ∈ S,
+      (∑ j ∈ S.erase i, p j) ≤
+        K / (2 * (L - Kbar / L)) := by
+  obtain ⟨i, hi, _himax, hsq⟩ :=
+    exists_max_with_sum_sq_le_mul_sum S p hS hp
+  let M : ℝ := ∑ j ∈ S, p j
+  let T : ℝ := ∑ j ∈ S.erase i, p j
+  have hMpos : 0 < M := lt_of_lt_of_le hLpos hL
+  have hT0 : 0 ≤ T := by
+    dsimp [T]
+    exact Finset.sum_nonneg fun j hj =>
+      hp j (Finset.mem_of_mem_erase hj)
+  have hdecomp : M = T + p i := by
+    dsimp [M, T]
+    simpa [add_comm] using (Finset.sum_erase_add S p hi).symm
+  have hroughMul : T * M ≤ K := by
+    have hprod :
+        T * M ≤ M ^ 2 - (∑ j ∈ S, p j ^ 2) := by
+      calc
+        T * M = M ^ 2 - p i * M := by
+          rw [hdecomp]
+          ring
+        _ ≤ M ^ 2 - (∑ j ∈ S, p j ^ 2) := by
+          linarith
+    exact hprod.trans (by simpa [M] using hspread)
+  have hrough : T ≤ Kbar / L := by
+    have hTK : T ≤ K / L := by
+      apply (le_div_iff₀ hLpos).2
+      calc
+        T * L ≤ T * M :=
+          mul_le_mul_of_nonneg_left hL hT0
+        _ ≤ K := hroughMul
+    exact hTK.trans
+      (div_le_div_of_nonneg_right hKcap hLpos.le)
+  have hothersSq :
+      (∑ j ∈ S.erase i, p j ^ 2) ≤ T ^ 2 := by
+    simpa [T] using
+      sum_sq_le_sq_sum_of_nonneg (S.erase i) p
+        (by
+          intro j hj
+          exact hp j (Finset.mem_of_mem_erase hj))
+  have hsumSqDecomp :
+      (∑ j ∈ S, p j ^ 2) =
+        p i ^ 2 + ∑ j ∈ S.erase i, p j ^ 2 := by
+    have h :=
+      Finset.sum_erase_add S (fun j => p j ^ 2) hi
+    linarith
+  have hspreadLower :
+      2 * (M - T) * T ≤
+        M ^ 2 - (∑ j ∈ S, p j ^ 2) := by
+    have hpi : p i = M - T := by linarith [hdecomp]
+    rw [hsumSqDecomp, hpi]
+    nlinarith
+  have hLT : L - Kbar / L ≤ M - T := by
+    linarith
+  have hbasepos : 0 < L - Kbar / L := by
+    apply (sub_pos_iff_lt).2
+    apply (div_lt_iff₀ hLpos).2
+    simpa [pow_two, mul_comm] using hKbarlt
+  have hcoefpos : 0 < 2 * (L - Kbar / L) := by positivity
+  have hmul :
+      2 * (L - Kbar / L) * T ≤ K := by
+    calc
+      2 * (L - Kbar / L) * T ≤ 2 * (M - T) * T := by
+        have := mul_le_mul_of_nonneg_right hLT hT0
+        nlinarith
+      _ ≤ M ^ 2 - (∑ j ∈ S, p j ^ 2) := hspreadLower
+      _ ≤ K := by simpa [M] using hspread
+  refine ⟨i, hi, ?_⟩
+  apply (le_div_iff₀ hcoefpos).2
+  simpa [mul_comm, mul_left_comm, mul_assoc] using hmul
+
+
 end
 end EverettianDecoherence.Metrics
