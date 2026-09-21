@@ -77,7 +77,6 @@ theorem v12TwoParam_scaled_ratio_eq_simplified
   rw [v12TwoParam_global_factor, v12TwoParam_tail_factor]
   unfold v12TwoParamDefect v12TwoParamSimplifiedRatio
   field_simp [hd, hx, h1x]
-  ring
 
 theorem four_min_div_prod_eq_four_div_max
     (x : ℝ) (hx0 : 0 < x) (hx1 : x < 1) :
@@ -151,7 +150,8 @@ theorem v12TwoParamSimplifiedRatio_tendsto
   have hlim :
       m * 2 * 2 / q = 4 / max x (1 - x) := by
     simpa [m, q] using htarget
-  rw [hfun, hlim]
+  rw [hfun]
+  rw [← hlim]
   exact hdiv
 
 end
