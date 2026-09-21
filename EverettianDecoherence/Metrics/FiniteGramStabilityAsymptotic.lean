@@ -188,7 +188,6 @@ theorem gram_offDiagonal_spread_le_param
             (∑ i, ∑ j ∈ Finset.univ.erase i,
               (1 + 1 / t) * ‖inner ℂ (e i) (e j)‖ ^ 2) := by
                 simp_rw [mul_add, Finset.sum_add_distrib]
-                ring
           _ =
             (2 * (1 + t)) *
                 (∑ i, ∑ j ∈ Finset.univ.erase i,
