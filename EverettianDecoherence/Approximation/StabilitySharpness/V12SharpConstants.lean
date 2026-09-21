@@ -243,6 +243,14 @@ theorem stabilitySharpnessEta_div_deltaSq_diag_tendsto_zero :
     funext m
     exact stabilitySharpnessEta_div_deltaSq_diag_exact m
   rw [hfun]
+  change
+    Tendsto
+      (fun m : ℕ =>
+        (2 * stabilitySharpnessD m) /
+          ((2 - stabilitySharpnessD m) *
+            ((stabilitySharpnessD m * stabilitySharpnessD m + 4) *
+              (stabilitySharpnessD m * stabilitySharpnessD m + 4))))
+      atTop (𝓝 0) at hdiv
   simpa [pow_two] using hdiv
 
 end
