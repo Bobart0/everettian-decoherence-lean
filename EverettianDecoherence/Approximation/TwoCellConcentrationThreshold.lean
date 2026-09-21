@@ -88,13 +88,25 @@ theorem exists_two_cell_concentration_of_cut_threshold
   have hL_S : L ≤ AS - eS / β := by
     have hrest : 0 ≤ (E - eS) / β :=
       div_nonneg (sub_nonneg.mpr heS_E) hβ0.le
-    dsimp [L, eS]
-    nlinarith
+    have hdiff :
+        AS - eS / β - L = eS + (E - eS) / β := by
+      dsimp [L, eS]
+      ring
+    have hnon : 0 ≤ AS - eS / β - L := by
+      rw [hdiff]
+      exact add_nonneg heS0 hrest
+    linarith
   have hL_T : L ≤ AT - eT / β := by
     have hrest : 0 ≤ (E - eT) / β :=
       div_nonneg (sub_nonneg.mpr heT_E) hβ0.le
-    dsimp [L, eT]
-    nlinarith
+    have hdiff :
+        AT - eT / β - L = eT + (E - eT) / β := by
+      dsimp [L, eT]
+      ring
+    have hnon : 0 ≤ AT - eT / β - L := by
+      rw [hdiff]
+      exact add_nonneg heT0 hrest
+    linarith
   obtain ⟨i, hiS, hi⟩ :=
     exists_cell_concentration_of_cut_threshold
       D U S β t L hβ0 hβone ht hcpos hLpos'
@@ -172,7 +184,7 @@ theorem exists_two_cell_concentration_of_cut_threshold
       _ = (eS + eT) / β + (kS / L + kT / L) := by ring
       _ ≤ E / β + kE / L := by
         rw [hsumE]
-        exact add_le_add_left hkdiv _
+        exact add_le_add (le_refl _) hkdiv
   refine ⟨i, hiS, j, hjT, ?_⟩
   have hbudget :
       A - incomingWitnessP D U i - incomingWitnessP D U j =
