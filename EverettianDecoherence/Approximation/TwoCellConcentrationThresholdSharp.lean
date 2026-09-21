@@ -261,7 +261,7 @@ theorem exists_two_cell_concentration_of_cut_threshold_sharp
             kT / (2 * (L - kE / L))) := by ring
       _ ≤ E / β + kE / (2 * (L - kE / L)) := by
         rw [hsumE]
-        exact add_le_add_left hkdiv _
+        exact add_le_add (le_refl _) hkdiv
   refine ⟨i, hiS, j, hjT, ?_⟩
   have hbudget :
       A - incomingWitnessP D U i - incomingWitnessP D U j =
