@@ -58,7 +58,6 @@ theorem v12TwoParamEta_eq_canceled
     by_cases hB : 2 - d + x * (1 - x) * d = 0
     · simp [hB]
     · field_simp [hd, hB]
-      ring
 
 theorem v12TwoParamGlobal_tendsto_zero
     {α : Type*} {l : Filter α}
