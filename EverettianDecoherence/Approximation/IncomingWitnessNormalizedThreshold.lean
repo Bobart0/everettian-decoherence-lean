@@ -266,7 +266,8 @@ theorem incomingWitnessXiAt_sub_ZetaAt_norm_sq_le
     have htmp :
         incomingWitnessP D U i.1 ≤
           incomingWitnessR D U i.1 v / (1 - β) :=
-      (le_div_iff₀ hden).2 hrLower
+      (le_div_iff₀ hden).2 (by
+        simpa [mul_comm] using hrLower)
     simpa [div_eq_mul_inv, mul_comm, mul_left_comm, mul_assoc] using htmp
   have hratio :
       (incomingWitnessP D U i.1 / incomingWitnessR D U i.1 v) *
