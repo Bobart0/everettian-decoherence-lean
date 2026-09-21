@@ -183,13 +183,25 @@ theorem exists_two_cell_concentration_of_cut_threshold_sharp
   have hL_S : L ≤ AS - eS / β := by
     have hrest : 0 ≤ (E - eS) / β :=
       div_nonneg (sub_nonneg.mpr heS_E) hβ0.le
-    dsimp [L, eS]
-    nlinarith
+    have hdiff :
+        AS - eS / β - L = eS + (E - eS) / β := by
+      dsimp [L, eS]
+      ring
+    have hnon : 0 ≤ AS - eS / β - L := by
+      rw [hdiff]
+      exact add_nonneg heS0 hrest
+    linarith
   have hL_T : L ≤ AT - eT / β := by
     have hrest : 0 ≤ (E - eT) / β :=
       div_nonneg (sub_nonneg.mpr heT_E) hβ0.le
-    dsimp [L, eT]
-    nlinarith
+    have hdiff :
+        AT - eT / β - L = eT + (E - eT) / β := by
+      dsimp [L, eT]
+      ring
+    have hnon : 0 ≤ AT - eT / β - L := by
+      rw [hdiff]
+      exact add_nonneg heT0 hrest
+    linarith
   obtain ⟨i, hiS, hi⟩ :=
     exists_cell_concentration_of_cut_threshold_sharp
       D U S β t L kE hβ0 hβone ht hcpos hLpos'
@@ -211,7 +223,7 @@ theorem exists_two_cell_concentration_of_cut_threshold_sharp
         rw [recordSubsetProjectorCommutatorCLM_opNorm_compl D U S]
         simpa [eT, qT, kT, AT, C] using hkT_E)
   have hbasepos : 0 < L - kE / L := by
-    apply (sub_pos_iff_lt).2
+    apply sub_pos.mpr
     apply (div_lt_iff₀ hLpos').2
     simpa [pow_two, mul_comm] using hKlt'
   have hdenSharp : 0 < 2 * (L - kE / L) := by positivity
@@ -222,8 +234,12 @@ theorem exists_two_cell_concentration_of_cut_threshold_sharp
   have hj' :
       AT - incomingWitnessP D U j ≤
         eT / β + kT / (2 * (L - kE / L)) := by
-    simpa [AT, C, eT, qT, kT,
-      recordSubsetProjectorCommutatorCLM_opNorm_compl D U S] using hj
+    have hj0 := hj
+    rw [recordSubsetProjectorCommutatorCLM_opNorm_compl D U S] at hj0
+    change
+      AT - incomingWitnessP D U j ≤
+        eT / β + kT / (2 * (L - kE / L)) at hj0
+    exact hj0
   have hkdiv :
       kS / (2 * (L - kE / L)) +
           kT / (2 * (L - kE / L)) ≤
