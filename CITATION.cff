@@ -10,15 +10,25 @@ authors:
     country: FR
     orcid: "https://orcid.org/0009-0000-2457-375X"
 abstract: >-
-  This version contains only the initial harness, the upstream dependency
-  contract, and guards. It contains no local theorem of decoherence.
+  Lean 4 formalization of finite quantitative projector-commutator geometry,
+  including exact two-cell rigidity at cut-envelope saturation,
+  cardinality- and dimension-free near-saturation stability, the finite
+  coefficient-18 estimate, asymptotic coefficients 8 and 4, and a continuous
+  two-parameter C3 sharpness family interpolating the coefficient
+  4/max{x,1-x}. The release also contains the earlier ED1-ED4B and T1-T5
+  finite formalization chain. It introduces no time dynamics or physical
+  decoherence model.
 keywords:
-  - quantum foundations
-  - Everett interpretation
-  - decoherence
-  - robustness
   - Lean 4
   - formal verification
+  - orthogonal projections
+  - subspace gaps
+  - operator norm
+  - commutator inequalities
+  - rigidity
+  - stability
+  - quantum foundations
 license: Apache-2.0
-version: 0.1.0-dev
+version: 0.1.0
+date-released: 2026-09-21
 repository-code: "https://github.com/Bobart0/everettian-decoherence-lean"
