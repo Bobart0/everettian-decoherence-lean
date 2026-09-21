@@ -157,7 +157,6 @@ theorem gram_offDiagonal_spread_le_weighted
             (∑ i, ∑ j ∈ Finset.univ.erase i,
               (7 / 2 : ℝ) * ‖inner ℂ (e i) (e j)‖ ^ 2) := by
                 simp_rw [mul_add, Finset.sum_add_distrib]
-                ring
           _ =
             (14 / 5 : ℝ) *
                 (∑ i, ∑ j ∈ Finset.univ.erase i,
