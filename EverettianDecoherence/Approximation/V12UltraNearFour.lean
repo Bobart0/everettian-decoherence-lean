@@ -296,8 +296,10 @@ theorem exists_two_cell_of_exact_maxCut_defect_sharp
         eta * v12UltraNearSharpCoefficient eps A eta := by
     unfold v12UltraNearSharpCoefficient
     rw [hdenIdentity]
-    field_simp [hAne, hepsne, hsne]
-    ring
+    change
+      eta * A / eps + (eta * A * N) / (2 * A * s) =
+        eta * (A / eps + N / (2 * s))
+    field_simp [hAne, hepsne, hsne] <;> ring
   rw [← hidentity]
   simpa [A, d, N] using htail
 
@@ -316,12 +318,13 @@ theorem exists_threshold_limit_lt_of_four_lt
     linarith
   refine ⟨eps, heps0, heps1, ?_⟩
   have hc12 : 0 < c + 12 := by linarith
+  have hc12' : (12 + c : ℝ) ≠ 0 := by linarith
+  have hc4' : (4 + c : ℝ) ≠ 0 := by linarith
   have heq :
       4 * (1 + eps) / (1 - eps) =
         4 * (3 * c + 4) / (c + 12) := by
     dsimp [eps]
-    field_simp [ne_of_gt hc4, ne_of_gt hc12]
-    ring
+    field_simp [ne_of_gt hc4, ne_of_gt hc12, hc12', hc4'] <;> ring
   rw [heq]
   apply (div_lt_iff₀ hc12).2
   have hprod : 0 < (c - 4) * (c + 4) :=
