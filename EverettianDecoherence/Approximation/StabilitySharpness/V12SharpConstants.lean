@@ -64,7 +64,6 @@ theorem stabilitySharpnessB_zero_sq :
     stabilitySharpnessB 0 ^ 2 = 1 / 2 := by
   rw [stabilitySharpnessB_sq_eq_D_div_two,
     stabilitySharpnessD_zero]
-  norm_num
 
 noncomputable def stabilitySharpnessScaledRatioV12 (n m : ℕ) : ℝ :=
   operatorNormProjectorCommutatorL2 stabilitySharpnessPerspective3
@@ -96,7 +95,6 @@ theorem stabilitySharpnessScaledRatioV12_eq
           2 * stabilitySharpnessD m ^ 2 *
             stabilitySharpnessA n ^ 2 * stabilitySharpnessB n ^ 2) := by
         field_simp [hetane]
-        ring
     _ = _ := by rw [hratio]
 
 private theorem iterationSharpnessS_sq_eq_two_D_sub_D_sq (m : ℕ) :
@@ -152,8 +150,12 @@ theorem stabilitySharpnessScaledRatioV12_diag_exact (m : ℕ) :
       1 - stabilitySharpnessD m / 2 ≠ 0 := by
     rw [← stabilitySharpnessA_sq_eq_one_sub_D_div_two]
     exact ne_of_gt hA2
-  field_simp [hD, hden]
-  ring
+  have h2D : 2 - stabilitySharpnessD m ≠ 0 := by
+    intro h
+    apply hden
+    linarith
+  field_simp [hD, hden, h2D]
+  ring_nf
 
 /-- The diagonal path attains coefficient 4. -/
 theorem stabilitySharpnessScaledRatioV12_diag_tendsto_four :
@@ -164,7 +166,7 @@ theorem stabilitySharpnessScaledRatioV12_diag_tendsto_four :
       atTop (𝓝 0) := by
     have h2 := hD.mul hD
     have h4 := h2.mul h2
-    simpa [pow_two, pow_succ] using h4
+    convert h4 using 1 <;> norm_num <;> ring
   have h :=
     (tendsto_const_nhds :
       Tendsto (fun _ : ℕ => (4 : ℝ)) atTop (𝓝 4)).sub
@@ -224,9 +226,24 @@ theorem stabilitySharpnessEta_div_deltaSq_diag_tendsto_zero :
         Tendsto (fun _ : ℕ => (4 : ℝ)) atTop (𝓝 4))
   have hright := hright0.mul hright0
   have hden := hleft.mul hright
-  have hdiv := hnum.div hden (by norm_num : (32 : ℝ) ≠ 0)
-  convert hdiv using 1 <;>
-    simp [stabilitySharpnessEta_div_deltaSq_diag_exact, pow_two]
+  have hden0 :
+      (2 - (0 : ℝ)) *
+        (((0 : ℝ) * 0 + 4) * ((0 : ℝ) * 0 + 4)) ≠ 0 := by
+    norm_num
+  have hdiv := hnum.div hden hden0
+  have hfun :
+      (fun m : ℕ =>
+        stabilitySharpnessEta m m /
+          operatorNormProjectorCommutatorL2 stabilitySharpnessPerspective3
+            (stabilitySharpnessRotation m m) ^ 2) =
+      fun m : ℕ =>
+        (2 * stabilitySharpnessD m) /
+          ((2 - stabilitySharpnessD m) *
+            ((stabilitySharpnessD m ^ 2 + 4) ^ 2)) := by
+    funext m
+    exact stabilitySharpnessEta_div_deltaSq_diag_exact m
+  rw [hfun]
+  simpa [pow_two] using hdiv
 
 end
 end EverettianDecoherence.Approximation
