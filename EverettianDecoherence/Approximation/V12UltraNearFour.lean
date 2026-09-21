@@ -113,7 +113,17 @@ theorem v12UltraNearSharpDen_tendsto
             v12UltraNearNumerator eps (A k) (eta k)) /
               v12UltraNearBaseDen eps (eta k))
         l (𝓝 0) := by
-    exact hprod.div hbase (by norm_num : (1 / 2 : ℝ) ≠ 0)
+    have hraw :=
+      hprod.div hbase (by norm_num : (1 / 2 : ℝ) ≠ 0)
+    change
+      Tendsto
+        (fun k =>
+          ((eta k / A k) *
+            v12UltraNearNumerator eps (A k) (eta k)) /
+              v12UltraNearBaseDen eps (eta k))
+        l (𝓝 (0 / (1 / 2 : ℝ))) at hraw
+    norm_num at hraw
+    exact hraw
   unfold v12UltraNearSharpDen
   simpa using hbase.sub hfrac
 
@@ -237,7 +247,12 @@ theorem exists_two_cell_of_exact_maxCut_defect_sharp
   have hratioLt :
       (eta / A) * N < d ^ 2 := by
     have hlt : (eta / A) * N / d < d := by linarith
-    exact (div_lt_iff₀ hdpos).1 hlt
+    calc
+      (eta / A) * N =
+          ((eta / A) * N / d) * d := by
+            field_simp [hdne]
+      _ < d * d := mul_lt_mul_of_pos_right hlt hdpos
+      _ = d ^ 2 := by ring
   have hA2pos : 0 < A ^ 2 := sq_pos_of_pos hApos
   have hscaled :=
     mul_lt_mul_of_pos_left hratioLt hA2pos
@@ -247,7 +262,6 @@ theorem exists_two_cell_of_exact_maxCut_defect_sharp
       eta * A * N =
           A ^ 2 * ((eta / A) * N) := by
             field_simp [hAne]
-            ring
       _ < A ^ 2 * d ^ 2 := hscaled
       _ = (A * d) ^ 2 := by ring
   have hKlt :
