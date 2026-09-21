@@ -21,6 +21,17 @@ open scoped BigOperators InnerProductSpace
 
 noncomputable section
 
+
+private theorem double_sum_const_mul
+    {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (a : ℝ) (f : ι → ι → ℝ) :
+    (∑ i, ∑ j ∈ Finset.univ.erase i, a * f i j) =
+      a * (∑ i, ∑ j ∈ Finset.univ.erase i, f i j) := by
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro i _
+  rw [Finset.mul_sum]
+
 private theorem sq_add_three_le_weighted (a b c : ℝ) :
     (a + b + c) ^ 2 ≤
       (14 / 5 : ℝ) * (a ^ 2 + b ^ 2) + (7 / 2 : ℝ) * c ^ 2 := by
@@ -133,8 +144,41 @@ theorem gram_offDiagonal_spread_le_weighted
             exact hpair i j (Finset.ne_of_mem_erase hj).symm
       _ = (14 / 5 : ℝ) * (T₁ + T₂) + (7 / 2 : ℝ) * T₃ := by
         dsimp [T₁, T₂, T₃]
-        simp_rw [Finset.sum_add_distrib, Finset.mul_sum]
-        ring_nf
+        calc
+          (∑ i, ∑ j ∈ Finset.univ.erase i,
+              ((14 / 5 : ℝ) *
+                (‖inner ℂ (e i) (ξ j)‖ ^ 2 +
+                  ‖inner ℂ (ξ i) (e j)‖ ^ 2) +
+                (7 / 2 : ℝ) * ‖inner ℂ (e i) (e j)‖ ^ 2)) =
+            (∑ i, ∑ j ∈ Finset.univ.erase i,
+              (14 / 5 : ℝ) * ‖inner ℂ (e i) (ξ j)‖ ^ 2) +
+            (∑ i, ∑ j ∈ Finset.univ.erase i,
+              (14 / 5 : ℝ) * ‖inner ℂ (ξ i) (e j)‖ ^ 2) +
+            (∑ i, ∑ j ∈ Finset.univ.erase i,
+              (7 / 2 : ℝ) * ‖inner ℂ (e i) (e j)‖ ^ 2) := by
+                simp_rw [mul_add, Finset.sum_add_distrib]
+                ring
+          _ =
+            (14 / 5 : ℝ) *
+                (∑ i, ∑ j ∈ Finset.univ.erase i,
+                  ‖inner ℂ (e i) (ξ j)‖ ^ 2) +
+              (14 / 5 : ℝ) *
+                (∑ i, ∑ j ∈ Finset.univ.erase i,
+                  ‖inner ℂ (ξ i) (e j)‖ ^ 2) +
+              (7 / 2 : ℝ) *
+                (∑ i, ∑ j ∈ Finset.univ.erase i,
+                  ‖inner ℂ (e i) (e j)‖ ^ 2) := by
+                rw [double_sum_const_mul, double_sum_const_mul,
+                  double_sum_const_mul]
+          _ =
+            (14 / 5 : ℝ) *
+                ((∑ i, ∑ j ∈ Finset.univ.erase i,
+                    ‖inner ℂ (e i) (ξ j)‖ ^ 2) +
+                  (∑ i, ∑ j ∈ Finset.univ.erase i,
+                    ‖inner ℂ (ξ i) (e j)‖ ^ 2)) +
+              (7 / 2 : ℝ) *
+                (∑ i, ∑ j ∈ Finset.univ.erase i,
+                  ‖inner ℂ (e i) (e j)‖ ^ 2) := by ring
   have hT₁ : T₁ ≤ q := by
     calc
       T₁ ≤ ∑ i, ∑ j, ‖inner ℂ (e i) (ξ j)‖ ^ 2 := by
