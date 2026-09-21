@@ -50,10 +50,11 @@ theorem v12TwoParamEta_eq_canceled
   · subst d
     simp [v12TwoParamEta, v12TwoParamDefect,
       v12TwoParamGlobal]
-  · rw [show v12TwoParamGlobal d x =
+  · unfold v12TwoParamEta
+    rw [show v12TwoParamGlobal d x =
         2 * d * (2 - d + x * (1 - x) * d) by
         exact v12TwoParam_global_factor d x]
-    unfold v12TwoParamEta v12TwoParamDefect
+    unfold v12TwoParamDefect
     by_cases hB : 2 - d + x * (1 - x) * d = 0
     · simp [hB]
     · field_simp [hd, hB]
@@ -198,7 +199,6 @@ theorem v12TwoParamSimplifiedRatio_diag_exact
   unfold v12TwoParamSimplifiedRatio
   rw [hmin]
   field_simp [hdne, h1d]
-  ring
 
 theorem v12TwoParamSimplifiedRatio_diag_tendsto_four
     {α : Type*} {l : Filter α}
@@ -289,7 +289,6 @@ theorem v12TwoParamEtaOverGlobal_diag_exact
   unfold v12TwoParamEtaOverGlobal v12TwoParamDefect
   rw [v12TwoParam_global_factor]
   field_simp [hdne, hBne]
-  ring
 
 theorem v12TwoParamEtaOverGlobal_diag_tendsto_zero
     {α : Type*} {l : Filter α}
@@ -337,7 +336,9 @@ theorem v12TwoParamEtaOverGlobal_diag_tendsto_zero
     have htwo :
         Tendsto (fun _ : α => (2 : ℝ)) l (𝓝 2) :=
       tendsto_const_nhds
-    simpa using htwo.mul hB2
+    have h := htwo.mul hB2
+    norm_num at h
+    exact h
   have hdiv := hnum.div hden (by norm_num : (8 : ℝ) ≠ 0)
   have hfun :
       (fun k => v12TwoParamEtaOverGlobal (d k) (d k)) =
