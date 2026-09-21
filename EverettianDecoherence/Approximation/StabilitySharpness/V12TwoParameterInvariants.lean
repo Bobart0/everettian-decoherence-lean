@@ -144,8 +144,17 @@ private theorem v12TwoParam_subset_opNorm_sq_le_gap_one_of_card_le_one
     have hcell :=
       v12TwoParam_cell_budget_le_gap_one
         d x hx0 hx1 hd0 hd1 c
-    unfold subsetProjectorCommutatorOpNormSq at hsq
-    simpa [cellCommutatorOpNormSq] using hsq.trans hcell
+    have hsum :
+        subsetProjectorCommutatorOpNormSq stabilitySharpnessPerspective3
+          (v12TwoParamRotation d x hx0 hx1 hd0
+            (hd1.trans (by norm_num))) {c} =
+        cellCommutatorOpNormSq stabilitySharpnessPerspective3
+          (v12TwoParamRotation d x hx0 hx1 hd0
+            (hd1.trans (by norm_num))) c := by
+      unfold subsetProjectorCommutatorOpNormSq cellCommutatorOpNormSq
+      simp
+    rw [hsum] at hsq
+    exact hsq.trans hcell
 
 theorem v12TwoParam_subset_opNorm_sq_le_gap_one
     (d x : ℝ)
