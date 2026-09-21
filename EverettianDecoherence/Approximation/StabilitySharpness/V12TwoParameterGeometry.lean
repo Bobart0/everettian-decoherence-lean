@@ -159,22 +159,24 @@ noncomputable def v12TwoParamRotation
     (v12TwoParamRotationUnitary d x hx0 hx1 hd0 hd2)
 
 @[simp] theorem v12TwoParamRotationMatrix_00
-    (d x : ℝ) :
+    (d x : ℝ) (hx0 : 0 ≤ x) (hx1 : x ≤ 1) :
     v12TwoParamRotationMatrix d x (0 : Fin 3) (0 : Fin 3) =
       (1 - d * v12TwoParamA x ^ 2 : ℝ) := by
   unfold v12TwoParamRotationMatrix v12TwoParamBasisMatrix
     v12TwoParamPlaneRotationMatrix v12TwoParamC
   simp [Matrix.mul_apply, Fin.sum_univ_three]
-  ring
+  have hAB := v12TwoParamA_sq_add_B_sq_complex x hx0 hx1
+  linear_combination hAB
 
 @[simp] theorem v12TwoParamRotationMatrix_11
-    (d x : ℝ) :
+    (d x : ℝ) (hx0 : 0 ≤ x) (hx1 : x ≤ 1) :
     v12TwoParamRotationMatrix d x (1 : Fin 3) (1 : Fin 3) =
       (1 - d * v12TwoParamB x ^ 2 : ℝ) := by
   unfold v12TwoParamRotationMatrix v12TwoParamBasisMatrix
     v12TwoParamPlaneRotationMatrix v12TwoParamC
   simp [Matrix.mul_apply, Fin.sum_univ_three]
-  ring
+  have hAB := v12TwoParamA_sq_add_B_sq_complex x hx0 hx1
+  linear_combination hAB
 
 @[simp] theorem v12TwoParamRotationMatrix_22
     (d x : ℝ) :
@@ -228,7 +230,7 @@ theorem v12TwoParamCell0_budget_sq
     (stabilitySharpnessBasis3_norm (0 : Fin 3))
     (stabilitySharpnessCell3_val (0 : Fin 3))]
   rw [v12TwoParamRotation_inner_basis,
-    v12TwoParamRotationMatrix_00]
+    v12TwoParamRotationMatrix_00 d x hx0 hx1]
   rw [Complex.norm_real, Real.norm_eq_abs, sq_abs]
   have hA := v12TwoParamA_sq_add_B_sq x hx0 hx1
   have hBsq : v12TwoParamB x ^ 2 = x := by
@@ -261,7 +263,7 @@ theorem v12TwoParamCell1_budget_sq
     (stabilitySharpnessBasis3_norm (1 : Fin 3))
     (stabilitySharpnessCell3_val (1 : Fin 3))]
   rw [v12TwoParamRotation_inner_basis,
-    v12TwoParamRotationMatrix_11]
+    v12TwoParamRotationMatrix_11 d x hx0 hx1]
   rw [Complex.norm_real, Real.norm_eq_abs, sq_abs]
   have hBsq : v12TwoParamB x ^ 2 = x := by
     unfold v12TwoParamB
