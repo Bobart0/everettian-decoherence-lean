@@ -204,19 +204,16 @@ theorem exists_threshold_limit_lt_of_eight_lt
     apply (div_lt_one (by positivity)).2
     linarith
   refine ⟨eps, heps0, heps1, ?_⟩
-  have hc24 : 0 < c + 24 := by linarith
-  have hc24' : (24 + c : ℝ) ≠ 0 := by linarith
-  have hc8' : (8 + c : ℝ) ≠ 0 := by linarith
-  have heq :
-      8 * (1 + eps) / (1 - eps) =
-        8 * (3 * c + 8) / (c + 24) := by
+  have hden : 0 < 1 - eps := sub_pos.mpr heps1
+  apply (div_lt_iff₀ hden).2
+  have hcancel :
+      (c + 8) * eps = (c - 8) / 2 := by
     dsimp [eps]
-    field_simp [ne_of_gt hc8, ne_of_gt hc24, hc24', hc8'] <;> ring
-  rw [heq]
-  apply (div_lt_iff₀ hc24).2
-  have hprod : 0 < (c - 8) * (c + 8) :=
-    mul_pos (sub_pos.mpr hc) hc8
-  nlinarith
+    field_simp [ne_of_gt hc8] <;> ring
+  have hgap : (c + 8) * eps < c - 8 := by
+    rw [hcancel]
+    linarith
+  linarith
 
 /-- General sharp coefficient 8, in an eventual form robust under varying
 finite dimensions and varying cell cardinalities. -/
