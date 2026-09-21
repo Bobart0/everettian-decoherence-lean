@@ -80,15 +80,31 @@ private theorem v12TwoParam_cell_budget_le_gap_one
     cellCommutatorOpNormSq stabilitySharpnessPerspective3
         (v12TwoParamRotation d x hx0 hx1 hd0 (hd1.trans (by norm_num))) c ≤
       v12TwoParamGap d 1 := by
+  have hd2 : d ≤ 2 := by linarith
   obtain ⟨i, hi⟩ := stabilitySharpnessCell3_bijective.2 c
   rw [← hi]
   fin_cases i
-  · rw [v12TwoParamCell0_budget_sq]
+  · change
+      cellCommutatorOpNormSq stabilitySharpnessPerspective3
+        (v12TwoParamRotation d x hx0 hx1 hd0 hd2)
+        (stabilitySharpnessCell3 (0 : Fin 3)) ≤
+      v12TwoParamGap d 1
+    rw [v12TwoParamCell0_budget_sq d x hx0 hx1 hd0 hd2]
     exact v12TwoParamGap_le_gap_one d (1 - x) hd0 hd1
       (sub_nonneg.mpr hx1) (by linarith)
-  · rw [v12TwoParamCell1_budget_sq]
+  · change
+      cellCommutatorOpNormSq stabilitySharpnessPerspective3
+        (v12TwoParamRotation d x hx0 hx1 hd0 hd2)
+        (stabilitySharpnessCell3 (1 : Fin 3)) ≤
+      v12TwoParamGap d 1
+    rw [v12TwoParamCell1_budget_sq d x hx0 hx1 hd0 hd2]
     exact v12TwoParamGap_le_gap_one d x hd0 hd1 hx0 hx1
-  · rw [v12TwoParamCell2_budget_sq]
+  · change
+      cellCommutatorOpNormSq stabilitySharpnessPerspective3
+        (v12TwoParamRotation d x hx0 hx1 hd0 hd2)
+        (stabilitySharpnessCell3 (2 : Fin 3)) ≤
+      v12TwoParamGap d 1
+    rw [v12TwoParamCell2_budget_sq d x hx0 hx1 hd0 hd2]
 
 private theorem v12TwoParam_subset_opNorm_sq_le_gap_one_of_card_le_one
     (d x : ℝ)
@@ -109,24 +125,27 @@ private theorem v12TwoParam_subset_opNorm_sq_le_gap_one_of_card_le_one
         (v12TwoParamRotation d x hx0 hx1 hd0 (hd1.trans (by norm_num))) ∅
     have hgap0 :=
       v12TwoParamGap_nonneg d 1 hd0 hd1 (by norm_num) (by norm_num)
-    unfold subsetProjectorCommutatorOpNormSq at hsq
-    simp at hsq
-    exact hsq.trans hgap0
+    have hnorm0 :
+        ‖recordSubsetProjectorCommutatorCLM stabilitySharpnessPerspective3
+          (v12TwoParamRotation d x hx0 hx1 hd0
+            (hd1.trans (by norm_num))) ∅‖ = 0 := by
+      unfold subsetProjectorCommutatorOpNormSq at hsq
+      simp at hsq
+      simpa [hsq]
+    rw [hnorm0]
+    simpa using hgap0
   · have hone : S.card = 1 := by omega
     obtain ⟨c, rfl⟩ := Finset.card_eq_one.mp hone
-    calc
-      ‖recordSubsetProjectorCommutatorCLM stabilitySharpnessPerspective3
-          (v12TwoParamRotation d x hx0 hx1 hd0 (hd1.trans (by norm_num))) {c}‖ ^ 2
-          ≤ subsetProjectorCommutatorOpNormSq stabilitySharpnessPerspective3
-              (v12TwoParamRotation d x hx0 hx1 hd0 (hd1.trans (by norm_num))) {c} :=
-        recordSubsetProjectorCommutatorCLM_opNorm_sq_le_subsetSq
-          stabilitySharpnessPerspective3
-          (v12TwoParamRotation d x hx0 hx1 hd0 (hd1.trans (by norm_num))) {c}
-      _ = cellCommutatorOpNormSq stabilitySharpnessPerspective3
-              (v12TwoParamRotation d x hx0 hx1 hd0 (hd1.trans (by norm_num))) c := by
-        rw [singletonSubsetCommutatorOpNormSq_eq_cell]
-      _ ≤ v12TwoParamGap d 1 :=
-        v12TwoParam_cell_budget_le_gap_one d x hx0 hx1 hd0 hd1 c
+    have hsq :=
+      recordSubsetProjectorCommutatorCLM_opNorm_sq_le_subsetSq
+        stabilitySharpnessPerspective3
+        (v12TwoParamRotation d x hx0 hx1 hd0
+          (hd1.trans (by norm_num))) {c}
+    have hcell :=
+      v12TwoParam_cell_budget_le_gap_one
+        d x hx0 hx1 hd0 hd1 c
+    unfold subsetProjectorCommutatorOpNormSq at hsq
+    simpa [cellCommutatorOpNormSq] using hsq.trans hcell
 
 theorem v12TwoParam_subset_opNorm_sq_le_gap_one
     (d x : ℝ)
