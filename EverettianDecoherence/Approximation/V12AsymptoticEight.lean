@@ -62,7 +62,7 @@ theorem v12GeneralSharpCoefficient_tendsto
         Tendsto (fun _ : α => (1 + 1 / eps : ℝ)) l
           (𝓝 (1 + 1 / eps))).mul hetaA
     have hdiv := hmul.div_const ((1 - eps) ^ 2)
-    simpa using hdiv
+    simpa [mul_assoc] using hdiv
   have hnum :
       Tendsto
         (fun k =>
@@ -171,7 +171,8 @@ theorem exists_two_cell_of_exact_maxCut_defect
     rw [show maxSubsetCommutatorOpNorm D U ^ 2 = g by rfl, hgEq]
     field_simp [hepsne]
     ring
-  rw [hexact, hLidentity] at htail
+  rw [hLidentity] at htail
+  rw [hexact] at htail
   change
     A - cellCommutatorOpNormSq D U i -
           cellCommutatorOpNormSq D U j ≤
@@ -204,8 +205,17 @@ theorem exists_threshold_limit_lt_of_eight_lt
     apply (div_lt_one (by positivity)).2
     linarith
   refine ⟨eps, heps0, heps1, ?_⟩
-  dsimp [eps]
-  field_simp [ne_of_gt hc8]
+  have hc24 : 0 < c + 24 := by linarith
+  have heq :
+      8 * (1 + eps) / (1 - eps) =
+        8 * (3 * c + 8) / (c + 24) := by
+    dsimp [eps]
+    field_simp [ne_of_gt hc8, ne_of_gt hc24]
+    ring
+  rw [heq]
+  apply (div_lt_iff₀ hc24).2
+  have hprod : 0 < (c - 8) * (c + 8) :=
+    mul_pos (sub_pos.mpr hc) hc8
   nlinarith
 
 /-- General sharp coefficient 8, in an eventual form robust under varying
