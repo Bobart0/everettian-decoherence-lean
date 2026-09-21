@@ -124,13 +124,15 @@ theorem normalized_residual_close_ratio
   have hratio :
       2 * p - 2 * (Real.sqrt p * Real.sqrt r) ≤
         (p / r) * (p - r) := by
-    apply (le_div_iff₀ hr).2
     calc
-      (2 * p - 2 * (Real.sqrt p * Real.sqrt r)) * r
-          = r * (2 * p - 2 * (Real.sqrt p * Real.sqrt r)) := by ring
-      _ ≤ p * (p - r) := hmul
-      _ = ((p / r) * (p - r)) * r := by
-        field_simp [ne_of_gt hr]
+      2 * p - 2 * (Real.sqrt p * Real.sqrt r) ≤
+          (p * (p - r)) / r := by
+        apply (le_div_iff₀ hr).2
+        calc
+          (2 * p - 2 * (Real.sqrt p * Real.sqrt r)) * r
+              = r * (2 * p - 2 * (Real.sqrt p * Real.sqrt r)) := by ring
+          _ ≤ p * (p - r) := hmul
+      _ = (p / r) * (p - r) := by ring
   exact hbasic.trans hratio
 
 end
