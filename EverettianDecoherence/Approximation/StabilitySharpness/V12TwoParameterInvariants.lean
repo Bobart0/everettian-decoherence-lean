@@ -1,6 +1,6 @@
 import EverettianDecoherence.Approximation.StabilitySharpness.V12TwoParameterGeometry
 import EverettianDecoherence.Approximation.StabilitySharpness.GlobalBudget
-import EverettianDecoherence.Approximation.CutEnvelopeDefect
+import EverettianDecoherence.Approximation.MaxCutThresholdStability
 
 /-!
 **FR.** Invariants globaux de la réalisation géométrique v12 à deux
