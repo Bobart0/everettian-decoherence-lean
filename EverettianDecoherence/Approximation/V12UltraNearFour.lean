@@ -63,7 +63,7 @@ theorem v12UltraNearNumerator_tendsto
       (tendsto_const_nhds :
         Tendsto (fun _ : α => (1 + 1 / eps : ℝ)) l
           (𝓝 (1 + 1 / eps))).mul hetaA
-    simpa using hmul.div_const ((1 - eps) ^ 2)
+    simpa [mul_assoc] using hmul.div_const ((1 - eps) ^ 2)
   unfold v12UltraNearNumerator
   simpa using
     (tendsto_const_nhds :
@@ -263,7 +263,8 @@ theorem exists_two_cell_of_exact_maxCut_defect_sharp
     exists_two_cell_concentration_of_maxCut_threshold_sharp
       D U eps eps heps0 heps1 heps0 hGpos hLpos hKlt
   refine ⟨i, j, hij, ?_⟩
-  rw [hexact, hLidentity, hKidentity] at htail
+  rw [hLidentity, hKidentity] at htail
+  rw [hexact] at htail
   change
     A - cellCommutatorOpNormSq D U i -
           cellCommutatorOpNormSq D U j ≤
@@ -300,8 +301,17 @@ theorem exists_threshold_limit_lt_of_four_lt
     apply (div_lt_one (by positivity)).2
     linarith
   refine ⟨eps, heps0, heps1, ?_⟩
-  dsimp [eps]
-  field_simp [ne_of_gt hc4]
+  have hc12 : 0 < c + 12 := by linarith
+  have heq :
+      4 * (1 + eps) / (1 - eps) =
+        4 * (3 * c + 4) / (c + 12) := by
+    dsimp [eps]
+    field_simp [ne_of_gt hc4, ne_of_gt hc12]
+    ring
+  rw [heq]
+  apply (div_lt_iff₀ hc12).2
+  have hprod : 0 < (c - 4) * (c + 4) :=
+    mul_pos (sub_pos.mpr hc) hc4
   nlinarith
 
 /-- Ultra-near upper coefficient 4, uniform under varying finite dimensions
