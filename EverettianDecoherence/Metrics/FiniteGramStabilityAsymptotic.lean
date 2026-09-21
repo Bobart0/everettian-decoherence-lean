@@ -31,10 +31,20 @@ private theorem sq_add_three_le_param
       2 * (a + b) * c - t * (a + b) ^ 2 ≤ c ^ 2 / t := by
     apply (le_div_iff₀ ht).2
     nlinarith [sq_nonneg (t * (a + b) - c)]
+  have hcross' :
+      2 * (a + b) * c ≤ t * (a + b) ^ 2 + c ^ 2 / t := by
+    linarith
   have hyoung :
       ((a + b) + c) ^ 2 ≤
         (1 + t) * (a + b) ^ 2 + (1 + 1 / t) * c ^ 2 := by
-    nlinarith
+    calc
+      ((a + b) + c) ^ 2 =
+          (a + b) ^ 2 + 2 * (a + b) * c + c ^ 2 := by ring
+      _ ≤ (a + b) ^ 2 +
+          (t * (a + b) ^ 2 + c ^ 2 / t) + c ^ 2 := by
+            linarith
+      _ = (1 + t) * (a + b) ^ 2 +
+          (1 + 1 / t) * c ^ 2 := by ring
   have hcoef : 0 ≤ 1 + t := by linarith
   calc
     (a + b + c) ^ 2 = ((a + b) + c) ^ 2 := by ring
@@ -154,7 +164,7 @@ theorem gram_offDiagonal_spread_le_param
       _ = 2 * (1 + t) * (T₁ + T₂) + (1 + 1 / t) * T₃ := by
         dsimp [T₁, T₂, T₃]
         simp_rw [Finset.sum_add_distrib, Finset.mul_sum]
-        ring
+        ring_nf
   have hT₁ : T₁ ≤ q := by
     calc
       T₁ ≤ ∑ i, ∑ j, ‖inner ℂ (e i) (ξ j)‖ ^ 2 := by
