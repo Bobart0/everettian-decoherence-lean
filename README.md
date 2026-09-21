@@ -36,10 +36,7 @@ Résultats locaux actuels :
 - **T5A/T5B** — coefficient optimal exact `sqrt 2` pour le transfert uniforme
   ED3B sur les états normalisés : T5A fournit la saturation et T5B la borne
   universelle ;
-- **front post-T5 de stabilité quantitative** — classification exacte du cas
-  de saturation sur deux cellules, modulus explicite à échelle fixée, et
-  famille tridimensionnelle établissant la nécessité de la dépendance
-  `η / ρ^2` à constante près.
+- **front post-T5 de stabilité quantitative** — enveloppe des cuts, rigidité exacte à deux cellules, module v12 avec constante finie `18`, coefficient asymptotique général `8`, coefficient ultra-near `4`, et famille continue à deux paramètres réalisée dans `ℂ^3` avec interpolation `4 / max{x,1-x}`.
 
 ED1–ED4B ainsi que T1–T5 sont formalisés et audités dans leur portée
 documentée. Les déclarations principales ED4A et ED4B sont aussi
@@ -111,10 +108,7 @@ Current local results:
 - **T5A/T5B** — exact optimal `sqrt 2` coefficient for the uniform ED3B
   transfer on normalized states: T5A supplies saturation and T5B the universal
   upper bound;
-- **post-T5 quantitative-stability front** — exact two-cell saturation
-  classification, an explicit fixed-scale modulus, and a three-dimensional
-  family establishing the necessity of the `η / ρ^2` dependence up to
-  constants.
+- **post-T5 quantitative-stability front** — cut envelope, exact two-cell rigidity, the v12 finite coefficient `18`, general asymptotic coefficient `8`, ultra-near coefficient `4`, and a continuous two-parameter `ℂ^3` family interpolating `4 / max{x,1-x}`.
 
 ED1–ED4B and T1–T5 are formalized and audited in their documented scope.
 The principal ED4A and ED4B declarations are also
