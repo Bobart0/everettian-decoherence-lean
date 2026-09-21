@@ -17,8 +17,12 @@ temporelle, aucune décohérence ni aucune émergence de perspective.
 |---|---|---|---|---|
 | Enveloppe des cuts | \(C_{\max}^2 \le \delta^2/2\) | `maxSubsetCommutatorOpNorm_sq_le_half_globalSq` | `Approximation/CutEnvelope.lean` | `Audit/StabilityRigiditySharpness.lean` |
 | Rigidité exacte | pour \(\delta>0\), saturation ssi exactement deux cellules sont actives | `maxCut_saturation_iff_exactlyTwoActiveCellCommutators` | `Approximation/ExactTwoCellActiveRigidity.lean` | idem |
-| Modulus de stabilité | \(\tau \le 2\eta + 36\eta/((1-3\eta)\rho^2)\) pour \(0\le\eta\le1/5\), \(\delta\ge\rho>0\) | `twoCellCommutatorConcentratedWithin_of_maxCut_near_saturated` | `Approximation/CutEnvelopeStability.lean` | idem |
-| Corollaire linéaire | \(\tau \le \eta(2+72/\rho^2)\) pour \(\eta\le1/6\) | `twoCellCommutatorConcentratedWithin_linear_of_maxCut_near_saturated` | `Approximation/CutEnvelopeStability.lean` | idem |
+| Modulus de stabilité v12 | \(\tau \le 2\eta + 18\eta/((1-3\eta)\rho^2)\) pour \(0\le\eta\le1/5\), \(\delta\ge\rho>0\) | `twoCellCommutatorConcentratedWithin18_of_maxCut_near_saturated` | `Approximation/CutEnvelopeStabilitySharp.lean` | idem |
+| Corollaire linéaire v12 | \(\tau \le \eta(2+36/\rho^2)\) pour \(\eta\le1/6\) | `twoCellCommutatorConcentratedWithin18_linear_of_maxCut_near_saturated` | `Approximation/CutEnvelopeStabilitySharp.lean` | idem |
+| Coefficient asymptotique général | pour \(\delta^2\to0\), \(\eta\to0\), toute constante \(c>8\) contrôle finalement la queue absolue par \(c\eta\), uniformément en dimension/cardinalité | `eventually_two_cell_tail_le_of_small_defect` | `Approximation/V12AsymptoticEight.lean` | idem |
+| Optimalité du 8 | une sous-famille explicite vérifie \(\delta^2\tau/\eta\to8\) | `stabilitySharpnessScaledRatioV12_zero_tendsto_eight` | `Approximation/StabilitySharpness/V12SharpConstants.lean` | idem |
+| Régime ultra-near | si en plus \(\eta/\delta^2\to0\), toute constante \(c>4\) contrôle finalement la queue absolue par \(c\eta\) | `eventually_two_cell_tail_le_of_ultra_near` | `Approximation/V12UltraNearFour.lean` | idem |
+| Optimalité du 4 ultra-near | une sous-famille explicite vérifie \(\eta/\delta^2\to0\) et \(\delta^2\tau/\eta\to4\) | `stabilitySharpnessScaledRatioV12_diag_tendsto_four`, `stabilitySharpnessEta_div_deltaSq_diag_tendsto_zero` | `Approximation/StabilitySharpness/V12SharpConstants.lean` | idem |
 | Formule rang 1 | identité exacte du budget d'une cellule rang 1 | `perspectiveProjectorCommutatorOpNormProfile_sq_rankOne` | `Approximation/RankOneCellCommutatorFormula.lean` | idem |
 | Budget global de la famille | formule exacte de \(\delta_{n,m}^2\) | `stabilitySharpness_globalSq` | `Approximation/StabilitySharpness/GlobalBudget.lean` | idem |
 | Cut maximal de la famille | \(C_{\max}=s_m\) | `stabilitySharpness_maxCut_eq_s` | `Approximation/StabilitySharpness/MaxCut.lean` | idem |
@@ -52,8 +56,12 @@ It establishes no time dynamics, decoherence, or emergence of a perspective.
 |---|---|---|---|---|
 | Cut envelope | \(C_{\max}^2 \le \delta^2/2\) | `maxSubsetCommutatorOpNorm_sq_le_half_globalSq` | `Approximation/CutEnvelope.lean` | `Audit/StabilityRigiditySharpness.lean` |
 | Exact rigidity | for \(\delta>0\), saturation iff exactly two cells are active | `maxCut_saturation_iff_exactlyTwoActiveCellCommutators` | `Approximation/ExactTwoCellActiveRigidity.lean` | same |
-| Stability modulus | \(\tau \le 2\eta + 36\eta/((1-3\eta)\rho^2)\) for \(0\le\eta\le1/5\), \(\delta\ge\rho>0\) | `twoCellCommutatorConcentratedWithin_of_maxCut_near_saturated` | `Approximation/CutEnvelopeStability.lean` | same |
-| Linear corollary | \(\tau \le \eta(2+72/\rho^2)\) for \(\eta\le1/6\) | `twoCellCommutatorConcentratedWithin_linear_of_maxCut_near_saturated` | `Approximation/CutEnvelopeStability.lean` | same |
+| v12 stability modulus | \(\tau \le 2\eta + 18\eta/((1-3\eta)\rho^2)\) for \(0\le\eta\le1/5\), \(\delta\ge\rho>0\) | `twoCellCommutatorConcentratedWithin18_of_maxCut_near_saturated` | `Approximation/CutEnvelopeStabilitySharp.lean` | same |
+| v12 linear corollary | \(\tau \le \eta(2+36/\rho^2)\) for \(\eta\le1/6\) | `twoCellCommutatorConcentratedWithin18_linear_of_maxCut_near_saturated` | `Approximation/CutEnvelopeStabilitySharp.lean` | same |
+| General asymptotic coefficient | if \(\delta^2\to0\) and \(\eta\to0\), every \(c>8\) eventually bounds the absolute two-cell tail by \(c\eta\), uniformly in dimension/cardinality | `eventually_two_cell_tail_le_of_small_defect` | `Approximation/V12AsymptoticEight.lean` | same |
+| Sharpness of 8 | an explicit subfamily satisfies \(\delta^2\tau/\eta\to8\) | `stabilitySharpnessScaledRatioV12_zero_tendsto_eight` | `Approximation/StabilitySharpness/V12SharpConstants.lean` | same |
+| Ultra-near regime | if additionally \(\eta/\delta^2\to0\), every \(c>4\) eventually bounds the absolute two-cell tail by \(c\eta\) | `eventually_two_cell_tail_le_of_ultra_near` | `Approximation/V12UltraNearFour.lean` | same |
+| Ultra-near sharpness of 4 | an explicit subfamily satisfies \(\eta/\delta^2\to0\) and \(\delta^2\tau/\eta\to4\) | `stabilitySharpnessScaledRatioV12_diag_tendsto_four`, `stabilitySharpnessEta_div_deltaSq_diag_tendsto_zero` | `Approximation/StabilitySharpness/V12SharpConstants.lean` | same |
 | Rank-one formula | exact rank-one cell budget identity | `perspectiveProjectorCommutatorOpNormProfile_sq_rankOne` | `Approximation/RankOneCellCommutatorFormula.lean` | same |
 | Family global budget | exact formula for \(\delta_{n,m}^2\) | `stabilitySharpness_globalSq` | `Approximation/StabilitySharpness/GlobalBudget.lean` | same |
 | Family maximal cut | \(C_{\max}=s_m\) | `stabilitySharpness_maxCut_eq_s` | `Approximation/StabilitySharpness/MaxCut.lean` | same |
