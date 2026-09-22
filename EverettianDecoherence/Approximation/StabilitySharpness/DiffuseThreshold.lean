@@ -212,63 +212,22 @@ theorem eventually_lt_exactEta_over_globalSq_of_tau_tendsto_one
         exactTwoCellTau (D k) (U k) =
           optimalTwoCellTailFraction (D k) (U k) := rfl
     rw [htauEq] at hklow
-    have h1 :
+    have hlowA :
         c * r *
             operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 <
-          c * exactMaxCutEta (D k) (U k) := by
-      calc
+          operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 *
+            optimalTwoCellTailFraction (D k) (U k) := by
+      exact mul_lt_mul_of_pos_right hklow hApos
+    have hchain :
         c * r *
-              operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2
-            <
-          c *
-              (operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 *
-                optimalTwoCellTailFraction (D k) (U k)) := by
-                  nlinarith
-        _ ≤ c * (c * exactMaxCutEta (D k) (U k)) := by
-          exact mul_le_mul_of_nonneg_left hk hcpos.le
-    have hscaled :
-        r * operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 <
-          c * exactMaxCutEta (D k) (U k) := by
-      have := (mul_lt_mul_left hcpos).mp ?_
-      · exact this
-      · nlinarith [h1]
+            operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 <
+          c * exactMaxCutEta (D k) (U k) :=
+      lt_of_lt_of_le hlowA hk
     have hbetter :
         r * operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 <
           exactMaxCutEta (D k) (U k) := by
-      -- Reuse the direct tail inequality without the extra factor c.
-      have htail' :
-          operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 *
-              optimalTwoCellTailFraction (D k) (U k) ≤
-            c * exactMaxCutEta (D k) (U k) := hk
-      have hmul :
-          c * r *
-              operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 <
-            c * exactMaxCutEta (D k) (U k) := by
-        calc
-          c * r *
-                operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2
-              <
-            c *
-              (operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 *
-                optimalTwoCellTailFraction (D k) (U k)) := by
-                  nlinarith
-          _ ≤ c * (c * exactMaxCutEta (D k) (U k)) := by
-            exact mul_le_mul_of_nonneg_left htail' hcpos.le
-      -- The preceding route is deliberately conservative; the desired
-      -- inequality follows more directly by cancelling c before comparing.
-      have hlowA :
-          c * r *
-              operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 <
-            operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 *
-              optimalTwoCellTailFraction (D k) (U k) := by
-        nlinarith
-      have hchain := lt_of_lt_of_le hlowA htail'
-      have hcancel :
-          r * operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 <
-            exactMaxCutEta (D k) (U k) := by
-        exact (mul_lt_mul_left hcpos).mp (by
-          simpa [mul_assoc] using hchain)
-      exact hcancel
+      apply (mul_lt_mul_left hcpos).mp
+      simpa [mul_assoc] using hchain
     exact (lt_div_iff₀ hApos).2 hbetter
 
 end
