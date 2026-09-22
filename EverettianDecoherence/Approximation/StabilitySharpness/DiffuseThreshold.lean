@@ -146,6 +146,51 @@ theorem diffuse_exactEta_over_globalSq_eq
   field_simp [hglobal_ne]
   ring
 
+/-- Geometric envelope defect of the diffuse family, in the exact scalar
+form used by the manuscript. -/
+theorem diffuseEnvelopeDefect_eq
+    {m : ℕ} (hm2 : 2 ≤ m)
+    {θ : ℝ} (hθ0 : 0 < θ) (hθpi2 : θ < Real.pi / 2) :
+    maxCutEnvelopeDefect
+        (coordinatePerspective (m + m)) (diffuseRotation m θ) =
+      v18DiffuseEnvelopeDefect m (diffuseAngularDefect θ) := by
+  have hm : 0 < m := by omega
+  unfold maxCutEnvelopeDefect v18DiffuseEnvelopeDefect
+  rw [diffuseGlobal_budget_sq hm θ,
+    diffuseMaxCut_sq_eq hm hθ0 hθpi2]
+
+theorem diffuseEnvelopeDefect_exact
+    {m : ℕ} (hm2 : 2 ≤ m)
+    {θ : ℝ} (hθ0 : 0 < θ) (hθpi2 : θ < Real.pi / 2) :
+    maxCutEnvelopeDefect
+        (coordinatePerspective (m + m)) (diffuseRotation m θ) =
+      2 * diffuseAngularDefect θ ^ 2 *
+        (1 - 1 / (m : ℝ)) := by
+  rw [diffuseEnvelopeDefect_eq hm2 hθ0 hθpi2]
+  exact v18DiffuseEnvelopeDefect_exact m (by omega)
+    (diffuseAngularDefect θ)
+
+/-- Exact geometric sharp-ratio identity
+A * tau / eta = A^2 * tau / E = 8 (1 - d/(2m))^2. -/
+theorem diffuseScaledRatio_exact
+    {m : ℕ} (hm2 : 2 ≤ m)
+    {θ : ℝ} (hθ0 : 0 < θ) (hθpi2 : θ < Real.pi / 2) :
+    (operatorNormProjectorCommutatorL2
+        (coordinatePerspective (m + m)) (diffuseRotation m θ) ^ 2) ^ 2 *
+        optimalTwoCellTailFraction
+          (coordinatePerspective (m + m)) (diffuseRotation m θ) /
+        maxCutEnvelopeDefect
+          (coordinatePerspective (m + m)) (diffuseRotation m θ) =
+      8 * (1 - diffuseAngularDefect θ / (2 * (m : ℝ))) ^ 2 := by
+  have hm : 0 < m := by omega
+  have hd : diffuseAngularDefect θ ≠ 0 :=
+    ne_of_gt (diffuseAngularDefect_pos hθ0 hθpi2)
+  rw [diffuseGlobal_budget_sq hm θ,
+    diffuseOptimalTwoCellTailFraction_eq_tau hm2 hθ0 hθpi2,
+    diffuseEnvelopeDefect_eq hm2 hθ0 hθpi2]
+  exact v18Diffuse_scaledRatio_exact m hm2
+    (diffuseAngularDefect θ) hd
+
 /-- Universal threshold in an eventual form equivalent to
 liminf eta/delta^2 >= 1/8 when tau -> 1. -/
 theorem eventually_lt_exactEta_over_globalSq_of_tau_tendsto_one

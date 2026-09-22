@@ -139,3 +139,48 @@ open EverettianDecoherence.Approximation
 #print axioms EverettianDecoherence.Approximation.v18DiffuseEnvelopeDefect_exact
 #print axioms EverettianDecoherence.Approximation.v18Diffuse_scaledRatio_exact
 #print axioms EverettianDecoherence.Approximation.v18Diffuse_scaledRatio_tendsto_eight
+ 
+-- v19 publication-facing exact tail and normalized parameters
+#check maxTwoCellCapturedBudget
+#check optimalTwoCellTail
+#check optimalTwoCellTailFraction
+#check optimalTwoCellTailFraction_le_18_expanded
+#check eventually_globalSq_mul_optimalTau_le_of_small_defect
+#check eventually_globalSq_mul_optimalTau_le_of_ultra_near
+#check exactMaxCutEta
+#check exactTwoCellTau
+#check exactTwoCellSlope_le_18
+
+-- Fixed-budget proof ingredients
+#check v19FixedBudgetSlopePath_eq
+#check v19FixedBudgetGlobal_tendsto_base
+#check v19FixedBudgetSlopePath_tendsto_inv
+#check fixedBudgetDiagonal_forces_ultraNear
+#check eventually_two_cell_tail_le_of_fixedBudgetDiagonal
+
+-- Geometric diffuse family and sharp threshold
+#check diffuseRotation_apply_left
+#check diffuseRotation_apply_right
+#check diffuseAnyCell_budget_sq
+#check diffuseGlobal_budget_sq_exact
+#check diffuseMaxCut_sq_eq
+#check diffuseEnvelopeDefect_exact
+#check diffuseOptimalTwoCellTailFraction_eq_tau
+#check diffuseScaledRatio_exact
+#check diffuse_exactEta_over_globalSq_eq
+#check eventually_lt_exactEta_over_globalSq_of_tau_tendsto_one
+#check diffuse_completeDiffusion_attains_eighth
+
+#print axioms EverettianDecoherence.Approximation.optimalTwoCellTailFraction_le_18_expanded
+#print axioms EverettianDecoherence.Approximation.eventually_globalSq_mul_optimalTau_le_of_small_defect
+#print axioms EverettianDecoherence.Approximation.eventually_globalSq_mul_optimalTau_le_of_ultra_near
+#print axioms EverettianDecoherence.Approximation.exactTwoCellSlope_le_18
+#print axioms EverettianDecoherence.Approximation.v19FixedBudgetSlopePath_tendsto_inv
+#print axioms EverettianDecoherence.Approximation.eventually_two_cell_tail_le_of_fixedBudgetDiagonal
+#print axioms EverettianDecoherence.Approximation.diffuseGlobal_budget_sq_exact
+#print axioms EverettianDecoherence.Approximation.diffuseMaxCut_sq_eq
+#print axioms EverettianDecoherence.Approximation.diffuseEnvelopeDefect_exact
+#print axioms EverettianDecoherence.Approximation.diffuseOptimalTwoCellTailFraction_eq_tau
+#print axioms EverettianDecoherence.Approximation.diffuseScaledRatio_exact
+#print axioms EverettianDecoherence.Approximation.eventually_lt_exactEta_over_globalSq_of_tau_tendsto_one
+#print axioms EverettianDecoherence.Approximation.diffuse_completeDiffusion_attains_eighth

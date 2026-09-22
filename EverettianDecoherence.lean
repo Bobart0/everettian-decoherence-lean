@@ -76,9 +76,10 @@ variation and uniform defect is exactly `sqrt 2`. T5B `UniformTransferOptimality
 a universal `sqrt 2` upper bound and exactly characterizes normalized
 universal coefficients: `K` works if and only if `sqrt 2 ≤ K`. The post-T5
 `StabilitySharpness` front, which is NON BORN-SENSITIVE, additionally
-formalizes exact rigidity at cut-envelope saturation, an explicit two-cell
-concentration modulus, and a three-dimensional family showing that the
-`η / ρ^2` scale dependence is necessary up to constants. ED5A provides a typed finite bipartite coordinate
+formalizes the cut envelope, exact saturation rigidity, the exact optimal
+top-two tail, finite coefficient `18`, sharp asymptotic coefficients `8`
+and `4`, the continuous `C^3` family, the fixed-budget mechanisms, and a
+geometric diffuse `2m`-cell family attaining the sharp `1/8` threshold. ED5A provides a typed finite bipartite coordinate
 factorization, ED5B purely coordinate bipartite slices and norm profiles, and
 ED5C finite bipartite coordinate masks transported into the ambient space. No
 stable local API or decoherence theorem is announced.
