@@ -25,7 +25,6 @@ theorem v19FixedBudgetSlopePath_eq
     v12TwoParamDefect
   rw [hmin]
   field_simp [hd, hx, h1x]
-  ring
 
 theorem v19FixedBudgetGlobal_tendsto_base
     {α : Type*} {l : Filter α}
@@ -80,7 +79,12 @@ theorem v19FixedBudgetSlopePath_tendsto_inv
     funext k
     exact v19FixedBudgetSlopePath_eq d (x k) hd (hx0 k) (hxhalf k)
   rw [hfun]
-  convert hdiv using 1 <;> field_simp [hd] <;> ring
+  change Tendsto
+    ((fun k => 2 - d * x k) / (fun k => 2 * d * (1 - x k)))
+    l (𝓝 (1 / d))
+  have hlim : (2 : ℝ) / (2 * d) = 1 / d := by
+    field_simp [hd]
+  simpa [hlim] using hdiv
 
 end
 end EverettianDecoherence.Approximation
