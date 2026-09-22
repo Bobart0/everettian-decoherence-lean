@@ -25,6 +25,7 @@ jobs:
           lint: false
           build-args: >-
             EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetDiagonal
+            EverettianDecoherence.Approximation.StabilitySharpness.PublicationFacingTail
             EverettianDecoherence.Approximation.OptimalTwoCellTail
             EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyTail
             EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyMaxCut
