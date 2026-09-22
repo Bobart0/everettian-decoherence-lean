@@ -1,6 +1,7 @@
 import EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyModes
 import Mathlib.Analysis.InnerProductSpace.Projection.Reflection
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Mathlib.Tactic.ModuleNF
 
 /-!
 **FR.** Réalisation unitaire de la rotation diffuse.  On construit la
@@ -33,43 +34,52 @@ theorem diffuseMidMode_inner_left
     {m : ℕ} (hm : 0 < m) (θ : ℝ) :
     inner ℂ (diffuseMidMode m θ) (diffuseLeftMode m) =
       (Real.cos (θ / 2) : ℂ) := by
-  unfold diffuseMidMode
-  rw [inner_add_left, inner_smul_real_left, inner_smul_real_left,
+  let cθ : ℝ := Real.cos (θ / 2)
+  let sθ : ℝ := Real.sin (θ / 2)
+  change inner ℂ
+    (((cθ : ℂ) • diffuseLeftMode m) +
+      ((sθ : ℂ) • diffuseRightMode m))
+    (diffuseLeftMode m) = (cθ : ℂ)
+  rw [inner_add_left, inner_smul_left, inner_smul_left,
     inner_self_eq_norm_sq_to_K, diffuseLeftMode_norm hm,
     diffuseRightMode_inner_leftMode hm]
-  norm_num
-
+  simp
 theorem diffuseMidMode_inner_right
     {m : ℕ} (hm : 0 < m) (θ : ℝ) :
     inner ℂ (diffuseMidMode m θ) (diffuseRightMode m) =
       (Real.sin (θ / 2) : ℂ) := by
-  unfold diffuseMidMode
-  rw [inner_add_left, inner_smul_real_left, inner_smul_real_left,
+  let cθ : ℝ := Real.cos (θ / 2)
+  let sθ : ℝ := Real.sin (θ / 2)
+  change inner ℂ
+    (((cθ : ℂ) • diffuseLeftMode m) +
+      ((sθ : ℂ) • diffuseRightMode m))
+    (diffuseRightMode m) = (sθ : ℂ)
+  rw [inner_add_left, inner_smul_left, inner_smul_left,
     diffuseLeftMode_inner_rightMode hm,
     inner_self_eq_norm_sq_to_K, diffuseRightMode_norm hm]
-  norm_num
-
+  simp
 theorem diffuseMidMode_norm
     {m : ℕ} (hm : 0 < m) (θ : ℝ) :
     ‖diffuseMidMode m θ‖ = 1 := by
-  let a : H (m + m) :=
-    ((Real.cos (θ / 2) : ℝ) : ℂ) • diffuseLeftMode m
-  let b : H (m + m) :=
-    ((Real.sin (θ / 2) : ℝ) : ℂ) • diffuseRightMode m
+  let cθ : ℝ := Real.cos (θ / 2)
+  let sθ : ℝ := Real.sin (θ / 2)
+  let a : H (m + m) := (cθ : ℂ) • diffuseLeftMode m
+  let b : H (m + m) := (sθ : ℂ) • diffuseRightMode m
   have hab : inner ℂ a b = 0 := by
     dsimp [a, b]
-    rw [inner_smul_real_left, inner_smul_real_right,
+    rw [inner_smul_left, inner_smul_right,
       diffuseLeftMode_inner_rightMode hm]
     simp
   have hp :=
     norm_add_sq_eq_norm_sq_add_norm_sq_of_inner_eq_zero a b hab
-  have htrig := Real.sin_sq_add_cos_sq (θ / 2)
-  have hsq : ‖a + b‖ ^ 2 = 1 := by
-    rw [pow_two]
-    rw [pow_two] at htrig
+  have hp' :
+      ‖a + b‖ * ‖a + b‖ = cθ * cθ + sθ * sθ := by
     simpa [a, b, norm_smul, diffuseLeftMode_norm hm,
       diffuseRightMode_norm hm, Complex.norm_real, Real.norm_eq_abs,
-      sq_abs] using hp
+      abs_mul_abs_self] using hp
+  have htrig : cθ * cθ + sθ * sθ = 1 := by
+    dsimp [cθ, sθ]
+    nlinarith [Real.sin_sq_add_cos_sq (θ / 2)]
   have hdef : diffuseMidMode m θ = a + b := by
     rfl
   rw [hdef]
@@ -126,7 +136,6 @@ theorem diffuseRotation_apply_right_half
       inner ℂ (diffuseMidMode m θ) (- diffuseRightMode m) =
         (- Real.sin (θ / 2) : ℂ) := by
     rw [inner_neg_right, diffuseMidMode_inner_right hm θ]
-    simp
   rw [hinner, diffuseMidMode_norm hm θ]
   unfold diffuseMidMode
   module_nf
