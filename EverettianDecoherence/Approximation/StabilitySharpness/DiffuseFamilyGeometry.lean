@@ -33,46 +33,47 @@ theorem diffuseMidMode_inner_left
     {m : ℕ} (hm : 0 < m) (θ : ℝ) :
     inner ℂ (diffuseMidMode m θ) (diffuseLeftMode m) =
       (Real.cos (θ / 2) : ℂ) := by
-  have hstar :
-      star ((Real.cos (θ / 2) : ℂ)) = (Real.cos (θ / 2) : ℂ) := by
-    simp
-  simp [diffuseMidMode, inner_smul_left,
-    diffuseLeftMode_norm hm, inner_self_eq_norm_sq_to_K,
-    diffuseRightMode_inner_leftMode hm, hstar]
+  unfold diffuseMidMode
+  rw [inner_add_left, inner_smul_real_left, inner_smul_real_left,
+    inner_self_eq_norm_sq_to_K, diffuseLeftMode_norm hm,
+    diffuseRightMode_inner_leftMode hm]
+  norm_num
 
 theorem diffuseMidMode_inner_right
     {m : ℕ} (hm : 0 < m) (θ : ℝ) :
     inner ℂ (diffuseMidMode m θ) (diffuseRightMode m) =
       (Real.sin (θ / 2) : ℂ) := by
-  have hstar :
-      star ((Real.sin (θ / 2) : ℂ)) = (Real.sin (θ / 2) : ℂ) := by
-    simp
-  simp [diffuseMidMode, inner_smul_left,
-    diffuseRightMode_norm hm, inner_self_eq_norm_sq_to_K,
+  unfold diffuseMidMode
+  rw [inner_add_left, inner_smul_real_left, inner_smul_real_left,
     diffuseLeftMode_inner_rightMode hm,
-    diffuseRightMode_inner_leftMode hm, hstar]
+    inner_self_eq_norm_sq_to_K, diffuseRightMode_norm hm]
+  norm_num
 
 theorem diffuseMidMode_norm
     {m : ℕ} (hm : 0 < m) (θ : ℝ) :
     ‖diffuseMidMode m θ‖ = 1 := by
-  have hcosstar :
-      star ((Real.cos (θ / 2) : ℂ)) = (Real.cos (θ / 2) : ℂ) := by
+  let a : H (m + m) :=
+    ((Real.cos (θ / 2) : ℝ) : ℂ) • diffuseLeftMode m
+  let b : H (m + m) :=
+    ((Real.sin (θ / 2) : ℝ) : ℂ) • diffuseRightMode m
+  have hab : inner ℂ a b = 0 := by
+    dsimp [a, b]
+    rw [inner_smul_real_left, inner_smul_real_right,
+      diffuseLeftMode_inner_rightMode hm]
     simp
-  have hsinstar :
-      star ((Real.sin (θ / 2) : ℂ)) = (Real.sin (θ / 2) : ℂ) := by
-    simp
-  have hsq : ‖diffuseMidMode m θ‖ ^ 2 = 1 := by
-    rw [@norm_sq_eq_re_inner ℂ]
-    change (inner ℂ (diffuseMidMode m θ) (diffuseMidMode m θ)).re = 1
-    simp [diffuseMidMode, inner_add_right,
-      inner_smul_left, inner_smul_right,
-      diffuseLeftMode_norm hm, diffuseRightMode_norm hm,
-      inner_self_eq_norm_sq_to_K,
-      diffuseLeftMode_inner_rightMode hm,
-      diffuseRightMode_inner_leftMode hm,
-      hcosstar, hsinstar, Real.sin_sq_add_cos_sq]
-  nlinarith [norm_nonneg (diffuseMidMode m θ)]
-
+  have hp :=
+    norm_add_sq_eq_norm_sq_add_norm_sq_of_inner_eq_zero a b hab
+  have htrig := Real.sin_sq_add_cos_sq (θ / 2)
+  have hsq : ‖a + b‖ ^ 2 = 1 := by
+    rw [pow_two]
+    rw [pow_two] at htrig
+    simpa [a, b, norm_smul, diffuseLeftMode_norm hm,
+      diffuseRightMode_norm hm, Complex.norm_real, Real.norm_eq_abs,
+      sq_abs] using hp
+  have hdef : diffuseMidMode m θ = a + b := by
+    rfl
+  rw [hdef]
+  nlinarith [norm_nonneg (a + b)]
 /-- Product of the reflection in the left mode with the reflection in the
 half-angle mode.  Composition order is chosen so that the left mode is sent
 to cos(theta) a + sin(theta) b. -/
@@ -85,10 +86,9 @@ private theorem diffuseLeft_reflection_self
     {m : ℕ} (hm : 0 < m) :
     (ℂ ∙ diffuseLeftMode m).reflection (diffuseLeftMode m) =
       diffuseLeftMode m := by
-  rw [Submodule.reflection_singleton_apply]
-  rw [inner_self_eq_norm_sq_to_K, diffuseLeftMode_norm hm]
-  norm_num
-  module
+  rw [Submodule.reflection_singleton_apply,
+    inner_self_eq_norm_sq_to_K, diffuseLeftMode_norm hm]
+  module_nf
 
 private theorem diffuseLeft_reflection_right
     {m : ℕ} (hm : 0 < m) :
@@ -109,7 +109,9 @@ theorem diffuseRotation_apply_left_half
   rw [LinearIsometryEquiv.trans_apply, diffuseLeft_reflection_self hm,
     Submodule.reflection_singleton_apply,
     diffuseMidMode_inner_left hm θ, diffuseMidMode_norm hm θ]
-  simp [diffuseMidMode]
+  simp only [one_pow, Complex.ofReal_div, Complex.ofReal_ofNat]
+  unfold diffuseMidMode
+  module_nf
 
 theorem diffuseRotation_apply_right_half
     {m : ℕ} (hm : 0 < m) (θ : ℝ) :
@@ -127,8 +129,9 @@ theorem diffuseRotation_apply_right_half
     rw [inner_neg_right, diffuseMidMode_inner_right hm θ]
     simp
   rw [hinner, diffuseMidMode_norm hm θ]
-  simp [diffuseMidMode]
-  module
+  simp only [one_pow, Complex.ofReal_div, Complex.ofReal_ofNat]
+  unfold diffuseMidMode
+  module_nf
 
 theorem diffuseRotation_apply_left
     {m : ℕ} (hm : 0 < m) (θ : ℝ) :
@@ -170,13 +173,7 @@ theorem diffuseRotation_apply_right
     rw [hcos0]
     nlinarith
   rw [hsin, hcos]
-  have hneg :
-      (((-2 * Real.sin (θ / 2) * Real.cos (θ / 2) : ℝ) : ℂ)) =
-        - (((2 * Real.sin (θ / 2) * Real.cos (θ / 2) : ℝ) : ℂ)) := by
-    push_cast
-    ring
-  rw [hneg]
-  simp only [neg_smul]
+  module_nf
 
 theorem diffuseRotation_apply_of_orthogonal
     {m : ℕ} (hm : 0 < m) (θ : ℝ) (x : H (m + m))
@@ -198,7 +195,7 @@ theorem diffuseRotation_apply_of_orthogonal
     rw [Submodule.reflection_singleton_apply, hwn]
     simp [diffuseMidMode_norm hm θ]
   unfold diffuseRotation
-  rw [LinearIsometryEquiv.trans_apply, hrefLeft, hrefMid]
+  simpa [LinearIsometryEquiv.trans_apply, hrefLeft] using hrefMid
 
 end
 end EverettianDecoherence.Approximation
