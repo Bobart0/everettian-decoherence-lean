@@ -142,14 +142,18 @@ theorem sin_le_diffuseLeftCut_commutator_norm
     linarith [Real.pi_pos]
   have hsin : 0 < Real.sin θ :=
     Real.sin_pos_of_pos_of_lt_pi hθ0 hθpi
+  have hnorm :
+      ‖(- (Real.sin θ : ℂ))‖ = Real.sin θ := by
+    rw [norm_neg, Complex.norm_real, Real.norm_eq_abs, abs_of_pos hsin]
   have h :=
     (recordSubsetProjectorCommutatorCLM
       (coordinatePerspective (m + m)) (diffuseRotation m θ)
       (diffuseLeftCut m)).le_opNorm (diffuseLeftMode m)
   rw [diffuseLeftCut_commutator_apply_leftMode hm θ,
-    norm_neg, norm_smul, diffuseRightMode_norm hm,
+    norm_smul, hnorm, diffuseRightMode_norm hm,
     diffuseLeftMode_norm hm] at h
-  simpa [Complex.norm_real, Real.norm_eq_abs, abs_of_pos hsin] using h
+  norm_num at h ⊢
+  exact h
 
 theorem sin_le_diffuseMaxCut
     {m : ℕ} (hm : 0 < m)
