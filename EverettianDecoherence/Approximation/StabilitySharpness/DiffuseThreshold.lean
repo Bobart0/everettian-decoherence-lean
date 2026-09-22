@@ -111,8 +111,6 @@ theorem diffuse_exactEta_over_globalSq_eq
           (coordinatePerspective (m + m)) (diffuseRotation m θ) ^ 2 =
       v19DiffuseEtaOverGlobal m (diffuseAngularDefect θ) := by
   have hm : 0 < m := by omega
-  have hd : diffuseAngularDefect θ ≠ 0 :=
-    ne_of_gt (diffuseAngularDefect_pos hθ0 hθpi2)
   have hApos :
       0 <
         operatorNormProjectorCommutatorL2
@@ -121,10 +119,18 @@ theorem diffuse_exactEta_over_globalSq_eq
     unfold v18DiffuseGlobal
     have hp := diffuseCellBudget_pos hm2 hθ0 hθpi2
     positivity
+  have hglobal :
+      0 < v18DiffuseGlobal m (diffuseAngularDefect θ) := by
+    rw [← diffuseGlobal_budget_sq hm θ]
+    exact hApos
+  have hglobal_ne :
+      v18DiffuseGlobal m (diffuseAngularDefect θ) ≠ 0 :=
+    ne_of_gt hglobal
   unfold exactMaxCutEta v19DiffuseEtaOverGlobal maxCutEnvelopeDefect
   rw [diffuseGlobal_budget_sq hm θ,
     diffuseMaxCut_sq_eq hm hθ0 hθpi2]
-  rfl
+  field_simp [hglobal_ne]
+  ring
 
 /-- Universal threshold in an eventual form equivalent to
 liminf eta/delta^2 >= 1/8 when tau -> 1. -/
