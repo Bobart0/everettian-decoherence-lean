@@ -82,6 +82,19 @@ open EverettianDecoherence.Approximation
 #check v12TwoParamScaledRatio_diag_tendsto_four
 #check v12TwoParamEtaOverGlobal_diag_tendsto_zero
 
+#check v18FixedBudgetBase
+#check v18FixedBudgetLowerSlope
+#check v18FixedBudgetBase_mul_lowerSlope
+#check v18FixedBudgetScaledLower_tendsto_four
+#check fixedPositiveBudget_forces_ultraNear
+
+#check v18DiffuseCellBudget
+#check v18DiffuseGlobal_exact
+#check v18DiffuseEnvelopeDefect_exact
+#check v18DiffuseTau
+#check v18Diffuse_scaledRatio_exact
+#check v18Diffuse_scaledRatio_tendsto_eight
+
 #print axioms EverettianDecoherence.Approximation.maxSubsetCommutatorOpNorm_sq_le_half_globalSq
 #print axioms EverettianDecoherence.Approximation.maxCut_saturation_iff_exactlyTwoActiveCellCommutators
 #print axioms EverettianDecoherence.Approximation.twoCellCommutatorConcentratedWithin_of_maxCut_near_saturated
@@ -112,3 +125,11 @@ open EverettianDecoherence.Approximation
 #print axioms EverettianDecoherence.Approximation.v12TwoParamScaledRatio_half_tendsto_eight
 #print axioms EverettianDecoherence.Approximation.v12TwoParamScaledRatio_diag_tendsto_four
 #print axioms EverettianDecoherence.Approximation.v12TwoParamEtaOverGlobal_diag_tendsto_zero
+
+#print axioms EverettianDecoherence.Approximation.v18FixedBudgetBase_mul_lowerSlope
+#print axioms EverettianDecoherence.Approximation.v18FixedBudgetScaledLower_tendsto_four
+#print axioms EverettianDecoherence.Approximation.fixedPositiveBudget_forces_ultraNear
+#print axioms EverettianDecoherence.Approximation.v18DiffuseGlobal_exact
+#print axioms EverettianDecoherence.Approximation.v18DiffuseEnvelopeDefect_exact
+#print axioms EverettianDecoherence.Approximation.v18Diffuse_scaledRatio_exact
+#print axioms EverettianDecoherence.Approximation.v18Diffuse_scaledRatio_tendsto_eight
