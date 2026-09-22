@@ -29,7 +29,7 @@ du transfert ED3B, et de T5B qui établit la borne supérieure universelle
 correspondante puis l'optimalité exacte. ED5A, ED5B et ED5C restent également
 audités comme briques de factorisation coordonnées. T2, T3, T4, T5A et T5B
 sont formalisés et audités ;
-le front post-T5 de rigidité exacte, stabilité quantitative et sharpness d'échelle est également audité. Aucun statut de publication n'est affirmé ici.
+le front post-T5 de rigidité exacte, stabilité quantitative, sharpness d'échelle, analyse à budget fixé et famille diffuse à seuil 1/8 est également audité. Aucun statut de publication n'est affirmé ici.
 
 **EN.** Aggregator of local ED1, ED2A, ED2B, ED3A, ED3B, ED4A, ED4B result
 audits, the T1 NON BORN-SENSITIVE projector-structure control, the T2
@@ -40,5 +40,5 @@ BORN-SENSITIVE, and the transversal BORN-SENSITIVE T5A front establishing an
 exact `sqrt 2` lower barrier for any uniform ED3B transfer constant, and T5B,
 which proves the matching universal upper bound and exact optimality. ED5A,
 ED5B, and ED5C remain audited as coordinate-factorization building blocks. T2,
-T3, T4, T5A, and T5B are formalized and audited; the post-T5 exact-rigidity, quantitative-stability, and scale-sharpness front is audited as well. No publication status is asserted here.
+T3, T4, T5A, and T5B are formalized and audited; the post-T5 exact-rigidity, quantitative-stability, scale-sharpness, fixed-budget, and diffuse-threshold front is audited as well. No publication status is asserted here.
 -/

@@ -2,7 +2,7 @@
 
 ## Français
 
-Date : **2026-09-18**. Version : **0.1.0-dev**. Statut :
+Date : **2026-09-22**. Version : **0.2.0-dev**. Statut :
 **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE** ;
 **cycle transversal T0–T5 — CLOSED ; T1–T5 FORMALIZED / AUDITED**.
 
@@ -81,6 +81,21 @@ commutatoriales de T5B sont **NON BORN-SENSITIVE**. Le transfert vers
 `recordProfileL1`, ainsi que l'argument de saturation T5A, sont
 **BORN-SENSITIVE**.
 
+### Front post-T5 de stabilité quantitative
+
+Ce front transversal est **FORMALIZED / AUDITED** et **NON BORN-SENSITIVE**.
+Il formalise l'enveloppe des cuts, la rigidité exacte à saturation, la queue
+top-two optimale, la borne finie à constante `18`, les coefficients
+asymptotiques sharp `8` et `4`, la famille continue `C^3`, les mécanismes
+de la proposition à budget fixé, et la famille diffuse géométrique à `2m`
+cellules avec seuil sharp `1/8` lorsque la queue tend vers `1`.
+
+La définition order-théorique unique de
+`C_fix(A0) = lim_{eps↓0} sup(...)` reste un emballage de manuscrit ; les
+estimations finies, le témoin inférieur à trois cellules et l'argument diagonal
+de constante `4` sont machine-checkés séparément. Ce front n'ouvre aucun
+jalon physique T6/ED5 et n'introduit aucune dynamique ni décohérence.
+
 ### Frontière de portée
 
 Le cycle T0–T5 n'introduit aucun temps, Hamiltonien, canal, système ouvert,
@@ -93,7 +108,7 @@ Aucun T6 et aucun nouveau jalon physique ne sont ouverts par Tx.
 
 ## English
 
-Date: **2026-09-18**. Version: **0.1.0-dev**. Status:
+Date: **2026-09-22**. Version: **0.2.0-dev**. Status:
 **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE**;
 **transversal T0–T5 cycle — CLOSED; T1–T5 FORMALIZED / AUDITED**.
 
@@ -167,6 +182,21 @@ the best universal coefficient known in this scope.
 The `operatorNormProjectorCommutatorL2` defect and the purely commutator
 bounds in T5B are **NON BORN-SENSITIVE**. Transfer to `recordProfileL1` and
 the T5A saturation argument are **BORN-SENSITIVE**.
+
+### Post-T5 quantitative-stability front
+
+This transversal front is **FORMALIZED / AUDITED** and **NON BORN-SENSITIVE**.
+It formalizes the cut envelope, exact saturation rigidity, the exact optimal
+top-two tail, the finite coefficient `18`, sharp asymptotic coefficients
+`8` and `4`, the continuous `C^3` family, the proof mechanisms of the
+fixed-budget proposition, and the geometric diffuse `2m`-cell family with
+sharp threshold `1/8` as the tail tends to `1`.
+
+The single order-theoretic object
+`C_fix(A0) = lim_{eps↓0} sup(...)` remains manuscript-level packaging; the
+finite estimates, three-cell lower witness, and coefficient-`4` diagonal
+argument are machine-checked separately. This front opens no physical T6/ED5
+milestone and introduces no dynamics or decoherence.
 
 ### Scope boundary
 
