@@ -97,6 +97,12 @@ theorem diffuseModeScale_pos {m : ℕ} (hm : 0 < m) :
   unfold diffuseModeScale
   exact inv_pos.mpr (Real.sqrt_pos.2 (by exact_mod_cast hm))
 
+theorem diffuseModeScale_sq {m : ℕ} (hm : 0 < m) :
+    diffuseModeScale m ^ 2 = 1 / (m : ℝ) := by
+  unfold diffuseModeScale
+  rw [inv_pow, Real.sq_sqrt (show 0 ≤ (m : ℝ) by positivity)]
+  rfl
+
 theorem diffuseLeftSum_norm_sq (m : ℕ) :
     ‖diffuseLeftSum m‖ ^ 2 = (m : ℝ) := by
   rw [@norm_sq_eq_re_inner ℂ]
