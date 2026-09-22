@@ -101,10 +101,15 @@ theorem exactTwoCellSlope_le_18
         eta * (2 + 18 / ((1 - 3 * eta) * delta ^ 2)) := by
     unfold twoCellStabilityModulus18
     field_simp [hq, hdeltaSq]
-    ring
   rw [hmod] at htau
-  have hdiv := (div_le_iff₀ (by simpa [eta] using hetaPos)).2 htau
-  simpa [eta, delta, mul_comm, mul_left_comm, mul_assoc] using hdiv
+  have heta0 : 0 < eta := by
+    simpa [eta] using hetaPos
+  have hdiv :
+      exactTwoCellTau D U / eta ≤
+        2 + 18 / ((1 - 3 * eta) * delta ^ 2) := by
+    apply (div_le_iff₀ heta0).2
+    simpa [mul_comm] using htau
+  simpa [eta, delta] using hdiv
 
 end
 end EverettianDecoherence.Approximation
