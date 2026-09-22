@@ -25,7 +25,8 @@ noncomputable def v19DiffuseEtaOverGlobal (m : ℕ) (d : ℝ) : ℝ :=
   v18DiffuseEnvelopeDefect m d / v18DiffuseGlobal m d ^ 2
 
 theorem v19DiffuseEtaOverGlobal_eq
-    (m : ℕ) (hm2 : 2 ≤ m) (d : ℝ) (hd : d ≠ 0) :
+    (m : ℕ) (hm2 : 2 ≤ m) (d : ℝ) (hd : d ≠ 0)
+    (hA : v18DiffuseGlobal m d ≠ 0) :
     v19DiffuseEtaOverGlobal m d =
       v18DiffuseTau m /
         (8 * (1 - d / (2 * (m : ℝ))) ^ 2) := by
@@ -41,22 +42,6 @@ theorem v19DiffuseEtaOverGlobal_eq
       rw [sub_pos, div_lt_one hmpos]
       linarith
     positivity
-  have hA :
-      v18DiffuseGlobal m d ≠ 0 := by
-    unfold v18DiffuseGlobal v18DiffuseCellBudget
-    have hmR : (m : ℝ) ≠ 0 := by positivity
-    have hmpos : 0 < (m : ℝ) := by positivity
-    have hd2m : d ≠ 2 * (m : ℝ) := by
-      intro h
-      have hdm : d / (2 * (m : ℝ)) = 1 := by
-        field_simp [hmR]
-        linarith
-      rw [hdm] at hratio
-      simp at hratio
-    field_simp [hmR]
-    intro hzero
-    apply hd2m
-    nlinarith
   field_simp [hE, hA]
   nlinarith [hratio]
 
@@ -76,6 +61,7 @@ theorem v19DiffuseEtaOverGlobal_tendsto_eighth
     (m : α → ℕ) (d : α → ℝ)
     (hm2 : ∀ k, 2 ≤ m k)
     (hdne : ∀ k, d k ≠ 0)
+    (hAne : ∀ k, v18DiffuseGlobal (m k) (d k) ≠ 0)
     (hminv :
       Tendsto (fun k => 1 / (m k : ℝ)) l (𝓝 0))
     (hdOverM :
@@ -110,7 +96,8 @@ theorem v19DiffuseEtaOverGlobal_tendsto_eighth
           v18DiffuseTau (m k) /
             (8 * (1 - d k / (2 * (m k : ℝ))) ^ 2)) := by
     funext k
-    exact v19DiffuseEtaOverGlobal_eq (m k) (hm2 k) (d k) (hdne k)
+    exact v19DiffuseEtaOverGlobal_eq
+      (m k) (hm2 k) (d k) (hdne k) (hAne k)
   rw [hfun]
   convert hdiv using 1 <;> norm_num
 
