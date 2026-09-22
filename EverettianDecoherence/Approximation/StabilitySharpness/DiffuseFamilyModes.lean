@@ -57,7 +57,7 @@ theorem diffuseLeftSum_inner_family (m : ℕ) (i : Fin m) :
     inner ℂ (diffuseLeftSum m) (diffuseLeftFamily m i) = 1 := by
   change inner ℂ (∑ j : Fin m, diffuseLeftFamily m j)
     (diffuseLeftFamily m i) = 1
-  simpa only [one_smul] using
+  simpa only [one_smul, map_one] using
     (diffuseLeftFamily_orthonormal m).inner_left_fintype
       (fun _ : Fin m => (1 : ℂ)) i
 
@@ -65,7 +65,7 @@ theorem diffuseRightSum_inner_family (m : ℕ) (i : Fin m) :
     inner ℂ (diffuseRightSum m) (diffuseRightFamily m i) = 1 := by
   change inner ℂ (∑ j : Fin m, diffuseRightFamily m j)
     (diffuseRightFamily m i) = 1
-  simpa only [one_smul] using
+  simpa only [one_smul, map_one] using
     (diffuseRightFamily_orthonormal m).inner_left_fintype
       (fun _ : Fin m => (1 : ℂ)) i
 
