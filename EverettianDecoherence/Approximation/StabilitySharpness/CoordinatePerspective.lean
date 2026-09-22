@@ -1,3 +1,4 @@
+import EverettianDecoherence.Approximation.StabilitySharpness.Rotation3
 import QuantumFoundations.BornRule.Perspective
 
 /-!
