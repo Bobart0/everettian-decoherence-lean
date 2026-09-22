@@ -25,7 +25,7 @@ theorem diffuseAngularDefect_tendsto_zero
     Tendsto (fun k => diffuseAngularDefect (θ k)) l (𝓝 0) := by
   have hcos : Tendsto (fun k => Real.cos (θ k)) l (𝓝 1) := by
     have hc := (Real.continuous_cos.tendsto 0).comp hθ
-    simpa using hc
+    simpa [Function.comp_def] using hc
   unfold diffuseAngularDefect
   simpa using
     (tendsto_const_nhds :
@@ -74,8 +74,11 @@ theorem diffuseExactEtaOverGlobal_tendsto_eighth
   have hAne : ∀ k, v18DiffuseGlobal (m k) (d k) ≠ 0 := by
     intro k
     have hp := diffuseCellBudget_pos (hm2 k) (hθ0 k) (hθpi2 k)
+    have hmposNat : 0 < m k :=
+      lt_of_lt_of_le (by decide : 0 < 2) (hm2 k)
+    have hmpos : 0 < (m k : ℝ) := by exact_mod_cast hmposNat
     unfold v18DiffuseGlobal
-    positivity
+    exact ne_of_gt (mul_pos (mul_pos (by norm_num) hmpos) hp)
   have hdOverM :
       Tendsto (fun k => d k / (2 * (m k : ℝ))) atTop (𝓝 0) := by
     have hhalf : Tendsto (fun k => d k / 2) atTop (𝓝 0) := by
@@ -85,10 +88,11 @@ theorem diffuseExactEtaOverGlobal_tendsto_eighth
         (fun k => d k / (2 * (m k : ℝ))) =
           (fun k => (d k / 2) * (1 / (m k : ℝ))) := by
       funext k
+      have hmposNat : 0 < m k :=
+        lt_of_lt_of_le (by decide : 0 < 2) (hm2 k)
       have hm0 : (m k : ℝ) ≠ 0 := by
-        exact_mod_cast (show m k ≠ 0 by omega)
+        exact_mod_cast (Nat.ne_of_gt hmposNat)
       field_simp [hm0]
-      ring
     rw [hfun]
     simpa using hprod
   have hscalar :=
@@ -139,7 +143,8 @@ theorem diffuseGlobalSq_tendsto_zero
           (coordinatePerspective (m k + m k)) (diffuseRotation (m k) (θ k)) ^ 2) =
       (fun k => 4 * d k - 2 * d k ^ 2 * (1 / (m k : ℝ))) := by
     funext k
-    have hm : 0 < m k := by omega
+    have hm : 0 < m k :=
+      lt_of_lt_of_le (by decide : 0 < 2) (hm2 k)
     rw [diffuseGlobal_budget_sq_exact hm (θ k)]
     dsimp [d]
     ring
@@ -173,7 +178,8 @@ theorem diffuseExactEta_tendsto_zero
         operatorNormProjectorCommutatorL2
           (coordinatePerspective (m k + m k)) (diffuseRotation (m k) (θ k)) ^ 2) := by
     funext k
-    have hm : 0 < m k := by omega
+    have hm : 0 < m k :=
+      lt_of_lt_of_le (by decide : 0 < 2) (hm2 k)
     have hApos :
         0 < operatorNormProjectorCommutatorL2
           (coordinatePerspective (m k + m k)) (diffuseRotation (m k) (θ k)) ^ 2 := by
@@ -181,7 +187,18 @@ theorem diffuseExactEta_tendsto_zero
       unfold v18DiffuseGlobal
       have hp := diffuseCellBudget_pos (hm2 k) (hθ0 k) (hθpi2 k)
       positivity
-    field_simp [ne_of_gt hApos]
+    let A : ℝ :=
+      operatorNormProjectorCommutatorL2
+        (coordinatePerspective (m k + m k)) (diffuseRotation (m k) (θ k)) ^ 2
+    have hAne : A ≠ 0 := by
+      dsimp [A]
+      exact ne_of_gt hApos
+    change
+      exactMaxCutEta
+          (coordinatePerspective (m k + m k)) (diffuseRotation (m k) (θ k)) =
+        (exactMaxCutEta
+            (coordinatePerspective (m k + m k)) (diffuseRotation (m k) (θ k)) / A) * A
+    exact (div_mul_cancel₀ _ hAne).symm
   rw [hfun]
   simpa using hprod
 
