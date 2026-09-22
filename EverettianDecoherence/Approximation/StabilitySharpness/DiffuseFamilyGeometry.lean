@@ -109,7 +109,6 @@ theorem diffuseRotation_apply_left_half
   rw [LinearIsometryEquiv.trans_apply, diffuseLeft_reflection_self hm,
     Submodule.reflection_singleton_apply,
     diffuseMidMode_inner_left hm θ, diffuseMidMode_norm hm θ]
-  simp only [one_pow, Complex.ofReal_div, Complex.ofReal_ofNat]
   unfold diffuseMidMode
   module_nf
 
@@ -129,7 +128,6 @@ theorem diffuseRotation_apply_right_half
     rw [inner_neg_right, diffuseMidMode_inner_right hm θ]
     simp
   rw [hinner, diffuseMidMode_norm hm θ]
-  simp only [one_pow, Complex.ofReal_div, Complex.ofReal_ofNat]
   unfold diffuseMidMode
   module_nf
 
