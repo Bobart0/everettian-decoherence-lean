@@ -33,8 +33,9 @@ theorem fixedBudgetDiagonal_budget_tendsto_zero
     Tendsto A l (𝓝 0) := by
   have hprod := hAover.mul hA0
   have hfun :
-      A = fun k => (A k / A0 k) * A0 k := by
+      A = (fun k => A k / A0 k) * A0 := by
     funext k
+    change A k = (A k / A0 k) * A0 k
     field_simp [hA0ne k]
   rw [hfun]
   simpa using hprod
@@ -49,8 +50,9 @@ theorem fixedBudgetDiagonal_eta_tendsto_zero
     Tendsto eta l (𝓝 0) := by
   have hprod := hetaOver.mul hA0
   have hfun :
-      eta = fun k => (eta k / A0 k) * A0 k := by
+      eta = (fun k => eta k / A0 k) * A0 := by
     funext k
+    change eta k = (eta k / A0 k) * A0 k
     field_simp [hA0ne k]
   rw [hfun]
   simpa using hprod
@@ -70,8 +72,10 @@ theorem fixedBudgetDiagonal_forces_ultraNear
     hetaOver.div hAover (by norm_num : (1 : ℝ) ≠ 0)
   have hfun :
       (fun k => eta k / A k) =
-        fun k => (eta k / A0 k) / (A k / A0 k) := by
+        (fun k => eta k / A0 k) / (fun k => A k / A0 k) := by
     funext k
+    change eta k / A k =
+      (eta k / A0 k) / (A k / A0 k)
     field_simp [hA0ne k, hAne k]
   rw [hfun]
   simpa using hdiv
