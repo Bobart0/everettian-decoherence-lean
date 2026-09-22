@@ -1,7 +1,6 @@
 import EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyModes
 import Mathlib.Analysis.InnerProductSpace.Projection.Reflection
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
-import Mathlib.Tactic.ModuleNF
 
 /-!
 **FR.** Réalisation unitaire de la rotation diffuse.  On construit la
@@ -98,7 +97,7 @@ private theorem diffuseLeft_reflection_self
       diffuseLeftMode m := by
   rw [Submodule.reflection_singleton_apply,
     inner_self_eq_norm_sq_to_K, diffuseLeftMode_norm hm]
-  module_nf
+  module
 
 private theorem diffuseLeft_reflection_right
     {m : ℕ} (hm : 0 < m) :
@@ -120,7 +119,7 @@ theorem diffuseRotation_apply_left_half
     Submodule.reflection_singleton_apply,
     diffuseMidMode_inner_left hm θ, diffuseMidMode_norm hm θ]
   unfold diffuseMidMode
-  module_nf
+  module
 
 theorem diffuseRotation_apply_right_half
     {m : ℕ} (hm : 0 < m) (θ : ℝ) :
@@ -138,7 +137,7 @@ theorem diffuseRotation_apply_right_half
     rw [inner_neg_right, diffuseMidMode_inner_right hm θ]
   rw [hinner, diffuseMidMode_norm hm θ]
   unfold diffuseMidMode
-  module_nf
+  module
 
 theorem diffuseRotation_apply_left
     {m : ℕ} (hm : 0 < m) (θ : ℝ) :
@@ -180,7 +179,7 @@ theorem diffuseRotation_apply_right
     rw [hcos0]
     nlinarith
   rw [hsin, hcos]
-  module_nf
+  module
 
 theorem diffuseRotation_apply_of_orthogonal
     {m : ℕ} (hm : 0 < m) (θ : ℝ) (x : H (m + m))
