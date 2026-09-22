@@ -29,4 +29,5 @@ jobs:
           lake build EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetSlope
           lake build EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetDiagonal
           lake build EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyScalar
+          lake build EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyModes
           lake build EverettianDecoherence.Audit.StabilityRigiditySharpness
