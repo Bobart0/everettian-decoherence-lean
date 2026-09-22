@@ -28,6 +28,7 @@ jobs:
             EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetSlope
             EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetDiagonal
             EverettianDecoherence.Approximation.OptimalTwoCellTail
+            EverettianDecoherence.Approximation.CenteredCutBound
             EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyScalar
             EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyModes
             EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyGeometry
