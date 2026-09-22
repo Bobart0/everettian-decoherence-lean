@@ -140,6 +140,7 @@ theorem diffuse_exactEta_over_globalSq_eq
       v18DiffuseGlobal m (diffuseAngularDefect θ) ≠ 0 :=
     ne_of_gt hglobal
   unfold exactMaxCutEta v19DiffuseEtaOverGlobal maxCutEnvelopeDefect
+    v18DiffuseEnvelopeDefect
   rw [diffuseGlobal_budget_sq hm θ,
     diffuseMaxCut_sq_eq hm hθ0 hθpi2]
   field_simp [hglobal_ne]
