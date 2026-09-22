@@ -18,10 +18,10 @@ open scoped Classical InnerProductSpace BigOperators
 
 noncomputable section
 
-private def diffuseLeftFamily (m : ℕ) (i : Fin m) : H (m + m) :=
+def diffuseLeftFamily (m : ℕ) (i : Fin m) : H (m + m) :=
   coordinateOrthonormalBasis (m + m) (Fin.castAdd m i)
 
-private def diffuseRightFamily (m : ℕ) (i : Fin m) : H (m + m) :=
+def diffuseRightFamily (m : ℕ) (i : Fin m) : H (m + m) :=
   coordinateOrthonormalBasis (m + m) (Fin.natAdd m i)
 
 theorem diffuseLeftFamily_orthonormal (m : ℕ) :
