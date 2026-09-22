@@ -87,6 +87,10 @@ open EverettianDecoherence.Approximation
 #check v18FixedBudgetBase_mul_lowerSlope
 #check v18FixedBudgetScaledLower_tendsto_four
 #check fixedPositiveBudget_forces_ultraNear
+#check fixedBudgetDiagonal_budget_tendsto_zero
+#check fixedBudgetDiagonal_eta_tendsto_zero
+#check fixedBudgetDiagonal_forces_ultraNear
+#check eventually_two_cell_tail_le_of_fixedBudgetDiagonal
 
 #check v18DiffuseCellBudget
 #check v18DiffuseGlobal_exact
@@ -129,6 +133,8 @@ open EverettianDecoherence.Approximation
 #print axioms EverettianDecoherence.Approximation.v18FixedBudgetBase_mul_lowerSlope
 #print axioms EverettianDecoherence.Approximation.v18FixedBudgetScaledLower_tendsto_four
 #print axioms EverettianDecoherence.Approximation.fixedPositiveBudget_forces_ultraNear
+#print axioms EverettianDecoherence.Approximation.fixedBudgetDiagonal_forces_ultraNear
+#print axioms EverettianDecoherence.Approximation.eventually_two_cell_tail_le_of_fixedBudgetDiagonal
 #print axioms EverettianDecoherence.Approximation.v18DiffuseGlobal_exact
 #print axioms EverettianDecoherence.Approximation.v18DiffuseEnvelopeDefect_exact
 #print axioms EverettianDecoherence.Approximation.v18Diffuse_scaledRatio_exact
