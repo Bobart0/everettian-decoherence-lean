@@ -34,36 +34,29 @@ theorem diffuseMidMode_inner_left
     inner ℂ (diffuseMidMode m θ) (diffuseLeftMode m) =
       (Real.cos (θ / 2) : ℂ) := by
   simp [diffuseMidMode, inner_add_left, inner_smul_left,
-    diffuseLeftMode_norm hm, diffuseRightMode_inner_leftFamily,
-    inner_self_eq_norm_sq_to_K,
-    diffuseLeftMode_inner_rightMode hm]
+    diffuseLeftMode_norm hm, inner_self_eq_norm_sq_to_K,
+    diffuseRightMode_inner_leftMode hm]
 
 theorem diffuseMidMode_inner_right
     {m : ℕ} (hm : 0 < m) (θ : ℝ) :
     inner ℂ (diffuseMidMode m θ) (diffuseRightMode m) =
       (Real.sin (θ / 2) : ℂ) := by
-  have hcross :
-      inner ℂ (diffuseRightMode m) (diffuseLeftMode m) = 0 := by
-    rw [inner_conj_symm, diffuseLeftMode_inner_rightMode hm]
-    simp
   simp [diffuseMidMode, inner_add_left, inner_smul_left,
     diffuseRightMode_norm hm, inner_self_eq_norm_sq_to_K,
-    diffuseLeftMode_inner_rightMode hm, hcross]
+    diffuseLeftMode_inner_rightMode hm,
+    diffuseRightMode_inner_leftMode hm]
 
 theorem diffuseMidMode_norm
     {m : ℕ} (hm : 0 < m) (θ : ℝ) :
     ‖diffuseMidMode m θ‖ = 1 := by
-  have hcross :
-      inner ℂ (diffuseRightMode m) (diffuseLeftMode m) = 0 := by
-    rw [inner_conj_symm, diffuseLeftMode_inner_rightMode hm]
-    simp
   have hsq : ‖diffuseMidMode m θ‖ ^ 2 = 1 := by
     rw [@norm_sq_eq_re_inner ℂ]
     simp [diffuseMidMode, inner_add_left, inner_add_right,
       inner_smul_left, inner_smul_right,
       diffuseLeftMode_norm hm, diffuseRightMode_norm hm,
       inner_self_eq_norm_sq_to_K,
-      diffuseLeftMode_inner_rightMode hm, hcross,
+      diffuseLeftMode_inner_rightMode hm,
+      diffuseRightMode_inner_leftMode hm,
       Real.sin_sq_add_cos_sq]
   nlinarith [norm_nonneg (diffuseMidMode m θ)]
 
