@@ -194,13 +194,17 @@ theorem exists_pair_eq_maxTwoCellCapturedBudget
       rw [hM0] at hle
       linarith
     refine ⟨i0, j0, hij0, ?_⟩
-    dsimp [M]
+    change M =
+      cellCommutatorOpNormSq D U i0 +
+        cellCommutatorOpNormSq D U j0
     rw [hM0]
     exact hp0zero.symm
   · rcases Finset.mem_image.mp himage with ⟨p, hp, hpval⟩
     have hdistinct : p.1 ≠ p.2 := (Finset.mem_filter.mp hp).2
     refine ⟨p.1, p.2, hdistinct, ?_⟩
-    dsimp [M] at hpval ⊢
+    change M =
+      cellCommutatorOpNormSq D U p.1 +
+        cellCommutatorOpNormSq D U p.2
     exact hpval.symm
 
 end
