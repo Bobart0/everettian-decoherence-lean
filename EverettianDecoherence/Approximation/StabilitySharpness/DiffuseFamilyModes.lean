@@ -145,6 +145,65 @@ theorem diffuseLeftMode_inner_rightMode {m : ℕ} (hm : 0 < m) :
   rw [inner_smul_left, inner_smul_right, diffuseLeftSum_inner_rightSum]
   simp
 
+
+theorem diffuseLeftMode_inner_leftFamily
+    {m : ℕ} (hm : 0 < m) (i : Fin m) :
+    inner ℂ (diffuseLeftMode m) (diffuseLeftFamily m i) =
+      (diffuseModeScale m : ℂ) := by
+  unfold diffuseLeftMode
+  rw [inner_smul_left, diffuseLeftSum_inner_family]
+  simp [diffuseModeScale]
+
+theorem diffuseLeftFamily_inner_leftMode
+    {m : ℕ} (hm : 0 < m) (i : Fin m) :
+    inner ℂ (diffuseLeftFamily m i) (diffuseLeftMode m) =
+      (diffuseModeScale m : ℂ) := by
+  rw [← inner_conj_symm, diffuseLeftMode_inner_leftFamily hm i]
+  simp [diffuseModeScale]
+
+theorem diffuseRightMode_inner_rightFamily
+    {m : ℕ} (hm : 0 < m) (i : Fin m) :
+    inner ℂ (diffuseRightMode m) (diffuseRightFamily m i) =
+      (diffuseModeScale m : ℂ) := by
+  unfold diffuseRightMode
+  rw [inner_smul_left, diffuseRightSum_inner_family]
+  simp [diffuseModeScale]
+
+theorem diffuseRightFamily_inner_rightMode
+    {m : ℕ} (hm : 0 < m) (i : Fin m) :
+    inner ℂ (diffuseRightFamily m i) (diffuseRightMode m) =
+      (diffuseModeScale m : ℂ) := by
+  rw [← inner_conj_symm, diffuseRightMode_inner_rightFamily hm i]
+  simp [diffuseModeScale]
+
+theorem diffuseLeftMode_inner_rightFamily
+    {m : ℕ} (hm : 0 < m) (i : Fin m) :
+    inner ℂ (diffuseLeftMode m) (diffuseRightFamily m i) = 0 := by
+  unfold diffuseLeftMode diffuseLeftSum
+  rw [inner_smul_left]
+  simp_rw [sum_inner]
+  simp [diffuseLeftFamily_inner_rightFamily]
+
+theorem diffuseLeftFamily_inner_rightMode
+    {m : ℕ} (hm : 0 < m) (i : Fin m) :
+    inner ℂ (diffuseLeftFamily m i) (diffuseRightMode m) = 0 := by
+  unfold diffuseRightMode diffuseRightSum
+  rw [inner_smul_right]
+  simp_rw [inner_sum]
+  simp [diffuseLeftFamily_inner_rightFamily]
+
+theorem diffuseRightMode_inner_leftFamily
+    {m : ℕ} (hm : 0 < m) (i : Fin m) :
+    inner ℂ (diffuseRightMode m) (diffuseLeftFamily m i) = 0 := by
+  rw [← inner_conj_symm, diffuseLeftFamily_inner_rightMode hm i]
+  simp
+
+theorem diffuseRightFamily_inner_leftMode
+    {m : ℕ} (hm : 0 < m) (i : Fin m) :
+    inner ℂ (diffuseRightFamily m i) (diffuseLeftMode m) = 0 := by
+  rw [← inner_conj_symm, diffuseLeftMode_inner_rightFamily hm i]
+  simp
+
 theorem diffuseModes_orthonormal {m : ℕ} (hm : 0 < m) :
     Orthonormal ℂ (fun i : Fin 2 =>
       if i = 0 then diffuseLeftMode m else diffuseRightMode m) := by
