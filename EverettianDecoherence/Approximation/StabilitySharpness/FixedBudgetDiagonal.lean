@@ -31,14 +31,12 @@ theorem fixedBudgetDiagonal_budget_tendsto_zero
     (hAover :
       Tendsto (fun k => A k / A0 k) l (𝓝 1)) :
     Tendsto A l (𝓝 0) := by
-  have hprod := hAover.mul hA0
-  have hfun :
-      A = (fun k => A k / A0 k) * A0 := by
-    funext k
-    change A k = (A k / A0 k) * A0 k
-    field_simp [hA0ne k]
-  rw [hfun]
-  simpa using hprod
+  have hprod :
+      Tendsto (fun k => (A k / A0 k) * A0 k) l (𝓝 0) := by
+    simpa using hAover.mul hA0
+  convert hprod using 1
+  funext k
+  field_simp [hA0ne k]
 
 theorem fixedBudgetDiagonal_eta_tendsto_zero
     {α : Type*} {l : Filter α}
@@ -48,14 +46,12 @@ theorem fixedBudgetDiagonal_eta_tendsto_zero
     (hetaOver :
       Tendsto (fun k => eta k / A0 k) l (𝓝 0)) :
     Tendsto eta l (𝓝 0) := by
-  have hprod := hetaOver.mul hA0
-  have hfun :
-      eta = (fun k => eta k / A0 k) * A0 := by
-    funext k
-    change eta k = (eta k / A0 k) * A0 k
-    field_simp [hA0ne k]
-  rw [hfun]
-  simpa using hprod
+  have hprod :
+      Tendsto (fun k => (eta k / A0 k) * A0 k) l (𝓝 0) := by
+    simpa using hetaOver.mul hA0
+  convert hprod using 1
+  funext k
+  field_simp [hA0ne k]
 
 theorem fixedBudgetDiagonal_forces_ultraNear
     {α : Type*} {l : Filter α}
@@ -78,7 +74,7 @@ theorem fixedBudgetDiagonal_forces_ultraNear
       (eta k / A0 k) / (A k / A0 k)
     field_simp [hA0ne k, hAne k]
   rw [hfun]
-  exact hdiv
+  simpa using hdiv
 
 /-- Sequence-level form of the diagonal upper-bound mechanism behind the
 fixed-budget local-slope asymptotic.  It deliberately avoids packaging the
