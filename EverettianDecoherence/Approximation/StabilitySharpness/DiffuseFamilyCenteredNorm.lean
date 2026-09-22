@@ -149,15 +149,24 @@ theorem diffuseCentered_apply
     centeredUnitaryCLM (diffuseRotation m θ) (Real.cos θ : ℂ) x =
       (Real.sin θ : ℂ) • diffuseQuarterTurnPart m x +
         ((1 - Real.cos θ : ℝ) : ℂ) • diffusePlaneResidual m x := by
+  have hx := diffusePlane_decomp m x
   rw [centeredUnitaryCLM_apply]
-  nth_rw 1 [diffusePlane_decomp m x]
-  unfold diffusePlanePart
-  simp only [map_add, map_smul]
-  rw [diffuseRotation_apply_left hm θ,
-    diffuseRotation_apply_right hm θ,
-    diffuseRotation_apply_planeResidual hm θ x]
-  unfold diffuseQuarterTurnPart
-  module
+  calc
+    diffuseRotation m θ x - (Real.cos θ : ℂ) • x =
+        diffuseRotation m θ
+            (diffusePlanePart m x + diffusePlaneResidual m x) -
+          (Real.cos θ : ℂ) •
+            (diffusePlanePart m x + diffusePlaneResidual m x) := by
+              rw [← hx]
+    _ = (Real.sin θ : ℂ) • diffuseQuarterTurnPart m x +
+        ((1 - Real.cos θ : ℝ) : ℂ) • diffusePlaneResidual m x := by
+      unfold diffusePlanePart
+      simp only [map_add, map_smul]
+      rw [diffuseRotation_apply_left hm θ,
+        diffuseRotation_apply_right hm θ,
+        diffuseRotation_apply_planeResidual hm θ x]
+      unfold diffuseQuarterTurnPart
+      module
 
 theorem diffuseCentered_norm_sq
     {m : ℕ} (hm : 0 < m) (θ : ℝ) (x : H (m + m)) :
@@ -240,7 +249,8 @@ theorem sin_le_diffuseCentered_norm
     (centeredUnitaryCLM (diffuseRotation m θ) (Real.cos θ : ℂ)).le_opNorm
       (diffuseLeftMode m)
   rw [diffuseCentered_apply_leftMode hm θ,
-    norm_smul, diffuseLeftMode_norm hm] at h
+    norm_smul, diffuseRightMode_norm hm,
+    diffuseLeftMode_norm hm] at h
   simpa [Complex.norm_real, Real.norm_eq_abs, abs_of_pos hsin] using h
 
 theorem diffuseCentered_norm_eq_sin
