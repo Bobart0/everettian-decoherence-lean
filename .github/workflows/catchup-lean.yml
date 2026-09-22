@@ -1,0 +1,32 @@
+name: Catchup Lean
+
+on:
+  push:
+    branches: [formalize-v18-manuscript-catchup]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: catchup-lean-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  targeted:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          build: false
+          test: false
+          lint: false
+      - name: Build manuscript catch-up targets
+        run: |
+          lake build EverettianDecoherence.Approximation.StabilitySharpness.CoordinatePerspective
+          lake build EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetSlope
+          lake build EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetDiagonal
+          lake build EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyScalar
+          lake build EverettianDecoherence.Audit.StabilityRigiditySharpness
