@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: catchup-lean-v4-${{ github.ref }}
+  group: catchup-lean-v5-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
