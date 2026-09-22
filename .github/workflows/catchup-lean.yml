@@ -31,4 +31,5 @@ jobs:
             EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyModes
             EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyGeometry
             EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyDiagonal
+            EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyCellInvariants
             EverettianDecoherence.Audit.StabilityRigiditySharpness
