@@ -1,4 +1,5 @@
 import EverettianDecoherence.Approximation.RecordSubsetCrossBlockOpNorm
+import EverettianDecoherence.Approximation.CutEnvelope
 import EverettianDecoherence.Metrics.RecordSubsetProjector
 
 /-!
