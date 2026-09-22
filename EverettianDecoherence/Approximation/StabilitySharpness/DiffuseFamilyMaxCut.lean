@@ -97,7 +97,13 @@ theorem diffuseLeftCut_projector_rightMode
   simp only [LinearMap.sum_apply]
   apply Finset.sum_eq_zero
   intro c hc
-  obtain ⟨i, _hi, rfl⟩ := Finset.mem_image.mp hc
+  have hc' :
+      c ∈ Finset.univ.image (fun i : Fin m =>
+        (coordinateCell (Fin.castAdd m i) :
+          (Projective.interface (m + m)).Cell
+            (coordinatePerspective (m + m)))) := by
+    simpa [diffuseLeftCut] using hc
+  obtain ⟨i, _hi, rfl⟩ := Finset.mem_image.mp hc'
   exact coordinateLeftCell_projector_rightMode hm i
 
 theorem diffuseLeftCut_projector_rotatedLeft
@@ -141,7 +147,8 @@ theorem sin_le_diffuseLeftCut_commutator_norm
       (coordinatePerspective (m + m)) (diffuseRotation m θ)
       (diffuseLeftCut m)).le_opNorm (diffuseLeftMode m)
   rw [diffuseLeftCut_commutator_apply_leftMode hm θ,
-    norm_neg, norm_smul, diffuseLeftMode_norm hm] at h
+    norm_neg, norm_smul, diffuseRightMode_norm hm,
+    diffuseLeftMode_norm hm] at h
   simpa [Complex.norm_real, Real.norm_eq_abs, abs_of_pos hsin] using h
 
 theorem sin_le_diffuseMaxCut
