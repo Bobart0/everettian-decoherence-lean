@@ -78,7 +78,7 @@ theorem fixedBudgetDiagonal_forces_ultraNear
       (eta k / A0 k) / (A k / A0 k)
     field_simp [hA0ne k, hAne k]
   rw [hfun]
-  simpa using hdiv
+  exact hdiv
 
 /-- Sequence-level form of the diagonal upper-bound mechanism behind the
 fixed-budget local-slope asymptotic.  It deliberately avoids packaging the
