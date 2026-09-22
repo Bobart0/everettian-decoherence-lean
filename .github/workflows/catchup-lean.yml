@@ -31,3 +31,4 @@ jobs:
             EverettianDecoherence.Approximation.OptimalTwoCellTail
             EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyTail
             EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyMaxCut
+            EverettianDecoherence.Approximation.StabilitySharpness.DiffuseThreshold
