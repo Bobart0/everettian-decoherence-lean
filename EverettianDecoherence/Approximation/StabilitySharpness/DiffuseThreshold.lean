@@ -42,7 +42,20 @@ theorem v19DiffuseEtaOverGlobal_eq
       rw [sub_pos, div_lt_one hmpos]
       linarith
     positivity
-  field_simp [hE, hA]
+  have hmR : (m : ℝ) ≠ 0 := by positivity
+  have hq :
+      1 - d / (2 * (m : ℝ)) ≠ 0 := by
+    intro hq0
+    apply hA
+    rw [v18DiffuseGlobal_exact m (by omega) d]
+    have hden : (2 * (m : ℝ)) ≠ 0 := by positivity
+    have hdEq : d = 2 * (m : ℝ) := by
+      have hdiv : d / (2 * (m : ℝ)) = 1 := by linarith
+      exact (div_eq_one_iff_eq hden).mp hdiv
+    rw [hdEq]
+    field_simp [hmR]
+    ring
+  field_simp [hE, hA, hq]
   nlinarith [hratio]
 
 theorem v19DiffuseTau_tendsto_one
