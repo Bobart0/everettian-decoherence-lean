@@ -78,7 +78,10 @@ theorem pair_budget_le_maxTwoCellCapturedBudget
       maxTwoCellCapturedBudget D U := by
   unfold maxTwoCellCapturedBudget
   apply Finset.le_max'
-  simp [twoCellCapturedValues, distinctCellPairs, hij]
+  apply Finset.mem_insert_of_mem
+  apply Finset.mem_image.mpr
+  refine ⟨(i, j), ?_, rfl⟩
+  simp [distinctCellPairs, hij]
 
 theorem pair_budget_le_globalSq
     {n : ℕ} (D : Perspective n)
@@ -179,22 +182,26 @@ theorem exists_pair_eq_maxTwoCellCapturedBudget
     dsimp [p0]
     exact add_nonneg (cellCommutatorOpNormSq_nonneg D U i0)
       (cellCommutatorOpNormSq_nonneg D U j0)
-  have hmem := Finset.max'_mem (twoCellCapturedValues D U)
-    (twoCellCapturedValues_nonempty D U)
-  rcases Finset.mem_insert.mp hmem with hzero | himage
-  · have hmax0 : maxTwoCellCapturedBudget D U = 0 := by
-      simpa [maxTwoCellCapturedBudget, hzero]
-    have hle := pair_budget_le_maxTwoCellCapturedBudget D U i0 j0 hij0
+  let M := maxTwoCellCapturedBudget D U
+  have hmem : M ∈ twoCellCapturedValues D U := by
+    dsimp [M, maxTwoCellCapturedBudget]
+    exact Finset.max'_mem (twoCellCapturedValues D U)
+      (twoCellCapturedValues_nonempty D U)
+  rcases Finset.mem_insert.mp hmem with hM0 | himage
+  · have hle := pair_budget_le_maxTwoCellCapturedBudget D U i0 j0 hij0
     have hp0zero : p0 = 0 := by
-      dsimp [p0] at hp0 ⊢
-      rw [hmax0] at hle
+      dsimp [p0, M] at hp0 hle hM0 ⊢
+      rw [hM0] at hle
       linarith
-    exact ⟨i0, j0, hij0, by simpa [hmax0, p0] using hp0zero.symm⟩
+    refine ⟨i0, j0, hij0, ?_⟩
+    dsimp [M]
+    rw [hM0]
+    exact hp0zero.symm
   · rcases Finset.mem_image.mp himage with ⟨p, hp, hpval⟩
     have hdistinct : p.1 ≠ p.2 := (Finset.mem_filter.mp hp).2
     refine ⟨p.1, p.2, hdistinct, ?_⟩
-    unfold maxTwoCellCapturedBudget
-    simpa [hpval]
+    dsimp [M] at hpval ⊢
+    exact hpval.symm
 
 end
 end EverettianDecoherence.Approximation
