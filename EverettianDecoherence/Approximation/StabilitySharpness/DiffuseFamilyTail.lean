@@ -117,7 +117,6 @@ theorem diffuseCellBudget_pos
         d * (2 * (m : ℝ) - d) / (m : ℝ) ^ 2 := by
     unfold v18DiffuseCellBudget
     field_simp [ne_of_gt hmR]
-    ring
   rw [hfac]
   have hsecond : 0 < 2 * (m : ℝ) - d := by
     dsimp [d]
@@ -147,7 +146,6 @@ theorem diffuseOptimalTwoCellTailFraction_eq_tau
         (2 * (m : ℝ) * p) =
       1 - 1 / (m : ℝ)
   field_simp [hmR, ne_of_gt hp]
-  ring
 
 end
 end EverettianDecoherence.Approximation
