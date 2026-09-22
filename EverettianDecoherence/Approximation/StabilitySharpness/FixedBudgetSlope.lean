@@ -88,7 +88,7 @@ theorem fixedPositiveBudget_forces_ultraNear
     Tendsto (fun k => eta k / A k) l (𝓝 0) := by
   have h := heta.div hA hA0
   change Tendsto (eta / A) l (𝓝 0)
-  exact h
+  simpa using h
 
 end
 end EverettianDecoherence.Approximation
