@@ -64,5 +64,47 @@ theorem coordinateCell_ne
       hval
   exact hij hinj
 
+
+theorem coordinateCell_bijective (n : ℕ) :
+    Function.Bijective
+      (coordinateCell :
+        Fin n →
+          (Projective.interface n).Cell (coordinatePerspective n)) := by
+  constructor
+  · intro i j hij
+    by_contra hne
+    exact coordinateCell_ne hne hij
+  · intro c
+    rcases c with ⟨V, hV⟩
+    change V ∈ (basisPerspective (coordinateOrthonormalBasis n)).cells at hV
+    change
+      V ∈
+        Finset.univ.image
+          (fun i : Fin n =>
+            ℂ ∙ (coordinateOrthonormalBasis n i : H n))
+      at hV
+    obtain ⟨i, _hi, hVi⟩ := Finset.mem_image.mp hV
+    refine ⟨i, ?_⟩
+    apply Subtype.ext
+    rw [coordinateCell_val]
+    exact hVi
+
+noncomputable def coordinateCellEquiv (n : ℕ) :
+    Fin n ≃
+      (Projective.interface n).Cell (coordinatePerspective n) :=
+  Equiv.ofBijective coordinateCell (coordinateCell_bijective n)
+
+@[simp]
+theorem coordinateCellEquiv_apply {n : ℕ} (i : Fin n) :
+    coordinateCellEquiv n i = coordinateCell i := by
+  rfl
+
+theorem sum_coordinateCells {n : ℕ}
+    (f : (Projective.interface n).Cell (coordinatePerspective n) → ℝ) :
+    (∑ c, f c) = ∑ i : Fin n, f (coordinateCell i) := by
+  symm
+  exact Fintype.sum_equiv (coordinateCellEquiv n)
+    (fun i => f (coordinateCell i)) f (fun i => rfl)
+
 end
 end EverettianDecoherence.Approximation
