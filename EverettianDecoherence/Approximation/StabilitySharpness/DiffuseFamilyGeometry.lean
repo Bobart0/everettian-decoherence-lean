@@ -66,9 +66,7 @@ theorem diffuseMidMode_norm
   let b : H (m + m) := (sθ : ℂ) • diffuseRightMode m
   have hab : inner ℂ a b = 0 := by
     dsimp [a, b]
-    rw [inner_smul_left, inner_smul_right,
-      diffuseLeftMode_inner_rightMode hm]
-    simp
+    simp [diffuseLeftMode_inner_rightMode hm]
   have hp :=
     norm_add_sq_eq_norm_sq_add_norm_sq_of_inner_eq_zero a b hab
   have hp' :
