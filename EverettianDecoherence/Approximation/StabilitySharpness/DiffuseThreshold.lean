@@ -55,8 +55,20 @@ theorem v19DiffuseEtaOverGlobal_eq
     rw [hdEq]
     field_simp [hmR]
     ring
-  field_simp [hE, hA, hq]
-  nlinarith [hratio]
+  let q : ℝ := 1 - d / (2 * (m : ℝ))
+  have hq' : q ≠ 0 := by
+    simpa [q] using hq
+  have hQ : 8 * q ^ 2 ≠ 0 := by
+    exact mul_ne_zero (by norm_num) (pow_ne_zero 2 hq')
+  have hA2 : v18DiffuseGlobal m d ^ 2 ≠ 0 :=
+    pow_ne_zero 2 hA
+  have hclear :
+      v18DiffuseGlobal m d ^ 2 * v18DiffuseTau m =
+        (8 * q ^ 2) * v18DiffuseEnvelopeDefect m d := by
+    apply (div_eq_iff hE).mp
+    simpa [q] using hratio
+  apply (div_eq_div_iff hA2 hQ).2
+  simpa [q, mul_comm, mul_left_comm, mul_assoc] using hclear.symm
 
 theorem v19DiffuseTau_tendsto_one
     {α : Type*} {l : Filter α}
@@ -112,7 +124,12 @@ theorem v19DiffuseEtaOverGlobal_tendsto_eighth
     exact v19DiffuseEtaOverGlobal_eq
       (m k) (hm2 k) (d k) (hdne k) (hAne k)
   rw [hfun]
-  convert hdiv using 1 <;> norm_num
+  change
+    Tendsto
+      ((fun k => v18DiffuseTau (m k)) /
+        (fun k => 8 * (1 - d k / (2 * (m k : ℝ))) ^ 2))
+      l (𝓝 (1 / 8 : ℝ))
+  simpa using hdiv
 
 /-- Exact geometric diffuse ratio eta/A equals the scalar E/A^2. -/
 theorem diffuse_exactEta_over_globalSq_eq
@@ -144,7 +161,6 @@ theorem diffuse_exactEta_over_globalSq_eq
   rw [diffuseGlobal_budget_sq hm θ,
     diffuseMaxCut_sq_eq hm hθ0 hθpi2]
   field_simp [hglobal_ne]
-  ring
 
 /-- Geometric envelope defect of the diffuse family, in the exact scalar
 form used by the manuscript. -/
@@ -228,12 +244,11 @@ theorem eventually_lt_exactEta_over_globalSq_of_tau_tendsto_one
     let c : ℝ := (8 + 1 / r) / 2
     have h8r : 8 * r < 1 := by
       nlinarith
+    have h8inv : 8 < 1 / r := by
+      exact (lt_div_iff₀ hrpos).2 h8r
     have hc8 : 8 < c := by
       dsimp [c]
-      have hrne : r ≠ 0 := ne_of_gt hrpos
-      apply (lt_div_iff₀ (by norm_num : (0 : ℝ) < 2)).2
-      apply (lt_div_iff₀ hrpos).2
-      nlinarith
+      linarith
     have hcpos : 0 < c := lt_trans (by norm_num : (0 : ℝ) < 8) hc8
     have hcr : c * r < 1 := by
       dsimp [c]
@@ -269,7 +284,8 @@ theorem eventually_lt_exactEta_over_globalSq_of_tau_tendsto_one
             operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 <
           operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 *
             optimalTwoCellTailFraction (D k) (U k) := by
-      exact mul_lt_mul_of_pos_right hklow hApos
+      simpa [mul_comm, mul_left_comm, mul_assoc] using
+        (mul_lt_mul_of_pos_right hklow hApos)
     have hchain :
         c * r *
             operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 <
@@ -278,8 +294,11 @@ theorem eventually_lt_exactEta_over_globalSq_of_tau_tendsto_one
     have hbetter :
         r * operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2 <
           exactMaxCutEta (D k) (U k) := by
-      apply (mul_lt_mul_left hcpos).mp
-      simpa [mul_assoc] using hchain
+      have hcchain :
+          c * (r * operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2) <
+            c * exactMaxCutEta (D k) (U k) := by
+        simpa [mul_assoc] using hchain
+      exact (mul_lt_mul_left hcpos).mp hcchain
     exact (lt_div_iff₀ hApos).2 hbetter
 
 end
