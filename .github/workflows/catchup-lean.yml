@@ -20,15 +20,14 @@ jobs:
       - uses: leanprover/lean-action@v1
         with:
           auto-config: false
-          build: false
+          build: true
           test: false
           lint: false
-      - name: Build manuscript catch-up targets
-        run: |
-          lake build EverettianDecoherence.Approximation.StabilitySharpness.CoordinatePerspective
-          lake build EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetSlope
-          lake build EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetDiagonal
-          lake build EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyScalar
-          lake build EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyModes
-          lake build EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyGeometry
-          lake build EverettianDecoherence.Audit.StabilityRigiditySharpness
+          build-args: >-
+            EverettianDecoherence.Approximation.StabilitySharpness.CoordinatePerspective
+            EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetSlope
+            EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetDiagonal
+            EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyScalar
+            EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyModes
+            EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyGeometry
+            EverettianDecoherence.Audit.StabilityRigiditySharpness
