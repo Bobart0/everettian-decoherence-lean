@@ -55,25 +55,29 @@ noncomputable def diffuseRightSum (m : ℕ) : H (m + m) :=
 
 theorem diffuseLeftSum_inner_family (m : ℕ) (i : Fin m) :
     inner ℂ (diffuseLeftSum m) (diffuseLeftFamily m i) = 1 := by
-  simpa [diffuseLeftSum] using
+  change inner ℂ (∑ j : Fin m, diffuseLeftFamily m j)
+    (diffuseLeftFamily m i) = 1
+  simpa only [one_smul] using
     (diffuseLeftFamily_orthonormal m).inner_left_fintype
       (fun _ : Fin m => (1 : ℂ)) i
 
 theorem diffuseRightSum_inner_family (m : ℕ) (i : Fin m) :
     inner ℂ (diffuseRightSum m) (diffuseRightFamily m i) = 1 := by
-  simpa [diffuseRightSum] using
+  change inner ℂ (∑ j : Fin m, diffuseRightFamily m j)
+    (diffuseRightFamily m i) = 1
+  simpa only [one_smul] using
     (diffuseRightFamily_orthonormal m).inner_left_fintype
       (fun _ : Fin m => (1 : ℂ)) i
 
 theorem diffuseLeftSum_inner_self (m : ℕ) :
     inner ℂ (diffuseLeftSum m) (diffuseLeftSum m) = (m : ℂ) := by
-  unfold diffuseLeftSum
+  nth_rw 2 [diffuseLeftSum]
   rw [inner_sum]
   simp [diffuseLeftSum_inner_family]
 
 theorem diffuseRightSum_inner_self (m : ℕ) :
     inner ℂ (diffuseRightSum m) (diffuseRightSum m) = (m : ℂ) := by
-  unfold diffuseRightSum
+  nth_rw 2 [diffuseRightSum]
   rw [inner_sum]
   simp [diffuseRightSum_inner_family]
 
@@ -101,7 +105,7 @@ theorem diffuseModeScale_sq {m : ℕ} (hm : 0 < m) :
     diffuseModeScale m ^ 2 = 1 / (m : ℝ) := by
   unfold diffuseModeScale
   rw [inv_pow, Real.sq_sqrt (show 0 ≤ (m : ℝ) by positivity)]
-  rfl
+  simp [one_div]
 
 theorem diffuseLeftSum_norm_sq (m : ℕ) :
     ‖diffuseLeftSum m‖ ^ 2 = (m : ℝ) := by
@@ -152,9 +156,8 @@ theorem diffuseLeftMode_inner_rightMode {m : ℕ} (hm : 0 < m) :
   simp
 
 theorem diffuseRightMode_inner_leftMode {m : ℕ} (hm : 0 < m) :
-    inner ℂ (diffuseRightMode m) (diffuseLeftMode m) = 0 := by
-  rw [inner_conj_symm, diffuseLeftMode_inner_rightMode hm]
-  simp
+    inner ℂ (diffuseRightMode m) (diffuseLeftMode m) = 0 :=
+  inner_eq_zero_symm.mp (diffuseLeftMode_inner_rightMode hm)
 
 
 theorem diffuseLeftMode_inner_leftFamily
@@ -205,15 +208,13 @@ theorem diffuseLeftFamily_inner_rightMode
 
 theorem diffuseRightMode_inner_leftFamily
     {m : ℕ} (hm : 0 < m) (i : Fin m) :
-    inner ℂ (diffuseRightMode m) (diffuseLeftFamily m i) = 0 := by
-  rw [← inner_conj_symm, diffuseLeftFamily_inner_rightMode hm i]
-  simp
+    inner ℂ (diffuseRightMode m) (diffuseLeftFamily m i) = 0 :=
+  inner_eq_zero_symm.mp (diffuseLeftFamily_inner_rightMode hm i)
 
 theorem diffuseRightFamily_inner_leftMode
     {m : ℕ} (hm : 0 < m) (i : Fin m) :
-    inner ℂ (diffuseRightFamily m i) (diffuseLeftMode m) = 0 := by
-  rw [← inner_conj_symm, diffuseLeftMode_inner_rightFamily hm i]
-  simp
+    inner ℂ (diffuseRightFamily m i) (diffuseLeftMode m) = 0 :=
+  inner_eq_zero_symm.mp (diffuseLeftMode_inner_rightFamily hm i)
 
 theorem diffuseModes_orthonormal {m : ℕ} (hm : 0 < m) :
     Orthonormal ℂ (fun i : Fin 2 =>
@@ -223,8 +224,7 @@ theorem diffuseModes_orthonormal {m : ℕ} (hm : 0 < m) :
   fin_cases i <;> fin_cases j
   · simp [diffuseLeftMode_norm hm, inner_self_eq_norm_sq_to_K]
   · simp [diffuseLeftMode_inner_rightMode hm]
-  · rw [inner_conj_symm, diffuseLeftMode_inner_rightMode hm]
-    simp
+  · simp [diffuseRightMode_inner_leftMode hm]
   · simp [diffuseRightMode_norm hm, inner_self_eq_norm_sq_to_K]
 
 end
