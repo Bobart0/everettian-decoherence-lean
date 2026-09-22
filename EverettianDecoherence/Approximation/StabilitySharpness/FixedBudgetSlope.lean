@@ -46,7 +46,6 @@ theorem v18FixedBudgetBase_mul_lowerSlope
       4 - 2 * d := by
   unfold v18FixedBudgetBase v18FixedBudgetLowerSlope
   field_simp [hd]
-  ring
 
 /-- The three-cell fixed-budget lower slope has the sharp small-budget scaled
 limit 4. -/
@@ -88,7 +87,8 @@ theorem fixedPositiveBudget_forces_ultraNear
     (heta : Tendsto eta l (𝓝 0)) :
     Tendsto (fun k => eta k / A k) l (𝓝 0) := by
   have h := heta.div hA hA0
-  simpa using h
+  change Tendsto (eta / A) l (𝓝 0)
+  exact h
 
 end
 end EverettianDecoherence.Approximation
