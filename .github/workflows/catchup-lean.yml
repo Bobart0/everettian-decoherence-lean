@@ -24,17 +24,7 @@ jobs:
           test: false
           lint: false
           build-args: >-
-            EverettianDecoherence.Approximation.StabilitySharpness.CoordinatePerspective
-            EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetSlope
             EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetDiagonal
             EverettianDecoherence.Approximation.OptimalTwoCellTail
-            EverettianDecoherence.Approximation.CenteredCutBound
-            EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyScalar
-            EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyModes
-            EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyGeometry
-            EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyDiagonal
-            EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyCellInvariants
             EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyTail
-            EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyCenteredNorm
             EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyMaxCut
-            EverettianDecoherence.Audit.StabilityRigiditySharpness
