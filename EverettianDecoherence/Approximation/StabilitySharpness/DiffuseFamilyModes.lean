@@ -145,6 +145,11 @@ theorem diffuseLeftMode_inner_rightMode {m : ℕ} (hm : 0 < m) :
   rw [inner_smul_left, inner_smul_right, diffuseLeftSum_inner_rightSum]
   simp
 
+theorem diffuseRightMode_inner_leftMode {m : ℕ} (hm : 0 < m) :
+    inner ℂ (diffuseRightMode m) (diffuseLeftMode m) = 0 := by
+  rw [inner_conj_symm, diffuseLeftMode_inner_rightMode hm]
+  simp
+
 
 theorem diffuseLeftMode_inner_leftFamily
     {m : ℕ} (hm : 0 < m) (i : Fin m) :
