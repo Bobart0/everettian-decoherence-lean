@@ -85,19 +85,28 @@ theorem diffusePlanePart_norm_sq
           (diffuseRightCoeff m x • diffuseRightMode m) = 0 := by
     simp [inner_smul_left, inner_smul_right,
       diffuseLeftMode_inner_rightMode hm]
-  rw [norm_add_sq_eq_norm_sq_add_norm_sq_of_inner_eq_zero
-    _ _ horth]
-  simp [norm_smul, diffuseLeftMode_norm hm,
-    diffuseRightMode_norm hm, mul_pow]
+  have hp :=
+    norm_add_sq_eq_norm_sq_add_norm_sq_of_inner_eq_zero
+      (diffuseLeftCoeff m x • diffuseLeftMode m)
+      (diffuseRightCoeff m x • diffuseRightMode m) horth
+  simpa [pow_two, norm_smul, diffuseLeftMode_norm hm,
+    diffuseRightMode_norm hm] using hp
 
 theorem diffusePlane_pythagoras
     {m : ℕ} (hm : 0 < m) (x : H (m + m)) :
     ‖x‖ ^ 2 =
       ‖diffusePlanePart m x‖ ^ 2 +
         ‖diffusePlaneResidual m x‖ ^ 2 := by
-  nth_rw 1 [diffusePlane_decomp m x]
-  rw [norm_add_sq_eq_norm_sq_add_norm_sq_of_inner_eq_zero
-    _ _ (diffusePlanePart_inner_residual hm x)]
+  calc
+    ‖x‖ ^ 2 =
+        ‖diffusePlanePart m x + diffusePlaneResidual m x‖ ^ 2 := by
+      rw [← diffusePlane_decomp m x]
+    _ = ‖diffusePlanePart m x‖ ^ 2 +
+        ‖diffusePlaneResidual m x‖ ^ 2 := by
+      simpa [pow_two] using
+        norm_add_sq_eq_norm_sq_add_norm_sq_of_inner_eq_zero
+          (diffusePlanePart m x) (diffusePlaneResidual m x)
+          (diffusePlanePart_inner_residual hm x)
 
 noncomputable def diffuseQuarterTurnPart
     (m : ℕ) (x : H (m + m)) : H (m + m) :=
@@ -120,10 +129,12 @@ theorem diffuseQuarterTurnPart_norm_sq
           ‖diffuseRightCoeff m x‖ ^ 2 := by
     unfold diffuseQuarterTurnPart
     rw [sub_eq_add_neg]
-    rw [norm_add_sq_eq_norm_sq_add_norm_sq_of_inner_eq_zero
-      _ _ horthQ]
-    simp [norm_smul, diffuseLeftMode_norm hm,
-      diffuseRightMode_norm hm, mul_pow]
+    have hp :=
+      norm_add_sq_eq_norm_sq_add_norm_sq_of_inner_eq_zero
+        (diffuseLeftCoeff m x • diffuseRightMode m)
+        (- diffuseRightCoeff m x • diffuseLeftMode m) horthQ
+    simpa [pow_two, norm_smul, diffuseLeftMode_norm hm,
+      diffuseRightMode_norm hm] using hp
   rw [hQ, diffusePlanePart_norm_sq hm x]
 
 theorem diffuseQuarterTurnPart_inner_residual
@@ -180,8 +191,17 @@ theorem diffuseCentered_norm_sq
           (((1 - Real.cos θ : ℝ) : ℂ) • diffusePlaneResidual m x) = 0 := by
     simp [inner_smul_left, inner_smul_right,
       diffuseQuarterTurnPart_inner_residual hm x]
-  rw [norm_add_sq_eq_norm_sq_add_norm_sq_of_inner_eq_zero
-    _ _ horth]
+  have hp :=
+    norm_add_sq_eq_norm_sq_add_norm_sq_of_inner_eq_zero
+      ((Real.sin θ : ℂ) • diffuseQuarterTurnPart m x)
+      (((1 - Real.cos θ : ℝ) : ℂ) • diffusePlaneResidual m x) horth
+  have hp' :
+      ‖((Real.sin θ : ℂ) • diffuseQuarterTurnPart m x) +
+          (((1 - Real.cos θ : ℝ) : ℂ) • diffusePlaneResidual m x)‖ ^ 2 =
+        ‖((Real.sin θ : ℂ) • diffuseQuarterTurnPart m x)‖ ^ 2 +
+          ‖(((1 - Real.cos θ : ℝ) : ℂ) • diffusePlaneResidual m x)‖ ^ 2 := by
+    simpa [pow_two] using hp
+  rw [hp']
   rw [norm_smul, norm_smul, diffuseQuarterTurnPart_norm_sq hm x]
   simp only [Complex.norm_real, Real.norm_eq_abs, mul_pow, sq_abs]
 
@@ -222,7 +242,6 @@ theorem diffuseCentered_norm_le_sin
       Real.sin θ ^ 2 * ‖diffusePlanePart m x‖ ^ 2 +
         Real.sin θ ^ 2 * ‖diffusePlaneResidual m x‖ ^ 2 := by
           gcongr
-          exact sq_nonneg _
     _ = Real.sin θ ^ 2 *
         (‖diffusePlanePart m x‖ ^ 2 +
           ‖diffusePlaneResidual m x‖ ^ 2) := by ring
@@ -251,6 +270,7 @@ theorem sin_le_diffuseCentered_norm
   rw [diffuseCentered_apply_leftMode hm θ,
     norm_smul, diffuseRightMode_norm hm,
     diffuseLeftMode_norm hm] at h
+  rw [← Complex.ofReal_sin] at h
   simpa [Complex.norm_real, Real.norm_eq_abs, abs_of_pos hsin] using h
 
 theorem diffuseCentered_norm_eq_sin
