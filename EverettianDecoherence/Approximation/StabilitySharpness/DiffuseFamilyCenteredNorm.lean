@@ -202,8 +202,8 @@ theorem diffuseCentered_norm_sq
           ‖(((1 - Real.cos θ : ℝ) : ℂ) • diffusePlaneResidual m x)‖ ^ 2 := by
     simpa [pow_two] using hp
   rw [hp']
-  rw [norm_smul, norm_smul, diffuseQuarterTurnPart_norm_sq hm x]
-  simp only [Complex.norm_real, Real.norm_eq_abs, mul_pow, sq_abs]
+  simp only [norm_smul, Complex.norm_real, Real.norm_eq_abs, mul_pow, sq_abs]
+  rw [diffuseQuarterTurnPart_norm_sq hm x]
 
 theorem diffuse_defect_sq_le_sin_sq
     {θ : ℝ} (hθ0 : 0 < θ) (hθpi2 : θ < Real.pi / 2) :
@@ -270,7 +270,6 @@ theorem sin_le_diffuseCentered_norm
   rw [diffuseCentered_apply_leftMode hm θ,
     norm_smul, diffuseRightMode_norm hm,
     diffuseLeftMode_norm hm] at h
-  rw [← Complex.ofReal_sin] at h
   simpa [Complex.norm_real, Real.norm_eq_abs, abs_of_pos hsin] using h
 
 theorem diffuseCentered_norm_eq_sin
