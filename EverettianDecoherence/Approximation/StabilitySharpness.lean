@@ -9,6 +9,7 @@ import EverettianDecoherence.Approximation.V12AsymptoticEight
 import EverettianDecoherence.Approximation.V12UltraNearFour
 import EverettianDecoherence.Approximation.StabilitySharpness.Asymptotics
 import EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetSlope
+import EverettianDecoherence.Approximation.StabilitySharpness.FixedBudgetDiagonal
 import EverettianDecoherence.Approximation.StabilitySharpness.DiffuseFamilyScalar
 
 /-!
