@@ -298,7 +298,7 @@ theorem eventually_lt_exactEta_over_globalSq_of_tau_tendsto_one
           c * (r * operatorNormProjectorCommutatorL2 (D k) (U k) ^ 2) <
             c * exactMaxCutEta (D k) (U k) := by
         simpa [mul_assoc] using hchain
-      exact (mul_lt_mul_left hcpos).mp hcchain
+      exact lt_of_mul_lt_mul_left hcchain hcpos.le
     exact (lt_div_iff₀ hApos).2 hbetter
 
 end
