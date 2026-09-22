@@ -115,6 +115,7 @@ theorem diffuseGlobal_budget_sq
     operatorNormProjectorCommutatorL2
         (coordinatePerspective (m + m)) (diffuseRotation m θ) ^ 2 =
       v18DiffuseGlobal m (diffuseAngularDefect θ) := by
+  unfold operatorNormProjectorCommutatorL2
   rw [EverettianDecoherence.Metrics.finiteL2_sq]
   unfold EverettianDecoherence.Metrics.finiteL2Sq
   change
