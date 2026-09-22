@@ -264,13 +264,16 @@ theorem sin_le_diffuseCentered_norm
     linarith [Real.pi_pos]
   have hsin : 0 < Real.sin θ :=
     Real.sin_pos_of_pos_of_lt_pi hθ0 hθpi
+  have hnorm : ‖(Real.sin θ : ℂ)‖ = Real.sin θ := by
+    rw [Complex.norm_real, Real.norm_eq_abs, abs_of_pos hsin]
   have h :=
     (centeredUnitaryCLM (diffuseRotation m θ) (Real.cos θ : ℂ)).le_opNorm
       (diffuseLeftMode m)
   rw [diffuseCentered_apply_leftMode hm θ,
-    norm_smul, diffuseRightMode_norm hm,
+    norm_smul, hnorm, diffuseRightMode_norm hm,
     diffuseLeftMode_norm hm] at h
-  simpa [Complex.norm_real, Real.norm_eq_abs, abs_of_pos hsin] using h
+  norm_num at h ⊢
+  exact h
 
 theorem diffuseCentered_norm_eq_sin
     {m : ℕ} (hm : 0 < m)
