@@ -10,15 +10,24 @@ authors:
     country: FR
     orcid: "https://orcid.org/0009-0000-2457-375X"
 abstract: >-
-  This version contains only the initial harness, the upstream dependency
-  contract, and guards. It contains no local theorem of decoherence.
+  Lean 4 formalization of finite projective-decomposition robustness results,
+  including projector-commutator bounds, exact cut-envelope rigidity,
+  quantitative two-cell stability with sharp asymptotic coefficients,
+  continuous three-cell sharpness families, fixed-budget proof mechanisms,
+  and a geometric diffuse 2m-cell family attaining the sharp 1/8
+  complete-diffusion threshold. The formalization is finite-dimensional and
+  algebraic; it does not introduce time dynamics, Hamiltonians, open-system
+  evolution, or a theorem of physical decoherence.
 keywords:
   - quantum foundations
-  - Everett interpretation
-  - decoherence
-  - robustness
+  - projective decompositions
+  - projector commutators
+  - rigidity
+  - stability
+  - sharpness
   - Lean 4
   - formal verification
 license: Apache-2.0
-version: 0.1.0-dev
+version: 0.2.0
+date-released: 2026-09-23
 repository-code: "https://github.com/Bobart0/everettian-decoherence-lean"
