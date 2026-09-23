@@ -100,8 +100,9 @@ and threshold results.
 
 The historical archival release `v0.1.0` (Zenodo DOI
 `10.5281/zenodo.22879172`) predates this v19 catch-up and must not be cited as
-containing the added diffuse/fixed-budget formalization. A new archival
-checkpoint should be minted after the final merged commit is green.
+containing the added diffuse/fixed-budget formalization. Version `v0.2.0` is
+the archival checkpoint for the v19 catch-up; cite its Zenodo DOI once the
+GitHub release has been archived by Zenodo.
 
 ## Français
 

@@ -2,7 +2,7 @@
 
 ## Français
 
-Date : **2026-09-22**. Version : **0.2.0-dev**. Statut :
+Date : **2026-09-23**. Version : **0.2.0**. Statut :
 **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE** ;
 **cycle transversal T0–T5 — CLOSED ; T1–T5 FORMALIZED / AUDITED**.
 
@@ -108,7 +108,7 @@ Aucun T6 et aucun nouveau jalon physique ne sont ouverts par Tx.
 
 ## English
 
-Date: **2026-09-22**. Version: **0.2.0-dev**. Status:
+Date: **2026-09-23**. Version: **0.2.0**. Status:
 **ED4B — CLOSED IN ITS FINITE ITERATION-ACCUMULATION SCOPE**;
 **transversal T0–T5 cycle — CLOSED; T1–T5 FORMALIZED / AUDITED**.
 

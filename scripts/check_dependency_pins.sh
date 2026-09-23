@@ -6,7 +6,7 @@ status=0
 fail() { printf '%s\n' "$1"; status=1; }
 
 [ "$(tr -d '[:space:]' < lean-toolchain)" = 'leanprover/lean4:v4.32.0-rc1' ] || fail 'TOOLCHAIN_PIN_INVALID'
-[ "$(tr -d '[:space:]' < VERSION)" = '0.1.0-dev' ] || fail 'VERSION_INVALID'
+[ "$(tr -d '[:space:]' < VERSION)" = '0.2.0' ] || fail 'VERSION_INVALID'
 [ "$(tr -d '[:space:]' < SORRY_BUDGET)" = '0' ] || fail 'SORRY_BUDGET_INVALID'
 [ "$(grep -c '^\[\[require\]\]$' lakefile.toml)" -eq 1 ] || fail 'REQUIRE_BLOCK_COUNT_INVALID'
 grep -qx 'name = "everettian_probability"' lakefile.toml || fail 'REQUIRE_NAME_INVALID'
