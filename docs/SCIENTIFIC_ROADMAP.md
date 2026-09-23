@@ -97,6 +97,15 @@ n'est revendiqué.
 Tx clôt le cycle transversal T0–T5 sur le plan documentaire. Il n'ouvre aucun
 T6 et n'ajoute aucun résultat scientifique.
 
+Le front post-T5 de stabilité quantitative est **FORMALIZED / AUDITED** et
+**NON BORN-SENSITIVE** sans être renommé T6. Il couvre l'enveloppe des cuts,
+la rigidité exacte, la stabilité à deux cellules (constante finie `18`), les
+coefficients asymptotiques sharp `8` et `4`, la famille continue `C^3`,
+les ingrédients de l'analyse à budget fixé, ainsi que la famille diffuse
+géométrique à `2m` cellules et le seuil sharp `1/8`. L'objet order-théorique
+unique `C_fix` reste un emballage de manuscrit ; ses mécanismes de preuve
+sont formalisés. Ce front n'introduit ni temps, ni dynamique, ni décohérence.
+
 Les jalons **physiques** ED5–ED12 sont **NOT OPENED** dans cette feuille de
 route. Les modules de factorisation coordonnée déjà nommés ED5A/ED5B/ED5C
 restent des briques typées préparatoires ; leur existence ne constitue pas à
@@ -247,6 +256,15 @@ claimed.
 
 Tx closes the transversal T0–T5 cycle at the documentation level. It opens no
 T6 and adds no scientific result.
+
+The post-T5 quantitative-stability front is **FORMALIZED / AUDITED** and
+**NON BORN-SENSITIVE** without being renamed T6. It covers the cut envelope,
+exact rigidity, two-cell stability (finite coefficient `18`), sharp
+asymptotic coefficients `8` and `4`, the continuous `C^3` family, the
+fixed-budget proof ingredients, and the geometric diffuse `2m`-cell family
+with sharp threshold `1/8`. The single order-theoretic `C_fix` object
+remains manuscript packaging while its proof mechanisms are formalized. This
+front introduces neither time, dynamics, nor decoherence.
 
 The **physical** ED5–ED12 milestones are **NOT OPENED** in this roadmap.
 Coordinate-factorization modules already named ED5A/ED5B/ED5C remain typed

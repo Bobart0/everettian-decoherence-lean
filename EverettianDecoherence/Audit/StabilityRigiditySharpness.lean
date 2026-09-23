@@ -1,0 +1,186 @@
+import EverettianDecoherence.Approximation.StabilitySharpness
+
+/-!
+**FR.** Audit du front de stabilité quantitative ouvert après T5. Cette
+surface vérifie les déclarations publication-facing de rigidité exacte,
+stabilité quantitative à deux cellules, constante finie v12 `18`, coefficient
+asymptotique général `8`, coefficient ultra-near `4`, et familles explicites atteignant les constantes `8` et `4`, ainsi que la famille continue C3 à deux paramètres interpolant `4/max{x,1-x}`. Les résultats restent algébriques, NON BORN-SENSITIVE et
+n'introduisent aucune revendication de décohérence ou de nouveauté
+bibliographique.
+
+**EN.** Audit of the quantitative-stability front opened after T5. This
+surface checks the publication-facing declarations for exact rigidity,
+quantitative two-cell stability, the v12 finite constant `18`, the general
+asymptotic coefficient `8`, the ultra-near coefficient `4`, and explicit
+three-dimensional families attaining `8` and `4`, and the continuous two-parameter C3 family interpolating `4/max{x,1-x}`. The results remain algebraic, NON BORN-SENSITIVE,
+and make no decoherence or bibliographic-novelty claim.
+-/
+
+open EverettianDecoherence.Approximation
+
+#check maxSubsetCommutatorOpNorm
+#check maxSubsetCommutatorOpNorm_sq_le_half_globalSq
+#check ExactlyTwoActiveCellCommutators
+#check maxCut_saturation_iff_exactlyTwoActiveCellCommutators
+
+#check twoCellStabilityModulus
+#check twoCellStabilityModulus_nonneg
+#check twoCellStabilityModulus_le_linear
+#check exists_two_cell_concentration_of_cut_eta_rho
+#check twoCellCommutatorConcentratedWithin_of_maxCut_near_saturated
+#check twoCellCommutatorConcentratedWithin_linear_of_maxCut_near_saturated
+
+
+#check twoCellStabilityModulus18
+#check twoCellStabilityModulus18_nonneg
+#check twoCellStabilityModulus18_le_linear
+#check exists_two_cell_concentration_of_cut_eta_18
+#check exists_two_cell_concentration_of_cut_eta_rho_18
+#check twoCellCommutatorConcentratedWithin18_of_maxCut_near_saturated
+#check twoCellCommutatorConcentratedWithin18_linear_of_maxCut_near_saturated
+
+#check maxCutEnvelopeDefect
+#check maxCutEnvelopeDefect_nonneg
+#check v12GeneralSharpCoefficient
+#check v12GeneralSharpCoefficient_tendsto
+#check eventually_two_cell_tail_le_of_small_defect
+
+#check v12UltraNearSharpCoefficient
+#check v12UltraNearSharpCoefficient_tendsto
+#check eventually_two_cell_tail_le_of_ultra_near
+
+#check perspectiveProjectorCommutatorOpNormProfile_sq_rankOne
+#check stabilitySharpness_globalSq
+#check stabilitySharpness_maxCut_eq_s
+#check stabilitySharpnessEta_exact
+#check stabilitySharpnessTau_exact
+#check stabilitySharpnessTau_div_Eta_exact
+#check stabilitySharpnessTau_div_Eta_tendsto_inv_D
+#check stabilitySharpness_delta_sq_tendsto_two_s_sq
+#check stabilitySharpnessScaleLimit_eq_four_sub_two_D
+#check stabilitySharpnessScaleLimit_tendsto_four
+
+#check stabilitySharpnessScaledRatioV12_zero_tendsto_eight
+#check stabilitySharpnessScaledRatioV12_diag_tendsto_four
+#check stabilitySharpnessEta_div_deltaSq_diag_tendsto_zero
+
+
+#check v12TwoParamRotationMatrix_mem_unitary
+#check v12TwoParamCell0_budget_sq
+#check v12TwoParamCell1_budget_sq
+#check v12TwoParamCell2_budget_sq
+#check v12TwoParam_globalSq
+#check v12TwoParam_maxCut_sq_eq_gap_one
+#check v12TwoParam_envelopeDefect
+#check v12TwoParam_min_cell_budget_eq_tail
+#check v12TwoParamTopTwoTailFraction_eq
+#check v12TwoParamGlobal_tendsto_zero
+#check v12TwoParamEta_tendsto_zero
+#check v12TwoParamScaledRatio_tendsto_fixed_x
+#check v12TwoParamScaledRatio_half_exact
+#check v12TwoParamScaledRatio_half_tendsto_eight
+#check v12TwoParamScaledRatio_diag_tendsto_four
+#check v12TwoParamEtaOverGlobal_diag_tendsto_zero
+
+#check v18FixedBudgetBase
+#check v18FixedBudgetLowerSlope
+#check v18FixedBudgetBase_mul_lowerSlope
+#check v18FixedBudgetScaledLower_tendsto_four
+#check fixedPositiveBudget_forces_ultraNear
+#check fixedBudgetDiagonal_budget_tendsto_zero
+#check fixedBudgetDiagonal_eta_tendsto_zero
+#check fixedBudgetDiagonal_forces_ultraNear
+#check eventually_two_cell_tail_le_of_fixedBudgetDiagonal
+
+#check v18DiffuseCellBudget
+#check v18DiffuseGlobal_exact
+#check v18DiffuseEnvelopeDefect_exact
+#check v18DiffuseTau
+#check v18Diffuse_scaledRatio_exact
+#check v18Diffuse_scaledRatio_tendsto_eight
+
+#print axioms EverettianDecoherence.Approximation.maxSubsetCommutatorOpNorm_sq_le_half_globalSq
+#print axioms EverettianDecoherence.Approximation.maxCut_saturation_iff_exactlyTwoActiveCellCommutators
+#print axioms EverettianDecoherence.Approximation.twoCellCommutatorConcentratedWithin_of_maxCut_near_saturated
+#print axioms EverettianDecoherence.Approximation.twoCellCommutatorConcentratedWithin_linear_of_maxCut_near_saturated
+
+#print axioms EverettianDecoherence.Approximation.twoCellCommutatorConcentratedWithin18_of_maxCut_near_saturated
+#print axioms EverettianDecoherence.Approximation.twoCellCommutatorConcentratedWithin18_linear_of_maxCut_near_saturated
+#print axioms EverettianDecoherence.Approximation.eventually_two_cell_tail_le_of_small_defect
+#print axioms EverettianDecoherence.Approximation.eventually_two_cell_tail_le_of_ultra_near
+#print axioms EverettianDecoherence.Approximation.perspectiveProjectorCommutatorOpNormProfile_sq_rankOne
+#print axioms EverettianDecoherence.Approximation.stabilitySharpnessTau_div_Eta_exact
+#print axioms EverettianDecoherence.Approximation.stabilitySharpnessTau_div_Eta_tendsto_inv_D
+#print axioms EverettianDecoherence.Approximation.stabilitySharpness_delta_sq_tendsto_two_s_sq
+#print axioms EverettianDecoherence.Approximation.stabilitySharpnessScaleLimit_tendsto_four
+
+#print axioms EverettianDecoherence.Approximation.stabilitySharpnessScaledRatioV12_zero_tendsto_eight
+#print axioms EverettianDecoherence.Approximation.stabilitySharpnessScaledRatioV12_diag_tendsto_four
+#print axioms EverettianDecoherence.Approximation.stabilitySharpnessEta_div_deltaSq_diag_tendsto_zero
+
+
+#print axioms EverettianDecoherence.Approximation.v12TwoParamRotationMatrix_mem_unitary
+#print axioms EverettianDecoherence.Approximation.v12TwoParam_globalSq
+#print axioms EverettianDecoherence.Approximation.v12TwoParam_maxCut_sq_eq_gap_one
+#print axioms EverettianDecoherence.Approximation.v12TwoParam_envelopeDefect
+#print axioms EverettianDecoherence.Approximation.v12TwoParam_min_cell_budget_eq_tail
+#print axioms EverettianDecoherence.Approximation.v12TwoParamScaledRatio_tendsto_fixed_x
+#print axioms EverettianDecoherence.Approximation.v12TwoParamScaledRatio_half_exact
+#print axioms EverettianDecoherence.Approximation.v12TwoParamScaledRatio_half_tendsto_eight
+#print axioms EverettianDecoherence.Approximation.v12TwoParamScaledRatio_diag_tendsto_four
+#print axioms EverettianDecoherence.Approximation.v12TwoParamEtaOverGlobal_diag_tendsto_zero
+
+#print axioms EverettianDecoherence.Approximation.v18FixedBudgetBase_mul_lowerSlope
+#print axioms EverettianDecoherence.Approximation.v18FixedBudgetScaledLower_tendsto_four
+#print axioms EverettianDecoherence.Approximation.fixedPositiveBudget_forces_ultraNear
+#print axioms EverettianDecoherence.Approximation.fixedBudgetDiagonal_forces_ultraNear
+#print axioms EverettianDecoherence.Approximation.eventually_two_cell_tail_le_of_fixedBudgetDiagonal
+#print axioms EverettianDecoherence.Approximation.v18DiffuseGlobal_exact
+#print axioms EverettianDecoherence.Approximation.v18DiffuseEnvelopeDefect_exact
+#print axioms EverettianDecoherence.Approximation.v18Diffuse_scaledRatio_exact
+#print axioms EverettianDecoherence.Approximation.v18Diffuse_scaledRatio_tendsto_eight
+ 
+-- v19 publication-facing exact tail and normalized parameters
+#check maxTwoCellCapturedBudget
+#check optimalTwoCellTail
+#check optimalTwoCellTailFraction
+#check optimalTwoCellTailFraction_le_18_expanded
+#check eventually_globalSq_mul_optimalTau_le_of_small_defect
+#check eventually_globalSq_mul_optimalTau_le_of_ultra_near
+#check exactMaxCutEta
+#check exactTwoCellTau
+#check exactTwoCellSlope_le_18
+
+-- Fixed-budget proof ingredients
+#check v19FixedBudgetSlopePath_eq
+#check v19FixedBudgetGlobal_tendsto_base
+#check v19FixedBudgetSlopePath_tendsto_inv
+#check fixedBudgetDiagonal_forces_ultraNear
+#check eventually_two_cell_tail_le_of_fixedBudgetDiagonal
+
+-- Geometric diffuse family and sharp threshold
+#check diffuseRotation_apply_left
+#check diffuseRotation_apply_right
+#check diffuseAnyCell_budget_sq
+#check diffuseGlobal_budget_sq_exact
+#check diffuseMaxCut_sq_eq
+#check diffuseEnvelopeDefect_exact
+#check diffuseOptimalTwoCellTailFraction_eq_tau
+#check diffuseScaledRatio_exact
+#check diffuse_exactEta_over_globalSq_eq
+#check eventually_lt_exactEta_over_globalSq_of_tau_tendsto_one
+#check diffuse_completeDiffusion_attains_eighth
+
+#print axioms EverettianDecoherence.Approximation.optimalTwoCellTailFraction_le_18_expanded
+#print axioms EverettianDecoherence.Approximation.eventually_globalSq_mul_optimalTau_le_of_small_defect
+#print axioms EverettianDecoherence.Approximation.eventually_globalSq_mul_optimalTau_le_of_ultra_near
+#print axioms EverettianDecoherence.Approximation.exactTwoCellSlope_le_18
+#print axioms EverettianDecoherence.Approximation.v19FixedBudgetSlopePath_tendsto_inv
+#print axioms EverettianDecoherence.Approximation.eventually_two_cell_tail_le_of_fixedBudgetDiagonal
+#print axioms EverettianDecoherence.Approximation.diffuseGlobal_budget_sq_exact
+#print axioms EverettianDecoherence.Approximation.diffuseMaxCut_sq_eq
+#print axioms EverettianDecoherence.Approximation.diffuseEnvelopeDefect_exact
+#print axioms EverettianDecoherence.Approximation.diffuseOptimalTwoCellTailFraction_eq_tau
+#print axioms EverettianDecoherence.Approximation.diffuseScaledRatio_exact
+#print axioms EverettianDecoherence.Approximation.eventually_lt_exactEta_over_globalSq_of_tau_tendsto_one
+#print axioms EverettianDecoherence.Approximation.diffuse_completeDiffusion_attains_eighth

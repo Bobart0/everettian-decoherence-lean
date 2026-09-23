@@ -15,6 +15,7 @@ import EverettianDecoherence.Approximation.IterationSharpness.ElementaryDefect
 import EverettianDecoherence.Approximation.IterationSharpness
 import EverettianDecoherence.Approximation.UniformTransferSharpness
 import EverettianDecoherence.Approximation.UniformTransferOptimality
+import EverettianDecoherence.Approximation.StabilitySharpness
 import EverettianDecoherence.Factorization.FiniteBipartiteFactorization
 import EverettianDecoherence.Factorization.FiniteBipartiteSlices
 import EverettianDecoherence.Factorization.AmbientBipartiteCoordinateMasks
@@ -42,7 +43,11 @@ rationnelle, la rotation T3 envoie exactement `sharpnessX` sur `sharpnessY`, et
 le rapport entre variation réelle du profil et défaut uniforme vaut exactement
 `sqrt 2`. T5B `UniformTransferOptimality` complète cette barrière par une
 borne universelle `sqrt 2` et caractérise exactement les coefficients
-universels normalisés : `K` convient si et seulement si `sqrt 2 ≤ K`. ED5A fournit une factorisation bipartite finie
+universels normalisés : `K` convient si et seulement si `sqrt 2 ≤ K`. Le
+front post-T5 `StabilitySharpness`, NON BORN-SENSITIVE, formalise en outre la
+rigidité exacte de la saturation de l'enveloppe des cuts, un modulus explicite
+de concentration sur deux cellules et une famille tridimensionnelle montrant
+que la dépendance en `η / ρ^2` est nécessaire à constante près. ED5A fournit une factorisation bipartite finie
 typée en coordonnées, ED5B des tranches bipartites et profils de normes
 purement coordonnés, et ED5C des masques finis de coordonnées bipartites
 transportés dans l'espace ambiant. Aucune API locale stable ni théorème de
@@ -69,7 +74,12 @@ transversal front: on the same rational family, the T3 rotation maps
 `sharpnessX` exactly to `sharpnessY`, and the ratio between actual profile
 variation and uniform defect is exactly `sqrt 2`. T5B `UniformTransferOptimality` complements this lower barrier with
 a universal `sqrt 2` upper bound and exactly characterizes normalized
-universal coefficients: `K` works if and only if `sqrt 2 ≤ K`. ED5A provides a typed finite bipartite coordinate
+universal coefficients: `K` works if and only if `sqrt 2 ≤ K`. The post-T5
+`StabilitySharpness` front, which is NON BORN-SENSITIVE, additionally
+formalizes the cut envelope, exact saturation rigidity, the exact optimal
+top-two tail, finite coefficient `18`, sharp asymptotic coefficients `8`
+and `4`, the continuous `C^3` family, the fixed-budget mechanisms, and a
+geometric diffuse `2m`-cell family attaining the sharp `1/8` threshold. ED5A provides a typed finite bipartite coordinate
 factorization, ED5B purely coordinate bipartite slices and norm profiles, and
 ED5C finite bipartite coordinate masks transported into the ambient space. No
 stable local API or decoherence theorem is announced.

@@ -35,9 +35,15 @@ Résultats locaux actuels :
   et transfert BORN-SENSITIVE itéré ;
 - **T5A/T5B** — coefficient optimal exact `sqrt 2` pour le transfert uniforme
   ED3B sur les états normalisés : T5A fournit la saturation et T5B la borne
-  universelle.
+  universelle ;
+- **front post-T5 de stabilité quantitative** — enveloppe des cuts et
+  classification exacte de la saturation sur deux cellules ; queue top-two
+  optimale `τ` ; borne finie à constante `18` ; coefficients asymptotiques
+  sharp `8` et `4` ; famille continue `C^3` ; mécanisme à budget fixé ;
+  réalisation géométrique diffuse à `2m` cellules et seuil sharp
+  `η / δ^2 = 1/8` lorsque `τ → 1`.
 
-ED1–ED4B ainsi que T1–T5 sont formalisés et audités dans leur portée
+ED1–ED4B, T1–T5 et le front post-T5 de stabilité quantitative sont formalisés et audités dans leur portée
 documentée. Les déclarations principales ED4A et ED4B sont aussi
 auditées dans `EverettianDecoherence/Audit/ComposedRecordPreservation.lean` et
 `EverettianDecoherence/Audit/IteratedRecordPreservation.lean`, importés par
@@ -59,6 +65,7 @@ import EverettianDecoherence.Approximation.UniformRecordPreservation
 import EverettianDecoherence.Approximation.ComposedRecordPreservation
 import EverettianDecoherence.Approximation.IteratedRecordPreservation
 import EverettianDecoherence.Approximation.UniformTransferOptimality
+import EverettianDecoherence.Approximation.StabilitySharpness
 ```
 
 Limites physiques actuelles : aucune dynamique temporelle, aucun Hamiltonien,
@@ -105,9 +112,15 @@ Current local results:
   defects, and the iterated BORN-SENSITIVE transfer;
 - **T5A/T5B** — exact optimal `sqrt 2` coefficient for the uniform ED3B
   transfer on normalized states: T5A supplies saturation and T5B the universal
-  upper bound.
+  upper bound;
+- **post-T5 quantitative-stability front** — cut envelope and exact two-cell
+  saturation classification; exact optimal top-two tail `τ`; finite
+  coefficient `18`; sharp asymptotic coefficients `8` and `4`; the
+  continuous `C^3` family; the fixed-budget mechanism; and a geometric
+  diffuse `2m`-cell family attaining the sharp
+  `η / δ^2 = 1/8` complete-diffusion threshold as `τ → 1`.
 
-ED1–ED4B and T1–T5 are formalized and audited in their documented scope.
+ED1–ED4B, T1–T5, and the post-T5 quantitative-stability front are formalized and audited in their documented scope.
 The principal ED4A and ED4B declarations are also
 audited in `EverettianDecoherence/Audit/ComposedRecordPreservation.lean` and
 `EverettianDecoherence/Audit/IteratedRecordPreservation.lean`, both imported by
@@ -128,6 +141,7 @@ import EverettianDecoherence.Approximation.UniformRecordPreservation
 import EverettianDecoherence.Approximation.ComposedRecordPreservation
 import EverettianDecoherence.Approximation.IteratedRecordPreservation
 import EverettianDecoherence.Approximation.UniformTransferOptimality
+import EverettianDecoherence.Approximation.StabilitySharpness
 ```
 
 Current physical limitations: no time dynamics, Hamiltonian, channel, open
